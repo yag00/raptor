@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Giant Editor</string>
+   <string>Raptor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../ressources.qrc">
+    <normaloff>:/images/raptor.png</normaloff>:/images/raptor.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -20,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -32,7 +36,7 @@
       <string>Recent Files</string>
      </property>
      <property name="icon">
-      <iconset resource="../giant_editor.qrc">
+      <iconset resource="../ressources.qrc">
        <normaloff>:/images/favorite.png</normaloff>:/images/favorite.png</iconset>
      </property>
      <addaction name="actionEmptyRecentFilesList"/>
@@ -43,7 +47,7 @@
       <string>Sessions</string>
      </property>
      <property name="icon">
-      <iconset resource="../giant_editor.qrc">
+      <iconset resource="../ressources.qrc">
        <normaloff>:/images/session.png</normaloff>:/images/session.png</iconset>
      </property>
      <addaction name="actionSessionSave"/>
@@ -132,7 +136,7 @@
       <string>Zoom</string>
      </property>
      <property name="icon">
-      <iconset resource="../giant_editor.qrc">
+      <iconset resource="../ressources.qrc">
        <normaloff>:/images/zoom.png</normaloff>:/images/zoom.png</iconset>
      </property>
      <addaction name="actionZoomIn"/>
@@ -145,7 +149,7 @@
       <string>Invisible Symbol</string>
      </property>
      <property name="icon">
-      <iconset resource="../giant_editor.qrc">
+      <iconset resource="../ressources.qrc">
        <normaloff>:/images/paragraph.png</normaloff>:/images/paragraph.png</iconset>
      </property>
      <addaction name="actionShowWhitespaceAndTab"/>
@@ -354,7 +358,7 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
    </property>
    <property name="text">
@@ -369,7 +373,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
    </property>
    <property name="text">
@@ -384,7 +388,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
    </property>
    <property name="text">
@@ -399,7 +403,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
    </property>
    <property name="text">
@@ -422,7 +426,7 @@
   </action>
   <action name="actionClose">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/closepage.png</normaloff>:/images/closepage.png</iconset>
    </property>
    <property name="text">
@@ -437,7 +441,7 @@
   </action>
   <action name="actionCloseAll">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/closeallpage.png</normaloff>:/images/closeallpage.png</iconset>
    </property>
    <property name="text">
@@ -449,7 +453,7 @@
   </action>
   <action name="actionCloseAllExceptCurrentDocument">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/forbiddenpage.png</normaloff>:/images/forbiddenpage.png</iconset>
    </property>
    <property name="text">
@@ -461,7 +465,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
    </property>
    <property name="text">
@@ -476,7 +480,7 @@
   </action>
   <action name="actionSaveAll">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/saveall.png</normaloff>:/images/saveall.png</iconset>
    </property>
    <property name="text">
@@ -491,7 +495,7 @@
   </action>
   <action name="actionPrint">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/print.png</normaloff>:/images/print.png</iconset>
    </property>
    <property name="text">
@@ -506,7 +510,7 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/undo.png</normaloff>:/images/undo.png</iconset>
    </property>
    <property name="text">
@@ -521,7 +525,7 @@
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/redo.png</normaloff>:/images/redo.png</iconset>
    </property>
    <property name="text">
@@ -536,7 +540,7 @@
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/cut.png</normaloff>:/images/cut.png</iconset>
    </property>
    <property name="text">
@@ -551,7 +555,7 @@
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
    </property>
    <property name="text">
@@ -566,7 +570,7 @@
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/paste.png</normaloff>:/images/paste.png</iconset>
    </property>
    <property name="text">
@@ -581,7 +585,7 @@
   </action>
   <action name="actionSelectAll">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/selectall.png</normaloff>:/images/selectall.png</iconset>
    </property>
    <property name="text">
@@ -599,7 +603,7 @@
   </action>
   <action name="actionOpenAllRecentFiles">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
    </property>
    <property name="text">
@@ -611,7 +615,7 @@
   </action>
   <action name="actionEmptyRecentFilesList">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/trashcan_empty.png</normaloff>:/images/trashcan_empty.png</iconset>
    </property>
    <property name="text">
@@ -623,7 +627,7 @@
   </action>
   <action name="actionIndent">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/increase_indent.png</normaloff>:/images/increase_indent.png</iconset>
    </property>
    <property name="text">
@@ -638,7 +642,7 @@
   </action>
   <action name="actionUnindent">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/decrease_indent.png</normaloff>:/images/decrease_indent.png</iconset>
    </property>
    <property name="text">
@@ -681,7 +685,7 @@
   </action>
   <action name="actionZoomIn">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/zoomin.png</normaloff>:/images/zoomin.png</iconset>
    </property>
    <property name="text">
@@ -696,7 +700,7 @@
   </action>
   <action name="actionZoomOut">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/zoomout.png</normaloff>:/images/zoomout.png</iconset>
    </property>
    <property name="text">
@@ -711,7 +715,7 @@
   </action>
   <action name="actionRestoreDefaultZoom">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/zoom.png</normaloff>:/images/zoom.png</iconset>
    </property>
    <property name="text">
@@ -751,7 +755,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/paragraph.png</normaloff>:/images/paragraph.png</iconset>
    </property>
    <property name="text">
@@ -774,7 +778,7 @@
   </action>
   <action name="actionUpperCase">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/uppercase.png</normaloff>:/images/uppercase.png</iconset>
    </property>
    <property name="text">
@@ -789,7 +793,7 @@
   </action>
   <action name="actionLowerCase">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/lowercase.png</normaloff>:/images/lowercase.png</iconset>
    </property>
    <property name="text">
@@ -821,7 +825,7 @@
   </action>
   <action name="actionConvertToWindowsFormat">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/windows.png</normaloff>:/images/windows.png</iconset>
    </property>
    <property name="text">
@@ -836,7 +840,7 @@
   </action>
   <action name="actionConvertToUnixFormat">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/linux.png</normaloff>:/images/linux.png</iconset>
    </property>
    <property name="text">
@@ -851,7 +855,7 @@
   </action>
   <action name="actionConvertToMacFormat">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/mac.png</normaloff>:/images/mac.png</iconset>
    </property>
    <property name="text">
@@ -874,7 +878,7 @@
   </action>
   <action name="actionStartRecording">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/record.png</normaloff>:/images/record.png</iconset>
    </property>
    <property name="text">
@@ -886,7 +890,7 @@
   </action>
   <action name="actionStopRecording">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/player_stop.png</normaloff>:/images/player_stop.png</iconset>
    </property>
    <property name="text">
@@ -898,7 +902,7 @@
   </action>
   <action name="actionRunMacro">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
    </property>
    <property name="text">
@@ -910,7 +914,7 @@
   </action>
   <action name="actionRunMacroMultipleTimes">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/play_forward.png</normaloff>:/images/play_forward.png</iconset>
    </property>
    <property name="text">
@@ -922,7 +926,7 @@
   </action>
   <action name="actionSaveMacro">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
    </property>
    <property name="text">
@@ -934,7 +938,7 @@
   </action>
   <action name="actionSettings">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
    </property>
    <property name="text">
@@ -946,7 +950,7 @@
   </action>
   <action name="actionSessionSave">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
    </property>
    <property name="text">
@@ -958,7 +962,7 @@
   </action>
   <action name="actionSessionRestore">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
    </property>
    <property name="text">
@@ -970,7 +974,7 @@
   </action>
   <action name="actionToggleBookmark">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/ledblue.png</normaloff>:/images/ledblue.png</iconset>
    </property>
    <property name="text">
@@ -993,7 +997,7 @@
   </action>
   <action name="actionNextBookmark">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/bookmark-next.png</normaloff>:/images/bookmark-next.png</iconset>
    </property>
    <property name="text">
@@ -1008,7 +1012,7 @@
   </action>
   <action name="actionPreviousBookmark">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/bookmark-prev.png</normaloff>:/images/bookmark-prev.png</iconset>
    </property>
    <property name="text">
@@ -1023,7 +1027,7 @@
   </action>
   <action name="actionSearch">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
    </property>
    <property name="text">
@@ -1038,7 +1042,7 @@
   </action>
   <action name="actionFindNext">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
    </property>
    <property name="text">
@@ -1053,7 +1057,7 @@
   </action>
   <action name="actionFindPrevious">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/backward.png</normaloff>:/images/backward.png</iconset>
    </property>
    <property name="text">
@@ -1068,7 +1072,7 @@
   </action>
   <action name="actionReload">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
    </property>
    <property name="text">
@@ -1249,7 +1253,7 @@
   </action>
   <action name="actionReindentFile">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/astyle/images/astyle/astyle.png</normaloff>:/astyle/images/astyle/astyle.png</iconset>
    </property>
    <property name="text">
@@ -1264,7 +1268,7 @@
   </action>
   <action name="actionReindentOpenFiles">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/astyle/images/astyle/astyle.png</normaloff>:/astyle/images/astyle/astyle.png</iconset>
    </property>
    <property name="text">
@@ -1353,7 +1357,7 @@
   </action>
   <action name="actionDiff">
    <property name="icon">
-    <iconset resource="../giant_editor.qrc">
+    <iconset resource="../ressources.qrc">
      <normaloff>:/images/diff.png</normaloff>:/images/diff.png</iconset>
    </property>
    <property name="text">
@@ -1367,7 +1371,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../giant_editor.qrc"/>
+  <include location="../ressources.qrc"/>
  </resources>
  <connections/>
 </ui>
