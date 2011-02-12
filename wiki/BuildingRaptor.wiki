@@ -1,0 +1,21 @@
+#summary How to build raptor.
+
+= Prerequisites =
+
+Qt 4.x should be install on your system
+
+= Builing raptor on linux =
+{{{
+qmake
+make
+}}}
+
+raptor executable is in delivery/release directory.
+
+= Builing raptor on linux =
+{{{
+qmake
+mingw32-make
+}}}
+
+raptor executable is in delivery/release directory.
