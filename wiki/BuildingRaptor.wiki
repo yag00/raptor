@@ -12,7 +12,7 @@ make
 
 raptor executable is in delivery/release directory.
 
-= Builing raptor on linux =
+= Builing raptor on window =
 {{{
 qmake
 mingw32-make
