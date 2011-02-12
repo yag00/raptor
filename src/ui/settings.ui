@@ -14,7 +14,7 @@
    <string>Settings</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../giant_editor.qrc">
+   <iconset resource="../ressources.qrc">
     <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
   </property>
   <layout class="QGridLayout">
@@ -105,7 +105,7 @@
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
-	 <property name="frameShadow">
+     <property name="frameShadow">
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="text">
@@ -3522,7 +3522,7 @@
   <tabstop>dbbButtons</tabstop>
  </tabstops>
  <resources>
-  <include location="../giant_editor.qrc"/>
+  <include location="../ressources.qrc"/>
  </resources>
  <connections>
   <connection>

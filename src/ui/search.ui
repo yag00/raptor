@@ -108,7 +108,7 @@
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="../giant_editor.qrc">
+          <iconset resource="../ressources.qrc">
            <normaloff>:/images/backward.png</normaloff>:/images/backward.png</iconset>
          </property>
         </widget>
@@ -122,7 +122,7 @@
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="../giant_editor.qrc">
+          <iconset resource="../ressources.qrc">
            <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
          </property>
         </widget>
@@ -394,7 +394,7 @@
         <string>...</string>
        </property>
        <property name="icon">
-        <iconset resource="../giant_editor.qrc">
+        <iconset resource="../ressources.qrc">
          <normaloff>:/images/collapse.png</normaloff>:/images/collapse.png</iconset>
        </property>
       </widget>
@@ -408,7 +408,7 @@
         <string>...</string>
        </property>
        <property name="icon">
-        <iconset resource="../giant_editor.qrc">
+        <iconset resource="../ressources.qrc">
          <normaloff>:/images/trashcan_empty.png</normaloff>:/images/trashcan_empty.png</iconset>
        </property>
       </widget>
@@ -465,7 +465,7 @@
   <tabstop>twResults</tabstop>
  </tabstops>
  <resources>
-  <include location="../giant_editor.qrc"/>
+  <include location="../ressources.qrc"/>
  </resources>
  <connections>
   <connection>

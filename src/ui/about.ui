@@ -14,7 +14,7 @@
    <string>About : %1</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../giant_editor.qrc">
+   <iconset resource="../ressources.qrc">
     <normaloff>:/about/images/about.png</normaloff>:/about/images/about.png</iconset>
   </property>
   <layout class="QGridLayout">
@@ -160,9 +160,9 @@
   </layout>
  </widget>
  <resources>
-  <include location="../giant_editor.qrc"/>
-  <include location="../giant_editor.qrc"/>
-  <include location="../giant_editor.qrc"/>
+  <include location="../ressources.qrc"/>
+  <include location="../ressources.qrc"/>
+  <include location="../ressources.qrc"/>
  </resources>
  <connections>
   <connection>
