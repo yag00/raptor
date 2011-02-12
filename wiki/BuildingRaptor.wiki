@@ -4,7 +4,7 @@
 
 Qt 4.x should be install on your system
 
-= Builing raptor on linux =
+= Building raptor on linux =
 {{{
 qmake
 make
@@ -12,7 +12,7 @@ make
 
 raptor executable is in delivery/release directory.
 
-= Builing raptor on window =
+= Building raptor on window =
 {{{
 qmake
 mingw32-make
