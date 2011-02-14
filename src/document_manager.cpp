@@ -10,6 +10,11 @@
 
 DocumentManager::DocumentManager(QWidget * parent_) : Splitter(Qt::Horizontal, parent_) {		
 	_macro.clear();
+	//create file watcher
+	_watcher = new QFileSystemWatcher(this);
+	connect(_watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(watchedFileChanged(const QString&)));
+	
+	//create view
 	_activeView = createDocumentView();
 }
 DocumentManager::~DocumentManager(){
@@ -18,7 +23,7 @@ DocumentManager::~DocumentManager(){
 
 DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	//create and connect the new view
-	DocumentView* view = new DocumentView(document_, this);
+	DocumentView* view = new DocumentView(*_watcher, document_, this);
 	//connect(view, SIGNAL(destroyViewRequested()), this, SLOT(destroyView()));
 	connect(view, SIGNAL(empty()), this, SLOT(updateView()));
 	connect(view, SIGNAL(activeStatusChanged(bool)), this, SLOT(activeViewChanged(bool)));
@@ -247,12 +252,12 @@ void DocumentManager::cloneDocument(){
 			DocumentEditor* document = _activeView->currentDocument();
 			if(nbView == 1){
 				DocumentView* docView = createDocumentView();
-				docView->cloneDocument(*document);
+				docView->cloneDocument(document);
 				//remove document created with the view
 				docView->closeDocument(0);
 			}else{
 				int nb = (i+1)%nbView;
-				_viewList[nb]->cloneDocument(*document);
+				_viewList[nb]->cloneDocument(document);
 			}
 			return;
 		}
@@ -364,4 +369,59 @@ void DocumentManager::runMacroUntilEOF(){
 		}
 	}
 	QMessageBox::warning(this, tr("Application"), tr("Cannot run the macro! Maybe Record one\n"));	
+}
+
+void DocumentManager::watchedFileChanged(const QString& path_){
+	_watcherNotification << path_;
+}
+
+void DocumentManager::notify(){
+	//FileSystemWatcher notification
+	_watcherNotification.removeDuplicates();
+	foreach(QString file, _watcherNotification){
+		int ret;
+		if (QFile(file).exists()) {
+			DocumentEditor* document = 0;
+			for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
+				document = (*it)->getDocument(file);
+				if(document == 0)
+					continue;
+
+				if(document->isModified() == false){
+					ret = QMessageBox::question(this ,
+							tr("Reload ?"),
+							tr("%1\nThis file has been modified by another program.\nDo you want to reload it?").arg(file),
+							QMessageBox::Yes | QMessageBox::No);
+				}
+				else{
+					ret = QMessageBox::question(this,
+							tr("Reload ?"),
+							tr("%1\nThis file has been modified by another program.\nDo you want to reload it and lose all the changes made?").arg(file),
+							QMessageBox::Yes | QMessageBox::No);
+				}
+
+				if (ret == QMessageBox::Yes){
+					document->load(file);
+					_watcher->addPath(document->getFullPath());
+				}
+			}
+		}
+		else {
+			ret = QMessageBox::question(this,
+						tr("Keep non existing file ?"),
+						tr("%1\ndoesn't exist anymore.\nKeep this file in editor?").arg(file),
+						QMessageBox::Yes | QMessageBox::No);
+			if (ret == QMessageBox::No){
+				for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
+					(*it)->closeDocument(file);
+				}
+			}
+		}		
+	}
+	//clear notification list
+	_watcherNotification.clear();
+	//update all views
+	for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
+		(*it)->updateAllDocuments();
+	}
 }

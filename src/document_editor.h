@@ -15,7 +15,7 @@ class DocumentEditor : public ScintillaExt {
 		/** copy constructor
 		 * @param document_
 		 * @param parent_ */
-		DocumentEditor(const DocumentEditor& document_, QWidget *parent_ = 0);
+		DocumentEditor(DocumentEditor* document_, QWidget *parent_ = 0);
 
 		/** destructor */
 		virtual ~DocumentEditor();
@@ -33,10 +33,12 @@ class DocumentEditor : public ScintillaExt {
 		 * @return false if path doesn't exist anymore and set the path to an empty string
 		 * @return false if path is an empty string
 		 * @return true if path exists */
-		bool stillExist();
+		bool stillExist() const;
 
 		/** @return true if the document is new and has never been saved yet */
-		bool isNew();
+		bool isNew() const;
+		/** @return true if the document is cloned */
+		bool isCloned() const;
 		
 		/** enable/disable auto detection of eol 
 		 * @param enable_ enable/disable*/
@@ -51,6 +53,9 @@ class DocumentEditor : public ScintillaExt {
 		void setBookmarks(const QStringList& lines);
 	
 		QsciMacro* getMacro() const;
+		
+		/** detach the clone */
+		void detachClone();
 		
 	protected:
 		/** auto detect eol */
@@ -142,7 +147,7 @@ class DocumentEditor : public ScintillaExt {
 		QString _type;
 		/** hold if document is new */
 		bool _isNew;
-		
+				
 		/** hold auto detect eol property */
 		bool _autoDetectEol;
 		/** hold auto detect indent property */
@@ -159,6 +164,11 @@ class DocumentEditor : public ScintillaExt {
 		/** Macro */
 		QsciMacro* _macro;
 	
+		/** hold if document is cloned */
+		bool _isCloned;
+		/** clone */
+		DocumentEditor* _clone;
+		
 	friend class DocumentView;
 };
 

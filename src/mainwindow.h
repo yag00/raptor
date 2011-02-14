@@ -25,6 +25,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		
 	protected:		
 		virtual void closeEvent(QCloseEvent *event_);
+		virtual bool eventFilter(QObject *obj_, QEvent *ev_);
 		
 	private slots:
 		/** File Menu */

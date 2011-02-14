@@ -15,7 +15,7 @@ class DocumentView : public QTabWidget {
 		/** default constructor
 		 * @param document_ initialize the view with an existing document
 		 * @param parent_ */
-		DocumentView(DocumentEditor * document_ = 0, QWidget * parent_ = 0);
+		DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * document_ = 0, QWidget * parent_ = 0);
 		/** destructor */
 		~DocumentView();
 
@@ -29,6 +29,10 @@ class DocumentView : public QTabWidget {
 		 * @param name_ path + filename of the document
 		 * @return the document or null if doesn't exist */
 		DocumentEditor* getDocument(const QString& name_);
+		/** get a document index
+		 * @param name_ path + filename of the document
+		 * @return the index of the document or -1 if doesn't exist */
+		int getDocumentIndex(const QString& name_);
 
 		/** set the active document (do nothing if document doesn't exist
 		 * @param document_ the document to be active
@@ -99,7 +103,7 @@ class DocumentView : public QTabWidget {
 		
 		/** clone a document to this view
 		 * @param document_ */
-		void cloneDocument(const DocumentEditor& document_);
+		void cloneDocument(DocumentEditor* document_);
 
 		/** close the current document
 		 * @return true if has been closed */
@@ -108,6 +112,10 @@ class DocumentView : public QTabWidget {
 		 * @param index_ of the document
 		 * @return true if has been closed */
 		bool closeDocument(int index_);
+		/** close a document
+		 * @param file_ document to close
+		 * @return true if has been closed */
+		bool closeDocument(const QString& file_);
 		/** close all documents except the current one */
 		void closeAllDocumentsExceptCurrent();
 		/** remove and disconnect the document but do not destroy it
@@ -132,9 +140,6 @@ class DocumentView : public QTabWidget {
 		void print();
 
 	private slots:
-		/** use when watched file are externally modified */
-		void watchedFileChanged(const QString& path_);
-
 		/** show a context menu for a tab */
 		void showTabBarContextMenu(const QPoint &point_);
 		
@@ -159,8 +164,9 @@ class DocumentView : public QTabWidget {
 		void removeFirstNewDocument();
 		
 	private:
-		/** watcher instance*/
-		QFileSystemWatcher* _watcher;
+		/** Reference on FileWatcher */
+		QFileSystemWatcher& _watcher;
+		
 		/** context menu */
 		QMenu* _documentContextMenu;
 		/** count the new document created */

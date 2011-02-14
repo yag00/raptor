@@ -146,13 +146,13 @@ MainWindow::MainWindow(){
 	connect(actionSearch, SIGNAL(triggered()), createSearchDock(), SLOT(trigger()));
 	
 	//create status bar
-	_insLabel = new QLabel("INS", this);
+	/*_insLabel = new QLabel("INS", this);
 	_insLabel->setFrameShape(QFrame::Panel);
 	_insLabel->setFrameShadow(QFrame::Sunken);
 	_majLabel = new QLabel("MAJ", this);
 	_majLabel->setFrameShape(QFrame::Panel);
 	_majLabel->setFrameShadow(QFrame::Sunken);
-	_encodingLabel = new QLabel("??", this);
+	_encodingLabel = new QLabel("??", this);*/
 	_formatLabel = new QLabel(this);
 	_editInfoLabel = new QLabel(this);
 	_fileInfoLabel = new QLabel(this);
@@ -162,9 +162,9 @@ MainWindow::MainWindow(){
 	statusBar()->addWidget(_fileInfoLabel, 2);
 	statusBar()->addWidget(_editInfoLabel, 3);
 	statusBar()->addPermanentWidget(_formatLabel);
-	statusBar()->addPermanentWidget(_encodingLabel);
+	/*statusBar()->addPermanentWidget(_encodingLabel);
 	statusBar()->addPermanentWidget(_majLabel);
-	statusBar()->addPermanentWidget(_insLabel);
+	statusBar()->addPermanentWidget(_insLabel);*/
 	
 	readSettings();
 	
@@ -605,3 +605,20 @@ void MainWindow::readSettings(){
 	//Restore last session
 	_documentManager->restoreLastSession(settings);
 }
+
+bool MainWindow::eventFilter(QObject *obj_, QEvent *ev_){
+	if ( obj_ != qApp )
+        return QMainWindow::eventFilter(obj_, ev_);
+
+    if ( ev_->type() == QEvent::ApplicationActivate ){
+		//qDebug() << __FUNCTION__ << obj_ << ev_;
+		_documentManager->notify();
+        return true;
+	}
+	/*if ( ev_->type() == QEvent::ApplicationDeactivate ){
+		qDebug() << __FUNCTION__ << obj_ << ev_;
+        return true;
+	}*/
+	return QMainWindow::eventFilter(obj_, ev_);
+}
+

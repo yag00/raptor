@@ -48,6 +48,8 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 	_autoDetectEol = false;
 	_autoDetectIndent = false;
 	_isNew = true;
+	_isCloned = false;
+	_clone = 0;
 	_type = "Normal Text file";
 	_fullPath = "";
 
@@ -89,18 +91,24 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(checkHighlight()));
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
-DocumentEditor::DocumentEditor(const DocumentEditor& document_, QWidget *parent_) : ScintillaExt(parent_){
+DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_){
 	_HLID1 = -1;
 	_HLID2 = -1;
-	_isNew = document_._isNew;
-	_fullPath = document_.getFullPath();
-	_type = document_.getType();
-	setDocument(document_.document());
-		
-	QsciLexer* l = document_.lexer();
+	_isNew = document_->isNew();
+	_fullPath = document_->getFullPath();
+	_type = document_->getType();
+	setDocument(document_->document());
+	
+	_clone = document_;
+	_isCloned = true;
+	document_->_clone = this;
+	document_->_isCloned = true;
+	
+	QsciLexer* l = document_->lexer();
 	if(l != 0){
 		QString lexLang = l->language();
 		QsciLexer* newLex = LexerManager::getInstance().lexerFactory(lexLang, this);
+		qDebug() << l << newLex;
 		if(newLex == 0){
 			//could not find the lexer
 			newLex = LexerManager::getInstance().getAutoLexer(this);
@@ -122,10 +130,15 @@ DocumentEditor::DocumentEditor(const DocumentEditor& document_, QWidget *parent_
 	connect(this, SIGNAL(selectionChanged()), this, SLOT(selectedTextChanged()));
 	connect(this, SIGNAL(linesChanged()), this, SLOT(checkHighlight()));
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(checkHighlight()));	
+	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
 
 DocumentEditor::~DocumentEditor(){
-
+	qDebug() << "delete document " << this << " clone " << _clone;
+	if(isCloned()){
+		_clone->detachClone();
+		_clone->setLexer();
+	}
 }
 
 QString DocumentEditor::getName() const{
@@ -141,7 +154,7 @@ QString DocumentEditor::getType() const{
 	return _type;
 }
 
-bool DocumentEditor::stillExist(){
+bool DocumentEditor::stillExist() const{
 	if(isNew())
 		return true;
 
@@ -151,7 +164,7 @@ bool DocumentEditor::stillExist(){
 		return false;
 	}
 }
-bool DocumentEditor::isNew(){
+bool DocumentEditor::isNew() const{
 	return _isNew;
 }
 
@@ -326,10 +339,14 @@ void DocumentEditor::redo(){
 }
 
 void DocumentEditor::setLanguage(const QString &language_){
+	qDebug() << language_;
 	QsciLexer* l = lexer();
 	if(l != 0)
 		delete l;
-	setLexer(LexerManager::getInstance().lexerFactory(language_, this));
+	/*clear();
+	undo();*/
+	l = LexerManager::getInstance().lexerFactory(language_, this);
+	setLexer(l);
 	_type = LexerManager::getInstance().getFileType(lexer());
 	//reload settings for lexer
 	Settings settings;
@@ -487,6 +504,32 @@ QsciMacro* DocumentEditor::getMacro() const{
 	return _macro;
 }
 
+
+bool DocumentEditor::isCloned() const{
+	return _isCloned;
+}
+void DocumentEditor::detachClone(){
+	QsciLexer* l = lexer();
+	qDebug() << "detach " << this << _clone << " lexer " << l;
+	
+	//setDocument(_clone->document());
+	/*if(l != 0){
+		QString lexLang = l->language();
+		QsciLexer* newLex = LexerManager::getInstance().lexerFactory("C", this);
+		delete l;
+		if(newLex == 0){
+			newLex = LexerManager::getInstance().getAutoLexer(this);
+		}
+		setLexer(0);
+		qDebug() << newLex->language();
+		setLexer(newLex);
+	}
+	
+	Settings settings;
+	settings.applyToDocument(this);*/
+	_clone = 0;
+	_isCloned = false;
+}
 ////////////////////////////////////////////////////////////////////////////////
 
 void DocumentEditor::toggleBookmark() {
@@ -496,6 +539,8 @@ void DocumentEditor::toggleBookmark() {
 }
 
 void DocumentEditor::toggleBookmark(int margin_, int line_, Qt::KeyboardModifiers state_){
+	(void)margin_;
+	(void)state_;
 	if(markersAtLine(line_) & MARKER_BOOK_MASK) {
 		for (int i = 0; i < _bookmarks.size(); i++) {
 			int id = _bookmarks.at(i);
