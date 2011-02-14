@@ -108,7 +108,6 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 	if(l != 0){
 		QString lexLang = l->language();
 		QsciLexer* newLex = LexerManager::getInstance().lexerFactory(lexLang, this);
-		qDebug() << l << newLex;
 		if(newLex == 0){
 			//could not find the lexer
 			newLex = LexerManager::getInstance().getAutoLexer(this);
@@ -134,7 +133,6 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 }
 
 DocumentEditor::~DocumentEditor(){
-	qDebug() << "delete document " << this << " clone " << _clone;
 	if(isCloned()){
 		_clone->detachClone();
 		_clone->setLexer();
@@ -339,7 +337,6 @@ void DocumentEditor::redo(){
 }
 
 void DocumentEditor::setLanguage(const QString &language_){
-	qDebug() << language_;
 	QsciLexer* l = lexer();
 	if(l != 0)
 		delete l;
@@ -510,7 +507,6 @@ bool DocumentEditor::isCloned() const{
 }
 void DocumentEditor::detachClone(){
 	QsciLexer* l = lexer();
-	qDebug() << "detach " << this << _clone << " lexer " << l;
 	
 	//setDocument(_clone->document());
 	/*if(l != 0){

@@ -260,7 +260,6 @@ void DocumentView::insertDocument(int index_, DocumentEditor* document_){
 
 void DocumentView::cloneDocument(DocumentEditor* document_){
 	DocumentEditor* doc = new DocumentEditor(document_, this);
-	qDebug() << document_->lexer() << doc->lexer();
 	QString docName = doc->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
