@@ -87,6 +87,9 @@ class DocumentManager : public Splitter{
 		
 		void diff();
 		
+		/** send notification */
+		void notify();
+		
 	private slots:
 		/** move current document to the next view */
 		void moveDocument();
@@ -104,6 +107,9 @@ class DocumentManager : public Splitter{
 		void activeViewChanged(bool active_= true);
 		/** destroy a view */
 		void destroyView(DocumentView* view_ = 0);
+		
+		/** use when watched file are externally modified */
+		void watchedFileChanged(const QString& path_);
 		
 	signals:
 		/**emit when a document changed */
@@ -126,6 +132,11 @@ class DocumentManager : public Splitter{
 		
 		/** Current Macro */
 		QString _macro;
+		
+		/** file watcher */
+		QFileSystemWatcher* _watcher;
+		/** file watcher notification list */
+		QStringList _watcherNotification;
 };
 
 #endif // __DOCUMENT_MANAGER_H__

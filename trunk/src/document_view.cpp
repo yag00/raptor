@@ -5,11 +5,7 @@
 #include "document_editor.h"
 #include "document_view.h"
 
-DocumentView::DocumentView(DocumentEditor * document_, QWidget * parent_) : QTabWidget(parent_){
-	//create file watcher
-	_watcher = new QFileSystemWatcher(this);
-	connect(_watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(watchedFileChanged(const QString&)));
-
+DocumentView::DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * document_, QWidget * parent_) : QTabWidget(parent_), _watcher(watcher_){
 	//create tabBar
 	TabBar* tabbar = new TabBar(this);
 	setTabBar(tabbar);
@@ -79,6 +75,15 @@ DocumentEditor* DocumentView::getDocument(const QString& name_){
 			return doc;
 	}
 	return 0;
+}
+
+int DocumentView::getDocumentIndex(const QString& name_){
+	for(int i = 0; i < count(); i++){
+		DocumentEditor* doc = getDocument(i);
+		if(doc->getFullPath() == name_)
+			return i;
+	}
+	return -1;
 }
 
 QList<DocumentEditor*> DocumentView::getDocuments(){
@@ -219,7 +224,9 @@ void DocumentView::addDocument(DocumentEditor* document_){
 	QString docName = document_->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
-
+	else
+		_watcher.addPath(document_->getFullPath());
+	
 	if(document_->isModified())
 		addTab(document_, QIcon(":/images/unsaved.png"), docName);
 	else
@@ -238,6 +245,8 @@ void DocumentView::insertDocument(int index_, DocumentEditor* document_){
 	QString docName = document_->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
+	else
+		_watcher.addPath(document_->getFullPath());
 
 	if(document_->isModified())
 		insertTab(index_, document_, QIcon(":/images/unsaved.png"), docName);
@@ -249,9 +258,9 @@ void DocumentView::insertDocument(int index_, DocumentEditor* document_){
 	documentChanged();
 }
 
-void DocumentView::cloneDocument(const DocumentEditor& document_){
+void DocumentView::cloneDocument(DocumentEditor* document_){
 	DocumentEditor* doc = new DocumentEditor(document_, this);
-
+	qDebug() << document_->lexer() << doc->lexer();
 	QString docName = doc->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
@@ -272,7 +281,7 @@ void DocumentView::openDocument(const QString& file_){
 	connectDocument(document);
 
 	if(document->load(file_)){		
-		_watcher->addPath(document->getFullPath());
+		_watcher.addPath(document->getFullPath());
 		addTab(document, QIcon(":/images/saved.png"), document->getName());
 		removeFirstNewDocument();
 		setCurrentWidget(document);
@@ -287,7 +296,7 @@ void DocumentView::openDocument(const QStringList& files_){
 		connectDocument(document);
 
 		if(document->load(files_[i])){
-			_watcher->addPath(document->getFullPath());
+			_watcher.addPath(document->getFullPath());
 			addTab(document, QIcon(":/images/saved.png"), document->getName());
 			removeFirstNewDocument();
 			setCurrentWidget(document);
@@ -306,7 +315,7 @@ bool DocumentView::closeDocument(int index_){
     if(count() == 1){
 		if(document->maybeSave()){
 			newDocument();
-			_watcher->removePath(document->getFullPath());
+			_watcher.removePath(document->getFullPath());
 			delete document;
 			emit empty();
 			return true;
@@ -316,7 +325,7 @@ bool DocumentView::closeDocument(int index_){
 	}
 	else{
 		if(document->maybeSave()){
-			_watcher->removePath(document->getFullPath());
+			_watcher.removePath(document->getFullPath());
 			delete document;
 			return true;
 		}
@@ -324,6 +333,14 @@ bool DocumentView::closeDocument(int index_){
 			return false;
 	}
 }
+
+bool DocumentView::closeDocument(const QString& file_){
+	int index = getDocumentIndex(file_);
+	if(index < 0)
+		return false;
+	return closeDocument(index);
+}
+
 void DocumentView::closeAllDocumentsExceptCurrent(){
 	int i = 0;
 	while (count() != 1){
@@ -350,7 +367,7 @@ DocumentEditor* DocumentView::removeDocumentAt(int index_){
 		emitEmptySignal = true;
 	}
 	DocumentEditor* document = getDocument(index_);
-	_watcher->removePath(document->getFullPath());
+	_watcher.removePath(document->getFullPath());
 	disconnect(document);
 	removeTab(index_);
 	//note: this do a remove tab but i'm not sure it's clean
@@ -367,17 +384,17 @@ DocumentEditor* DocumentView::removeCurrentDocument(){
 
 void DocumentView::save(){
 	DocumentEditor* document = currentDocument();
-	_watcher->removePath(document->getFullPath());
+	_watcher.removePath(document->getFullPath());
 	document->save();
 	documentChanged();
-	_watcher->addPath(document->getFullPath());
+	_watcher.addPath(document->getFullPath());
 }
 void DocumentView::saveAs(){
 	DocumentEditor* document = currentDocument();
-	_watcher->removePath(document->getFullPath());
+	_watcher.removePath(document->getFullPath());
 	currentDocument()->saveAs();
 	documentChanged();
-	_watcher->addPath(document->getFullPath());
+	_watcher.addPath(document->getFullPath());
 }
 void DocumentView::saveACopyAs(){
 	currentDocument()->saveACopyAs();
@@ -385,9 +402,9 @@ void DocumentView::saveACopyAs(){
 void DocumentView::saveAll(){
 	for(int i = 0; i < count(); i++){
 		DocumentEditor* document = getDocument(i);
-		_watcher->removePath(document->getFullPath());
+		_watcher.removePath(document->getFullPath());
 		document->save();
-		_watcher->addPath(document->getFullPath());
+		_watcher.addPath(document->getFullPath());
 	}
 	updateAllDocuments();
 }
@@ -403,50 +420,6 @@ void DocumentView::removeFirstNewDocument(){
 			delete currentDoc;
 		}
 	}
-}
-
-void DocumentView::watchedFileChanged(const QString& path_){
-	DocumentEditor* document = 0;
-	int docIndex = -1;
-	int nbDocs = count();
-	for (int i = 0; i < nbDocs; i++){
-		document = getDocument(i);
-		if (document->getFullPath() == path_) {
-			docIndex = i;
-			break;
-		}
-	}
-
-	int ret;
-	if (QFile(path_).exists()) {
-
-		if(document->isModified() == false){
-			ret = QMessageBox::question(this ,
-					tr("Reload ?"),
-					tr("%1\nThis file has been modified by another program.\nDo you want to reload it?").arg(path_),
-					QMessageBox::Yes | QMessageBox::No);
-		}
-		else{
-			ret = QMessageBox::question(this,
-					tr("Reload ?"),
-					tr("%1\nThis file has been modified by another program.\nDo you want to reload it and lose all the changes made?").arg(path_),
-					QMessageBox::Yes | QMessageBox::No);
-		}
-
-		if (ret == QMessageBox::Yes){
-			document->load(path_);
-			_watcher->addPath(document->getFullPath());
-		}
-	}
-	else {
-		ret = QMessageBox::question(this,
-					tr("Keep non existing file ?"),
-					tr("%1\ndoesn't exist anymore.\nKeep this file in editor?").arg(path_),
-					QMessageBox::Yes | QMessageBox::No);
-		if (ret == QMessageBox::No)
-			closeDocument(docIndex);
-	}
-	updateAllDocuments();	
 }
 
 bool DocumentView::documentExists(const QString& file_){
