@@ -147,7 +147,7 @@ QFont LexerCPP::defaultFont(int style) const
 #if defined(Q_OS_WIN)
 	f = QFont("Courier New",10);
 #else
-	f = QFont("Courier 10 Pitch",10);
+	f = QFont("DejaVu Sans Mono",10);
 #endif
 
     switch (style) {
