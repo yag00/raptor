@@ -155,7 +155,10 @@ bool QsciMacro::load(const QString &asc)
 
                 *dp++ = ch;
             }
-
+			
+			//terminated character
+			*dp++ = 0;
+			
             if (!ok)
                 break;
         }
