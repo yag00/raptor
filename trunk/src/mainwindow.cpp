@@ -198,6 +198,15 @@ DocumentManager& MainWindow::getDocumentManager(){
 	return *_documentManager;
 }
 
+void MainWindow::handleMessage(const QString& message_){
+	QStringList files = message_.split(" ");
+	files.removeAll("");
+	if(!files.empty()){
+		_documentManager->openDocument(files);
+		updateRecentFile(files);
+	}
+}
+
 void MainWindow::update(DocumentEditor* document_){
 	//update main window title
 	updateMainWindowTitle(document_);

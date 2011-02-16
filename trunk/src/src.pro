@@ -3,6 +3,7 @@ include( ../config.pri )
 # include lib framework
 include( ../ext/QScintilla/QScintilla.pri )
 include( ../ext/AStyle/AStyle.pri )
+include( ../ext/qt-solutions/qtsingleapplication/src/qtsingleapplication.pri )
 #include( ../ext/GoogleDiffMatchPatch/GoogleDiffMatchPatch.pri )
 #include( ../ext/dtl/dtl.pri )
 
