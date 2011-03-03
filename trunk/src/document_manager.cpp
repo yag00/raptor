@@ -372,13 +372,23 @@ void DocumentManager::runMacroUntilEOF(){
 }
 
 void DocumentManager::watchedFileChanged(const QString& path_){
+	//remove path_ of the filewatcher
+	_watcher->removePath(path_);
+	//add path to the notification list
 	_watcherNotification << path_;
 }
 
 void DocumentManager::notify(){
+	///@todo update tab save color icon when file is not reloaded
+
 	//FileSystemWatcher notification
 	_watcherNotification.removeDuplicates();
-	foreach(QString file, _watcherNotification){
+	
+	QStringList list = _watcherNotification;
+	//clear notification list
+	_watcherNotification.clear();
+	
+	foreach(QString file, list){
 		int ret;
 		if (QFile(file).exists()) {
 			DocumentEditor* document = 0;
@@ -418,8 +428,7 @@ void DocumentManager::notify(){
 			}
 		}		
 	}
-	//clear notification list
-	_watcherNotification.clear();
+
 	//update all views
 	for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
 		(*it)->updateAllDocuments();
