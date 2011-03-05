@@ -7,7 +7,7 @@ pwd
 rm -rf `find . -type d -name .svn`
 
 echo "Create package"
-dh_make -e christophe.duvernois@gmail.com -n -s -c gpl3
+echo "dh_make : " | dh_make -e christophe.duvernois@gmail.com -n -s -c gpl3
 rm -rf debian/*.ex  debian/*.EX  debian/docs  debian/dirs
 cp -r ../debian .
 dpkg-buildpackage -rfakeroot
