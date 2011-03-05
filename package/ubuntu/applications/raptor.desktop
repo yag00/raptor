@@ -1,16 +1,14 @@
 [Desktop Entry]
-Categories=Development;Editor;
-Comment[fr]=
-Comment=
-Exec=raptor
-GenericName[fr]=Raptor
+Version=0.1.0
+Categories=Development;
+Comment=Raptor A Portable Text editOR
+Exec=raptor %U
 GenericName=Raptor
-Icon=/home/chris/Dev/raptor/package/pixmaps/raptor.png
+Icon=/usr/share/pixmaps/raptor.png
 MimeType=
-Name[fr]=Raptor
 Name=Raptor
 Path=
-StartupNotify=true
+StartupNotify=false
 Terminal=false
 TerminalOptions=
 Type=Application
