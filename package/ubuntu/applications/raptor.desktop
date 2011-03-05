@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=Development;Editor;
+Comment[fr]=
+Comment=
+Exec=raptor
+GenericName[fr]=Raptor
+GenericName=Raptor
+Icon=/home/chris/Dev/raptor/package/pixmaps/raptor.png
+MimeType=
+Name[fr]=Raptor
+Name=Raptor
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
