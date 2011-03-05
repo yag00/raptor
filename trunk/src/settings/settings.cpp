@@ -9,8 +9,8 @@
 #include "../document_editor.h"
 #include "settings.h"
 
-Settings::Settings(QObject * parent_)
-		: QSettings (QApplication::applicationDirPath() + "/settings.ini", QSettings::IniFormat, parent_) {
+Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings", parent_){
+
 }
 
 Settings::~Settings(){
