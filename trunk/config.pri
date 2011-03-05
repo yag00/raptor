@@ -1,7 +1,7 @@
 # get current path
 PACKAGE_PWD	= $$PWD
 # package name & version 
-PACKAGE_NAME	= Raptor
+PACKAGE_NAME	= raptor
 PACKAGE_VERSION	= 0.1.0
 PACKAGE_DESCRIPTION	= "Raptor A Portable Text editOR"
 

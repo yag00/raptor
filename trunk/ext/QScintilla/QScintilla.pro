@@ -26,10 +26,9 @@ CONFIG	+= staticlib
 # overrride install script of qscintilla
 INSTALLS	-= header trans qsci target
 
-header.path = $${PACKAGE_BUILD_PATH}/qscintilla/include/Qsci
-header.files = $${QSCINTILLA_PWD}/$$QSCINTILLAVERSION/Qt4/Qsci/*.h
-
-INSTALLS += header
+#header.path = $${PACKAGE_BUILD_PATH}/qscintilla/include/Qsci
+#header.files = $${QSCINTILLA_PWD}/$$QSCINTILLAVERSION/Qt4/Qsci/*.h
+#INSTALLS += header
 
 DESTDIR	= $${PACKAGE_BUILD_PATH}/lib
 
