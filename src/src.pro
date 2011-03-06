@@ -79,6 +79,6 @@ LIBS += -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2
 
 
 # define variable for source code
-DEFINES	*= "PACKAGE_NAME=\"\\\"$${PACKAGE_NAME}\\\"\"" \
+DEFINES	*= "PACKAGE_NAME=\"\\\"$${PACKAGE_NAME_CAPITALIZE}\\\"\"" \
 		   "PACKAGE_VERSION=\"\\\"$${PACKAGE_VERSION}\\\"\"" \
 		   "PACKAGE_DESCRIPTION=\"\\\"$${PACKAGE_DESCRIPTION}\\\"\"" \

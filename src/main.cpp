@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 	for (int a = 1; a < argc; ++a) {
 		message += argv[a];
 		if (a < argc-1)
-			message += " ";
+			message += ";";
 	}
 
 	//QApplication app(argc, argv);
