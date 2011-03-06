@@ -199,7 +199,7 @@ DocumentManager& MainWindow::getDocumentManager(){
 }
 
 void MainWindow::handleMessage(const QString& message_){
-	QStringList files = message_.split(" ");
+	QStringList files = message_.split(";");
 	files.removeAll("");
 	if(!files.empty()){
 		_documentManager->openDocument(files);
