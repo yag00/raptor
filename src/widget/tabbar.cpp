@@ -38,7 +38,7 @@ void TabBar::mouseDoubleClickEvent(QMouseEvent* event_){
 
 void TabBar::mouseMoveEvent(QMouseEvent* event_) {
 	QTabBar::mouseMoveEvent(event_);
-		
+	/*	
 	// If the left button isn't pressed anymore then return
 	if (!(event_->buttons() & Qt::LeftButton))
 		return;
@@ -64,19 +64,19 @@ void TabBar::mouseMoveEvent(QMouseEvent* event_) {
 	// drag->setDragCursor(QPixmap(QString(":/images/moveto.png")), Qt::LinkAction  );
 	// drag->setDragCursor(QPixmap(QString(":/images/moveto.png")), Qt::TargetMoveAction  );
 	drag->setMimeData(mimeData);
-	drag->exec(Qt::CopyAction | Qt::MoveAction | Qt::TargetMoveAction);
+	drag->exec(Qt::CopyAction | Qt::MoveAction | Qt::TargetMoveAction);*/
 }
 
 void TabBar::dragEnterEvent(QDragEnterEvent* event_) {
 	QTabBar::dragEnterEvent(event_);
 	// Only accept if it's an tab-drag&drop request
-	const QMimeData* m = event_->mimeData();
+	/*const QMimeData* m = event_->mimeData();
 	if(m->hasFormat("tab-drag&drop")){
 		event_->accept();
 		//event_->acceptProposedAction();
 	}else{
 		event_->ignore();
-	}
+	}*/
 }
 
 void TabBar::dragMoveEvent(QDragMoveEvent* event_){
