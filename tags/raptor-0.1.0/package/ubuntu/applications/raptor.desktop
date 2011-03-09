@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=0.1.0
+Categories=Development;
+Comment=Raptor A Portable Text editOR
+Exec=raptor %U
+GenericName=Raptor
+Icon=/usr/share/pixmaps/raptor.png
+MimeType=
+Name=Raptor
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/qmake.mk
+QMAKE=qmake-qt4
+CFLAGS=-O3
+CXXFLAGS=-O3
+
+install/raptor::
+	dh_install /delivery/release/raptor /usr/bin/
+	mkdir $(CURDIR)/debian/raptor/usr/share/
+	cp -r ../applications $(CURDIR)/debian/raptor/usr/share
+	cp -r ../menu $(CURDIR)/debian/raptor/usr/share
+	cp -r ../pixmaps $(CURDIR)/debian/raptor/usr/share
+	rm -rf `find . -type d -name .svn`
