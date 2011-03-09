@@ -31,7 +31,7 @@ LicenseFile=LICENSE.GPL3
 ;InfoAfterFile=
 OutputDir=package/windows
 OutputBaseFilename=setup
-;SetupIconFile=
+SetupIconFile=src/images/raptor.ico
 Compression=lzma
 SolidCompression=yes
 

@@ -73,6 +73,7 @@ FORMS *= mainwindow.ui \
 		 about.ui
 
 RESOURCES     *= ressources.qrc
+win32:RC_FILE += rc/ressources.rc
 
 LIBS += -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2
 # -ldiff
