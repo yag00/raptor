@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -199,10 +199,27 @@
      <property name="title">
       <string>Use Charset</string>
      </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/charset.png</normaloff>:/images/charset.png</iconset>
+     </property>
     </widget>
-    <widget class="QMenu" name="menuConvertTo">
+    <widget class="QMenu" name="menuSaveWithCharset">
      <property name="title">
-      <string>Convert To</string>
+      <string>Save with Charset</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuSaveWithCharsetAs">
+     <property name="title">
+      <string>Save with Charset As</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
      </property>
     </widget>
     <addaction name="actionConvertToWindowsFormat"/>
@@ -210,7 +227,8 @@
     <addaction name="actionConvertToMacFormat"/>
     <addaction name="separator"/>
     <addaction name="menuUseCharset"/>
-    <addaction name="menuConvertTo"/>
+    <addaction name="menuSaveWithCharset"/>
+    <addaction name="menuSaveWithCharsetAs"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1380,11 +1398,6 @@
   <action name="actionDiffClearResult">
    <property name="text">
     <string>Clear Result</string>
-   </property>
-  </action>
-  <action name="actionAuto_Detection">
-   <property name="text">
-    <string>Auto Detection</string>
    </property>
   </action>
  </widget>

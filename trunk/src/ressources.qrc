@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/charset.png</file>
     <file>images/raptor.png</file>
     <file>images/diff.png</file>
     <file>images/trashcan_empty.png</file>

@@ -115,6 +115,9 @@ void MainWindow::initMenuEdit() {
 	connect(actionReadOnly, SIGNAL(triggered(bool)), this, SLOT(setReadOnly(bool)));
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
+	
+	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditMenu()));
+	connect(menuIndentation, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditIndentationMenu()));
 }
 
 void MainWindow::initMenuView() {
@@ -143,6 +146,8 @@ void MainWindow::initMenuView() {
 	connect(actionUnfoldLevel_6, SIGNAL(triggered()), this, SLOT(unfoldLevel()));
 	connect(actionUnfoldLevel_7, SIGNAL(triggered()), this, SLOT(unfoldLevel()));
 	connect(actionUnfoldLevel_8, SIGNAL(triggered()), this, SLOT(unfoldLevel()));
+	
+	connect(menuInvisibleSymbol, SIGNAL(aboutToShow()), this, SLOT(aboutToShowViewInvisibleSymbolMenu()));
 }
 
 void MainWindow::initMenuSearch() {
@@ -187,18 +192,28 @@ void MainWindow::initMenuEncoding() {
 	
 	//initialize menu
 	QActionGroup* useCharsetActionGroup = new QActionGroup(menuUseCharset);
-	QActionGroup* convertToActionGroup = new QActionGroup(menuConvertTo);
+	QActionGroup* saveWithCharsetActionGroup = new QActionGroup(menuSaveWithCharset);
+	QActionGroup* saveWithCharsetAsActionGroup = new QActionGroup(menuSaveWithCharsetAs);
 	foreach(QTextCodec* codec, codecMap.values()){
 		//menu use charset
 		QAction* action = menuUseCharset->addAction(codec->name());
 		action->setCheckable(true);
 		useCharsetActionGroup->addAction(action);
-		//menu convert to
-		action = menuConvertTo->addAction(codec->name());
-		convertToActionGroup->addAction(action);
+		//menu saveWithCharset
+		action = menuSaveWithCharset->addAction(codec->name());
+		saveWithCharsetActionGroup->addAction(action);
+		//menu saveWithCharset
+		action = menuSaveWithCharsetAs->addAction(codec->name());
+		saveWithCharsetAsActionGroup->addAction(action);		
 	}
 	connect(useCharsetActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(changeCharset(QAction*)));
-	connect(convertToActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(convertToCharset(QAction*)));
+	connect(saveWithCharsetActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(saveWithCharset(QAction*)));
+	connect(saveWithCharsetAsActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(saveWithCharsetAs(QAction*)));
+	
+	connect(menuEncoding, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEncodingMenu()));
+	connect(menuUseCharset, SIGNAL(aboutToShow()), this, SLOT(aboutToShowChangeCharsetMenu()));
+	connect(menuSaveWithCharset, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSaveWithCharsetMenu()));
+	connect(menuSaveWithCharsetAs, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSaveWithCharsetAsMenu()));
 }
 
 void MainWindow::initMenuBookmarks() {
@@ -214,6 +229,8 @@ void MainWindow::initMenuLanguage() {
 	LexerManager::getInstance().initialize(menuLanguage);
 	//connect menu "Language" Action
 	LexerManager::getInstance().connectTo(this, SLOT(changeLanguage(QAction*)));
+	
+	connect(menuLanguage, SIGNAL(aboutToShow()), this, SLOT(aboutToShowLanguageMenu()));
 }
 
 void MainWindow::initMenuDiff() {
@@ -325,39 +342,23 @@ void MainWindow::updateStatusBar(DocumentEditor* document_) {
 
 	_editInfoLabel->setText(tr("Line : %1  Col : %2  Sel : %3     ").arg(line+1).arg(column).arg(select));
 	_fileInfoLabel->setText(tr("%1 chars  %2 bytes  %3 lines     ").arg(nbChars).arg(nbBytes).arg(nbLines));
+	_encodingLabel->setText(document_->getCodec());
 	//_formatLabel->setText(document->getFormat() + "     ");
 	_formatLabel->setPixmap(document_->getFormatPixmap().scaled(16,16));
 	_fileTypeLabel->setText(document_->getType());
 }
 void MainWindow::updateActions(DocumentEditor* document_) {
+	//update all actions on the tool bar always visibe
+	//other actions will be update by aboutToShow slots ....
+	
+	//undo/redo action
 	actionUndo->setEnabled(document_->isUndoAvailable());
 	actionRedo->setEnabled(document_->isRedoAvailable());
 
-	actionAutoIndentation->setChecked(document_->autoIndent());
-	actionIndentationGuides->setChecked(document_->indentationGuides());
-
-	bool wsIsVisible = false;
-	if(document_->whitespaceVisibility() == QsciScintilla::WsVisible)
-		wsIsVisible = true;
+	//show all invisible symbol
+	bool wsIsVisible = (document_->whitespaceVisibility() == QsciScintilla::WsVisible);
 	bool eolIsVisible = document_->eolVisibility();
-
-	if(wsIsVisible == true && eolIsVisible == true) {
-		actionShowAll->setChecked(true);
-		actionShowWhitespaceAndTab->setChecked(false);
-		actionShowEndOfLine->setChecked(false);
-	} else {
-		actionShowAll->setChecked(false);
-		actionShowWhitespaceAndTab->setChecked(wsIsVisible);
-		actionShowEndOfLine->setChecked(eolIsVisible);
-	}
-
-	actionReadOnly->setChecked(document_->isReadOnly());
-
-	actionConvertToWindowsFormat->setEnabled(not (document_->eolMode() == QsciScintilla::EolWindows));
-	actionConvertToUnixFormat->setEnabled(not (document_->eolMode() == QsciScintilla::EolUnix));
-	actionConvertToMacFormat->setEnabled(not (document_->eolMode() == QsciScintilla::EolMac));
-
-	LexerManager::getInstance().update(document_->lexer());
+	actionShowAll->setChecked(wsIsVisible & eolIsVisible);	
 }
 
 
@@ -550,6 +551,16 @@ void MainWindow::setReadOnly(bool b) {
 	_documentManager->getActiveDocument()->setReadOnly(b);
 }
 
+void MainWindow::aboutToShowEditMenu(){
+	DocumentEditor* document = _documentManager->getActiveDocument();
+	actionReadOnly->setChecked(document->isReadOnly());
+}
+void MainWindow::aboutToShowEditIndentationMenu(){
+	DocumentEditor* document = _documentManager->getActiveDocument();
+	actionAutoIndentation->setChecked(document->autoIndent());
+	actionIndentationGuides->setChecked(document->indentationGuides());
+}
+
 void MainWindow::zoomIn() {
 	_documentManager->getActiveDocument()->zoomIn();
 }
@@ -604,6 +615,27 @@ void MainWindow::unfoldLevel() {
 	_documentManager->getActiveDocument()->unfoldLevel(level);
 }
 
+void MainWindow::aboutToShowViewInvisibleSymbolMenu(){
+	DocumentEditor* document = _documentManager->getActiveDocument();
+	
+	bool wsIsVisible = false;
+	if(document->whitespaceVisibility() == QsciScintilla::WsVisible)
+		wsIsVisible = true;
+	
+	bool eolIsVisible = document->eolVisibility();
+
+	if(wsIsVisible == true && eolIsVisible == true) {
+		actionShowAll->setChecked(true);
+		actionShowWhitespaceAndTab->setChecked(false);
+		actionShowEndOfLine->setChecked(false);
+	} else {
+		actionShowAll->setChecked(false);
+		actionShowWhitespaceAndTab->setChecked(wsIsVisible);
+		actionShowEndOfLine->setChecked(eolIsVisible);
+	}
+	actionIndentationGuides->setChecked(document->indentationGuides());	
+}
+
 void MainWindow::convertToWindowFormat() {
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	document->convertEols(QsciScintilla::EolWindows);
@@ -632,15 +664,63 @@ void MainWindow::convertToMacFormat() {
 	updateStatusBar(document);
 }
 void MainWindow::changeCharset(QAction* action_){
-	_documentManager->getActiveDocument()->setCodec(action_->text());
+	if(_documentManager->getActiveDocument()->setCodec(action_->text())) {
+		_documentManager->getActiveView()->updateAllDocuments();
+		statusBar()->showMessage(tr("File reloaded with charset %1").arg(action_->text()), 1000);
+	}
 }
-void MainWindow::convertToCharset(QAction*){
-	
+void MainWindow::saveWithCharset(QAction* action_){
+	if(_documentManager->getActiveDocument()->saveWithCharset(action_->text())){
+		_documentManager->getActiveView()->updateAllDocuments();
+		statusBar()->showMessage(tr("File save with charset %1").arg(action_->text()), 1000);
+	}
+}
+void MainWindow::saveWithCharsetAs(QAction* action_){
+	if(_documentManager->getActiveDocument()->saveWithCharsetAs(action_->text())){
+		_documentManager->getActiveView()->updateAllDocuments();
+		statusBar()->showMessage(tr("File save with charset %1").arg(action_->text()), 1000);
+	}
+}
+
+void MainWindow::aboutToShowEncodingMenu(){
+	DocumentEditor* document = _documentManager->getActiveDocument();
+	actionConvertToWindowsFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolWindows));
+	actionConvertToUnixFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolUnix));
+	actionConvertToMacFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolMac));	
+}
+void MainWindow::aboutToShowChangeCharsetMenu(){
+	QString codec = _documentManager->getActiveDocument()->getCodec();
+	foreach(QAction* action, menuUseCharset->actions()){
+		if(action->text() == codec){
+			action->setChecked(true);
+			break;
+		}
+	}
+}
+void MainWindow::aboutToShowSaveWithCharsetMenu(){
+	QString currentText = _documentManager->getActiveDocument()->text();
+	foreach (QAction *action, menuSaveWithCharset->actions()) {
+		QTextCodec *codec = QTextCodec::codecForName(action->text().toUtf8());
+		action->setVisible(codec && codec->canEncode(currentText));
+	}
+}
+void MainWindow::aboutToShowSaveWithCharsetAsMenu(){
+	QString currentText = _documentManager->getActiveDocument()->text();
+	foreach (QAction *action, menuSaveWithCharsetAs->actions()) {
+		QTextCodec *codec = QTextCodec::codecForName(action->text().toUtf8());
+		action->setVisible(codec && codec->canEncode(currentText));
+	}
 }
 
 void MainWindow::changeLanguage(QAction* action_) {
 	_documentManager->getActiveDocument()->setLanguage(action_->text());
 }
+void MainWindow::aboutToShowLanguageMenu(){
+	//langage actions
+	DocumentEditor* document = _documentManager->getActiveDocument();
+	LexerManager::getInstance().update(document->lexer());
+}
+
 
 void MainWindow::diff() {
 	qDebug() << "Not implemented";

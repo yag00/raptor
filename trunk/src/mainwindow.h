@@ -68,6 +68,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		
 		void setReadOnly(bool b_);
 		
+		void aboutToShowEditMenu();
+		void aboutToShowEditIndentationMenu();
+		
 		/** Wiew Menu */
 		void zoomIn();
 		void zoomOut();
@@ -79,16 +82,25 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void foldLevel();
 		void unfoldLevel();
 		
+		void aboutToShowViewInvisibleSymbolMenu();
+		
 		/** Encoding Menu */
 		void convertToWindowFormat();
 		void convertToUnixFormat();
 		void convertToMacFormat();
 		void changeCharset(QAction*);
-		void convertToCharset(QAction*);
+		void saveWithCharset(QAction*);
+		void saveWithCharsetAs(QAction*);
+		
+		void aboutToShowEncodingMenu();
+		void aboutToShowChangeCharsetMenu();
+		void aboutToShowSaveWithCharsetMenu();
+		void aboutToShowSaveWithCharsetAsMenu();
 		
 		/** Language Menu */
 		void changeLanguage(QAction*);
-
+		void aboutToShowLanguageMenu();
+		
 		/** Diff Menu */
 		void diff();
 		

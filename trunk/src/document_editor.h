@@ -61,8 +61,9 @@ class DocumentEditor : public ScintillaExt {
 		QString getCodec() const;
 		/** set the codec to used for the document 
 		 * @param codec_ codec name
-		 * NOTE : changing the codec will reset the undo list */
-		void setCodec(const QString& codec_);
+		 * NOTE : changing the codec will reset the undo list
+		 * @return true if document was reloaded */
+		bool setCodec(const QString& codec_);
 		/** set the codec to used by default for the document */
 		void setDefaultCodec(const QString& codec_);
 		
@@ -125,7 +126,13 @@ class DocumentEditor : public ScintillaExt {
 		/** save a copy of the file as ...
 		 * @return true if saved */
 		bool saveACopyAs();
-	
+		/** save&convert the file with the given charset
+		 * @return true if saved */
+		bool saveWithCharset(const QString& codec_);
+		/** save&convert the file as ...  with the given charset
+		 * @return true if saved */
+		bool saveWithCharsetAs(const QString& codec_);
+		
 	protected slots:		
 		/** check if document is modified and ask if we need to save it
 		 * @return true if we need to save it */

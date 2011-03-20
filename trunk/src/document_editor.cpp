@@ -208,13 +208,15 @@ void DocumentEditor::quickPrint(){
 }
 
 bool DocumentEditor::save(){
+	if (!isModified())
+		return true;
     if (_fullPath.isEmpty()) {
         return saveAs();
     } else {
         return saveFile(_fullPath);
     }
 }
-bool DocumentEditor::saveAs(){
+bool DocumentEditor::saveAs(){	
     QString fileName = QFileDialog::getSaveFileName(this);
     if (fileName.isEmpty())
         return false;
@@ -244,7 +246,7 @@ bool DocumentEditor::maybeSave(){
     return true;
 }
 bool DocumentEditor::saveFile(const QString &fileName_){
-    QFile file(fileName_);
+	QFile file(fileName_);
     if (!file.open(QFile::WriteOnly)) {
         QMessageBox::warning(this, tr("Application"),
                              tr("Cannot write file %1:\n%2.")
@@ -253,15 +255,28 @@ bool DocumentEditor::saveFile(const QString &fileName_){
         return false;
     }
 
-    QTextStream out(&file);
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    out << text();
+	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
+	if(codec == 0){
+		QMessageBox::critical(this, tr("Application"),
+					 tr("Cannot write file %1:\nUnsupported charset %2 !!")
+					 .arg(fileName_).arg(_codec));
+		return false;
+	}
+	file.resize(0);
+	bool ok = (file.write(codec->fromUnicode(text())) != -1);
+	if(ok){
+		_fullPath = fileName_;
+		setModified(false);
+		_isNew = false;	
+	}else{
+		QMessageBox::critical(this, tr("Application"),
+					 tr("Cannot write file %1:\n%2.")
+					 .arg(fileName_)
+					 .arg(file.errorString()));
+	}
     QApplication::restoreOverrideCursor();
-
-    _fullPath = fileName_;
-	setModified(false);
-	_isNew = false;
-    return true;
+    return ok;
 }
 bool DocumentEditor::saveCopy(const QString &fileName_){
     QFile file(fileName_);
@@ -274,11 +289,35 @@ bool DocumentEditor::saveCopy(const QString &fileName_){
     }
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    QTextStream out(&file);
-    out << text();
+	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
+	if(codec == 0){
+		QMessageBox::critical(this, tr("Application"),
+					 tr("Cannot write file %1:\nUnsupported charset %2 !!")
+					 .arg(fileName_).arg(_codec));
+		return false;
+	}
+	file.resize(0);
+	bool ok = (file.write(codec->fromUnicode(text())) != -1);
+	if(!ok){
+		QMessageBox::critical(this, tr("Application"),
+					 tr("Cannot write file %1:\n%2.")
+					 .arg(fileName_)
+					 .arg(file.errorString()));
+	}
     QApplication::restoreOverrideCursor();
-
-    return true;
+    return ok;
+}
+bool DocumentEditor::saveWithCharset(const QString& codec_){
+	_codec = codec_;
+    if (_fullPath.isEmpty()) {
+        return saveAs();
+    } else {
+        return saveFile(_fullPath);
+    }
+}
+bool DocumentEditor::saveWithCharsetAs(const QString& codec_){
+	_codec = codec_;
+	return saveAs();
 }
 
 bool DocumentEditor::load(const QString &fileName_){
@@ -292,7 +331,13 @@ bool DocumentEditor::load(const QString &fileName_){
     }
 	
     QApplication::setOverrideCursor(Qt::WaitCursor);	
-	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());	
+	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
+	if(codec == 0){
+		QMessageBox::critical(this, tr("Application"),
+					 tr("Cannot load file %1:\nUnsupported charset %2 !!")
+					 .arg(fileName_).arg(_codec));
+		return false;
+	}	
 	QString data = codec->toUnicode(file.readAll());
 	setText(data);
     QApplication::restoreOverrideCursor();
@@ -740,40 +785,22 @@ QString DocumentEditor::getCodec() const{
 	return _codec;
 }
 
-void DocumentEditor::setCodec(const QString& codec_){
+bool DocumentEditor::setCodec(const QString& codec_){
 	if(_codec != codec_){
 		///@todo it would be nice to change the charset on the fly without reloading the file
-		
 		if (isModified()) {
 			int ret = QMessageBox::question(this ,
 							tr("Reload ?"),
 							tr("%1\nThis file has been modified.\nDo you want to reload it with %2 charset\nand loose the change?").arg(getFullPath()).arg(codec_),
 							QMessageBox::Yes | QMessageBox::No);
 			if (ret == QMessageBox::No)
-				return;
+				return false;
 		}
 		
 		_codec = codec_;
-		QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
-		if(!codec){
-			_codec = "";
-			return;
-		}
-		//update doc with codec
-		QFile file(getFullPath());
-		if (!file.open(QFile::ReadOnly)) {
-			QMessageBox::warning(this, tr("Application"),
-								 tr("Cannot read file %1:\n%2.")
-								 .arg(getFullPath())
-								 .arg(file.errorString()));
-			return;
-		}
-		
-		QApplication::setOverrideCursor(Qt::WaitCursor);	
-		QString data = codec->toUnicode(file.readAll());
-		setText(data);
-		QApplication::restoreOverrideCursor();
+		return load(getFullPath());
 	}
+	return false;
 }
 
 void DocumentEditor::setDefaultCodec(const QString& codec_){
