@@ -52,6 +52,7 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 	_clone = 0;
 	_type = "Normal Text file";
 	_fullPath = "";
+	_codec = "";
 
 	//macro
 	_macro = new QsciMacro(this);
@@ -94,6 +95,9 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_){
 	_HLID1 = -1;
 	_HLID2 = -1;
+	_autoDetectEol = document_->_autoDetectEol;
+	_autoDetectIndent = document_->_autoDetectIndent;
+	_codec = document_->_codec;	
 	_isNew = document_->isNew();
 	_fullPath = document_->getFullPath();
 	_type = document_->getType();
@@ -267,8 +271,8 @@ bool DocumentEditor::saveCopy(const QString &fileName_){
         return false;
     }
 
-    QTextStream out(&file);
     QApplication::setOverrideCursor(Qt::WaitCursor);
+    QTextStream out(&file);
     out << text();
     QApplication::restoreOverrideCursor();
 
@@ -285,9 +289,10 @@ bool DocumentEditor::load(const QString &fileName_){
         return false;
     }
 	
-    QTextStream in(&file);
-    QApplication::setOverrideCursor(Qt::WaitCursor);
-    setText(in.readAll());
+    QApplication::setOverrideCursor(Qt::WaitCursor);	
+	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());	
+	QString data = codec->toUnicode(file.readAll());
+	setText(data);
     QApplication::restoreOverrideCursor();
 
 	_fullPath = fileName_;
@@ -506,7 +511,7 @@ bool DocumentEditor::isCloned() const{
 	return _isCloned;
 }
 void DocumentEditor::detachClone(){
-	QsciLexer* l = lexer();
+	//QsciLexer* l = lexer();
 	
 	//setDocument(_clone->document());
 	/*if(l != 0){
@@ -729,3 +734,37 @@ void DocumentEditor::highlightVisible(const QString &text_, int id1_, int id2_){
 	SendScintilla(SCI_INDICATORCLEARRANGE, pos1, pos2-pos1);
 }
 
+QString DocumentEditor::getCodec() const{
+	return _codec;
+}
+
+void DocumentEditor::setCodec(const QString& codec_){
+	if(_codec != codec_){
+		_codec = codec_;
+		QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
+		if(!codec){
+			_codec = "";
+			return;
+		}
+		//update doc with codec
+		QFile file(getFullPath());
+		if (!file.open(QFile::ReadOnly)) {
+			QMessageBox::warning(this, tr("Application"),
+								 tr("Cannot read file %1:\n%2.")
+								 .arg(getFullPath())
+								 .arg(file.errorString()));
+			return;
+		}
+		
+		QApplication::setOverrideCursor(Qt::WaitCursor);	
+		QString data = codec->toUnicode(file.readAll());
+		setText(data);
+		QApplication::restoreOverrideCursor();
+	}
+}
+
+void DocumentEditor::setDefaultCodec(const QString& codec_){
+	if(_codec.isEmpty()){
+		_codec = codec_;
+	}
+}

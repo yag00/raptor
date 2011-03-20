@@ -79,11 +79,13 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void foldLevel();
 		void unfoldLevel();
 		
-		/** Format Menu */
+		/** Encoding Menu */
 		void convertToWindowFormat();
 		void convertToUnixFormat();
 		void convertToMacFormat();
-	
+		void changeCharset(QAction*);
+		void convertToCharset(QAction*);
+		
 		/** Language Menu */
 		void changeLanguage(QAction*);
 
@@ -132,6 +134,26 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void readSettings();
 		void writeSettings();
 
+		/** create the documentManager */
+		void createDocumentManager();
+		/** create the status bar */
+		void createStatusBar();
+		
+		/** intialize and connect menu */
+		void initMenu();
+		void initMenuFile();
+		void initMenuEdit();
+		void initMenuView();
+		void initMenuSearch();
+		void initMenuEncoding();
+		void initMenuBookmarks();
+		void initMenuLanguage();
+		void initMenuDiff();
+		void initMenuMacro();
+		void initMenuSettings();
+		void initMenuHelp();
+		
+	private:
 		/** document manager */
 		DocumentManager* _documentManager;
 		
@@ -139,8 +161,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		QDockWidget* _searchDock;
 		
 		/** status bar widget */
-		QLabel* _insLabel;
-		QLabel* _majLabel;
+		//QLabel* _insLabel;
+		//QLabel* _majLabel;
 		QLabel* _encodingLabel;
 		QLabel* _formatLabel;
 		QLabel* _editInfoLabel;
