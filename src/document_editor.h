@@ -57,6 +57,15 @@ class DocumentEditor : public ScintillaExt {
 		/** detach the clone */
 		void detachClone();
 		
+		/** @return the codec used by the document */
+		QString getCodec() const;
+		/** set the codec to used for the document 
+		 * @param codec_ codec name
+		 * NOTE : changing the codec will reset the undo list */
+		void setCodec(const QString& codec_);
+		/** set the codec to used by default for the document */
+		void setDefaultCodec(const QString& codec_);
+		
 	protected:
 		/** auto detect eol */
 		void autoDetectEol();
@@ -168,6 +177,9 @@ class DocumentEditor : public ScintillaExt {
 		bool _isCloned;
 		/** clone */
 		DocumentEditor* _clone;
+		
+		/** codec */
+		QString _codec;
 		
 	friend class DocumentView;
 };

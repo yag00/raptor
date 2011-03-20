@@ -95,6 +95,8 @@ void Settings::applyToDocument(DocumentEditor* document_){
 	document_->setPaper(getDocumentPaper());
 	document_->setFont(getDocumentFont());
 
+	document_->setDefaultCodec(getDefaultCodec());
+	
 	// Auto Completion
 	document_->setAutoCompletionCaseSensitivity(getAutoCompletionCaseSensitivity());
 	document_->setAutoCompletionReplaceWord(getAutoCompletionReplaceWord());

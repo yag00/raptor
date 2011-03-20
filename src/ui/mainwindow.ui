@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -191,13 +191,26 @@
     <addaction name="menuFold_level"/>
     <addaction name="menuUnfold_level"/>
    </widget>
-   <widget class="QMenu" name="menuFormat">
+   <widget class="QMenu" name="menuEncoding">
     <property name="title">
-     <string>Format</string>
+     <string>Encoding</string>
     </property>
+    <widget class="QMenu" name="menuUseCharset">
+     <property name="title">
+      <string>Use Charset</string>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuConvertTo">
+     <property name="title">
+      <string>Convert To</string>
+     </property>
+    </widget>
     <addaction name="actionConvertToWindowsFormat"/>
     <addaction name="actionConvertToUnixFormat"/>
     <addaction name="actionConvertToMacFormat"/>
+    <addaction name="separator"/>
+    <addaction name="menuUseCharset"/>
+    <addaction name="menuConvertTo"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -256,7 +269,7 @@
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuSearch"/>
-   <addaction name="menuFormat"/>
+   <addaction name="menuEncoding"/>
    <addaction name="menuBookmarks"/>
    <addaction name="menuLanguage"/>
    <addaction name="menuDiff"/>
@@ -1367,6 +1380,11 @@
   <action name="actionDiffClearResult">
    <property name="text">
     <string>Clear Result</string>
+   </property>
+  </action>
+  <action name="actionAuto_Detection">
+   <property name="text">
+    <string>Auto Detection</string>
    </property>
   </action>
  </widget>
