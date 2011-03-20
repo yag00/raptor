@@ -43,6 +43,7 @@ namespace{
 }
 
 DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
+	setUtf8(true);
 	_HLID1 = -1;
 	_HLID2 = -1;
 	_autoDetectEol = false;
@@ -93,6 +94,7 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
 DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_){
+	setUtf8(true);
 	_HLID1 = -1;
 	_HLID2 = -1;
 	_autoDetectEol = document_->_autoDetectEol;
@@ -740,6 +742,17 @@ QString DocumentEditor::getCodec() const{
 
 void DocumentEditor::setCodec(const QString& codec_){
 	if(_codec != codec_){
+		///@todo it would be nice to change the charset on the fly without reloading the file
+		
+		if (isModified()) {
+			int ret = QMessageBox::question(this ,
+							tr("Reload ?"),
+							tr("%1\nThis file has been modified.\nDo you want to reload it with %2 charset\nand loose the change?").arg(getFullPath()).arg(codec_),
+							QMessageBox::Yes | QMessageBox::No);
+			if (ret == QMessageBox::No)
+				return;
+		}
+		
 		_codec = codec_;
 		QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 		if(!codec){
