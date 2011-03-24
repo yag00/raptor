@@ -334,14 +334,13 @@ void MainWindow::updateMainWindowTitle(DocumentEditor* document_) {
 }
 void MainWindow::updateStatusBar(DocumentEditor* document_) {
 	int nbChars = document_->text().length();
-	int nbBytes = document_->length() + 3;
 	int nbLines = document_->lines();
 	int line, column;
 	document_->getCursorPosition(&line, &column);
 	int select = document_->selectedText().length();
 
 	_editInfoLabel->setText(tr("Line : %1  Col : %2  Sel : %3     ").arg(line+1).arg(column).arg(select));
-	_fileInfoLabel->setText(tr("%1 chars  %2 bytes  %3 lines     ").arg(nbChars).arg(nbBytes).arg(nbLines));
+	_fileInfoLabel->setText(tr("%1 chars  %2 lines     ").arg(nbChars).arg(nbLines));
 	_encodingLabel->setText(document_->getCodec());
 	//_formatLabel->setText(document->getFormat() + "     ");
 	_formatLabel->setPixmap(document_->getFormatPixmap().scaled(16,16));
@@ -637,6 +636,7 @@ void MainWindow::aboutToShowViewInvisibleSymbolMenu(){
 }
 
 void MainWindow::convertToWindowFormat() {
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	document->convertEols(QsciScintilla::EolWindows);
 	document->setEolMode(QsciScintilla::EolWindows);
@@ -644,8 +644,10 @@ void MainWindow::convertToWindowFormat() {
 	actionConvertToUnixFormat->setEnabled(true);
 	actionConvertToMacFormat->setEnabled(true);
 	updateStatusBar(document);
+	QApplication::restoreOverrideCursor();
 }
 void MainWindow::convertToUnixFormat() {
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	document->convertEols(QsciScintilla::EolUnix);
 	document->setEolMode(QsciScintilla::EolUnix);
@@ -653,8 +655,10 @@ void MainWindow::convertToUnixFormat() {
 	actionConvertToUnixFormat->setEnabled(false);
 	actionConvertToMacFormat->setEnabled(true);
 	updateStatusBar(document);
+	QApplication::restoreOverrideCursor();
 }
 void MainWindow::convertToMacFormat() {
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	document->convertEols(QsciScintilla::EolMac);
 	document->setEolMode(QsciScintilla::EolMac);
@@ -662,6 +666,7 @@ void MainWindow::convertToMacFormat() {
 	actionConvertToUnixFormat->setEnabled(true);
 	actionConvertToMacFormat->setEnabled(false);
 	updateStatusBar(document);
+	QApplication::restoreOverrideCursor();
 }
 void MainWindow::changeCharset(QAction* action_){
 	if(_documentManager->getActiveDocument()->setCodec(action_->text())) {

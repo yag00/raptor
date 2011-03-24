@@ -3,6 +3,20 @@
 
 #include <Qsci/qsciscintilla.h>
 
+#define INDICATOR_SEARCH          0
+#define INDICATOR_QUICK_SEARCH1   1
+#define INDICATOR_QUICK_SEARCH2   2
+
+#define INDICATOR_HIGHLIGHT1      3
+#define INDICATOR_HIGHLIGHT2      4
+#define INDICATOR_HIGHLIGHT3      5
+#define INDICATOR_HIGHLIGHT4      6
+#define INDICATOR_HIGHLIGHT5      7
+#define INDICATOR_HIGHLIGHT6      8
+
+/** this class extends the QsciScintilla  widget
+ * with a lots of usefull function for text manipulation
+ * or text highlighting */
 class ScintillaExt : public QsciScintilla {
     Q_OBJECT
 	public:
@@ -28,6 +42,7 @@ class ScintillaExt : public QsciScintilla {
 			ArrowTreeFoldStyle
 		};
 		
+		
 		/** default constructor
 		 * @param parent_ */
 		ScintillaExt(QWidget *parent_ = 0);
@@ -40,11 +55,16 @@ class ScintillaExt : public QsciScintilla {
 		QString getFormat() const;
 		/** @return format pixmap */
 		QPixmap getFormatPixmap() const;
-
+		
 		/** common line/position functions */
 		inline int linesVisible() const { return SendScintilla(SCI_LINESONSCREEN); }
 		/** return current position */
 		int getCurrentPosition() const;
+		
+		//highlighting slots
+		void applyIndicator(int start_, int end_, int id_);
+		void applyIndicator(const QString &text_, int id1_, int id2_ = -1);
+		void clearIndicators(int id1_, int id2_ = -1);	
 		
 	public slots:
 		/** Set no selection foreground color */
@@ -107,17 +127,35 @@ class ScintillaExt : public QsciScintilla {
 		/** update margin width */
 		void setLineNumbersMarginWidth(int i);
 		
+		/** selected text changed */
+		void selectedTextChanged();
+		
+		// highlighting function 
+		void checkHighlight();		
+		
 	protected:
 		/** reimplement wheelEvent */
 		virtual void wheelEvent(QWheelEvent *event_);
 		/** reimplement paintEvent */
 		virtual void paintEvent(QPaintEvent *event_);
-		
+	
+	protected:	
 		void setFoldMarker(int marknr, int mark, const QColor& foreground_, const QColor& background_);
+
+		// highlighting function 
+		void createIndicator(int id_, int type_, const QColor &color_, bool under_ = true);
+		void highlightVisible(const QString &text_, int id1_, int id2_);
 
 		/** @return true if the string is a qualified word (letter or number sequence of char) */
 		bool isQualifiedWord(const QString& str_) const;
 		bool isWordChar(char ch) const;
+		
+	private:
+		/** highlight marker */
+		int _HLID1, _HLID2;
+		/** highlight text */
+		QString _HLText;
+
 };
 
 #endif /* __SCINTILLA_EXT_H__ */

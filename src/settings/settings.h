@@ -62,10 +62,6 @@ class Settings : public QSettings{
 		// void setAutoEolConversion( bool convert );
 		// bool autoEolConversion();
 
-		/** get/set default codec */
-		void setDefaultCodec(const QString& codec);
-		QString getDefaultCodec();
-
 		/** get/set use custom foreground selection color (if true foreground selection color will be used */
 		void useSelectionForegroundColor(bool useForegroundColor_);
 		bool useSelectionForegroundColor();
@@ -85,6 +81,17 @@ class Settings : public QSettings{
 		void setDocumentFont(const QFont& font_);
 		QFont getDocumentFont();
 
+		//Encoding
+		/** get/set default codec */
+		void setDefaultCodec(const QString& codec);
+		QString getDefaultCodec();
+		
+		void setUnicodeBomUseMode(int bomMode_);
+		int getUnicodeBomUseMode();
+		
+		void setTryAutoDetectCodec(bool auto_);
+		bool getTryAutoDetectCodec();
+		
 		// Auto Completion
 		void setAutoCompletionCaseSensitivity(bool caseSensitive_);
 		bool getAutoCompletionCaseSensitivity();

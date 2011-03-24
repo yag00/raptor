@@ -66,7 +66,8 @@ class SettingsDialog : public QDialog, private Ui::UISettings{
 		QButtonGroup* _bgStartWrapVisualFlag;
 		QButtonGroup* _bgEndWrapVisualFlag;
 		QButtonGroup* _bgAutoCompletionSource;
-	
+		QButtonGroup* _bgBomEncoding;
+		
 		QHash<QString,QsciLexer*> _lexers;
 
 		QsciScintilla* _astyleExample;
