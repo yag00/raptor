@@ -115,7 +115,7 @@ void MainWindow::initMenuEdit() {
 	connect(actionReadOnly, SIGNAL(triggered(bool)), this, SLOT(setReadOnly(bool)));
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
-	
+
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditMenu()));
 	connect(menuIndentation, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditIndentationMenu()));
 }
@@ -146,7 +146,7 @@ void MainWindow::initMenuView() {
 	connect(actionUnfoldLevel_6, SIGNAL(triggered()), this, SLOT(unfoldLevel()));
 	connect(actionUnfoldLevel_7, SIGNAL(triggered()), this, SLOT(unfoldLevel()));
 	connect(actionUnfoldLevel_8, SIGNAL(triggered()), this, SLOT(unfoldLevel()));
-	
+
 	connect(menuInvisibleSymbol, SIGNAL(aboutToShow()), this, SLOT(aboutToShowViewInvisibleSymbolMenu()));
 }
 
@@ -189,27 +189,32 @@ void MainWindow::initMenuEncoding() {
 	}
 
 	//qDebug() << Settings::availableTextCodecs();
-	
+
 	//initialize menu
 	QActionGroup* useCharsetActionGroup = new QActionGroup(menuUseCharset);
 	QActionGroup* saveWithCharsetActionGroup = new QActionGroup(menuSaveWithCharset);
 	QActionGroup* saveWithCharsetAsActionGroup = new QActionGroup(menuSaveWithCharsetAs);
+	QActionGroup* forceSaveWithCharsetAsActionGroup = new QActionGroup(menuForceSaveWithCharsetAs);
 	foreach(QTextCodec* codec, codecMap.values()){
 		//menu use charset
 		QAction* action = menuUseCharset->addAction(codec->name());
 		action->setCheckable(true);
 		useCharsetActionGroup->addAction(action);
-		//menu saveWithCharset
+		//menu menuSaveWithCharset
 		action = menuSaveWithCharset->addAction(codec->name());
 		saveWithCharsetActionGroup->addAction(action);
-		//menu saveWithCharset
+		//menu menuSaveWithCharsetAs
 		action = menuSaveWithCharsetAs->addAction(codec->name());
-		saveWithCharsetAsActionGroup->addAction(action);		
+		saveWithCharsetAsActionGroup->addAction(action);
+		//menu menuForceSaveWithCharsetAs
+		action = menuForceSaveWithCharsetAs->addAction(codec->name());
+		forceSaveWithCharsetAsActionGroup->addAction(action);
 	}
 	connect(useCharsetActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(changeCharset(QAction*)));
 	connect(saveWithCharsetActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(saveWithCharset(QAction*)));
 	connect(saveWithCharsetAsActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(saveWithCharsetAs(QAction*)));
-	
+	connect(forceSaveWithCharsetAsActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(saveWithCharsetAs(QAction*)));
+
 	connect(menuEncoding, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEncodingMenu()));
 	connect(menuUseCharset, SIGNAL(aboutToShow()), this, SLOT(aboutToShowChangeCharsetMenu()));
 	connect(menuSaveWithCharset, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSaveWithCharsetMenu()));
@@ -229,7 +234,7 @@ void MainWindow::initMenuLanguage() {
 	LexerManager::getInstance().initialize(menuLanguage);
 	//connect menu "Language" Action
 	LexerManager::getInstance().connectTo(this, SLOT(changeLanguage(QAction*)));
-	
+
 	connect(menuLanguage, SIGNAL(aboutToShow()), this, SLOT(aboutToShowLanguageMenu()));
 }
 
@@ -349,7 +354,7 @@ void MainWindow::updateStatusBar(DocumentEditor* document_) {
 void MainWindow::updateActions(DocumentEditor* document_) {
 	//update all actions on the tool bar always visibe
 	//other actions will be update by aboutToShow slots ....
-	
+
 	//undo/redo action
 	actionUndo->setEnabled(document_->isUndoAvailable());
 	actionRedo->setEnabled(document_->isRedoAvailable());
@@ -357,7 +362,7 @@ void MainWindow::updateActions(DocumentEditor* document_) {
 	//show all invisible symbol
 	bool wsIsVisible = (document_->whitespaceVisibility() == QsciScintilla::WsVisible);
 	bool eolIsVisible = document_->eolVisibility();
-	actionShowAll->setChecked(wsIsVisible & eolIsVisible);	
+	actionShowAll->setChecked(wsIsVisible & eolIsVisible);
 }
 
 
@@ -616,11 +621,11 @@ void MainWindow::unfoldLevel() {
 
 void MainWindow::aboutToShowViewInvisibleSymbolMenu(){
 	DocumentEditor* document = _documentManager->getActiveDocument();
-	
+
 	bool wsIsVisible = false;
 	if(document->whitespaceVisibility() == QsciScintilla::WsVisible)
 		wsIsVisible = true;
-	
+
 	bool eolIsVisible = document->eolVisibility();
 
 	if(wsIsVisible == true && eolIsVisible == true) {
@@ -632,7 +637,7 @@ void MainWindow::aboutToShowViewInvisibleSymbolMenu(){
 		actionShowWhitespaceAndTab->setChecked(wsIsVisible);
 		actionShowEndOfLine->setChecked(eolIsVisible);
 	}
-	actionIndentationGuides->setChecked(document->indentationGuides());	
+	actionIndentationGuides->setChecked(document->indentationGuides());
 }
 
 void MainWindow::convertToWindowFormat() {
@@ -691,7 +696,7 @@ void MainWindow::aboutToShowEncodingMenu(){
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	actionConvertToWindowsFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolWindows));
 	actionConvertToUnixFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolUnix));
-	actionConvertToMacFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolMac));	
+	actionConvertToMacFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolMac));
 }
 void MainWindow::aboutToShowChangeCharsetMenu(){
 	QString codec = _documentManager->getActiveDocument()->getCodec();

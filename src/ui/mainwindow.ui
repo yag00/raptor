@@ -275,6 +275,15 @@
        <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
      </property>
     </widget>
+    <widget class="QMenu" name="menuForceSaveWithCharsetAs">
+     <property name="title">
+      <string>Force Conversion and Save As</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/save-question-mark.png</normaloff>:/images/save-question-mark.png</iconset>
+     </property>
+    </widget>
     <addaction name="actionConvertToWindowsFormat"/>
     <addaction name="actionConvertToUnixFormat"/>
     <addaction name="actionConvertToMacFormat"/>
@@ -282,6 +291,7 @@
     <addaction name="menuUseCharset"/>
     <addaction name="menuSaveWithCharset"/>
     <addaction name="menuSaveWithCharsetAs"/>
+    <addaction name="menuForceSaveWithCharsetAs"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
