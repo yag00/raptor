@@ -8,7 +8,7 @@ const QString mInformations =
 "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:small;\">"
 "	<tr>"
 "		<td align=\"center\"><br /><img src=\":/about/images/about.png\" width=\"32\" height=\"32\"></td>"
-"		<td><strong>%2<strong> version %3<br />%4<br /><br /><a href=\"http://%6\">Home page</a></td>"
+"		<td><strong>%1<strong> version %2<br />%3<br /><br /><a href=\"%4\">Home page</a></td>"
 "	</tr>"
 "</table>";
 
@@ -29,6 +29,7 @@ const QList<pDatas> mTeamates = QList<pDatas>()
 const QList<pDatas> mDonors = QList<pDatas>();
 	
 const QList<pDatas> mLinks = QList<pDatas>()
+	<< pDatas( "", "", QObject::tr( "Location" ), "http://code.google.com/p/raptor/", QObject::tr("Raptor's homepage."))
 	<< pDatas( "Scintilla is a free source code editing component.", "<br>", QObject::tr( "Location" ), "http://www.scintilla.org/", QObject::tr("Scintilla's homepage."))
 	<< pDatas( "QScintilla is a port to Qt of Scintilla C++ editor control. ", "<br>", QObject::tr( "Location" ), "http://www.riverbankcomputing.co.uk/software/qscintilla/intro", QObject::tr("QScintilla's homepage."))
 	<< pDatas( "A Free, Fast and Small Automatic Formatter for C, C++, C#, and Java Source Code", "<br>", QObject::tr( "Location" ), "http://astyle.sourceforge.net/", QObject::tr("Artistic Style's homepage."));
@@ -53,8 +54,8 @@ AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f)
 	
 	// show informations table
 	lInformations->setTextInteractionFlags( Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard );
-	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( PACKAGE_VERSION ).arg( PACKAGE_DESCRIPTION ).arg("").arg(""));
-	
+	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( PACKAGE_VERSION ).arg( PACKAGE_DESCRIPTION ).arg("http://code.google.com/p/raptor/"));
+
 	// team
 	foreach ( pDatas i, mTeamates )
 		tbTeam->append( mDatasMask.arg( i.Comment ).arg( i.Name +" -" ).arg( i.Login +"<br />" ).arg( i.Pays ).arg( QString( "mailto:" ).append( i.Email ) ).arg( i.Email ) );

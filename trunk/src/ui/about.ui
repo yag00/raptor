@@ -24,34 +24,34 @@
    <property name="spacing">
     <number>3</number>
    </property>
-   <item row="2" column="0">
-    <spacer>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="lInformations">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>321</width>
-       <height>27</height>
-      </size>
+     <property name="autoFillBackground">
+      <bool>true</bool>
      </property>
-    </spacer>
-   </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="pbOK">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
      </property>
      <property name="text">
-      <string>OK</string>
+      <string>Informations</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff/>
-      </iconset>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -62,7 +62,7 @@
      </property>
      <widget class="QLabel" name="lLogo">
       <property name="pixmap">
-       <pixmap>:/about/images/about/helpSplashScreen.png</pixmap>
+       <pixmap resource="../ressources.qrc">:/images/raptor.png</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -126,34 +126,34 @@
      </widget>
     </widget>
    </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="lInformations">
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <strikeout>false</strikeout>
-       <kerning>true</kerning>
-      </font>
+   <item row="2" column="0">
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="autoFillBackground">
-      <bool>true</bool>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>321</width>
+       <height>27</height>
+      </size>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
+    </spacer>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pbOK">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="text">
-      <string>Informations</string>
+      <string>OK</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="openExternalLinks">
-      <bool>true</bool>
+     <property name="icon">
+      <iconset>
+       <normaloff/>
+      </iconset>
      </property>
     </widget>
    </item>
