@@ -13,8 +13,8 @@
 SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWidget* parent) : QDialog(parent), _mainWindow(mainWindow_), _settings(settings_) {
 	//init ui
 	setupUi(this);
-	
-	//init astyle intentation page	
+
+	//init astyle intentation page
 	QFile file(":/astyle/rc/indent-sample.cpp");
 	file.open(QFile::ReadOnly);
 	tePreview->setText(QString::fromUtf8(file.readAll()));
@@ -36,13 +36,13 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	_bgASStyle->addButton(rbHorstmann, astyle::STYLE_HORSTMANN);
 	_bgASStyle->addButton(rb1TBS, astyle::STYLE_1TBS);
 	_bgASStyle->addButton(rbCustom, astyle::STYLE_NONE);
-	
+
 	_bgASIndent = new QButtonGroup(gbStyles);
 	connect(_bgASIndent, SIGNAL(buttonClicked(int)), this, SLOT(onStyleChanged()));
 	_bgASIndent->addButton(rbIndentWithSpaces, AS_INDENT_WITH_SPACES);
 	_bgASIndent->addButton(rbIndentWithTabs, AS_INDENT_WITH_TABS);
 	_bgASIndent->addButton(rbForceIndentWithTabs, AS_FORCE_INDENT_WITH_TABS);
-	
+
 	_bgASBracket = new QButtonGroup(gbStyles);
 	connect(_bgASBracket, SIGNAL(buttonClicked(int)), this, SLOT(onStyleChanged()));
 	_bgASBracket->addButton(rbBracketNoChange, astyle::NONE_MODE);
@@ -51,7 +51,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	_bgASBracket->addButton(rbBracketLinux, astyle::LINUX_MODE);
 	_bgASBracket->addButton(rbBracketStroustrup, astyle::STROUSTRUP_MODE);
 	_bgASBracket->addButton(rbBracketHorstmann, astyle::HORSTMANN_MODE);
-	
+
 	connect(chkIndentClasses, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkIndentSwitches, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkIndentCase, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
@@ -61,7 +61,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	connect(chkIndentLabels, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkIndentPreprocessor, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkIndentColumnOneComment, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
-	
+
 	connect(chkBreakHeaderBlocks, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkBreakAllBlocks, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkPadOperators, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
@@ -71,7 +71,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	connect(chkUnpadParenthesis, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkDeleteEmptyLines, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkFillEmptyLines, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
-	
+
 	connect(chkBreakClosingBrackets, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkBreakIfElseStatements, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkAddBrackets, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
@@ -80,7 +80,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	connect(chkKeepOneLineStatements, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkCOnvertTabs, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(cbPointerAlign, SIGNAL(currentIndexChanged(int)), this, SLOT(onStyleChanged()));
-	
+
 	//init menu
 	twMenu->topLevelItem(3)->setExpanded(true);
 	twMenu->setCurrentItem(twMenu->topLevelItem(0));
@@ -93,12 +93,16 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	//create lexers
 	foreach (QString s, Settings::availableLanguages())
 		_lexers[s] = LexerManager::lexerFactory(s);
-	
+
 	// Translations
 	cbTranslation->addItems(Settings::availableTranslations());
 
 	// loads text codecs
 	cbDefaultCodec->addItems(Settings::availableTextCodecs());
+	_bgBomEncoding = new QButtonGroup(gbBomBehaviour);
+	_bgBomEncoding->addButton(rbDoNotAddOrRemoveBom, 0);
+	_bgBomEncoding->addButton(rbAlwaysAddBom, 2);
+	_bgBomEncoding->addButton(rbAlwaysRemoveBom, 3);
 
 	// fill lexers combo
 	cbSourceAPIsLanguages->addItems(Settings::availableLanguages());
@@ -110,29 +114,29 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	_bgToolBarIconSize->addButton(rbBigToolBarIcon, 32);
 	_bgToolBarIconSize->addButton(rbMediumToolBarIcon, 22);
 	_bgToolBarIconSize->addButton(rbSmallToolBarIcon, 16);
-	
+
 	// auto completion
 	_bgAutoCompletionSource = new QButtonGroup(gbAutoCompletionSource);
 	_bgAutoCompletionSource->addButton(rbAcsDocument, QsciScintilla::AcsDocument);
 	_bgAutoCompletionSource->addButton(rbAcsAPIs, QsciScintilla::AcsAPIs);
 	_bgAutoCompletionSource->addButton(rbAcsAll, QsciScintilla::AcsAll);
-	
+
 	// calltips style
 	_bgCallTipsStyle = new QButtonGroup(gbCalltipsEnabled);
 	_bgCallTipsStyle->addButton(rbCallTipsNoContext, QsciScintilla::CallTipsNoContext);
 	_bgCallTipsStyle->addButton(rbCallTipsNoAutoCompletionContext, QsciScintilla::CallTipsNoAutoCompletionContext);
 	_bgCallTipsStyle->addButton(rbCallTipsContext, QsciScintilla::CallTipsContext);
-	
+
 	// brace match
 	_bgBraceMatch = new QButtonGroup(gbBraceMatchingEnabled);
 	_bgBraceMatch->addButton(rbStrictBraceMatch, QsciScintilla::StrictBraceMatch);
 	_bgBraceMatch->addButton(rbSloppyBraceMatch, QsciScintilla::SloppyBraceMatch);
-	
+
 	// edge mode
 	_bgEdgeMode = new QButtonGroup(gbEdgeModeEnabled);
 	_bgEdgeMode->addButton(rbEdgeLine, QsciScintilla::EdgeLine);
 	_bgEdgeMode->addButton(rbEdgeBackground, QsciScintilla::EdgeBackground);
-	
+
 	// fold style
 	_bgFoldStyle = new QButtonGroup(gbFoldMarginEnabled);
 	_bgFoldStyle->addButton(rbPlainFoldStyle, ScintillaExt::PlainFoldStyle);
@@ -142,7 +146,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	_bgFoldStyle->addButton(rbBoxedTreeFoldStyle, ScintillaExt::BoxedTreeFoldStyle);
 	_bgFoldStyle->addButton(rbArrowedFoldStyle, ScintillaExt::ArrowFoldStyle);
 	_bgFoldStyle->addButton(rbArrowedTreeFoldStyle, ScintillaExt::ArrowTreeFoldStyle);
-	
+
 	// eol mode
 	_bgEolMode = new QButtonGroup(gbEolMode);
 	_bgEolMode->addButton(rbEolUnix, QsciScintilla::EolUnix);
@@ -166,7 +170,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	_bgEndWrapVisualFlag = new QButtonGroup(wEndWrapVisualFlags);
 	_bgEndWrapVisualFlag->addButton(rbEndWrapFlagByText, QsciScintilla::WrapFlagByText);
 	_bgEndWrapVisualFlag->addButton(rbEndWrapFlagByBorder, QsciScintilla::WrapFlagByBorder);
-	
+
 	//  Lexers Highlighting
 	// python indentation warning
 	cbLexersHighlightingIndentationWarning->addItem( tr( "No warning" ), QsciLexerPython::NoWarning );
@@ -174,7 +178,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	cbLexersHighlightingIndentationWarning->addItem( tr( "Tabs after spaces" ), QsciLexerPython::TabsAfterSpaces );
 	cbLexersHighlightingIndentationWarning->addItem( tr( "Spaces" ), QsciLexerPython::Spaces );
 	cbLexersHighlightingIndentationWarning->addItem( tr( "Tabs" ), QsciLexerPython::Tabs );
-	
+
 	// loads application settings
 	loadSettingsDialog();
 
@@ -183,7 +187,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	connect(cbUseForeground, SIGNAL(stateChanged(int)), tbSelectionForeground, SLOT(setState(int)));
 	connect(tbDocumentFont, SIGNAL(clicked()), this, SLOT(tbDocumentFonts_clicked())); // document font
 	connect(tbMarginsFont, SIGNAL(clicked()), this, SLOT(tbMarginFonts_clicked())); // margin font
-	
+
 	// lexer elements highlighting
 	connect(pbLexersHighlightingForeground, SIGNAL(clicked()), this, SLOT(lexersHighlightingColour_clicked()));
 	connect(pbLexersHighlightingBackground, SIGNAL(clicked()), this, SLOT(lexersHighlightingColour_clicked()));
@@ -195,8 +199,8 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 		if ( cb != cbLexersHighlightingFillEol )
 			connect( cb, SIGNAL( clicked( bool ) ), this, SLOT( cbLexersHighlightingProperties_clicked( bool ) ) );
 	}
-	
-	
+
+
 	// resize to minimum size
 	resize(minimumSizeHint());
 }
@@ -222,17 +226,17 @@ void SettingsDialog::apply(){
 void SettingsDialog::loadSettingsDialog(){
 	// General
 	// Paths
-	
+
 	/** Interface **/
 	//	- ToolBar
 	if (_bgToolBarIconSize->button(_settings->getToolBarIconSize()))
 		_bgToolBarIconSize->button(_settings->getToolBarIconSize())->setChecked(true);
-	
+
 	cbToolBarFile->setChecked(_settings->getShowToolBar("File"));
 	cbToolBarEdit->setChecked(_settings->getShowToolBar("Edit"));
 	cbToolBarView->setChecked(_settings->getShowToolBar("View"));
 	cbToolBarMacro->setChecked(_settings->getShowToolBar("Macro"));
-	
+
 	// - Status Bar
 	if(_settings->getShowStatusBar())
 		cbStatusBar->setCheckState(Qt::Checked);
@@ -241,7 +245,6 @@ void SettingsDialog::loadSettingsDialog(){
 
 	/** Editor **/
 	//  - General
-	cbDefaultCodec->setCurrentIndex(cbDefaultCodec->findText(_settings->getDefaultCodec()));
 	cbUseForeground->setChecked(_settings->useSelectionForegroundColor());
 	tbSelectionForeground->setEnabled(_settings->useSelectionForegroundColor());
 	tbSelectionBackground->setColor(_settings->getSelectionBackgroundColor());
@@ -251,7 +254,23 @@ void SettingsDialog::loadSettingsDialog(){
 	tbDocumentPaper->setColor(_settings->getDocumentPaper());
 	lDocumentFontName->setFont(_settings->getDocumentFont());
 	lDocumentFontName->setText(_settings->getDocumentFont().family());
-	
+
+	//  - Encoding
+	cbDefaultCodec->setCurrentIndex(cbDefaultCodec->findText(_settings->getDefaultCodec()));
+	if(_settings->getUnicodeBomUseMode() == 1){
+		_bgBomEncoding->button(0)->setChecked(true);
+		cbAddBomToNewFile->setCheckState(Qt::Checked);
+	}else{
+		_bgBomEncoding->button(_settings->getUnicodeBomUseMode())->setChecked(true);
+		cbAddBomToNewFile->setCheckState(Qt::Unchecked);
+	}
+
+	if(_settings->getTryAutoDetectCodec())
+		cbTryCharsetDetection->setCheckState(Qt::Checked);
+	else
+		cbTryCharsetDetection->setCheckState(Qt::Unchecked);
+
+
 	//  - Completion
 	gbAutoCompletionEnabled->setChecked(_settings->getAutoCompletionSource() != QsciScintilla::AcsNone );
 	cbAutoCompletionCaseSensitivity->setChecked(_settings->getAutoCompletionCaseSensitivity());
@@ -268,7 +287,7 @@ void SettingsDialog::loadSettingsDialog(){
 	tbCalltipsBackground->setColor(_settings->getCallTipsBackgroundColor());
 	tbCalltipsForeground->setColor(_settings->getCallTipsForegroundColor());
 	tbCalltipsHighlight->setColor(_settings->getCallTipsHighlightColor());
-	
+
 	//  - Indentation
 	cbAutoIndent->setChecked(_settings->getAutoIndent());
 	cbBackspaceUnindents->setChecked(_settings->getBackspaceUnindents());
@@ -280,9 +299,9 @@ void SettingsDialog::loadSettingsDialog(){
 	sIndentationWidth->setValue(_settings->getIndentationWidth());
 	tbIndentationGuidesBackground->setColor(_settings->getIndentationGuidesBackgroundColor());
 	tbIndentationGuidesForeground->setColor(_settings->getIndentationGuidesForegroundColor());
-	
+
 	//	AStyle Indenter
-	_settings->beginGroup("AStyle");	
+	_settings->beginGroup("AStyle");
 	_bgASStyle->button(_settings->value("style", astyle::STYLE_NONE).toInt())->setChecked(true);
 	_bgASIndent->button(_settings->value("indentation_type", AS_FORCE_INDENT_WITH_TABS).toInt())->setChecked(true);
 	spbSpacePerTab->setValue(_settings->value("indentation_spt", 4 ).toInt());
@@ -307,7 +326,7 @@ void SettingsDialog::loadSettingsDialog(){
 	chkUnpadParenthesis->setChecked(_settings->value("unpad_parenthesis", false ).toBool());
 	chkDeleteEmptyLines->setChecked(_settings->value("delete_empty_lines", false ).toBool());
 	chkFillEmptyLines->setChecked(_settings->value("fill_empty_lines", false ).toBool());
-	
+
 	chkBreakClosingBrackets->setChecked(_settings->value("break_closing_brackets", false ).toBool());
 	chkBreakIfElseStatements->setChecked(_settings->value("break_elseifs", false ).toBool());
 	chkAddBrackets->setChecked(_settings->value("add_brackets", false ).toBool());
@@ -318,7 +337,7 @@ void SettingsDialog::loadSettingsDialog(){
 	cbPointerAlign->setCurrentIndex(_settings->value("pointer_align", 0).toInt());
 	_settings->endGroup();
 	onStyleChanged();
-	
+
 	//  - Brace Matching
 	gbBraceMatchingEnabled->setChecked(_settings->getBraceMatching() != QsciScintilla::NoBraceMatch);
 	if (_bgBraceMatch->button(_settings->getBraceMatching()))
@@ -326,38 +345,38 @@ void SettingsDialog::loadSettingsDialog(){
 	tbMatchedBraceForeground->setColor(_settings->getMatchedBraceForegroundColor());
 	tbMatchedBraceBackground->setColor(_settings->getMatchedBraceBackgroundColor());
 	tbUnmatchedBraceBackground->setColor(_settings->getUnmatchedBraceBackgroundColor());
-	tbUnmatchedBraceForeground->setColor(_settings->getUnmatchedBraceForegroundColor());	
-	
+	tbUnmatchedBraceForeground->setColor(_settings->getUnmatchedBraceForegroundColor());
+
 	//  - Edge Mode
 	gbEdgeModeEnabled->setChecked(_settings->getEdgeMode() != QsciScintilla::EdgeNone );
 	if (_bgEdgeMode->button(_settings->getEdgeMode()))
 		_bgEdgeMode->button(_settings->getEdgeMode())->setChecked(true);
 	sEdgeColumnNumber->setValue(_settings->getEdgeColumn());
-	tbEdgeColor->setColor(_settings->getEdgeColor());	
-	
+	tbEdgeColor->setColor(_settings->getEdgeColor());
+
 	//  - Caret
 	gbCaretLineVisible->setChecked(_settings->getCaretLineVisible());
 	tbCaretLineBackground->setColor(_settings->getCaretLineBackgroundColor());
 	tbCaretForeground->setColor(_settings->getCaretForegroundColor());
-	sCaretWidth->setValue(_settings->getCaretWidth());		
-	
+	sCaretWidth->setValue(_settings->getCaretWidth());
+
 	//  - Margins
 	lMarginFontName->setText(_settings->getMarginFont().family());
 	lMarginFontName->setFont(_settings->getMarginFont());
 	gbMarginEnabled->setChecked(_settings->getMarginEnabled());
 	tbMarginsForeground->setColor(_settings->getMarginForegroundColor());
 	tbMarginsBackground->setColor(_settings->getMarginBackgroundColor());
-	
+
 	gbMarginBookmarkEnabled->setChecked(_settings->getMarginBookmarkEnabled());
-	
+
 	gbFoldMarginEnabled->setChecked(_settings->getFolding() != QsciScintilla::NoFoldStyle);
 	if (_bgFoldStyle->button(_settings->getFolding()))
-		_bgFoldStyle->button(_settings->getFolding())->setChecked(true);	
+		_bgFoldStyle->button(_settings->getFolding())->setChecked(true);
 	tbFoldMarginForeground->setColor(_settings->getFoldMarginForegroundColor());
 	tbFoldMarginBackground->setColor(_settings->getFoldMarginBackgroundColor());
 	tbFoldSymbolForeground->setColor(_settings->getFoldSymbolForegroundColor());
 	tbFoldSymbolBackground->setColor(_settings->getFoldSymbolBackgroundColor());
-	
+
 	//  - Special Characters
 	_bgEolMode->button(_settings->getEolMode())->setChecked(true);
 	cbEolVisibility->setChecked(_settings->getEolVisibility());
@@ -374,7 +393,7 @@ void SettingsDialog::loadSettingsDialog(){
 	if (_bgEndWrapVisualFlag->button(_settings->getEndWrapVisualFlag()))
 		_bgEndWrapVisualFlag->button(_settings->getEndWrapVisualFlag())->setChecked(true);
 	sWrappedLineIndentWidth->setValue(_settings->getWrappedLineIndentWidth());
-		
+
 	// APIs
 	for (int i = 0; i < cbSourceAPIsLanguages->count(); i++)
 		cbSourceAPIsLanguages->setItemData(i, _settings->value("API/" + cbSourceAPIsLanguages->itemText(i)).toStringList());
@@ -390,11 +409,11 @@ void SettingsDialog::loadSettingsDialog(){
 			it->setText(1, e);
 		}
 	}
-	
+
 	//  Lexers Highlighting
 	foreach (QsciLexer* lex, _lexers)
 		lex->readSettings(*_settings);
-		
+
 	if ( cbLexersHighlightingLanguages->count() )
 		on_cbLexersHighlightingLanguages_currentIndexChanged( cbLexersHighlightingLanguages->itemText(0));
 }
@@ -408,23 +427,35 @@ void SettingsDialog::saveSettingsDialog(){
 		_settings->setShowToolBar("File", cbToolBarFile->checkState());
 		_settings->setShowToolBar("Edit", cbToolBarEdit->checkState());
 		_settings->setShowToolBar("View", cbToolBarView->checkState());
-		_settings->setShowToolBar("Macro", cbToolBarMacro->checkState());	
+		_settings->setShowToolBar("Macro", cbToolBarMacro->checkState());
 		// - Status Bar
 		_settings->setShowStatusBar(cbStatusBar->checkState());
 	}
 	// Editor
-	
+
 	//  General
 	_settings->setDefaultCodec(cbDefaultCodec->currentText());
-	
-	_settings->useSelectionForegroundColor(cbUseForeground->isChecked());	
+
+	_settings->useSelectionForegroundColor(cbUseForeground->isChecked());
 	_settings->setSelectionBackgroundColor(tbSelectionBackground->color());
 	_settings->setSelectionForegroundColor(tbSelectionForeground->color());
-	
+
 	_settings->setDocumentPen(tbDocumentPen->color());
 	_settings->setDocumentPaper(tbDocumentPaper->color());
-	_settings->setDocumentFont(lDocumentFontName->font());	
-	
+	_settings->setDocumentFont(lDocumentFontName->font());
+
+	//  Encoding
+	_settings->setDefaultCodec(cbDefaultCodec->currentText());
+	if(_bgBomEncoding->checkedId() == 0){
+		if(cbAddBomToNewFile->checkState())
+			_settings->setUnicodeBomUseMode(1);
+		else
+			_settings->setUnicodeBomUseMode(0);
+	}else{
+		_settings->setUnicodeBomUseMode(_bgBomEncoding->checkedId());
+	}
+	_settings->setTryAutoDetectCodec((bool)cbTryCharsetDetection->checkState());
+
 	//  AutoCompletion
 	if (gbAutoCompletionEnabled->isChecked())
 		_settings->setAutoCompletionSource((QsciScintilla::AutoCompletionSource)_bgAutoCompletionSource->checkedId());
@@ -434,7 +465,7 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setAutoCompletionReplaceWord(cbAutoCompletionReplaceWord->isChecked());
 	_settings->setAutoCompletionShowSingle(cbAutoCompletionShowSingle->isChecked());
 	_settings->setAutoCompletionThreshold(sAutoCompletionThreshold->value());
-	
+
 	//  Call Tips
 	_settings->setCallTipsStyle(QsciScintilla::CallTipsNone);
 	if (gbCalltipsEnabled->isChecked())
@@ -443,7 +474,7 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setCallTipsBackgroundColor(tbCalltipsBackground->color());
 	_settings->setCallTipsForegroundColor(tbCalltipsForeground->color());
 	_settings->setCallTipsHighlightColor(tbCalltipsHighlight->color());
-	
+
 	//  Indentation
 	_settings->setAutoIndent(cbAutoIndent->isChecked());
 	_settings->setBackspaceUnindents(cbBackspaceUnindents->isChecked());
@@ -455,9 +486,9 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setIndentationWidth(sIndentationWidth->value());
 	_settings->setIndentationGuidesBackgroundColor(tbIndentationGuidesBackground->color());
 	_settings->setIndentationGuidesForegroundColor(tbIndentationGuidesForeground->color());
-	
+
 	//	AStyle Indenter
-	_settings->beginGroup("AStyle");	
+	_settings->beginGroup("AStyle");
 	_settings->setValue("style", _bgASStyle->checkedId());
 	_settings->setValue("indentation_type", _bgASIndent->checkedId());
 	_settings->setValue("indentation_spt", spbSpacePerTab->value());
@@ -472,7 +503,7 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setValue("indent_labels", chkIndentLabels->isChecked());
 	_settings->setValue("indent_preprocessor", chkIndentPreprocessor->isChecked());
 	_settings->setValue("indent_column1comment", chkIndentColumnOneComment->isChecked());
-	
+
 	_settings->setValue("break_header_block",  chkBreakHeaderBlocks->isChecked());
 	_settings->setValue("break_all_block",  chkBreakAllBlocks->isChecked());
 	_settings->setValue("pad_operators",  chkPadOperators->isChecked());
@@ -482,7 +513,7 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setValue("unpad_parenthesis",  chkUnpadParenthesis->isChecked());
 	_settings->setValue("delete_empty_lines",  chkDeleteEmptyLines->isChecked());
 	_settings->setValue("fill_empty_lines", chkFillEmptyLines->isChecked());
-	
+
 	_settings->setValue("break_closing_brackets", chkBreakClosingBrackets->isChecked());
 	_settings->setValue("break_elseifs", chkBreakIfElseStatements->isChecked());
 	_settings->setValue("add_brackets", chkAddBrackets->isChecked());
@@ -492,8 +523,8 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setValue("convert_tabs", chkCOnvertTabs->isChecked());
 	_settings->setValue("pointer_align", cbPointerAlign->currentIndex());
 	_settings->endGroup();
-	
-	
+
+
 	//  Brace Matching
 	_settings->setBraceMatching(QsciScintilla::NoBraceMatch);
 	if (gbBraceMatchingEnabled->isChecked())
@@ -502,28 +533,28 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setMatchedBraceForegroundColor(tbMatchedBraceForeground->color());
 	_settings->setUnmatchedBraceBackgroundColor(tbUnmatchedBraceBackground->color());
 	_settings->setUnmatchedBraceForegroundColor(tbUnmatchedBraceForeground->color());
-	
+
 	//  Edge Mode
 	_settings->setEdgeMode(QsciScintilla::EdgeNone);
 	if (gbEdgeModeEnabled->isChecked())
 		_settings->setEdgeMode((QsciScintilla::EdgeMode)_bgEdgeMode->checkedId());
 	_settings->setEdgeColumn(sEdgeColumnNumber->value());
 	_settings->setEdgeColor(tbEdgeColor->color());
-	
+
 	//  Caret
 	_settings->setCaretLineVisible(gbCaretLineVisible->isChecked());
 	_settings->setCaretLineBackgroundColor(tbCaretLineBackground->color());
 	_settings->setCaretForegroundColor(tbCaretForeground->color());
 	_settings->setCaretWidth(sCaretWidth->value());
-	
+
 	//  Margins
 	_settings->setMarginEnabled(gbMarginEnabled->isChecked());
 	_settings->setMarginForegroundColor(tbMarginsForeground->color());
 	_settings->setMarginBackgroundColor(tbMarginsBackground->color());
-	_settings->setMarginFont(lMarginFontName->font());	
-	
+	_settings->setMarginFont(lMarginFontName->font());
+
 	_settings->setMarginBookmarkEnabled(gbMarginBookmarkEnabled->isChecked());
-	
+
 	_settings->setFoldMarginEnabled(gbFoldMarginEnabled->isChecked());
 	_settings->setFolding(QsciScintilla::NoFoldStyle);
 	if (gbFoldMarginEnabled->isChecked())
@@ -532,7 +563,7 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setFoldMarginBackgroundColor(tbFoldMarginBackground->color());
 	_settings->setFoldSymbolForegroundColor(tbFoldSymbolForeground->color());
 	_settings->setFoldSymbolBackgroundColor(tbFoldSymbolBackground->color());
-	
+
 	//  Special Characters
 	_settings->setEolMode((QsciScintilla::EolMode)_bgEolMode->checkedId());
 	_settings->setEolVisibility(cbEolVisibility->isChecked());
@@ -550,12 +581,12 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setEndWrapVisualFlag(QsciScintilla::WrapFlagNone);
 	if (gbWrapVisualFlagsEnabled->isChecked())
 		_settings->setEndWrapVisualFlag((QsciScintilla::WrapVisualFlag)_bgEndWrapVisualFlag->checkedId());
-	_settings->setWrappedLineIndentWidth(sWrappedLineIndentWidth->value());	
-	
+	_settings->setWrappedLineIndentWidth(sWrappedLineIndentWidth->value());
+
 	// Source APIs
 	for (int i = 0; i < cbSourceAPIsLanguages->count(); i++)
 		_settings->setValue("API/" + cbSourceAPIsLanguages->itemText(i), cbSourceAPIsLanguages->itemData(i).toStringList());
-	
+
 	// Lexers Associations
 	QMap<QString, QStringList> lexerAssociation;
 	for ( int i = 0; i < twLexersAssociations->topLevelItemCount(); i++ ){
@@ -563,7 +594,7 @@ void SettingsDialog::saveSettingsDialog(){
 		lexerAssociation[ it->text(0) ] << it->text(1);
 	}
 	_settings->setAssociations(lexerAssociation);
-	
+
 	//  Lexers Highlighting
 	foreach (QsciLexer* lex, _lexers){
 		lex->setDefaultPaper(_settings->getDocumentPaper());
@@ -588,7 +619,7 @@ void SettingsDialog::on_twMenu_itemSelectionChanged(){
 					swPages->setCurrentIndex(i);
 					break;
 				default:
-					swPages->setCurrentIndex(i + 12);
+					swPages->setCurrentIndex(i + 13);
 					break;
 			}
 		}
@@ -710,94 +741,94 @@ void SettingsDialog::on_cbLexersHighlightingLanguages_currentIndexChanged(const 
 			it->setData(Qt::UserRole, i);
 		}
 	}
-	
+
 	// value
 	QVariant v;
-	
+
 	// fold comments
 	v = LexerManager::lexerProperty( "foldComments", lexer );
 	cbLexersHighlightingFoldComments->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldComments->setChecked( v.toBool() );
-	
+
 	// fold compact
 	v = LexerManager::lexerProperty( "foldCompact", lexer );
 	cbLexersHighlightingFoldCompact->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldCompact->setChecked( v.toBool() );
-	
+
 	// fold quotes
 	v = LexerManager::lexerProperty( "foldQuotes", lexer );
 	cbLexersHighlightingFoldQuotes->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldQuotes->setChecked( v.toBool() );
-	
+
 	// fold directives
 	v = LexerManager::lexerProperty( "foldDirectives", lexer );
 	cbLexersHighlightingFoldDirectives->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldDirectives->setChecked( v.toBool() );
-	
+
 	// fold at begin
 	v = LexerManager::lexerProperty( "foldAtBegin", lexer );
 	cbLexersHighlightingFoldAtBegin->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldAtBegin->setChecked( v.toBool() );
-	
+
 	// fold at parenthesis
 	v = LexerManager::lexerProperty( "foldAtParenthesis", lexer );
 	cbLexersHighlightingFoldAtParenthesis->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldAtParenthesis->setChecked( v.toBool() );
-	
+
 	// fold at else
 	v = LexerManager::lexerProperty( "foldAtElse", lexer );
 	cbLexersHighlightingFoldAtElse->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldAtElse->setChecked( v.toBool() );
-	
+
 	// fold at module
 	v = LexerManager::lexerProperty( "foldAtModule", lexer );
 	cbLexersHighlightingFoldAtModule->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldAtModule->setChecked( v.toBool() );
-	
+
 	// fold preprocessor
 	v = LexerManager::lexerProperty( "foldPreprocessor", lexer );
 	cbLexersHighlightingFoldPreprocessor->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingFoldPreprocessor->setChecked( v.toBool() );
-	
+
 	// style preprocessor
 	v = LexerManager::lexerProperty( "stylePreprocessor", lexer );
 	cbLexersHighlightingStylePreprocessor->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingStylePreprocessor->setChecked( v.toBool() );
-	
+
 	// indent opening brace
 	cbLexersHighlightingIndentOpeningBrace->setChecked( lexer->autoIndentStyle() & QsciScintilla::AiOpening );
 	// indent closing brace
 	cbLexersHighlightingIndentClosingBrace->setChecked( lexer->autoIndentStyle() & QsciScintilla::AiClosing );
-	
+
 	// case sensitive tags
 	v = LexerManager::lexerProperty( "caseSensitiveTags", lexer );
 	cbLexersHighlightingCaseSensitiveTags->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingCaseSensitiveTags->setChecked( v.toBool() );
-	
+
 	// backslash escapes
 	v = LexerManager::lexerProperty( "backslashEscapes", lexer );
 	cbLexersHighlightingBackslashEscapes->setVisible( v.isValid() );
 	if ( v.isValid() )
 		cbLexersHighlightingBackslashEscapes->setChecked( v.toBool() );
-	
+
 	// indentation warning
 	v = LexerManager::lexerProperty( "indentationWarning", lexer );
 	lLexersHighlightingIndentationWarning->setVisible( v.isValid() );
 	cbLexersHighlightingIndentationWarning->setVisible( lLexersHighlightingIndentationWarning->isVisible() );
 	if ( v.isValid() )
 		cbLexersHighlightingIndentationWarning->setCurrentIndex( cbLexersHighlightingIndentationWarning->findData( v.toInt() ) );
-	
+
 }
 void SettingsDialog::on_lwLexersHighlightingElements_itemSelectionChanged(){
 	QListWidgetItem* it = lwLexersHighlightingElements->selectedItems().value(0);
@@ -816,7 +847,7 @@ void SettingsDialog::lexersHighlightingColour_clicked(){
 		// cancel if no item
 		if (!it)
 			return;
-			
+
 		// get color
 		color = QColorDialog::getColor(obj == pbLexersHighlightingForeground ? it->foreground().color() : it->background().color(), window());
 		// apply color
@@ -936,7 +967,7 @@ void SettingsDialog::on_pbLexersHighlightingReset_clicked(){
 void SettingsDialog::onStyleChanged(){
 	AStyleIndenter asi;
 	asi.setStyle((astyle::FormatStyle)_bgASStyle->checkedId());
-	//add extra option	
+	//add extra option
 	//indentation
 	switch(_bgASIndent->checkedId()){
 		case AS_INDENT_WITH_SPACES:
@@ -947,7 +978,7 @@ void SettingsDialog::onStyleChanged(){
 			break;
 		case AS_FORCE_INDENT_WITH_TABS:
 			asi.formatter().setTabIndentation(spbSpacePerTab->value(), true);
-			break;		
+			break;
 	}
 	//bracket
 	asi.formatter().setBracketFormatMode((astyle::BracketMode)_bgASBracket->checkedId());
@@ -976,7 +1007,7 @@ void SettingsDialog::onStyleChanged(){
 	asi.formatter().setParensUnPaddingMode((bool)chkUnpadParenthesis->checkState());
 	asi.formatter().setDeleteEmptyLinesMode((bool)chkDeleteEmptyLines->checkState());
 	asi.formatter().setEmptyLineFill((bool)chkFillEmptyLines->checkState());
-	
+
 	asi.formatter().setBreakClosingHeaderBracketsMode((bool)chkBreakClosingBrackets->checkState());
 	asi.formatter().setBreakElseIfsMode((bool)chkBreakIfElseStatements->checkState());
 	asi.formatter().setAddBracketsMode((bool)chkAddBrackets->checkState());
@@ -984,14 +1015,14 @@ void SettingsDialog::onStyleChanged(){
 	asi.formatter().setBreakOneLineBlocksMode((bool)chkKeepOneLineBlocks->checkState());
 	asi.formatter().setSingleStatementsMode((bool)chkKeepOneLineStatements->checkState());
 	asi.formatter().setTabSpaceConversionMode((bool)chkCOnvertTabs->checkState());
-	
+
 	if(cbPointerAlign->currentText() == "Attach to type")
 		asi.formatter().setPointerAlignment(astyle::ALIGN_TYPE);
 	else if(cbPointerAlign->currentText() == "Attach in middle")
 		asi.formatter().setPointerAlignment(astyle::ALIGN_MIDDLE);
 	else if(cbPointerAlign->currentText() == "Attach to name")
 		asi.formatter().setPointerAlignment(astyle::ALIGN_NAME);
-	
+
 	QString text = asi.format(tePreview->text());
 	tePreview->clear();
 	tePreview->insert(text);

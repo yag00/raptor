@@ -191,45 +191,6 @@
     <addaction name="menuFold_level"/>
     <addaction name="menuUnfold_level"/>
    </widget>
-   <widget class="QMenu" name="menuEncoding">
-    <property name="title">
-     <string>Encoding</string>
-    </property>
-    <widget class="QMenu" name="menuUseCharset">
-     <property name="title">
-      <string>Use Charset</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../ressources.qrc">
-       <normaloff>:/images/charset.png</normaloff>:/images/charset.png</iconset>
-     </property>
-    </widget>
-    <widget class="QMenu" name="menuSaveWithCharset">
-     <property name="title">
-      <string>Save with Charset</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../ressources.qrc">
-       <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
-     </property>
-    </widget>
-    <widget class="QMenu" name="menuSaveWithCharsetAs">
-     <property name="title">
-      <string>Save with Charset As</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../ressources.qrc">
-       <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
-     </property>
-    </widget>
-    <addaction name="actionConvertToWindowsFormat"/>
-    <addaction name="actionConvertToUnixFormat"/>
-    <addaction name="actionConvertToMacFormat"/>
-    <addaction name="separator"/>
-    <addaction name="menuUseCharset"/>
-    <addaction name="menuSaveWithCharset"/>
-    <addaction name="menuSaveWithCharsetAs"/>
-   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
@@ -282,6 +243,45 @@
     </property>
     <addaction name="actionDiff"/>
     <addaction name="actionDiffClearResult"/>
+   </widget>
+   <widget class="QMenu" name="menuEncoding">
+    <property name="title">
+     <string>Encoding</string>
+    </property>
+    <widget class="QMenu" name="menuUseCharset">
+     <property name="title">
+      <string>Use Charset</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/charset.png</normaloff>:/images/charset.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuSaveWithCharset">
+     <property name="title">
+      <string>Convert and Save with Charset</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuSaveWithCharsetAs">
+     <property name="title">
+      <string>Convert and Save with Charset As</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
+     </property>
+    </widget>
+    <addaction name="actionConvertToWindowsFormat"/>
+    <addaction name="actionConvertToUnixFormat"/>
+    <addaction name="actionConvertToMacFormat"/>
+    <addaction name="separator"/>
+    <addaction name="menuUseCharset"/>
+    <addaction name="menuSaveWithCharset"/>
+    <addaction name="menuSaveWithCharsetAs"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>

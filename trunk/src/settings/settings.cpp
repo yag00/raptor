@@ -9,7 +9,7 @@
 #include "../document_editor.h"
 #include "settings.h"
 
-Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings", parent_){
+Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings-dev", parent_){
 
 }
 
@@ -95,7 +95,10 @@ void Settings::applyToDocument(DocumentEditor* document_){
 	document_->setPaper(getDocumentPaper());
 	document_->setFont(getDocumentFont());
 
+	//Encoding
 	document_->setDefaultCodec(getDefaultCodec());
+	document_->setUnicodeBomUseMode((DocumentEditor::UnicodeBomUseMode)getUnicodeBomUseMode());
+	document_->setCharsetAutoDetection(getTryAutoDetectCodec());
 	
 	// Auto Completion
 	document_->setAutoCompletionCaseSensitivity(getAutoCompletionCaseSensitivity());
@@ -236,13 +239,6 @@ QStringList Settings::getRecentFiles(){
 // void setAutoEolConversion( bool convert );
 // bool autoEolConversion();
 
-void Settings::setDefaultCodec(const QString& codec){
-	setValue("Editor/DefaultCodec", codec);
-}
-QString Settings::getDefaultCodec(){
-	return value("Editor/DefaultCodec", "UTF-8").toString();
-}
-
 void Settings::useSelectionForegroundColor(bool useForegroundColor_){
 	setValue("Editor/useForeGroundColor", useForegroundColor_);
 }
@@ -290,6 +286,28 @@ QFont Settings::getDocumentFont(){
 #endif
 	f.fromString(value("Editor/font", f.toString()).toString());
 	return f;
+}
+
+//Encoding
+void Settings::setDefaultCodec(const QString& codec){
+	setValue("Encoding/DefaultCodec", codec);
+}
+QString Settings::getDefaultCodec(){
+	return value("Encoding/DefaultCodec", "UTF-8").toString();
+}
+
+void Settings::setUnicodeBomUseMode(int bomMode_){
+	setValue("Encoding/BOM", bomMode_);
+}
+int Settings::getUnicodeBomUseMode(){
+	return value("Encoding/BOM", 0).toInt();
+}
+
+void Settings::setTryAutoDetectCodec(bool auto_){
+	setValue("Encoding/autoDetect", auto_);
+}
+bool Settings::getTryAutoDetectCodec(){
+	return value("Encoding/autoDetect", true).toBool();
 }
 
 // Auto Completion

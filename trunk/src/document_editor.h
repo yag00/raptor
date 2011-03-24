@@ -40,13 +40,13 @@ class DocumentEditor : public ScintillaExt {
 		/** @return true if the document is cloned */
 		bool isCloned() const;
 		
+
 		/** enable/disable auto detection of eol 
 		 * @param enable_ enable/disable*/
 		void setAutoDetectEol(bool enable_);
 		/** enable/disable auto detection of indentation 
 		 * @param enable_ enable/disable*/
-		void setAutoDetectIndent(bool enable_);
-		
+		void setAutoDetectIndent(bool enable_);		
 		
 		const QList<int>& bookmarks() const { return _bookmarks; }
 		QStringList bookmarkedLinesToStringList();
@@ -57,22 +57,40 @@ class DocumentEditor : public ScintillaExt {
 		/** detach the clone */
 		void detachClone();
 		
+		
 		/** @return the codec used by the document */
 		QString getCodec() const;
 		/** set the codec to used for the document 
+		 * NOTE : changing the codec will relaod the document and reset the undo list
 		 * @param codec_ codec name
-		 * NOTE : changing the codec will reset the undo list
 		 * @return true if document was reloaded */
 		bool setCodec(const QString& codec_);
-		/** set the codec to used by default for the document */
+		/** set the codec to used by default for the document 
+		 * do nothing if a codec as already be set 
+		 * @param codec_ codec name */
 		void setDefaultCodec(const QString& codec_);
 		
+		//! This enum defines the different bom behaviour in case of unicode charset.
+		enum UnicodeBomUseMode { 
+			//! leave the bom as is (ie do not add or remove the bom on the file)
+			//! do not add a bom on new file
+			BomLeaveAsIs, 
+			//! leave the bom as is (ie do not add or remove the bom on the file)
+			//! add a bom on new file			
+			BomLeaveAsIsAddToNewFile, 
+			//! always add a bom on the file
+			BomAlwaysAdd, 
+			//! always remove the bom on the file
+			BomAlwaysRemove 
+		};
+		/** set the unicode bom use mode 
+		 * @param bomMode_ bom mode */
+		void setUnicodeBomUseMode(UnicodeBomUseMode bomMode_);
+		/** enable/disable the charset auto detection
+		 * @param autoDetect_ if true enable charset auto detection */
+		void setCharsetAutoDetection(bool autoDetect_);
+		
 	protected:
-		/** auto detect eol */
-		void autoDetectEol();
-		/** auto detect indentation */
-		void autoDetectIndent();
-	
 		/** reimplement focusInEvent */
 		virtual void focusInEvent(QFocusEvent *event_);
 		/** reimplement focusOutEvent */
@@ -104,10 +122,7 @@ class DocumentEditor : public ScintillaExt {
 		/** go to the previous bookmark */
 		void prevBookmark();
 		
-		//highlighting slots
-		void applyIndicator(int start_, int end_, int id_);
-		void applyIndicator(const QString &text_, int id1_, int id2_ = -1);
-		void clearIndicators(int id1_, int id2_ = -1);		
+	
 		
 		/** load a file
 		 * @param fileName file name
@@ -133,7 +148,6 @@ class DocumentEditor : public ScintillaExt {
 		 * @return true if saved */
 		bool saveWithCharsetAs(const QString& codec_);
 		
-	protected slots:		
 		/** check if document is modified and ask if we need to save it
 		 * @return true if we need to save it */
 		bool maybeSave();
@@ -143,39 +157,38 @@ class DocumentEditor : public ScintillaExt {
 		/** quick print */
 		void quickPrint();
 		
-		
-		void selectedTextChanged();
-
-	    // highlighting
-		void createIndicator(int id_, int type_, const QColor &color_, bool under_ = true);
-		void highlightVisible(const QString &text_, int id1_, int id2_);
-		void checkHighlight();
-		
+	protected slots:
+	
 		void toggleBookmark(int margin_, int line_,	Qt::KeyboardModifiers state_);
 				
 	private:
 		bool saveFile(const QString &fileName_);
 		bool saveCopy(const QString &fileName_);
-
+		
+		/** @return true if document need a bom */
+		bool needBOM();
+		
+		/** auto detect eol */
+		void autoDetectEol();
+		/** auto detect indentation */
+		void autoDetectIndent();
+		
 		/** document path + fileName */
 		QString _fullPath;
 		/** document type */
 		QString _type;
 		/** hold if document is new */
 		bool _isNew;
-				
-		/** hold auto detect eol property */
-		bool _autoDetectEol;
-		/** hold auto detect indent property */
-		bool _autoDetectIndent;
+
 	
 		/** bookmarks list */
 		QList<int> _bookmarks;
 		
-		/** highlight marker */
-		int _HLID1, _HLID2;
-		/** highlight text */
-		QString _HLText;
+		
+		/** hold auto detect eol property */
+		bool _autoDetectEol;
+		/** hold auto detect indent property */
+		bool _autoDetectIndent;
 		
 		/** Macro */
 		QsciMacro* _macro;
@@ -187,8 +200,11 @@ class DocumentEditor : public ScintillaExt {
 		
 		/** codec */
 		QString _codec;
+		UnicodeBomUseMode _bomMode;
+		bool _hasBom;
+		bool _charsetAutoDetect;
 		
-	friend class DocumentView;
+	//friend class DocumentView;
 };
 
 #endif /* __DOCUMENT_EDITOR_H__ */

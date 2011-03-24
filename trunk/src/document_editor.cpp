@@ -10,59 +10,36 @@
 #include "settings/settings.h"
 #include "document_editor.h"
 
-#define INDICATOR_SEARCH          0
-#define INDICATOR_QUICK_SEARCH1   1
-#define INDICATOR_QUICK_SEARCH2   2
-
-#define INDICATOR_HIGHLIGHT1      3
-#define INDICATOR_HIGHLIGHT2      4
-#define INDICATOR_HIGHLIGHT3      5
-#define INDICATOR_HIGHLIGHT4      6
-#define INDICATOR_HIGHLIGHT5      7
-#define INDICATOR_HIGHLIGHT6      8
 
 #define MARKER_BOOK       0
 #define MARKER_BOOK_MASK  (1 << MARKER_BOOK)
 
-namespace{
-	struct CharacterRange {
-		long cpMin;
-		long cpMax;
-	};
-
-	struct TextRange {
-		struct CharacterRange chrg;
-		char *lpstrText;
-	};
-
-	struct TextToFind {
-		struct CharacterRange chrg;
-		char *lpstrText;
-		struct CharacterRange chrgText;
-	};
-}
 
 DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
+	//codec
 	setUtf8(true);
-	_HLID1 = -1;
-	_HLID2 = -1;
+	_codec = "";
+	_bomMode = BomLeaveAsIs;
+	_hasBom = false;
+	_charsetAutoDetect = true;
+
 	_autoDetectEol = false;
 	_autoDetectIndent = false;
+
 	_isNew = true;
 	_isCloned = false;
 	_clone = 0;
 	_type = "Normal Text file";
 	_fullPath = "";
-	_codec = "";
 
 	//macro
 	_macro = new QsciMacro(this);
-	
+
 	//load settings
 	Settings settings;
 	settings.applyToDocument(this);
 
-	//	set the 1st margin accept markers 
+	//	set the 1st margin accept markers
 	//	number 1 and 2 (binary mask 00000110 == 6)
 	//setMarginMarkerMask(1, 7);
 
@@ -86,30 +63,32 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 	createIndicator(INDICATOR_HIGHLIGHT4, INDIC_ROUNDBOX, Qt::red);
 	createIndicator(INDICATOR_HIGHLIGHT5, INDIC_ROUNDBOX, Qt::blue);
 	createIndicator(INDICATOR_HIGHLIGHT6, INDIC_ROUNDBOX, Qt::yellow);
-	
+
 	//connection
-	connect(this, SIGNAL(selectionChanged()), this, SLOT(selectedTextChanged()));
-	connect(this, SIGNAL(linesChanged()), this, SLOT(checkHighlight()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(checkHighlight()));
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
 DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_){
+	//codec
 	setUtf8(true);
-	_HLID1 = -1;
-	_HLID2 = -1;
+	_codec = document_->_codec;
+	_bomMode = document_->_bomMode;
+	_hasBom = document_->_hasBom;
+	_charsetAutoDetect = document_->_charsetAutoDetect;
+
+	//document info
 	_autoDetectEol = document_->_autoDetectEol;
 	_autoDetectIndent = document_->_autoDetectIndent;
-	_codec = document_->_codec;	
 	_isNew = document_->isNew();
 	_fullPath = document_->getFullPath();
 	_type = document_->getType();
+
 	setDocument(document_->document());
-	
+
 	_clone = document_;
 	_isCloned = true;
 	document_->_clone = this;
 	document_->_isCloned = true;
-	
+
 	QsciLexer* l = document_->lexer();
 	if(l != 0){
 		QString lexLang = l->language();
@@ -121,20 +100,17 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 		setLexer(newLex);
 		_type = LexerManager::getInstance().getFileType(lexer());
 	}
-	
+
 	//macro
 	_macro = new QsciMacro(this);
-	
+
 	//load settings
 	Settings settings;
 	settings.applyToDocument(this);
 
 	markerDefine(QPixmap(":/images/ledblue.png").scaled(40,16, Qt::KeepAspectRatio, Qt::SmoothTransformation), MARKER_BOOK);
-	
+
 	//connection
-	connect(this, SIGNAL(selectionChanged()), this, SLOT(selectedTextChanged()));
-	connect(this, SIGNAL(linesChanged()), this, SLOT(checkHighlight()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(checkHighlight()));	
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
 
@@ -185,7 +161,7 @@ void DocumentEditor::print(bool quick_){
 			QMessageBox::warning(this, tr("Application"), tr( "There is no default printer, please set one before trying quick print" ));
 			return;
 		}
-		
+
 		// print and return
 		p.printRange(this);
 		return;
@@ -216,7 +192,7 @@ bool DocumentEditor::save(){
         return saveFile(_fullPath);
     }
 }
-bool DocumentEditor::saveAs(){	
+bool DocumentEditor::saveAs(){
     QString fileName = QFileDialog::getSaveFileName(this);
     if (fileName.isEmpty())
         return false;
@@ -249,63 +225,62 @@ bool DocumentEditor::saveFile(const QString &fileName_){
 	QFile file(fileName_);
     if (!file.open(QFile::WriteOnly)) {
         QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot write file %1:\n%2.")
+                             tr("Cannot save file %1:\n%2.")
                              .arg(fileName_)
                              .arg(file.errorString()));
         return false;
     }
 
-    QApplication::setOverrideCursor(Qt::WaitCursor);
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0){
 		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot write file %1:\nUnsupported charset %2 !!")
+					 tr("Cannot save file %1:\nUnsupported charset %2 !!")
 					 .arg(fileName_).arg(_codec));
 		return false;
 	}
-	file.resize(0);
-	bool ok = (file.write(codec->fromUnicode(text())) != -1);
-	if(ok){
-		_fullPath = fileName_;
-		setModified(false);
-		_isNew = false;	
-	}else{
-		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot write file %1:\n%2.")
-					 .arg(fileName_)
-					 .arg(file.errorString()));
-	}
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	//file.resize(0);
+	//file.write(codec->fromUnicode(text()));
+	QTextStream out(&file);
+	out.setCodec(codec);
+	out.setGenerateByteOrderMark(needBOM());
+	out << text();
+
+	_fullPath = fileName_;
+	setModified(false);
+	_isNew = false;
+
     QApplication::restoreOverrideCursor();
-    return ok;
+    return true;
 }
 bool DocumentEditor::saveCopy(const QString &fileName_){
-    QFile file(fileName_);
+	QFile file(fileName_);
     if (!file.open(QFile::WriteOnly)) {
         QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot write file %1:\n%2.")
+                             tr("Cannot save file %1:\n%2.")
                              .arg(fileName_)
                              .arg(file.errorString()));
         return false;
     }
 
-    QApplication::setOverrideCursor(Qt::WaitCursor);
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0){
 		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot write file %1:\nUnsupported charset %2 !!")
+					 tr("Cannot save file %1:\nUnsupported charset %2 !!")
 					 .arg(fileName_).arg(_codec));
 		return false;
 	}
-	file.resize(0);
-	bool ok = (file.write(codec->fromUnicode(text())) != -1);
-	if(!ok){
-		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot write file %1:\n%2.")
-					 .arg(fileName_)
-					 .arg(file.errorString()));
-	}
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	//file.resize(0);
+	//file.write(codec->fromUnicode(text()));
+	QTextStream out(&file);
+	out.setCodec(codec);
+	out.setGenerateByteOrderMark(needBOM());
+	out << text();
     QApplication::restoreOverrideCursor();
-    return ok;
+    return true;
 }
 bool DocumentEditor::saveWithCharset(const QString& codec_){
 	_codec = codec_;
@@ -329,28 +304,31 @@ bool DocumentEditor::load(const QString &fileName_){
                              .arg(file.errorString()));
         return false;
     }
+
+	///@todo charset detection and bom information
 	
-    QApplication::setOverrideCursor(Qt::WaitCursor);	
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0){
 		QMessageBox::critical(this, tr("Application"),
 					 tr("Cannot load file %1:\nUnsupported charset %2 !!")
 					 .arg(fileName_).arg(_codec));
 		return false;
-	}	
+	}
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
 	QString data = codec->toUnicode(file.readAll());
 	setText(data);
-    QApplication::restoreOverrideCursor();
-
+    	
 	_fullPath = fileName_;
 	_isNew = false;
 	setModified(false);
-	
+
 	if(_autoDetectEol)
 		autoDetectEol();
 	if(_autoDetectIndent)
 		autoDetectIndent();
-	
+
 	//add lexer
 	QsciLexer* l = lexer();
 	if(l != 0)
@@ -360,6 +338,9 @@ bool DocumentEditor::load(const QString &fileName_){
 	//reload settings for lexer
 	Settings settings;
 	settings.applyToDocument(this);
+	
+	QApplication::restoreOverrideCursor();
+	
 	return true;
 }
 bool DocumentEditor::reload(){
@@ -399,8 +380,9 @@ void DocumentEditor::setLanguage(const QString &language_){
 	_type = LexerManager::getInstance().getFileType(lexer());
 	//reload settings for lexer
 	Settings settings;
-	settings.applyToDocument(this);	
+	settings.applyToDocument(this);
 }
+
 
 void DocumentEditor::setAutoDetectEol(bool enable_){
 	_autoDetectEol = enable_;
@@ -423,7 +405,7 @@ void DocumentEditor::autoDetectIndent() {
 		setIndentationsUseTabs(true);
 		return;
 	}
-	
+
 	QRegExp spaceRe = QRegExp ("\n( +)");
 	matchIntex = spaceRe.indexIn (currText);
 	if (matchIntex != -1) // Use spaces
@@ -432,7 +414,6 @@ void DocumentEditor::autoDetectIndent() {
 		return;
 	}
 }
-
 void DocumentEditor::autoDetectEol() {
 	QString currText = text();
 	if (currText.indexOf("\r\n") != -1) {
@@ -446,8 +427,10 @@ void DocumentEditor::autoDetectEol() {
 	if (currText.indexOf("\r") != -1) {
 		setEolMode(QsciScintilla::EolMac);
 		return;
-	}	
+	}
 }
+
+
 
 void DocumentEditor::focusInEvent(QFocusEvent *event_){
 	ScintillaExt::focusInEvent(event_);
@@ -460,94 +443,6 @@ void DocumentEditor::focusOutEvent(QFocusEvent *event_){
 	event_->accept();
 }
 
-void DocumentEditor::selectedTextChanged(){
-	if (selectedText().size() > 1){
-		// apply quick markup
-		applyIndicator(selectedText(), INDICATOR_QUICK_SEARCH1, INDICATOR_QUICK_SEARCH2);
-	} else{
-		// remove quick markup
-		clearIndicators(INDICATOR_QUICK_SEARCH1, INDICATOR_QUICK_SEARCH2);
-	}
-	return;
-	
-	/*// save target locations for other search functions
-	int originalStartPos = SendScintilla(SCI_GETTARGETSTART);
-	int originalEndPos = SendScintilla(SCI_GETTARGETEND);
-	
-	//clear marker
-	//SendScintilla(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE_SMART);
-	SendScintilla(SCI_INDICATORCLEARRANGE, 0, text().length());
-	
-
-	QString selection = selectedText();
-	if(selection == "")
-		return;
-	if(!isQualifiedWord(selection))
-		return;
-
-	int lineFrom, lineTo, indexFrom, indexTo;
-	getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
-	if(lineFrom != lineTo)
-		return;
-	QString textLine = text(lineFrom);
-	if (isWordChar(textLine[indexFrom-1].toAscii()))
-		return;
-	if (isWordChar(textLine[indexTo].toAscii()))
-		return;
-
-
-		
-	//a single word is selected, highlight the word in the whole document 
-	qDebug() << selection << " " << lineFrom << " " << indexFrom << " " << lineTo << " " << indexTo;
-	//setSelectionBackgroundColor(QColor(0,255,0));
-	
-	
-	int firstLine =		SendScintilla(SCI_GETFIRSTVISIBLELINE);
-	int nrLines =		SendScintilla(SCI_LINESONSCREEN);
-	int lastLine =		firstLine+nrLines;
-	int startPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, firstLine);
-	int endPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, lastLine);
-	
-	int currentLine = firstLine;
-	int prevDocLineChecked = -1;	//invalid start
-	
-	for(; currentLine < lastLine; currentLine++) {
-		int docLine = SendScintilla(SCI_DOCLINEFROMVISIBLE, currentLine);
-		if (docLine == prevDocLineChecked)
-			continue;	//still on same line (wordwrap)
-		prevDocLineChecked = docLine;
-		startPos = SendScintilla(SCI_POSITIONFROMLINE, docLine);
-		endPos = SendScintilla(SCI_POSITIONFROMLINE, docLine+1);
-		
-		int targetStart = 0;
-		int targetEnd = 0;
-
-		//Initial range for searching
-		SendScintilla(SCI_SETSEARCHFLAGS, SCFIND_WHOLEWORD);
-		targetStart = searchInTarget(selection.toStdString().c_str(), selection.size(), startPos, endPos);
-		qDebug() << currentLine << " " << startPos << " " << endPos << " " << targetStart;
-		
-		while (targetStart != -1){
-			targetStart = SendScintilla(SCI_GETTARGETSTART);
-			targetEnd = SendScintilla(SCI_GETTARGETEND);
-			if (targetEnd > endPos) {	//we found a result but outside our range, therefore do not process it
-				break;
-			}
-			//SendScintilla(SCI_INDICSETSTYLE, 0, SCE_UNIVERSAL_TAGMATCH);
-			//SendScintilla(SCI_INDICSETSTYLE, 0, INDIC_ROUNDBOX );
-			//SendScintilla(SCI_INDICSETFORE, 0, 0x00ff00);
-			//SendScintilla(SCI_INDICSETALPHA, 0, 255);
-			SendScintilla(SCI_INDICATORFILLRANGE,  targetStart, selection.size());
-			
-			startPos = targetStart + selection.size();
-			targetStart = searchInTarget(selection.toStdString().c_str(), selection.size(), startPos, endPos);
-		}
-	}
-	
-	// restore the original targets to avoid conflicts with the search/replace functions
-	SendScintilla(SCI_SETTARGETSTART, originalStartPos);
-	SendScintilla(SCI_SETTARGETEND, originalEndPos);*/
-}
 
 QsciMacro* DocumentEditor::getMacro() const{
 	return _macro;
@@ -559,7 +454,7 @@ bool DocumentEditor::isCloned() const{
 }
 void DocumentEditor::detachClone(){
 	//QsciLexer* l = lexer();
-	
+
 	//setDocument(_clone->document());
 	/*if(l != 0){
 		QString lexLang = l->language();
@@ -572,7 +467,7 @@ void DocumentEditor::detachClone(){
 		qDebug() << newLex->language();
 		setLexer(newLex);
 	}
-	
+
 	Settings settings;
 	settings.applyToDocument(this);*/
 	_clone = 0;
@@ -677,109 +572,6 @@ void DocumentEditor::setBookmarks(const QStringList& lines_) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void DocumentEditor::createIndicator(int id_, int type_, const QColor &color_, bool under_) {
-	SendScintilla(SCI_INDICSETSTYLE, id_, type_);
-	SendScintilla(SCI_INDICSETFORE, id_, color_);
-	//SendScintilla(SCI_INDICSETALPHA, id_, color_.alpha());
-	SendScintilla(SCI_INDICSETALPHA, id_, 100);
-	SendScintilla(SCI_INDICSETUNDER, id_, under_);
-}
-
-void DocumentEditor::applyIndicator(int start_, int end_, int id_){
-	SendScintilla(SCI_SETINDICATORCURRENT, id_);
-	SendScintilla(SCI_INDICATORFILLRANGE, start_, end_-start_);
-}
-
-void DocumentEditor::clearIndicators(int id1_, int id2_){
-	SendScintilla(SCI_SETINDICATORCURRENT, id1_);
-	SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
-
-	if (id2_ >= 0){
-		SendScintilla(SCI_SETINDICATORCURRENT, id2_);
-		SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
-	}
-
-	if (id1_ == _HLID1)
-	_HLID1 = -1;
-	if (id2_ == _HLID2)
-	_HLID2 = -1;
-}
-
-void DocumentEditor::applyIndicator(const QString &text_, int id1_, int id2_){
-	clearIndicators(id1_);
-	clearIndicators(id2_);
-
-	_HLText = text_;
-	_HLID1 = id1_;
-	_HLID2 = id2_;
-	highlightVisible(text_, id1_, id2_);
-}
-
-void DocumentEditor::checkHighlight(){
-	if (_HLID1 >= 0)
-		highlightVisible(_HLText, _HLID1, _HLID2);
-}
-
-void DocumentEditor::highlightVisible(const QString &text_, int id1_, int id2_){
-	if (text_.simplified().isEmpty())
-		return;
-
-	int line1 = firstVisibleLine();   // visual coords
-	line1 = SendScintilla(SCI_DOCLINEFROMVISIBLE, line1);   // document coords
-	if (line1 < 0) 
-		line1 = 0;
-	int line2 = line1 + linesVisible() + 2;
-
-	for (int i = line1; i <= line2; i++){
-		if (SendScintilla(SCI_GETLINEVISIBLE, i) == false)
-			line2++;
-	}
-
-	int pos1 = positionFromLineIndex(line1, 0);
-	if (pos1 < 0) 
-		pos1 = 0;
-	int pos2 = positionFromLineIndex(line2, 0);
-	if (pos2 < 0) 
-		pos2 = length();
-
-	///@todo make it configurable
-	int flags = 0;//SCFIND_MATCHCASE | SCFIND_WHOLEWORD | SCFIND_WORDSTART;
-	TextToFind ttf;
-	ttf.chrg.cpMin = pos1;
-	ttf.chrg.cpMax = pos2;
-
-	TextRange tr;
-	char buf[text_.length() * 2 + 2];
-
-	int res;
-	QByteArray ba = text_.toUtf8();
-	do {
-		ttf.lpstrText = ba.data();
-		res = SendScintilla(SCI_FINDTEXT, flags, &ttf);
-		if (res < 0)
-			break;
-
-		ttf.chrg.cpMin = ttf.chrgText.cpMax;
-
-		// markup
-		if (id2_ < 0)
-			SendScintilla(SCI_SETINDICATORCURRENT, id1_);
-		else {
-			tr.chrg = ttf.chrgText;
-			tr.lpstrText = buf;
-			SendScintilla(SCI_GETTEXTRANGE, 0, &tr);
-			QString txt = QString::fromUtf8(tr.lpstrText);
-			SendScintilla(SCI_SETINDICATORCURRENT, txt == text_ ? id1_ : id2_);
-		}
-
-		SendScintilla(SCI_INDICATORFILLRANGE, ttf.chrgText.cpMin, ttf.chrgText.cpMax-ttf.chrgText.cpMin);
-	} while (res >= 0);
-
-	// remove selection
-	pos1 = SendScintilla(SCI_GETSELECTIONSTART);
-	pos2 = SendScintilla(SCI_GETSELECTIONEND);
-	SendScintilla(SCI_INDICATORCLEARRANGE, pos1, pos2-pos1);
-}
 
 QString DocumentEditor::getCodec() const{
 	return _codec;
@@ -796,8 +588,10 @@ bool DocumentEditor::setCodec(const QString& codec_){
 			if (ret == QMessageBox::No)
 				return false;
 		}
-		
+
 		_codec = codec_;
+		if(isNew())
+			return false;
 		return load(getFullPath());
 	}
 	return false;
@@ -806,5 +600,30 @@ bool DocumentEditor::setCodec(const QString& codec_){
 void DocumentEditor::setDefaultCodec(const QString& codec_){
 	if(_codec.isEmpty()){
 		_codec = codec_;
+	}
+}
+
+void DocumentEditor::setUnicodeBomUseMode(DocumentEditor::UnicodeBomUseMode bomMode_){
+	_bomMode = bomMode_;
+}
+
+void DocumentEditor::setCharsetAutoDetection(bool autoDetect_){
+	_charsetAutoDetect = autoDetect_;
+}
+
+bool DocumentEditor::needBOM(){
+	switch (_bomMode){
+		case BomLeaveAsIs:
+			return _hasBom;
+		case BomLeaveAsIsAddToNewFile:
+			if(isNew())
+				return true;
+			return _hasBom;
+		case BomAlwaysAdd:
+			return true;
+		case BomAlwaysRemove:
+			return false;
+		default:
+			return false;
 	}
 }
