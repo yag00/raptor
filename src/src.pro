@@ -69,7 +69,6 @@ SOURCES       *= main.cpp \
 
 FORMS *= mainwindow.ui \
 		 settings.ui \
-		 shortcut.ui \
 		 search.ui \
 		 macro.ui \
 		 about.ui
