@@ -6,6 +6,7 @@ include( AStyle.pri )
 TEMPLATE = lib
 TARGET = astyle
 
+CONFIG  += debug_and_release
 CONFIG	+= staticlib
 
 HEADERS	= 	$$ASTYLE_VERSION/src/astyle.h

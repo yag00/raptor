@@ -262,7 +262,8 @@ void ScintillaExt::setLineNumbersMarginEnabled(bool enable_){
 }
 
 void ScintillaExt::setNoSelectionForegroundColor(){
-	SendScintilla(SCI_SETSELFORE, 0, QColor::QColor());
+	QColor color;
+	SendScintilla(SCI_SETSELFORE, 0, color);
 }
 
 void ScintillaExt::updateLineNumberWidth() {

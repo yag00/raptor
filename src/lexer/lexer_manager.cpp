@@ -40,6 +40,7 @@
 #include "lexer_manager.h"
 
 LexerManager::LexerManager(QWidget* parent_){
+	(void)parent_;
 	//Load Lexer association
 	Settings settings;
 	setAssociationList(settings.getAssociations());
