@@ -7,11 +7,12 @@ include( ../ext/qt-solutions/qtsingleapplication/src/qtsingleapplication.pri )
 #include( ../ext/GoogleDiffMatchPatch/GoogleDiffMatchPatch.pri )
 #include( ../ext/dtl/dtl.pri )
 
-
 TEMPLATE	= app
 TARGET		= $$PACKAGE_NAME
 DESTDIR		= $$PACKAGE_DESTDIR
 
+CONFIG  += debug_and_release
+CONFIG  += warn_on
 
 INCLUDE_PATH *= . $$PWD $$PWD/ui $$PWD/widget $$PWD/lexer $$PWD/settings $$PWD/astyle $$PWD/about
 
@@ -68,6 +69,7 @@ SOURCES       *= main.cpp \
 
 FORMS *= mainwindow.ui \
 		 settings.ui \
+		 shortcut.ui \
 		 search.ui \
 		 macro.ui \
 		 about.ui
@@ -82,4 +84,5 @@ LIBS += -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2
 # define variable for source code
 DEFINES	*= "PACKAGE_NAME=\"\\\"$${PACKAGE_NAME_CAPITALIZE}\\\"\"" \
 		   "PACKAGE_VERSION=\"\\\"$${PACKAGE_VERSION}\\\"\"" \
-		   "PACKAGE_DESCRIPTION=\"\\\"$${PACKAGE_DESCRIPTION}\\\"\"" \
+		   "PACKAGE_DESCRIPTION=\"\\\"$${PACKAGE_DESCRIPTION}\\\"\""
+
