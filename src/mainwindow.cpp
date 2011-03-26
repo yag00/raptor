@@ -11,6 +11,7 @@
 #include "document_view.h"
 #include "document_manager.h"
 #include "lexer/lexer_manager.h"
+#include "widget/MenuLabel.h"
 
 #include "mainwindow.h"
 
@@ -273,14 +274,18 @@ void MainWindow::createDocumentManager() {
 }
 
 void MainWindow::createStatusBar() {
-	/*_insLabel = new QLabel("INS", this);
-	_insLabel->setFrameShape(QFrame::Panel);
-	_insLabel->setFrameShadow(QFrame::Sunken);
-	_majLabel = new QLabel("MAJ", this);
-	_majLabel->setFrameShape(QFrame::Panel);
-	_majLabel->setFrameShadow(QFrame::Sunken);*/
-	_encodingLabel = new QLabel("??", this);
-	_formatLabel = new QLabel(this);
+	_encodingLabel = new MenuLabel(this);
+	_encodingLabel->setText("??");
+	_encodingLabel->getMenu()->addMenu(menuUseCharset);
+	_encodingLabel->getMenu()->addMenu(menuSaveWithCharset);
+	_encodingLabel->getMenu()->addMenu(menuSaveWithCharsetAs);
+	_encodingLabel->getMenu()->addMenu(menuForceSaveWithCharsetAs);
+
+	_formatLabel = new MenuLabel(this);
+	_formatLabel->getMenu()->addAction(actionConvertToWindowsFormat);
+	_formatLabel->getMenu()->addAction(actionConvertToUnixFormat);
+	_formatLabel->getMenu()->addAction(actionConvertToMacFormat);
+	
 	_editInfoLabel = new QLabel(this);
 	_fileInfoLabel = new QLabel(this);
 	_fileTypeLabel = new QLabel(this);
@@ -290,8 +295,6 @@ void MainWindow::createStatusBar() {
 	statusBar()->addWidget(_editInfoLabel, 3);
 	statusBar()->addPermanentWidget(_encodingLabel);
 	statusBar()->addPermanentWidget(_formatLabel);
-	/*statusBar()->addPermanentWidget(_majLabel);
-	statusBar()->addPermanentWidget(_insLabel);*/
 }
 
 QAction* MainWindow::createSearchDock() {

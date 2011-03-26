@@ -9,6 +9,7 @@ class QAction;
 class QLabel;
 class QsciScintilla;
 
+class MenuLabel;
 class DocumentEditor;
 class DocumentManager;
 
@@ -173,10 +174,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		QDockWidget* _searchDock;
 		
 		/** status bar widget */
-		//QLabel* _insLabel;
-		//QLabel* _majLabel;
-		QLabel* _encodingLabel;
-		QLabel* _formatLabel;
+		MenuLabel* _encodingLabel;
+		MenuLabel* _formatLabel;
 		QLabel* _editInfoLabel;
 		QLabel* _fileInfoLabel;
 		QLabel* _fileTypeLabel;
