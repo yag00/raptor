@@ -15,7 +15,7 @@
 #define MARKER_BOOK_MASK  (1 << MARKER_BOOK)
 
 
-DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
+DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_) {
 	//codec
 	setUtf8(true);
 	_codec = "";
@@ -67,7 +67,7 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_){
 	//connection
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
-DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_){
+DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_) {
 	//codec
 	setUtf8(true);
 	_codec = document_->_codec;
@@ -90,10 +90,10 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 	document_->_isCloned = true;
 
 	QsciLexer* l = document_->lexer();
-	if(l != 0){
+	if(l != 0) {
 		QString lexLang = l->language();
 		QsciLexer* newLex = LexerManager::getInstance().lexerFactory(lexLang, this);
-		if(newLex == 0){
+		if(newLex == 0) {
 			//could not find the lexer
 			newLex = LexerManager::getInstance().getAutoLexer(this);
 		}
@@ -114,50 +114,50 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
 
-DocumentEditor::~DocumentEditor(){
-	if(isCloned()){
+DocumentEditor::~DocumentEditor() {
+	if(isCloned()) {
 		_clone->detachClone();
 		_clone->setLexer();
 	}
 }
 
-QString DocumentEditor::getName() const{
+QString DocumentEditor::getName() const {
 	return QFileInfo(_fullPath).fileName();
 }
-QString DocumentEditor::getFullPath() const{
+QString DocumentEditor::getFullPath() const {
 	return _fullPath;
 }
-QString DocumentEditor::getPath() const{
+QString DocumentEditor::getPath() const {
 	return QFileInfo(_fullPath).path();
 }
-QString DocumentEditor::getType() const{
+QString DocumentEditor::getType() const {
 	return _type;
 }
 
-bool DocumentEditor::stillExist() const{
+bool DocumentEditor::stillExist() const {
 	if(isNew())
 		return true;
 
 	if(QFile(_fullPath).exists())
 		return true;
-	else{
+	else {
 		return false;
 	}
 }
-bool DocumentEditor::isNew() const{
+bool DocumentEditor::isNew() const {
 	return _isNew;
 }
 
-void DocumentEditor::print(bool quick_){
+void DocumentEditor::print(bool quick_) {
 	// get printer
 	QsciPrinter p;
 	// set wrapmode
 	p.setWrapMode(WrapWord);
 
 	// if quick print
-	if (quick_){
+	if (quick_) {
 		// check if default printer is set
-		if ( p.printerName().isEmpty() ){
+		if ( p.printerName().isEmpty() ) {
 			QMessageBox::warning(this, tr("Application"), tr( "There is no default printer, please set one before trying quick print" ));
 			return;
 		}
@@ -171,7 +171,7 @@ void DocumentEditor::print(bool quick_){
 	QPrintDialog d(&p);
 
 	// if ok
-	if (d.exec()){
+	if (d.exec()) {
 		// print
 		int f = -1, t = -1, i;
 		if ( d.printRange() == QPrintDialog::Selection )
@@ -179,63 +179,63 @@ void DocumentEditor::print(bool quick_){
 		p.printRange( this, f, t );
 	}
 }
-void DocumentEditor::quickPrint(){
+void DocumentEditor::quickPrint() {
 	print(true);
 }
 
-bool DocumentEditor::save(){
+bool DocumentEditor::save() {
 	if (!isModified())
 		return true;
-    if (_fullPath.isEmpty()) {
-        return saveAs();
-    } else {
-        return saveFile(_fullPath);
-    }
+	if (_fullPath.isEmpty()) {
+		return saveAs();
+	} else {
+		return saveFile(_fullPath);
+	}
 }
-bool DocumentEditor::saveAs(){
-    QString fileName = QFileDialog::getSaveFileName(this);
-    if (fileName.isEmpty())
-        return false;
-
-    return saveFile(fileName);
-}
-bool DocumentEditor::saveACopyAs(){
+bool DocumentEditor::saveAs() {
 	QString fileName = QFileDialog::getSaveFileName(this);
-    if (fileName.isEmpty())
-        return false;
+	if (fileName.isEmpty())
+		return false;
 
-    return saveCopy(fileName);
+	return saveFile(fileName);
 }
-bool DocumentEditor::maybeSave(){
-    if (isModified()) {
-        int ret = QMessageBox::warning(this, tr("Application"),
-                     tr("The document %1 has been modified.\n"
-                        "Do you want to save your changes?").arg(getName()),
-                     QMessageBox::Yes | QMessageBox::Default,
-                     QMessageBox::No,
-                     QMessageBox::Cancel | QMessageBox::Escape);
-        if (ret == QMessageBox::Yes)
-            return save();
-        else if (ret == QMessageBox::Cancel)
-            return false;
-    }
-    return true;
+bool DocumentEditor::saveACopyAs() {
+	QString fileName = QFileDialog::getSaveFileName(this);
+	if (fileName.isEmpty())
+		return false;
+
+	return saveCopy(fileName);
 }
-bool DocumentEditor::saveFile(const QString &fileName_){
+bool DocumentEditor::maybeSave() {
+	if (isModified()) {
+		int ret = QMessageBox::warning(this, tr("Application"),
+									   tr("The document %1 has been modified.\n"
+										  "Do you want to save your changes?").arg(getName()),
+									   QMessageBox::Yes | QMessageBox::Default,
+									   QMessageBox::No,
+									   QMessageBox::Cancel | QMessageBox::Escape);
+		if (ret == QMessageBox::Yes)
+			return save();
+		else if (ret == QMessageBox::Cancel)
+			return false;
+	}
+	return true;
+}
+bool DocumentEditor::saveFile(const QString &fileName_) {
 	QFile file(fileName_);
-    if (!file.open(QFile::WriteOnly)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot save file %1:\n%2.")
-                             .arg(fileName_)
-                             .arg(file.errorString()));
-        return false;
-    }
+	if (!file.open(QFile::WriteOnly)) {
+		QMessageBox::warning(this, tr("Application"),
+							 tr("Cannot save file %1:\n%2.")
+							 .arg(fileName_)
+							 .arg(file.errorString()));
+		return false;
+	}
 
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
-	if(codec == 0){
+	if(codec == 0) {
 		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot save file %1:\nUnsupported charset %2 !!")
-					 .arg(fileName_).arg(_codec));
+							  tr("Cannot save file %1:\nUnsupported charset %2 !!")
+							  .arg(fileName_).arg(_codec));
 		return false;
 	}
 
@@ -251,24 +251,24 @@ bool DocumentEditor::saveFile(const QString &fileName_){
 	setModified(false);
 	_isNew = false;
 
-    QApplication::restoreOverrideCursor();
-    return true;
+	QApplication::restoreOverrideCursor();
+	return true;
 }
-bool DocumentEditor::saveCopy(const QString &fileName_){
+bool DocumentEditor::saveCopy(const QString &fileName_) {
 	QFile file(fileName_);
-    if (!file.open(QFile::WriteOnly)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot save file %1:\n%2.")
-                             .arg(fileName_)
-                             .arg(file.errorString()));
-        return false;
-    }
+	if (!file.open(QFile::WriteOnly)) {
+		QMessageBox::warning(this, tr("Application"),
+							 tr("Cannot save file %1:\n%2.")
+							 .arg(fileName_)
+							 .arg(file.errorString()));
+		return false;
+	}
 
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
-	if(codec == 0){
+	if(codec == 0) {
 		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot save file %1:\nUnsupported charset %2 !!")
-					 .arg(fileName_).arg(_codec));
+							  tr("Cannot save file %1:\nUnsupported charset %2 !!")
+							  .arg(fileName_).arg(_codec));
 		return false;
 	}
 
@@ -279,47 +279,51 @@ bool DocumentEditor::saveCopy(const QString &fileName_){
 	out.setCodec(codec);
 	out.setGenerateByteOrderMark(needBOM());
 	out << text();
-    QApplication::restoreOverrideCursor();
-    return true;
+	QApplication::restoreOverrideCursor();
+	return true;
 }
-bool DocumentEditor::saveWithCharset(const QString& codec_){
+bool DocumentEditor::saveWithCharset(const QString& codec_) {
 	_codec = codec_;
-    if (_fullPath.isEmpty()) {
-        return saveAs();
-    } else {
-        return saveFile(_fullPath);
-    }
+	if (_fullPath.isEmpty()) {
+		return saveAs();
+	} else {
+		return saveFile(_fullPath);
+	}
 }
-bool DocumentEditor::saveWithCharsetAs(const QString& codec_){
+bool DocumentEditor::saveWithCharsetAs(const QString& codec_) {
 	_codec = codec_;
 	return saveAs();
 }
 
-bool DocumentEditor::load(const QString &fileName_){
-    QFile file(fileName_);
-    if (!file.open(QFile::ReadOnly)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(fileName_)
-                             .arg(file.errorString()));
-        return false;
-    }
-
-	///@todo charset detection and bom information
-	
-	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
-	if(codec == 0){
-		QMessageBox::critical(this, tr("Application"),
-					 tr("Cannot load file %1:\nUnsupported charset %2 !!")
-					 .arg(fileName_).arg(_codec));
+bool DocumentEditor::load(const QString &fileName_) {
+	QFile file(fileName_);
+	if (!file.open(QFile::ReadOnly)) {
+		QMessageBox::warning(this, tr("Application"),
+							 tr("Cannot read file %1:\n%2.")
+							 .arg(fileName_)
+							 .arg(file.errorString()));
 		return false;
 	}
 
-    QApplication::setOverrideCursor(Qt::WaitCursor);
+	///@todo better charset detection
+	char bom[4];	
+	file.read(bom, 4);
+	file.reset();
+	detectBOM(bom);
+
+	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
+	if(codec == 0) {
+		QMessageBox::critical(this, tr("Application"),
+							  tr("Cannot load file %1:\nUnsupported charset %2 !!")
+							  .arg(fileName_).arg(_codec));
+		return false;
+	}
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	QString data = codec->toUnicode(file.readAll());
 	setText(data);
-    	
+
 	_fullPath = fileName_;
 	_isNew = false;
 	setModified(false);
@@ -338,38 +342,38 @@ bool DocumentEditor::load(const QString &fileName_){
 	//reload settings for lexer
 	Settings settings;
 	settings.applyToDocument(this);
-	
+
 	QApplication::restoreOverrideCursor();
-	
+
 	return true;
 }
-bool DocumentEditor::reload(){
-	if(isModified()){
+bool DocumentEditor::reload() {
+	if(isModified()) {
 		int ret = QMessageBox::warning(this,
-					tr("Reload file"),
-					 tr("File %1 has unsaved modifications.\n"
-						 "Reloading will discard them.\n"
-						"Do you want to proceed?").arg(getName()),
-					 QMessageBox::Yes |
-					 QMessageBox::Cancel);
+									   tr("Reload file"),
+									   tr("File %1 has unsaved modifications.\n"
+										  "Reloading will discard them.\n"
+										  "Do you want to proceed?").arg(getName()),
+									   QMessageBox::Yes |
+									   QMessageBox::Cancel);
 		if (ret == QMessageBox::Cancel)
 			return false;
 	}
-    return load(getFullPath());
+	return load(getFullPath());
 }
 
-void DocumentEditor::undo(){
+void DocumentEditor::undo() {
 	ScintillaExt::undo();
 	//force view to update
 	emit textChanged();
 }
-void DocumentEditor::redo(){
+void DocumentEditor::redo() {
 	ScintillaExt::redo();
 	//force view to update
 	emit textChanged();
 }
 
-void DocumentEditor::setLanguage(const QString &language_){
+void DocumentEditor::setLanguage(const QString &language_) {
 	QsciLexer* l = lexer();
 	if(l != 0)
 		delete l;
@@ -384,12 +388,12 @@ void DocumentEditor::setLanguage(const QString &language_){
 }
 
 
-void DocumentEditor::setAutoDetectEol(bool enable_){
+void DocumentEditor::setAutoDetectEol(bool enable_) {
 	_autoDetectEol = enable_;
 	if(_autoDetectEol)
 		autoDetectEol();
 }
-void DocumentEditor::setAutoDetectIndent(bool enable_){
+void DocumentEditor::setAutoDetectIndent(bool enable_) {
 	_autoDetectIndent = enable_;
 	if(_autoDetectIndent)
 		autoDetectIndent();
@@ -432,27 +436,27 @@ void DocumentEditor::autoDetectEol() {
 
 
 
-void DocumentEditor::focusInEvent(QFocusEvent *event_){
+void DocumentEditor::focusInEvent(QFocusEvent *event_) {
 	ScintillaExt::focusInEvent(event_);
 	emit focusChanged(true);
 	event_->accept();
 }
-void DocumentEditor::focusOutEvent(QFocusEvent *event_){
+void DocumentEditor::focusOutEvent(QFocusEvent *event_) {
 	ScintillaExt::focusOutEvent(event_);
 	emit focusChanged(false);
 	event_->accept();
 }
 
 
-QsciMacro* DocumentEditor::getMacro() const{
+QsciMacro* DocumentEditor::getMacro() const {
 	return _macro;
 }
 
 
-bool DocumentEditor::isCloned() const{
+bool DocumentEditor::isCloned() const {
 	return _isCloned;
 }
-void DocumentEditor::detachClone(){
+void DocumentEditor::detachClone() {
 	//QsciLexer* l = lexer();
 
 	//setDocument(_clone->document());
@@ -481,7 +485,7 @@ void DocumentEditor::toggleBookmark() {
 	toggleBookmark(1, line, Qt::NoModifier);
 }
 
-void DocumentEditor::toggleBookmark(int margin_, int line_, Qt::KeyboardModifiers state_){
+void DocumentEditor::toggleBookmark(int margin_, int line_, Qt::KeyboardModifiers state_) {
 	(void)margin_;
 	(void)state_;
 	if(markersAtLine(line_) & MARKER_BOOK_MASK) {
@@ -521,13 +525,13 @@ void DocumentEditor::nextBookmark() {
 	getCursorPosition(&line, &index);
 
 	line = markerFindNext(line+1, MARKER_BOOK_MASK);
-	if (line >= 0){
+	if (line >= 0) {
 		setCursorPosition(line, 0);
 		ensureLineVisible(line);
-	}else{
+	} else {
 		// check from start
 		line = markerFindNext(0, MARKER_BOOK_MASK);
-		if (line >= 0){
+		if (line >= 0) {
 			setCursorPosition(line, 0);
 			ensureLineVisible(line);
 		}
@@ -539,13 +543,13 @@ void DocumentEditor::prevBookmark() {
 	getCursorPosition(&line, &index);
 
 	line = markerFindPrevious(line-1, MARKER_BOOK_MASK);
-	if (line >= 0){
+	if (line >= 0) {
 		setCursorPosition(line, 0);
 		ensureLineVisible(line);
-	}else{
+	} else {
 		// check from end
 		line = markerFindPrevious(lines(), MARKER_BOOK_MASK);
-		if (line >= 0){
+		if (line >= 0) {
 			setCursorPosition(line, 0);
 			ensureLineVisible(line);
 		}
@@ -573,18 +577,18 @@ void DocumentEditor::setBookmarks(const QStringList& lines_) {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-QString DocumentEditor::getCodec() const{
+QString DocumentEditor::getCodec() const {
 	return _codec;
 }
 
-bool DocumentEditor::setCodec(const QString& codec_){
-	if(_codec != codec_){
+bool DocumentEditor::setCodec(const QString& codec_) {
+	if(_codec != codec_) {
 		///@todo it would be nice to change the charset on the fly without reloading the file
 		if (isModified()) {
 			int ret = QMessageBox::question(this ,
-							tr("Reload ?"),
-							tr("%1\nThis file has been modified.\nDo you want to reload it with %2 charset\nand loose the change?").arg(getFullPath()).arg(codec_),
-							QMessageBox::Yes | QMessageBox::No);
+											tr("Reload ?"),
+											tr("%1\nThis file has been modified.\nDo you want to reload it with %2 charset\nand loose the change?").arg(getFullPath()).arg(codec_),
+											QMessageBox::Yes | QMessageBox::No);
 			if (ret == QMessageBox::No)
 				return false;
 		}
@@ -597,33 +601,82 @@ bool DocumentEditor::setCodec(const QString& codec_){
 	return false;
 }
 
-void DocumentEditor::setDefaultCodec(const QString& codec_){
-	if(_codec.isEmpty()){
+void DocumentEditor::setDefaultCodec(const QString& codec_) {
+	if(_codec.isEmpty()) {
 		_codec = codec_;
 	}
 }
 
-void DocumentEditor::setUnicodeBomUseMode(DocumentEditor::UnicodeBomUseMode bomMode_){
+void DocumentEditor::setUnicodeBomUseMode(DocumentEditor::UnicodeBomUseMode bomMode_) {
 	_bomMode = bomMode_;
 }
 
-void DocumentEditor::setCharsetAutoDetection(bool autoDetect_){
+void DocumentEditor::setCharsetAutoDetection(bool autoDetect_) {
 	_charsetAutoDetect = autoDetect_;
 }
 
-bool DocumentEditor::needBOM(){
-	switch (_bomMode){
-		case BomLeaveAsIs:
-			return _hasBom;
-		case BomLeaveAsIsAddToNewFile:
-			if(isNew())
-				return true;
-			return _hasBom;
-		case BomAlwaysAdd:
+bool DocumentEditor::needBOM() {
+	switch (_bomMode) {
+	case BomLeaveAsIs:
+		return _hasBom;
+	case BomLeaveAsIsAddToNewFile:
+		if(isNew())
 			return true;
-		case BomAlwaysRemove:
-			return false;
-		default:
-			return false;
+		return _hasBom;
+	case BomAlwaysAdd:
+		return true;
+	case BomAlwaysRemove:
+		return false;
+	default:
+		return false;
 	}
+}
+
+bool DocumentEditor::detectBOM(const char* bom_){	
+	_hasBom = false;
+	switch (bom_[0]) {
+		case '\xEF':
+			if (('\xBB' == bom_[1]) && ('\xBF' == bom_[2])){
+				// EF BB BF  UTF-8 encoded BOM
+				_codec = "UTF-8";
+				_hasBom = true;
+			}
+			break;
+		case '\xFE':
+			/*if (('\xFF' == bom_[1]) && ('\x00' == bom_[2]) && ('\x00' == bom_[3])){
+				// FE FF 00 00  UCS-4, unusual octet order BOM (3412)
+				_codec = "X-ISO-10646-UCS-4-3412";
+				_hasBom = true;
+			}*/
+			if ('\xFF' == bom_[1]){
+				// FE FF  UTF-16, big endian BOM
+				_codec = "UTF-16BE";
+				_hasBom = true;
+			}
+			break;
+		case '\x00':
+			if (('\x00' == bom_[1]) && ('\xFE' == bom_[2]) && ('\xFF' == bom_[3])){
+				// 00 00 FE FF  UTF-32, big-endian BOM
+				_codec = "UTF-32BE";
+				_hasBom = true;
+			}
+			/*else if (('\x00' == bom_[1]) && ('\xFF' == bom_[2]) && ('\xFE' == bom_[3])){
+				// 00 00 FF FE  UCS-4, unusual octet order BOM (2143)
+				_codec = "X-ISO-10646-UCS-4-2143";
+				_hasBom = true;
+			}*/
+			break;
+		case '\xFF':
+			if (('\xFE' == bom_[1]) && ('\x00' == bom_[2]) && ('\x00' == bom_[3])){
+				// FF FE 00 00  UTF-32, little-endian BOM
+				_codec = "UTF-32LE";
+				_hasBom = true;
+			}else if ('\xFE' == bom_[1]){
+				// FF FE  UTF-16, little endian BOM
+				_codec = "UTF-16LE";
+				_hasBom = true;
+			}
+			break;
+	}
+	return _hasBom;
 }
