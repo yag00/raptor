@@ -167,6 +167,10 @@ class DocumentEditor : public ScintillaExt {
 		
 		/** @return true if document need a bom */
 		bool needBOM();
+		/** bom detection, update codec if successfull detection 
+		 *@param bom_ char array containing the first 4 bytes of the file
+		 *@return true if successfull detection */
+		bool detectBOM(const char* bom_);
 		
 		/** auto detect eol */
 		void autoDetectEol();
