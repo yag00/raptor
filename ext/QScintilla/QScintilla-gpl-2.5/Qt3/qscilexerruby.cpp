@@ -1,6 +1,6 @@
 // This module implements the QsciLexerRuby class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -32,11 +32,13 @@
 
 #include <qcolor.h>
 #include <qfont.h>
+#include <qsettings.h>
 
 
 // The ctor.
 QsciLexerRuby::QsciLexerRuby(QObject *parent, const char *name)
-    : QsciLexer(parent, name)
+    : QsciLexer(parent, name),
+      fold_comments(false), fold_compact(true)
 {
 }
 
@@ -383,4 +385,84 @@ QColor QsciLexerRuby::defaultPaper(int style) const
     }
 
     return QsciLexer::defaultPaper(style);
+}
+
+
+// Refresh all properties.
+void QsciLexerRuby::refreshProperties()
+{
+    setCommentProp();
+    setCompactProp();
+}
+
+
+// Read properties from the settings.
+bool QsciLexerRuby::readProperties(QSettings &qs, const QString &prefix)
+{
+    int rc = true;
+
+    bool ok, flag;
+
+    flag = qs.readBoolEntry(prefix + "foldcomments", false, &ok);
+
+    if (ok)
+        fold_comments = flag;
+    else
+        rc = false;
+
+    flag = qs.readBoolEntry(prefix + "foldcompact", true, &ok);
+
+    if (ok)
+        fold_compact = flag;
+    else
+        rc = true;
+
+    return rc;
+}
+
+
+// Write properties to the settings.
+bool QsciLexerRuby::writeProperties(QSettings &qs, const QString &prefix) const
+{
+    int rc = true;
+
+    if (!qs.writeEntry(prefix + "foldcomments", fold_comments))
+        rc = false;
+
+    if (!qs.writeEntry(prefix + "foldcompact", fold_compact))
+        rc = false;
+
+    return rc;
+}
+
+
+// Set if comments can be folded.
+void QsciLexerRuby::setFoldComments(bool fold)
+{
+    fold_comments = fold;
+
+    setCommentProp();
+}
+
+
+// Set the "fold.comment" property.
+void QsciLexerRuby::setCommentProp()
+{
+    emit propertyChanged("fold.comment", (fold_comments ? "1" : "0"));
+}
+
+
+// Set if folds are compact
+void QsciLexerRuby::setFoldCompact(bool fold)
+{
+    fold_compact = fold;
+
+    setCompactProp();
+}
+
+
+// Set the "fold.compact" property.
+void QsciLexerRuby::setCompactProp()
+{
+    emit propertyChanged("fold.compact", (fold_compact ? "1" : "0"));
 }

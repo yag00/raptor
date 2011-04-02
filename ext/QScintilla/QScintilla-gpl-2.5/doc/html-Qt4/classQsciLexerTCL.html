@@ -27,7 +27,6 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-slots">Public Slots</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a>  </div>
   <div class="headertitle">
@@ -79,11 +78,6 @@ Public Types</h2>
 <br/>
  }
 </ul>
-<h2><a name="pub-slots"></a>
-Public Slots</h2>
-<ul>
-<li>virtual void <a class="el" href="classQsciLexerTCL.html#a9823d3e9081b7a043a64a0edb0a36a98">setFoldCompact</a> (bool fold)
-</ul>
 <h2><a name="pub-methods"></a>
 Public Member Functions</h2>
 <ul>
@@ -104,7 +98,8 @@ QFont <a class="el" href="classQsciLexerTCL.html#a85d58e3cdaa1cff49902a7d9dc4802
 <li>const char * <a class="el" href="classQsciLexerTCL.html#a11a19c7b016459476d97f83655435abc">keywords</a> (int set) const 
 <li>QString <a class="el" href="classQsciLexerTCL.html#a16b9900209a5a874eb798947ac89121d">description</a> (int style) const 
 <li>void <a class="el" href="classQsciLexerTCL.html#ad331ec23d27ba397d2095ba92cefaecd">refreshProperties</a> ()
-<li>bool <a class="el" href="classQsciLexerTCL.html#ad01ee6cb4f51c254443124aaf7d1535b">foldCompact</a> () const 
+<li>void <a class="el" href="classQsciLexerTCL.html#abceb6f3cf78367b7bc370265d7776bf1">setFoldComments</a> (bool fold)
+<li>bool <a class="el" href="classQsciLexerTCL.html#a2806e68a71ce19925a2793c22b91edb4">foldComments</a> () const 
 </ul>
 <h2><a name="pro-methods"></a>
 Protected Member Functions</h2>
@@ -346,42 +341,42 @@ Protected Member Functions</h2>
 
 </div>
 </div>
-<a class="anchor" id="ad01ee6cb4f51c254443124aaf7d1535b"></a><!-- doxytag: member="QsciLexerTCL::foldCompact" ref="ad01ee6cb4f51c254443124aaf7d1535b" args="() const " -->
+<a class="anchor" id="abceb6f3cf78367b7bc370265d7776bf1"></a><!-- doxytag: member="QsciLexerTCL::setFoldComments" ref="abceb6f3cf78367b7bc370265d7776bf1" args="(bool fold)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool QsciLexerTCL::foldCompact </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Returns true if trailing blank lines are included in a fold block.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerTCL.html#a9823d3e9081b7a043a64a0edb0a36a98">setFoldCompact()</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a9823d3e9081b7a043a64a0edb0a36a98"></a><!-- doxytag: member="QsciLexerTCL::setFoldCompact" ref="a9823d3e9081b7a043a64a0edb0a36a98" args="(bool fold)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void QsciLexerTCL::setFoldCompact </td>
+          <td class="memname">void QsciLexerTCL::setFoldComments </td>
           <td>(</td>
           <td class="paramtype">bool&nbsp;</td>
           <td class="paramname"> <em>fold</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual, slot]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>If <em>fold</em> is true then trailing blank lines are included in a fold block. The default is true.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerTCL.html#ad01ee6cb4f51c254443124aaf7d1535b">foldCompact()</a> </dd></dl>
+<p>If <em>fold</em> is true then multi-line comment blocks can be folded. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerTCL.html#a2806e68a71ce19925a2793c22b91edb4">foldComments()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2806e68a71ce19925a2793c22b91edb4"></a><!-- doxytag: member="QsciLexerTCL::foldComments" ref="a2806e68a71ce19925a2793c22b91edb4" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerTCL::foldComments </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if multi-line comment blocks can be folded.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerTCL.html#abceb6f3cf78367b7bc370265d7776bf1">setFoldComments()</a> </dd></dl>
 
 </div>
 </div>
@@ -446,7 +441,7 @@ Protected Member Functions</h2>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Dec 23 2010 09:43:27 for QScintilla by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Mar 29 2011 16:48:19 for QScintilla by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

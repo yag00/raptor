@@ -82,6 +82,8 @@ QFont <a class="el" href="classQsciLexerProperties.html#a1072a9cca2ec577c3953643
 <li>QString <a class="el" href="classQsciLexerProperties.html#a7f77f8e2dfe2bccdcfdbcb9086446f4a">description</a> (int style) const 
 <li>void <a class="el" href="classQsciLexerProperties.html#a638b892c566301f0efe779c58516cbc0">refreshProperties</a> ()
 <li>bool <a class="el" href="classQsciLexerProperties.html#abbe81eb353d24480865e02fb8ebbef99">foldCompact</a> () const 
+<li>void <a class="el" href="classQsciLexerProperties.html#a2243845007f5165eb5718a131be3ada3">setInitialSpaces</a> (bool enable)
+<li>bool <a class="el" href="classQsciLexerProperties.html#a5c77bc878cd265794762420999e98060">initialSpaces</a> () const 
 </ul>
 <h2><a name="pro-methods"></a>
 Protected Member Functions</h2>
@@ -272,13 +274,52 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Returns true if trailing blank lines are included in a fold block.</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerProperties.html#a4caa0f46faeb171710ec2657cd23436e">setFoldCompact()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2243845007f5165eb5718a131be3ada3"></a><!-- doxytag: member="QsciLexerProperties::setInitialSpaces" ref="a2243845007f5165eb5718a131be3ada3" args="(bool enable)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerProperties::setInitialSpaces </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>enable</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>enable</em> is true then initial spaces in a line are allowed. The default is true.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerProperties.html#a5c77bc878cd265794762420999e98060">initialSpaces()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5c77bc878cd265794762420999e98060"></a><!-- doxytag: member="QsciLexerProperties::initialSpaces" ref="a5c77bc878cd265794762420999e98060" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerProperties::initialSpaces </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if initial spaces in a line are allowed.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerProperties.html#a2243845007f5165eb5718a131be3ada3">setInitialSpaces()</a> </dd></dl>
 
 </div>
 </div>
@@ -365,7 +406,7 @@ Protected Member Functions</h2>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Dec 23 2010 09:43:28 for QScintilla by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Mar 29 2011 16:48:20 for QScintilla by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

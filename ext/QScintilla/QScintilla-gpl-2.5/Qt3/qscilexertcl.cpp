@@ -1,6 +1,6 @@
 // This module implements the QsciLexerTCL class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -37,7 +37,8 @@
 
 // The ctor.
 QsciLexerTCL::QsciLexerTCL(QObject *parent, const char *name)
-    : QsciLexer(parent, name), fold_compact(true)
+    : QsciLexer(parent, name),
+      fold_comments(false)
 {
 }
 
@@ -402,7 +403,7 @@ QColor QsciLexerTCL::defaultPaper(int style) const
 // Refresh all properties.
 void QsciLexerTCL::refreshProperties()
 {
-    setCompactProp();
+    setCommentProp();
 }
 
 
@@ -413,10 +414,10 @@ bool QsciLexerTCL::readProperties(QSettings &qs, const QString &prefix)
 
     bool ok, flag;
 
-    flag = qs.readBoolEntry(prefix + "foldcompact", true, &ok);
+    flag = qs.readBoolEntry(prefix + "foldcomments", false, &ok);
 
     if (ok)
-        fold_compact = flag;
+        fold_comments = flag;
     else
         rc = false;
 
@@ -429,31 +430,24 @@ bool QsciLexerTCL::writeProperties(QSettings &qs, const QString &prefix) const
 {
     int rc = true;
 
-    if (!qs.writeEntry(prefix + "foldcompact", fold_compact))
+    if (!qs.writeEntry(prefix + "foldcomments", fold_comments))
         rc = false;
 
     return rc;
 }
 
 
-// Return true if folds are compact.
-bool QsciLexerTCL::foldCompact() const
+// Set if comments can be folded.
+void QsciLexerTCL::setFoldComments(bool fold)
 {
-    return fold_compact;
+    fold_comments = fold;
+
+    setCommentProp();
 }
 
 
-// Set if folds are compact
-void QsciLexerTCL::setFoldCompact(bool fold)
+// Set the "fold.comment" property.
+void QsciLexerTCL::setCommentProp()
 {
-    fold_compact = fold;
-
-    setCompactProp();
-}
-
-
-// Set the "fold.compact" property.
-void QsciLexerTCL::setCompactProp()
-{
-    emit propertyChanged("fold.compact", (fold_compact ? "1" : "0"));
+    emit propertyChanged("fold.comment", (fold_comments ? "1" : "0"));
 }

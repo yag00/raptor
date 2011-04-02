@@ -1,6 +1,6 @@
 // This module implements the QsciLexerLua class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -275,6 +275,18 @@ QString QsciLexerLua::description(int style) const
 
     case CoroutinesIOSystemFacilities:
         return tr("Coroutines, i/o and system facilities");
+
+    case KeywordSet5:
+        return tr("User defined 1");
+
+    case KeywordSet6:
+        return tr("User defined 2");
+
+    case KeywordSet7:
+        return tr("User defined 3");
+
+    case KeywordSet8:
+        return tr("User defined 4");
     }
 
     return QString();

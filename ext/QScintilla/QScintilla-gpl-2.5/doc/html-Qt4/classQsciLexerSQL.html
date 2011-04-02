@@ -72,16 +72,17 @@ Public Types</h2>
 <a class="el" href="classQsciLexerSQL.html#a893525b92fbf29609712c4c78f005b0ea964752ac32b2980192e27552fffd4b12">KeywordSet6</a> =  20, 
 <br/>
 &nbsp;&nbsp;<a class="el" href="classQsciLexerSQL.html#a893525b92fbf29609712c4c78f005b0ea82c5dbd57b06e88f195eb7eefb1f6e32">KeywordSet7</a> =  21, 
-<a class="el" href="classQsciLexerSQL.html#a893525b92fbf29609712c4c78f005b0ea76e2eea32f91918b7a5c330284dfae2d">KeywordSet8</a> =  22
+<a class="el" href="classQsciLexerSQL.html#a893525b92fbf29609712c4c78f005b0ea76e2eea32f91918b7a5c330284dfae2d">KeywordSet8</a> =  22, 
+<a class="el" href="classQsciLexerSQL.html#a893525b92fbf29609712c4c78f005b0ea5f3f93632cd25dfa0a0349f7aa0927a5">QuotedIdentifier</a> =  23
 <br/>
  }
 </ul>
 <h2><a name="pub-slots"></a>
 Public Slots</h2>
 <ul>
+<li>virtual void <a class="el" href="classQsciLexerSQL.html#ab64e768ab8e7af6af93ce95db074c90a">setBackslashEscapes</a> (bool enable)
 <li>virtual void <a class="el" href="classQsciLexerSQL.html#a6efb8e98287c21ec5175a466d7e5cc55">setFoldComments</a> (bool fold)
 <li>virtual void <a class="el" href="classQsciLexerSQL.html#a302b9b881fdc5dca82c5dea5fca5cd3e">setFoldCompact</a> (bool fold)
-<li>virtual void <a class="el" href="classQsciLexerSQL.html#ab64e768ab8e7af6af93ce95db074c90a">setBackslashEscapes</a> (bool enable)
 </ul>
 <h2><a name="pub-methods"></a>
 Public Member Functions</h2>
@@ -103,9 +104,19 @@ QFont <a class="el" href="classQsciLexerSQL.html#a5679e97d995e3c9e5b3db85e660771
 <li>const char * <a class="el" href="classQsciLexerSQL.html#a014ed85ac672b8208075c13002a37db3">keywords</a> (int set) const 
 <li>QString <a class="el" href="classQsciLexerSQL.html#afed39cf50cdeea0fdc873b8db48c0709">description</a> (int style) const 
 <li>void <a class="el" href="classQsciLexerSQL.html#a9d05744ee6d4c653a7e3976d9f71df23">refreshProperties</a> ()
+<li>bool <a class="el" href="classQsciLexerSQL.html#ad32d63b6a2711fce68adcf9265bf9376">backslashEscapes</a> () const 
+<li>void <a class="el" href="classQsciLexerSQL.html#aba150bef5f977fb65d66fcaec9c6664c">setDottedWords</a> (bool enable)
+<li>bool <a class="el" href="classQsciLexerSQL.html#a1abf12b4f71c417f6bb27bbe65765712">dottedWords</a> () const 
+<li>void <a class="el" href="classQsciLexerSQL.html#a35dfbbd04762b0450232c14862ec3ea6">setFoldAtElse</a> (bool fold)
+<li>bool <a class="el" href="classQsciLexerSQL.html#a589ce62a6ac5ae674043a23edc878176">foldAtElse</a> () const 
 <li>bool <a class="el" href="classQsciLexerSQL.html#a7016853c5fdf6e7c4ac3f2f2da3cbd44">foldComments</a> () const 
 <li>bool <a class="el" href="classQsciLexerSQL.html#a91672901f1f2c4256735fd7bb2ae70e3">foldCompact</a> () const 
-<li>bool <a class="el" href="classQsciLexerSQL.html#ad32d63b6a2711fce68adcf9265bf9376">backslashEscapes</a> () const 
+<li>void <a class="el" href="classQsciLexerSQL.html#a680cba1b994603e73da00610e81debfe">setFoldOnlyBegin</a> (bool fold)
+<li>bool <a class="el" href="classQsciLexerSQL.html#a618dafa027348cf472a8c6feb0650162">foldOnlyBegin</a> () const 
+<li>void <a class="el" href="classQsciLexerSQL.html#acc91bd455ff72d93d0bb73b553afbbb8">setHashComments</a> (bool enable)
+<li>bool <a class="el" href="classQsciLexerSQL.html#a7d140498aa51299f05fa5b77fa646682">hashComments</a> () const 
+<li>void <a class="el" href="classQsciLexerSQL.html#ae6e5819a3ddec15ac6926b5e19927bff">setQuotedIdentifiers</a> (bool enable)
+<li>bool <a class="el" href="classQsciLexerSQL.html#ad4183d3ee9c267842d0997fbb315da7f">quotedIdentifiers</a> () const 
 </ul>
 <h2><a name="pro-methods"></a>
 Protected Member Functions</h2>
@@ -187,6 +198,9 @@ Protected Member Functions</h2>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a893525b92fbf29609712c4c78f005b0ea76e2eea32f91918b7a5c330284dfae2d"></a><!-- doxytag: member="KeywordSet8" ref="a893525b92fbf29609712c4c78f005b0ea76e2eea32f91918b7a5c330284dfae2d" args="" -->KeywordSet8</em>&nbsp;</td><td>
 <p>A keyword defined in keyword set number 8. The class must be sub-classed and re-implement <a class="el" href="classQsciLexerSQL.html#a014ed85ac672b8208075c13002a37db3">keywords()</a> to make use of this style. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a893525b92fbf29609712c4c78f005b0ea5f3f93632cd25dfa0a0349f7aa0927a5"></a><!-- doxytag: member="QuotedIdentifier" ref="a893525b92fbf29609712c4c78f005b0ea5f3f93632cd25dfa0a0349f7aa0927a5" args="" -->QuotedIdentifier</em>&nbsp;</td><td>
+<p>A quoted identifier. </p>
 </td></tr>
 </table>
 </dd>
@@ -341,6 +355,103 @@ Protected Member Functions</h2>
 
 </div>
 </div>
+<a class="anchor" id="ad32d63b6a2711fce68adcf9265bf9376"></a><!-- doxytag: member="QsciLexerSQL::backslashEscapes" ref="ad32d63b6a2711fce68adcf9265bf9376" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerSQL::backslashEscapes </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if backslash escapes are enabled.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#ab64e768ab8e7af6af93ce95db074c90a">setBackslashEscapes()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aba150bef5f977fb65d66fcaec9c6664c"></a><!-- doxytag: member="QsciLexerSQL::setDottedWords" ref="aba150bef5f977fb65d66fcaec9c6664c" args="(bool enable)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerSQL::setDottedWords </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>enable</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>enable</em> is true then words may contain dots (i.e. periods or full stops). The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a1abf12b4f71c417f6bb27bbe65765712">dottedWords()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1abf12b4f71c417f6bb27bbe65765712"></a><!-- doxytag: member="QsciLexerSQL::dottedWords" ref="a1abf12b4f71c417f6bb27bbe65765712" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerSQL::dottedWords </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if words may contain dots (i.e. periods or full stops).</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#aba150bef5f977fb65d66fcaec9c6664c">setDottedWords()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a35dfbbd04762b0450232c14862ec3ea6"></a><!-- doxytag: member="QsciLexerSQL::setFoldAtElse" ref="a35dfbbd04762b0450232c14862ec3ea6" args="(bool fold)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerSQL::setFoldAtElse </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fold</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>fold</em> is true then ELSE blocks can be folded. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a589ce62a6ac5ae674043a23edc878176">foldAtElse()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a589ce62a6ac5ae674043a23edc878176"></a><!-- doxytag: member="QsciLexerSQL::foldAtElse" ref="a589ce62a6ac5ae674043a23edc878176" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerSQL::foldAtElse </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if ELSE blocks can be folded.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a35dfbbd04762b0450232c14862ec3ea6">setFoldAtElse()</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a7016853c5fdf6e7c4ac3f2f2da3cbd44"></a><!-- doxytag: member="QsciLexerSQL::foldComments" ref="a7016853c5fdf6e7c4ac3f2f2da3cbd44" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +461,7 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -369,7 +480,7 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -379,22 +490,140 @@ Protected Member Functions</h2>
 
 </div>
 </div>
-<a class="anchor" id="ad32d63b6a2711fce68adcf9265bf9376"></a><!-- doxytag: member="QsciLexerSQL::backslashEscapes" ref="ad32d63b6a2711fce68adcf9265bf9376" args="() const " -->
+<a class="anchor" id="a680cba1b994603e73da00610e81debfe"></a><!-- doxytag: member="QsciLexerSQL::setFoldOnlyBegin" ref="a680cba1b994603e73da00610e81debfe" args="(bool fold)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool QsciLexerSQL::backslashEscapes </td>
+          <td class="memname">void QsciLexerSQL::setFoldOnlyBegin </td>
           <td>(</td>
-          <td class="paramname"></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fold</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns true if backslash escapes are enabled.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#ab64e768ab8e7af6af93ce95db074c90a">setBackslashEscapes()</a> </dd></dl>
+<p>If <em>fold</em> is true then only BEGIN blocks can be folded. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a618dafa027348cf472a8c6feb0650162">foldOnlyBegin()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a618dafa027348cf472a8c6feb0650162"></a><!-- doxytag: member="QsciLexerSQL::foldOnlyBegin" ref="a618dafa027348cf472a8c6feb0650162" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerSQL::foldOnlyBegin </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if BEGIN blocks only can be folded.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a680cba1b994603e73da00610e81debfe">setFoldOnlyBegin()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acc91bd455ff72d93d0bb73b553afbbb8"></a><!-- doxytag: member="QsciLexerSQL::setHashComments" ref="acc91bd455ff72d93d0bb73b553afbbb8" args="(bool enable)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerSQL::setHashComments </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>enable</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>enable</em> is true then '#' is used as a comment character. It is typically enabled for MySQL and disabled for Oracle. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a7d140498aa51299f05fa5b77fa646682">hashComments()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7d140498aa51299f05fa5b77fa646682"></a><!-- doxytag: member="QsciLexerSQL::hashComments" ref="a7d140498aa51299f05fa5b77fa646682" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerSQL::hashComments </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if '#' is used as a comment character.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#acc91bd455ff72d93d0bb73b553afbbb8">setHashComments()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae6e5819a3ddec15ac6926b5e19927bff"></a><!-- doxytag: member="QsciLexerSQL::setQuotedIdentifiers" ref="ae6e5819a3ddec15ac6926b5e19927bff" args="(bool enable)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerSQL::setQuotedIdentifiers </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>enable</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>enable</em> is true then quoted identifiers are enabled. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#ad4183d3ee9c267842d0997fbb315da7f">quotedIdentifiers()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad4183d3ee9c267842d0997fbb315da7f"></a><!-- doxytag: member="QsciLexerSQL::quotedIdentifiers" ref="ad4183d3ee9c267842d0997fbb315da7f" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerSQL::quotedIdentifiers </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if quoted identifiers are enabled.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#ae6e5819a3ddec15ac6926b5e19927bff">setQuotedIdentifiers()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab64e768ab8e7af6af93ce95db074c90a"></a><!-- doxytag: member="QsciLexerSQL::setBackslashEscapes" ref="ab64e768ab8e7af6af93ce95db074c90a" args="(bool enable)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void QsciLexerSQL::setBackslashEscapes </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>enable</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual, slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>enable</em> is true then backslash escapes are enabled. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#ad32d63b6a2711fce68adcf9265bf9376">backslashEscapes()</a> </dd></dl>
 
 </div>
 </div>
@@ -435,26 +664,6 @@ Protected Member Functions</h2>
 <div class="memdoc">
 <p>If <em>fold</em> is true then trailing blank lines are included in a fold block. The default is true.</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#a91672901f1f2c4256735fd7bb2ae70e3">foldCompact()</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ab64e768ab8e7af6af93ce95db074c90a"></a><!-- doxytag: member="QsciLexerSQL::setBackslashEscapes" ref="ab64e768ab8e7af6af93ce95db074c90a" args="(bool enable)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void QsciLexerSQL::setBackslashEscapes </td>
-          <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>enable</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual, slot]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>If <em>enable</em> is true then backslash escapes are enabled. The default is false.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerSQL.html#ad32d63b6a2711fce68adcf9265bf9376">backslashEscapes()</a> </dd></dl>
 
 </div>
 </div>
@@ -519,7 +728,7 @@ Protected Member Functions</h2>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Dec 23 2010 09:43:27 for QScintilla by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Mar 29 2011 16:48:19 for QScintilla by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

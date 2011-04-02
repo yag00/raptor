@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciAPIs.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -51,9 +51,9 @@ public:
     void prepare();
     void cancelPreparation();
     QString defaultPreparedName() const;
-    bool isPrepared(const QString &fname = QString()) const;
-    bool loadPrepared(const QString &fname = QString());
-    bool savePrepared(const QString &fname = QString()) const;
+    bool isPrepared(const QString &filename = QString()) const;
+    bool loadPrepared(const QString &filename = QString());
+    bool savePrepared(const QString &filename = QString()) const;
     virtual bool event(QEvent *e);
     QStringList installedAPIFiles() const;
 

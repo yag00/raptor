@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerPython.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -82,9 +82,12 @@ public:
 
     void refreshProperties();
     bool foldComments() const;
+    void setFoldCompact(bool fold);
+    bool foldCompact() const;
     bool foldQuotes() const;
     QsciLexerPython::IndentationWarning indentationWarning() const;
-
+    void setStringsOverNewlineAllowed(bool allowed);
+    bool stringsOverNewlineAllowed() const;
     void setV2UnicodeAllowed(bool allowed);
     bool v2UnicodeAllowed() const;
     void setV3BinaryOctalAllowed(bool allowed);

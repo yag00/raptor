@@ -116,8 +116,12 @@ virtual int <b>indentationGuideView</b> () const
 <li>QString <a class="el" href="classQsciLexerPython.html#a4414f83b3620df7c33cd37dead37fcb3">description</a> (int style) const 
 <li>void <a class="el" href="classQsciLexerPython.html#abed099316dd95a6289c76d151a37c264">refreshProperties</a> ()
 <li>bool <a class="el" href="classQsciLexerPython.html#a79d73136b4f6ed373f685e8526974a46">foldComments</a> () const 
+<li>void <a class="el" href="classQsciLexerPython.html#a27dcfdcac480d0360029d1f12b14f724">setFoldCompact</a> (bool fold)
+<li>bool <a class="el" href="classQsciLexerPython.html#aa043e3c8d5dfbc11121fe22dffa1488b">foldCompact</a> () const 
 <li>bool <a class="el" href="classQsciLexerPython.html#a6cc0ded9ed11450a595879d1f704886f">foldQuotes</a> () const 
 <li><a class="el" href="classQsciLexerPython.html#a84118aff26655dcc4313d26d57d5f4fc">QsciLexerPython::IndentationWarning</a> <a class="el" href="classQsciLexerPython.html#a2ac187500902f253ad9ebfdfc1058d21">indentationWarning</a> () const 
+<li>void <a class="el" href="classQsciLexerPython.html#a5887a36e4a8d6ff54f4c796b33bc2eef">setStringsOverNewlineAllowed</a> (bool allowed)
+<li>bool <a class="el" href="classQsciLexerPython.html#a9d440e3602276cefddd261302542e52d">stringsOverNewlineAllowed</a> () const 
 <li>void <a class="el" href="classQsciLexerPython.html#accc3cd3ccf7d62840ded955400695b9d">setV2UnicodeAllowed</a> (bool allowed)
 <li>bool <a class="el" href="classQsciLexerPython.html#aed1273f9e4d1e3bebd28bc57e31ea92a">v2UnicodeAllowed</a> () const 
 <li>void <a class="el" href="classQsciLexerPython.html#ae6bc53fc7e6dc90a80a26e22f6f49acb">setV3BinaryOctalAllowed</a> (bool allowed)
@@ -398,13 +402,52 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Returns true if indented comment blocks can be folded.</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerPython.html#a35e71b31d8d197052c7c5250ff21f094">setFoldComments()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a27dcfdcac480d0360029d1f12b14f724"></a><!-- doxytag: member="QsciLexerPython::setFoldCompact" ref="a27dcfdcac480d0360029d1f12b14f724" args="(bool fold)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerPython::setFoldCompact </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fold</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>fold</em> is true then trailing blank lines are included in a fold block. The default is true.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerPython.html#aa043e3c8d5dfbc11121fe22dffa1488b">foldCompact()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa043e3c8d5dfbc11121fe22dffa1488b"></a><!-- doxytag: member="QsciLexerPython::foldCompact" ref="aa043e3c8d5dfbc11121fe22dffa1488b" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerPython::foldCompact </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if trailing blank lines are included in a fold block.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerPython.html#a27dcfdcac480d0360029d1f12b14f724">setFoldCompact()</a> </dd></dl>
 
 </div>
 </div>
@@ -417,7 +460,7 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -436,13 +479,52 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Returns the condition that will cause bad indentations to be displayed.</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerPython.html#a421ab12187730bc0686dc72710867ec3">setIndentationWarning()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5887a36e4a8d6ff54f4c796b33bc2eef"></a><!-- doxytag: member="QsciLexerPython::setStringsOverNewlineAllowed" ref="a5887a36e4a8d6ff54f4c796b33bc2eef" args="(bool allowed)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerPython::setStringsOverNewlineAllowed </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>allowed</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>allowed</em> is true then string literals are allowed to span newline characters. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerPython.html#a9d440e3602276cefddd261302542e52d">stringsOverNewlineAllowed()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9d440e3602276cefddd261302542e52d"></a><!-- doxytag: member="QsciLexerPython::stringsOverNewlineAllowed" ref="a9d440e3602276cefddd261302542e52d" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerPython::stringsOverNewlineAllowed </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if string literals are allowed to span newline characters.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerPython.html#a5887a36e4a8d6ff54f4c796b33bc2eef">setStringsOverNewlineAllowed()</a> </dd></dl>
 
 </div>
 </div>
@@ -475,7 +557,7 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -514,7 +596,7 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -553,7 +635,7 @@ Protected Member Functions</h2>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -684,7 +766,7 @@ Protected Member Functions</h2>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Dec 23 2010 09:43:28 for QScintilla by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Mar 29 2011 16:48:20 for QScintilla by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

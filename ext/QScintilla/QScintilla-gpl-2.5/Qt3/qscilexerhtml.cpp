@@ -1,6 +1,6 @@
 // This module implements the QsciLexerHTML class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -42,7 +42,8 @@
 QsciLexerHTML::QsciLexerHTML(QObject *parent, const char *name)
     : QsciLexer(parent, name),
       fold_compact(true), fold_preproc(true), case_sens_tags(false),
-      fold_script_comments(false), fold_script_heredocs(false)
+      fold_script_comments(false), fold_script_heredocs(false),
+      django_templates(false), mako_templates(false)
 {
 }
 
@@ -1023,6 +1024,8 @@ void QsciLexerHTML::refreshProperties()
     setCaseSensTagsProp();
     setScriptCommentsProp();
     setScriptHeredocsProp();
+    setDjangoProp();
+    setMakoProp();
 }
 
 
@@ -1068,6 +1071,20 @@ bool QsciLexerHTML::readProperties(QSettings &qs,const QString &prefix)
     else
         rc = false;
 
+    flag = qs.readBoolEntry(prefix + "djangotemplates", false, &ok);
+
+    if (ok)
+        django_templates = flag;
+    else
+        rc = false;
+
+    flag = qs.readBoolEntry(prefix + "makotemplates", false, &ok);
+
+    if (ok)
+        mako_templates = flag;
+    else
+        rc = false;
+
     return rc;
 }
 
@@ -1092,14 +1109,13 @@ bool QsciLexerHTML::writeProperties(QSettings &qs,const QString &prefix) const
     if (!qs.writeEntry(prefix + "foldscriptheredocs", fold_script_heredocs))
         rc = false;
 
+    if (!qs.writeEntry(prefix + "djangotemplates", django_templates))
+        rc = false;
+
+    if (!qs.writeEntry(prefix + "makotemplates", mako_templates))
+        rc = false;
+
     return rc;
-}
-
-
-// Return true if tags are case sensitive.
-bool QsciLexerHTML::caseSensitiveTags() const
-{
-    return case_sens_tags;
 }
 
 
@@ -1119,13 +1135,6 @@ void QsciLexerHTML::setCaseSensTagsProp()
 }
 
 
-// Return true if folds are compact.
-bool QsciLexerHTML::foldCompact() const
-{
-    return fold_compact;
-}
-
-
 // Set if folds are compact
 void QsciLexerHTML::setFoldCompact(bool fold)
 {
@@ -1139,13 +1148,6 @@ void QsciLexerHTML::setFoldCompact(bool fold)
 void QsciLexerHTML::setCompactProp()
 {
     emit propertyChanged("fold.compact",(fold_compact ? "1" : "0"));
-}
-
-
-// Return true if preprocessor blocks can be folded.
-bool QsciLexerHTML::foldPreprocessor() const
-{
-    return fold_preproc;
 }
 
 
@@ -1165,13 +1167,6 @@ void QsciLexerHTML::setPreprocProp()
 }
 
 
-// Return true if script comments can be folded.
-bool QsciLexerHTML::foldScriptComments() const
-{
-    return fold_script_comments;
-}
-
-
 // Set if script comments can be folded.
 void QsciLexerHTML::setFoldScriptComments(bool fold)
 {
@@ -1188,13 +1183,6 @@ void QsciLexerHTML::setScriptCommentsProp()
 }
 
 
-// Return true if script heredocs can be folded.
-bool QsciLexerHTML::foldScriptHeredocs() const
-{
-    return fold_script_heredocs;
-}
-
-
 // Set if script heredocs can be folded.
 void QsciLexerHTML::setFoldScriptHeredocs(bool fold)
 {
@@ -1208,4 +1196,36 @@ void QsciLexerHTML::setFoldScriptHeredocs(bool fold)
 void QsciLexerHTML::setScriptHeredocsProp()
 {
     emit propertyChanged("fold.hypertext.heredoc",(fold_script_heredocs ? "1" : "0"));
+}
+
+
+// Set if Django templates are supported.
+void QsciLexerHTML::setDjangoTemplates(bool enable)
+{
+    django_templates = enable;
+
+    setDjangoProp();
+}
+
+
+// Set the "lexer.html.django" property.
+void QsciLexerHTML::setDjangoProp()
+{
+    emit propertyChanged("lexer.html.django", (django_templates ? "1" : "0"));
+}
+
+
+// Set if Mako templates are supported.
+void QsciLexerHTML::setMakoTemplates(bool enable)
+{
+    mako_templates = enable;
+
+    setMakoProp();
+}
+
+
+// Set the "lexer.html.mako" property.
+void QsciLexerHTML::setMakoProp()
+{
+    emit propertyChanged("lexer.html.mako", (mako_templates ? "1" : "0"));
 }

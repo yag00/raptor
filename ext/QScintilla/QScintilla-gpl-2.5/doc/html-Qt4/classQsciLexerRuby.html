@@ -27,7 +27,8 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a>  </div>
   <div class="headertitle">
 <h1>QsciLexerRuby Class Reference</h1>  </div>
 </div>
@@ -114,6 +115,17 @@ QFont <a class="el" href="classQsciLexerRuby.html#a59faaa1ac8f44bb94b2080457ae9e
 <li>QColor <a class="el" href="classQsciLexerRuby.html#a81e3ed2ab7d05a6e07cb7e01ec597791">defaultPaper</a> (int style) const 
 <li>const char * <a class="el" href="classQsciLexerRuby.html#a041534f7a2e59c7852033d7101dbf756">keywords</a> (int set) const 
 <li>QString <a class="el" href="classQsciLexerRuby.html#aed061ee4e42e985a238591d696354e76">description</a> (int style) const 
+<li>void <a class="el" href="classQsciLexerRuby.html#abf07311e229b5ec1370dd8a57873c1b6">refreshProperties</a> ()
+<li>void <a class="el" href="classQsciLexerRuby.html#acf9bbfcaf3dfd6004428920e1c6572fd">setFoldComments</a> (bool fold)
+<li>bool <a class="el" href="classQsciLexerRuby.html#ad54a317daa66ad339924565d5ca49ea3">foldComments</a> () const 
+<li>void <a class="el" href="classQsciLexerRuby.html#a0e83f239ecb3c52bf4930412f32f51f1">setFoldCompact</a> (bool fold)
+<li>bool <a class="el" href="classQsciLexerRuby.html#aae2caf4e5dd8a3649e8759e77c72743a">foldCompact</a> () const 
+</ul>
+<h2><a name="pro-methods"></a>
+Protected Member Functions</h2>
+<ul>
+<li>bool <a class="el" href="classQsciLexerRuby.html#afa0b9ecea2700420820e4e9b705cb784">readProperties</a> (QSettings &amp;qs, const QString &amp;prefix)
+<li>bool <a class="el" href="classQsciLexerRuby.html#a886ca485e33eeda4bed2521dbbe846fc">writeProperties</a> (QSettings &amp;qs, const QString &amp;prefix) const 
 </ul>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>The <a class="el" href="classQsciLexerRuby.html" title="The QsciLexerRuby class encapsulates the Scintilla Ruby lexer.">QsciLexerRuby</a> class encapsulates the Scintilla Ruby lexer. </p>
@@ -356,8 +368,166 @@ QFont <a class="el" href="classQsciLexerRuby.html#a59faaa1ac8f44bb94b2080457ae9e
 
 </div>
 </div>
+<a class="anchor" id="abf07311e229b5ec1370dd8a57873c1b6"></a><!-- doxytag: member="QsciLexerRuby::refreshProperties" ref="abf07311e229b5ec1370dd8a57873c1b6" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerRuby::refreshProperties </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Dec 23 2010 09:43:27 for QScintilla by&nbsp;
+<div class="memdoc">
+<p>Causes all properties to be refreshed by emitting the <a class="el" href="classQsciLexer.html#acd8475f0da36449dc6b1189a587d7a83">propertyChanged()</a> signal as required. </p>
+
+<p>Reimplemented from <a class="el" href="classQsciLexer.html#ae508c3ab4ce1f338dfff3ddf5ee7e34c">QsciLexer</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acf9bbfcaf3dfd6004428920e1c6572fd"></a><!-- doxytag: member="QsciLexerRuby::setFoldComments" ref="acf9bbfcaf3dfd6004428920e1c6572fd" args="(bool fold)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerRuby::setFoldComments </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fold</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>fold</em> is true then multi-line comment blocks can be folded. The default is false.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerRuby.html#ad54a317daa66ad339924565d5ca49ea3">foldComments()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad54a317daa66ad339924565d5ca49ea3"></a><!-- doxytag: member="QsciLexerRuby::foldComments" ref="ad54a317daa66ad339924565d5ca49ea3" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerRuby::foldComments </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if multi-line comment blocks can be folded.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerRuby.html#acf9bbfcaf3dfd6004428920e1c6572fd">setFoldComments()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0e83f239ecb3c52bf4930412f32f51f1"></a><!-- doxytag: member="QsciLexerRuby::setFoldCompact" ref="a0e83f239ecb3c52bf4930412f32f51f1" args="(bool fold)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QsciLexerRuby::setFoldCompact </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>fold</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If <em>fold</em> is true then trailing blank lines are included in a fold block. The default is true.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerRuby.html#aae2caf4e5dd8a3649e8759e77c72743a">foldCompact()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aae2caf4e5dd8a3649e8759e77c72743a"></a><!-- doxytag: member="QsciLexerRuby::foldCompact" ref="aae2caf4e5dd8a3649e8759e77c72743a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerRuby::foldCompact </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if trailing blank lines are included in a fold block.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classQsciLexerRuby.html#a0e83f239ecb3c52bf4930412f32f51f1">setFoldCompact()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afa0b9ecea2700420820e4e9b705cb784"></a><!-- doxytag: member="QsciLexerRuby::readProperties" ref="afa0b9ecea2700420820e4e9b705cb784" args="(QSettings &amp;qs, const QString &amp;prefix)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerRuby::readProperties </td>
+          <td>(</td>
+          <td class="paramtype">QSettings &amp;&nbsp;</td>
+          <td class="paramname"> <em>qs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&nbsp;</td>
+          <td class="paramname"> <em>prefix</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The lexer's properties are read from the settings <em>qs</em>. <em>prefix</em> (which has a trailing '/') should be used as a prefix to the key of each setting. true is returned if there is no error. </p>
+
+<p>Reimplemented from <a class="el" href="classQsciLexer.html#ad472b16506a4cbc19634f07aa90f1ea6">QsciLexer</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a886ca485e33eeda4bed2521dbbe846fc"></a><!-- doxytag: member="QsciLexerRuby::writeProperties" ref="a886ca485e33eeda4bed2521dbbe846fc" args="(QSettings &amp;qs, const QString &amp;prefix) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QsciLexerRuby::writeProperties </td>
+          <td>(</td>
+          <td class="paramtype">QSettings &amp;&nbsp;</td>
+          <td class="paramname"> <em>qs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&nbsp;</td>
+          <td class="paramname"> <em>prefix</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The lexer's properties are written to the settings <em>qs</em>. <em>prefix</em> (which has a trailing '/') should be used as a prefix to the key of each setting. true is returned if there is no error. </p>
+
+<p>Reimplemented from <a class="el" href="classQsciLexer.html#aa3d0e2a77d281b1cd371b7f2d0fb26b1">QsciLexer</a>.</p>
+
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>Generated on Tue Mar 29 2011 16:48:19 for QScintilla by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

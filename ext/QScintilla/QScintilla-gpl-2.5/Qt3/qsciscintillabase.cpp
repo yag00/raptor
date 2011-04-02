@@ -1,6 +1,6 @@
 // This module implements the "official" low-level API.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -480,6 +480,12 @@ void QsciScintillaBase::keyPressEvent(QKeyEvent *e)
         key = SCK_TAB;
         break;
 
+    case Qt::Key_Backtab:
+        // Scintilla assumes a backtab is shift-tab.
+        key = SCK_TAB;
+        shift = true;
+        break;
+
     case Qt::Key_Return:
     case Qt::Key_Enter:
         key = SCK_RETURN;
@@ -602,9 +608,19 @@ void QsciScintillaBase::mousePressEvent(QMouseEvent *e)
 
         triple_click.stop();
 
+        // Scintilla uses the Alt modifier to initiate rectangular selection.
+        // However the GTK port (under X11, not Windows) uses the Control
+        // modifier (by default, although it is configurable).  It does this
+        // because most X11 window managers hijack Alt-drag to move the window.
+        // We do the same, except that (for the moment at least) we don't allow
+        // the modifier to be configured.
         bool shift = e->state() & Qt::ShiftButton;
         bool ctrl = e->state() & Qt::ControlButton;
-        bool alt = e->state() & Qt::AltButton;
+#if defined(Q_WS_X11)
+        bool alt = ctrl;
+#else
+        bool alt = e->modifiers() & Qt::AltButton;
+#endif
 
         sci->ButtonDown(pt, clickTime, shift, ctrl, alt);
     }
@@ -673,15 +689,16 @@ void QsciScintillaBase::dragEnterEvent(QDragEnterEvent *e)
 // Handle drag leaves.
 void QsciScintillaBase::dragLeaveEvent(QDragLeaveEvent *)
 {
-    sci->SetDragPosition(-1);
+    sci->SetDragPosition(SelectionPosition());
 }
 
 
 // Handle drag moves.
 void QsciScintillaBase::dragMoveEvent(QDragMoveEvent *e)
 {
-    sci->SetDragPosition(sci->PositionFromLocation(Point(e->pos().x(),
-                    e->pos().y())));
+    sci->SetDragPosition(
+            sci->SPositionFromLocation(Point(e->pos().x(), e->pos().y()),
+                    false, false, sci->UserVirtualSpace()));
 
     if (sci->pdoc->IsReadOnly() || !QTextDrag::canDecode(e))
     {
@@ -698,6 +715,7 @@ void QsciScintillaBase::dropEvent(QDropEvent *e)
 {
     bool moving;
     const char *s;
+    bool rectangular;
 
     QString text;
 
@@ -719,9 +737,13 @@ void QsciScintillaBase::dropEvent(QDropEvent *e)
         s = cs.data();
     }
     else
+    {
         s = text.latin1();
+    }
 
-    sci->DropAt(sci->posDrop, s, moving, false);
+    rectangular = false;
+
+    sci->DropAt(sci->posDrop, s, moving, rectangular);
     sci->Redraw();
 }
 

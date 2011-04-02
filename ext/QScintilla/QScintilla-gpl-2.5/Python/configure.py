@@ -1,6 +1,6 @@
 # This script configures QScintilla for PyQt v3 and/or v4.
 #
-# Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of QScintilla.
 # 
@@ -64,11 +64,11 @@ else:
 
 
 # This must be kept in sync with qscintilla.pro.
-QSCI_API_MAJOR = 5
+QSCI_API_MAJOR = 6
 
 
 # Initialise the globals.
-sip_min_version = 0x040a00
+sip_min_version = 0x040c00
 
 if sys.platform == "win32":
     qsci_define = "QSCINTILLA_DLL"
@@ -89,7 +89,7 @@ def create_optparser():
         setattr(parser.values, option.dest, os.path.abspath(value))
 
     p = optparse.OptionParser(usage="python %prog [options]",
-            version="2.4.6")
+            version="2.5")
 
     p.add_option("-a", "--apidir", action="callback", default=None,
             type="string", metavar="DIR", dest="qscidir",
@@ -132,14 +132,25 @@ def create_optparser():
             metavar="DIR", dest="qscisipdir", callback=store_abspath,
             type="string", help="where the QScintilla .sip files will be "
             "installed [default: %s]" % pyqt.pyqt_sip_dir)
+    p.add_option("-T", "--no-timestamp", action="store_true", default=False,
+            dest="no_timestamp", help="suppress timestamps in the header "
+            "comments of generated code [default: include timestamps]")
 
-    # This test can be removed when there is a hard dependency on a later
-    # version.
-    if pyqt.sip_version >= 0x040c00:
-        p.add_option("-T", "--no-timestamp", action="store_true",
-                default=False, dest="no_timestamp", help="suppress timestamps "
-                "in the header comments of generated code [default: include "
-                "timestamps]")
+    if sys.platform != 'win32':
+        if sys.platform in ('linux2', 'darwin'):
+            pip_default = True
+            pip_default_str = "enabled"
+        else:
+            pip_default = False
+            pip_default_str = "disabled"
+
+        p.add_option("--protected-is-public", action="store_true",
+                default=pip_default, dest="prot_is_public",
+                help="enable building with 'protected' redefined as 'public' "
+                        "[default: %s]" % pip_default_str)
+        p.add_option("--protected-not-public", action="store_false",
+                dest="prot_is_public",
+                help="disable building with 'protected' redefined as 'public'")
 
     return p
 
@@ -160,6 +171,9 @@ def inform_user():
     else:
         sipconfig.inform("The QScintilla module is being built with generated docstrings.")
 
+    if opts.prot_is_public:
+        sipconfig.inform("The QScintilla module is being built with 'protected' redefined as 'public'.")
+
 
 def check_qscintilla():
     """See if QScintilla can be found and what its version is.
@@ -175,8 +189,8 @@ def check_qscintilla():
             # Because we include the Python bindings with the C++ code we can
             # reasonably force the same version to be used and not bother about
             # versioning.
-            if sciversstr != "2.4.6":
-                sipconfig.error("QScintilla %s is being used but the Python bindings 2.4.6 are being built.  Please use matching versions." % sciversstr)
+            if sciversstr != "2.5":
+                sipconfig.error("QScintilla %s is being used but the Python bindings 2.5 are being built.  Please use matching versions." % sciversstr)
 
             sipconfig.inform("QScintilla %s is being used." % sciversstr)
         else:
@@ -227,6 +241,9 @@ def generate_code():
 
     if not opts.no_docstrings:
         argv.append("-o");
+
+    if opts.prot_is_public:
+        argv.append("-P");
 
     if opts.concat:
         argv.append("-j")
@@ -292,7 +309,10 @@ def generate_code():
             installs=installs,
             static=opts.static,
             debug=opts.debug,
-            universal=pyqt.universal
+            universal=pyqt.universal,
+            arch=pyqt.arch,
+            prot_is_public=opts.prot_is_public,
+            deployment_target=pyqt.deployment_target
         )
     else:
         makefile = Makefile(
@@ -336,9 +356,9 @@ def main(argv):
         p.print_help()
         sys.exit(2)
 
-    # This can be removed when there is a hard dependency on a later version.
-    if pyqt.sip_version < 0x040c00:
-        opts.no_timestamp = False
+    # Provide defaults for platform-specific options.
+    if sys.platform == 'win32':
+        opts.prot_is_public = False
 
     if opts.not_dll:
         global qsci_define

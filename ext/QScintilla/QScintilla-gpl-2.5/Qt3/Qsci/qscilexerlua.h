@@ -1,6 +1,6 @@
 // This defines the interface to the QsciLexerLua class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -94,7 +94,23 @@ public:
         StringTableMathsFunctions = 14,
 
         //! Coroutines, I/O and system facilities.
-        CoroutinesIOSystemFacilities = 15
+        CoroutinesIOSystemFacilities = 15,
+
+        //! A keyword defined in keyword set number 5.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet5 = 16,
+
+        //! A keyword defined in keyword set number 6.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet6 = 17,
+
+        //! A keyword defined in keyword set number 7.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet7 = 18,
+
+        //! A keyword defined in keyword set number 8.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet8 = 19
     };
 
     //! Construct a QsciLexerLua with parent \a parent and name \a name.  \a
