@@ -1,5 +1,5 @@
 #include <QtGui>
-#include "RLexerCPP.h"
+#include "RLexerCpp.h"
 
 
 RLexerCPP::RLexerCPP(QObject *parent_, bool caseInsensitiveKeywords_)

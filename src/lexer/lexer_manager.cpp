@@ -191,7 +191,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "javascript" )
 			return qobject_cast<QsciLexerJavaScript*>(lexer_)->foldComments();
 		else if ( lng == "java" )
-			return qobject_cast<QsciLexerJava*>(lexer_)->foldComments();
+			return qobject_cast<RLexerJava*>(lexer_)->foldComments();
 		else if ( lng == "c#" )
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldComments();
 		else if ( lng == "c++" )
@@ -229,7 +229,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "javascript" )
 			return qobject_cast<QsciLexerJavaScript*>(lexer_)->foldCompact();
 		else if ( lng == "java" )
-			return qobject_cast<QsciLexerJava*>(lexer_)->foldCompact();
+			return qobject_cast<RLexerJava*>(lexer_)->foldCompact();
 		else if ( lng == "c#" )
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldCompact();
 		else if ( lng == "c++" )
@@ -273,7 +273,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "javascript" )
 			return qobject_cast<QsciLexerJavaScript*>(lexer_)->foldAtElse();
 		else if ( lng == "java" )
-			return qobject_cast<QsciLexerJava*>(lexer_)->foldAtElse();
+			return qobject_cast<RLexerJava*>(lexer_)->foldAtElse();
 		else if ( lng == "c#" )
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldAtElse();
 		else if ( lng == "c++" )
@@ -293,7 +293,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "javascript" )
 			return qobject_cast<QsciLexerJavaScript*>(lexer_)->foldPreprocessor();
 		else if ( lng == "java" )
-			return qobject_cast<QsciLexerJava*>(lexer_)->foldPreprocessor();
+			return qobject_cast<RLexerJava*>(lexer_)->foldPreprocessor();
 		else if ( lng == "c#" )
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldPreprocessor();
 		else if ( lng == "c++" )
@@ -309,7 +309,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		if ( lng == "javascript" )
 			return qobject_cast<QsciLexerJavaScript*>(lexer_)->stylePreprocessor();
 		else if ( lng == "java" )
-			return qobject_cast<QsciLexerJava*>(lexer_)->stylePreprocessor();
+			return qobject_cast<RLexerJava*>(lexer_)->stylePreprocessor();
 		else if ( lng == "c#" )
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->stylePreprocessor();
 		else if ( lng == "c++" )
