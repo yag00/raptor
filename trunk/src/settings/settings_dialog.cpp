@@ -5,7 +5,7 @@
 #include <Qsci/qscilexerpython.h>
 
 #include "../astyle/AStyleIndenter.h"
-#include "../lexer/lexerCpp.h"
+#include "../lexer/RLexerCpp.h"
 #include "../widget/ScintillaExt.h"
 #include "settings.h"
 #include "settings_dialog.h"
@@ -18,7 +18,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 	QFile file(":/astyle/rc/indent-sample.cpp");
 	file.open(QFile::ReadOnly);
 	tePreview->setText(QString::fromUtf8(file.readAll()));
-	tePreview->setLexer(new LexerCPP(tePreview));
+	tePreview->setLexer(new RLexerCPP(tePreview));
 	tePreview->setWhitespaceVisibility(QsciScintilla::WsVisible);
 	file.close();
 

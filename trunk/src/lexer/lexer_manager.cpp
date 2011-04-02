@@ -33,7 +33,8 @@
 #include <Qsci/qscilexerxml.h>
 #include <Qsci/qscilexeryaml.h>
 
-#include "lexerCpp.h"
+#include "RLexerCpp.h"
+#include "RLexerJava.h"
 
 #include "../settings/settings_dialog.h"
 #include "../document_editor.h"
@@ -52,6 +53,7 @@ LexerManager::LexerManager(QWidget* parent_){
 	
 	_fileType["Normal Text"] = "Normal Text file";
 	_fileType["C++"] = "C++ source file";
+	_fileType["Java"] = "Java source file";
 	//Todo ...
 	
 	_actionGroup = 0;
@@ -194,16 +196,14 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldComments();
 		else if ( lng == "c++" )
 			return qobject_cast<QsciLexerCPP*>(lexer_)->foldComments();
-#if QSCINTILLA_VERSION >= 0x020300
 		else if ( lng == "pascal" )
 			return qobject_cast<QsciLexerPascal*>(lexer_)->foldComments();
 		else if ( lng == "yaml" )
 			return qobject_cast<QsciLexerYAML*>(lexer_)->foldComments();
-#endif
-#if QSCINTILLA_VERSION > 0x020400
 		else if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldComments();
-#endif
+		else if ( lng == "tcl" )
+			return qobject_cast<QsciLexerTCL*>(lexer_)->foldComments();
 	}
 	else if ( property_ == "foldCompact" ) {
 		if ( lng == "bash" )
@@ -234,9 +234,6 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldCompact();
 		else if ( lng == "c++" )
 			return qobject_cast<QsciLexerCPP*>(lexer_)->foldCompact();
-#if QSCINTILLA_VERSION >= 0x020300
-		else if ( lng == "tcl" )
-			return qobject_cast<QsciLexerTCL*>(lexer_)->foldCompact();
 		else if ( lng == "fortran" )
 			return qobject_cast<QsciLexerFortran*>(lexer_)->foldCompact();
 		else if ( lng == "fortran77" )
@@ -247,11 +244,8 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 			return qobject_cast<QsciLexerPostScript*>(lexer_)->foldCompact();
 		else if ( lng == "xml" )
 			return qobject_cast<QsciLexerXML*>(lexer_)->foldCompact();
-#endif
-#if QSCINTILLA_VERSION > 0x020400
 		else if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldCompact();
-#endif
 	}
 	else if ( property_ == "foldQuotes" ) {
 		if ( lng == "python" )
@@ -284,20 +278,14 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldAtElse();
 		else if ( lng == "c++" )
 			return qobject_cast<QsciLexerCPP*>(lexer_)->foldAtElse();
-#if QSCINTILLA_VERSION >= 0x020300
 		else if ( lng == "postscript" )
 			return qobject_cast<QsciLexerPostScript*>(lexer_)->foldAtElse();
-#endif
-#if QSCINTILLA_VERSION > 0x020400
 		else if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldAtElse();
-#endif
 	}
 	else if ( property_ == "foldAtModule" ) {
-#if QSCINTILLA_VERSION > 0x020400
 		if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldAtModule();
-#endif
 	}
 	else if ( property_ == "foldPreprocessor" )	{
 		if ( lng == "html" )
@@ -310,16 +298,12 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 			return qobject_cast<QsciLexerCSharp*>(lexer_)->foldPreprocessor();
 		else if ( lng == "c++" )
 			return qobject_cast<QsciLexerCPP*>(lexer_)->foldPreprocessor();
-#if QSCINTILLA_VERSION >= 0x020300
 		else if ( lng == "pascal" )
 			return qobject_cast<QsciLexerPascal*>(lexer_)->foldPreprocessor();
 		else if ( lng == "xml" )
 			return qobject_cast<QsciLexerXML*>(lexer_)->foldPreprocessor();
-#endif
-#if QSCINTILLA_VERSION > 0x020400
 		else if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldPreprocessor();
-#endif
 	}
 	else if ( property_ == "stylePreprocessor" ) {
 		if ( lng == "javascript" )
@@ -334,10 +318,8 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 	else if ( property_ == "caseSensitiveTags" ) {
 		if ( lng == "html" )
 			return qobject_cast<QsciLexerHTML*>(lexer_)->caseSensitiveTags();
-#if QSCINTILLA_VERSION >= 0x020300
 		else if ( lng == "xml" )
 			return qobject_cast<QsciLexerXML*>(lexer_)->caseSensitiveTags();
-#endif
 	}
 	else if ( property_ == "backslashEscapes" ) {
 		if ( lng == "sql" )
@@ -360,9 +342,9 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	else if(name_ == "CMake")
 		lexer =  (QsciLexer*)new QsciLexerCMake(parent_);
 	else if(name_ == "C")
-		lexer =  (QsciLexer*)new QsciLexerCPP(parent_);
+		lexer =  (QsciLexer*)new RLexerCPP(parent_);
 	else if(name_ == "C++")
-		lexer =  (QsciLexer*)new LexerCPP(parent_);
+		lexer =  (QsciLexer*)new RLexerCPP(parent_);
 	else if(name_ == "C#")
 		lexer =  (QsciLexer*)new QsciLexerCSharp(parent_);
 	else if(name_ == "CSS")
@@ -380,7 +362,7 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	else if(name_ == "IDL")
 		lexer =  (QsciLexer*)new QsciLexerIDL(parent_);
 	else if(name_ == "Java")
-		lexer =  (QsciLexer*)new QsciLexerJava(parent_);
+		lexer =  (QsciLexer*)new RLexerJava(parent_);
 	else if(name_ == "JavaScript")
 		lexer =  (QsciLexer*)new QsciLexerJavaScript(parent_);
 	else if(name_ == "Lua")
