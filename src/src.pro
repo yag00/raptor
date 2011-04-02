@@ -34,7 +34,8 @@ HEADERS       *= mainwindow.h \
 				tabbar.h \
 				singleton.h \
 				lexer_manager.h \
-				lexerCpp.h \
+				RLexerCpp.h \
+				RLexerJava.h \
 				document_view.h \
 				document_manager.h \
 				document_editor.h \
@@ -57,7 +58,8 @@ SOURCES       *= main.cpp \
 				ColorPushButton.cpp \
 				tabbar.cpp \
 				lexer_manager.cpp \
-				lexerCpp.cpp \
+				RLexerCpp.cpp \
+				RLexerJava.cpp \
 				document_view.cpp \
 				document_manager.cpp \
 				document_editor.cpp \
