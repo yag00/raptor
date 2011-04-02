@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciPrinter.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -35,7 +35,7 @@ class QsciPrinter : QPrinter
 %End
 
 public:
-    QsciPrinter(QPrinter::PrinterMode = QPrinter::ScreenResolution);
+    QsciPrinter(QPrinter::PrinterMode mode = QPrinter::ScreenResolution);
     virtual ~QsciPrinter();
 
     virtual void formatPage(QPainter &painter, bool drawing, QRect &area,

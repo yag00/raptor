@@ -1,6 +1,6 @@
 // This defines the interface to the QsciLexerD class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -103,6 +103,24 @@ public:
 
         //! A JavaDoc and Doxygen keyword error.
         CommentDocKeywordError = 17,
+
+        //! A backquoted string.
+        BackquoteString = 18,
+
+        //! A raw, hexadecimal or delimited string.
+        RawString = 19,
+
+        //! A keyword defined in keyword set number 5.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet5 = 20,
+
+        //! A keyword defined in keyword set number 6.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet6 = 21,
+
+        //! A keyword defined in keyword set number 7.  The class must be
+        //! sub-classed and re-implement keywords() to make use of this style.
+        KeywordSet7 = 22,
     };
 
     //! Construct a QsciLexerD with parent \a parent and name \a name.  \a

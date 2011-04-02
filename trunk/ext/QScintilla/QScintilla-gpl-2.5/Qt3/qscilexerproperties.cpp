@@ -1,6 +1,6 @@
 // This module implements the QsciLexerProperties class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -38,7 +38,7 @@
 // The ctor.
 QsciLexerProperties::QsciLexerProperties(QObject *parent, const char *name)
     : QsciLexer(parent, name),
-      fold_compact(true)
+      fold_compact(true), initial_spaces(true)
 {
 }
 
@@ -162,6 +162,7 @@ QColor QsciLexerProperties::defaultPaper(int style) const
 void QsciLexerProperties::refreshProperties()
 {
     setCompactProp();
+    setInitialSpacesProp();
 }
 
 
@@ -179,6 +180,13 @@ bool QsciLexerProperties::readProperties(QSettings &qs,const QString &prefix)
     else
         rc = false;
 
+    flag = qs.readBoolEntry(prefix + "initialspaces", true, &ok);
+
+    if (ok)
+        initial_spaces = flag;
+    else
+        rc = false;
+
     return rc;
 }
 
@@ -191,14 +199,10 @@ bool QsciLexerProperties::writeProperties(QSettings &qs,const QString &prefix) c
     if (!qs.writeEntry(prefix + "foldcompact", fold_compact))
         rc = false;
 
+    if (!qs.writeEntry(prefix + "initialspaces", initial_spaces))
+        rc = false;
+
     return rc;
-}
-
-
-// Return true if folds are compact.
-bool QsciLexerProperties::foldCompact() const
-{
-    return fold_compact;
 }
 
 
@@ -214,5 +218,21 @@ void QsciLexerProperties::setFoldCompact(bool fold)
 // Set the "fold.compact" property.
 void QsciLexerProperties::setCompactProp()
 {
-    emit propertyChanged("fold.compact",(fold_compact ? "1" : "0"));
+    emit propertyChanged("fold.compact", (fold_compact ? "1" : "0"));
+}
+
+
+// Set if initial spaces are allowed.
+void QsciLexerProperties::setInitialSpaces(bool enable)
+{
+    initial_spaces = enable;
+
+    setInitialSpacesProp();
+}
+
+
+// Set the "lexer.props.allow.initial.spaces" property.
+void QsciLexerProperties::setInitialSpacesProp()
+{
+    emit propertyChanged("lexer.props.allow.initial.spaces", (fold_compact ? "1" : "0"));
 }

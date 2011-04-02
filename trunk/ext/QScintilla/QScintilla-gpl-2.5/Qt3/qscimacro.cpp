@@ -1,6 +1,6 @@
 // This module implements the QsciMacro class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -115,11 +115,7 @@ bool QsciMacro::load(const QString &asc)
                 break;
             }
 
-            cmd.text.resize(len);
-
             const char *sp = fields[f++].ascii();
-
-            char *dp = cmd.text.data();
 
             if (!sp)
             {
@@ -127,12 +123,12 @@ bool QsciMacro::load(const QString &asc)
                 break;
             }
 
-            while (len--)
+            // Because of historical bugs the length field is unreliable.
+            bool embedded_null = false;
+            unsigned char ch;
+
+            while ((ch = *sp++) != '\0')
             {
-                unsigned char ch;
-
-                ch = *sp++;
-
                 if (ch == '"' || ch <= ' ' || ch >= 0x7f)
                 {
                     ok = false;
@@ -153,11 +149,28 @@ bool QsciMacro::load(const QString &asc)
                     ch = (b1 << 4) + b2;
                 }
 
-                *dp++ = ch;
+                if (ch == '\0')
+                {
+                    // Don't add it now as it may be the terminating '\0'.
+                    embedded_null = true;
+                }
+                else
+                {
+                    if (embedded_null)
+                    {
+                        // Add the pending embedded '\0'.
+                        cmd.text += '\0';
+                        embedded_null = false;
+                    }
+
+                    cmd.text += ch;
+                }
             }
 
             if (!ok)
                 break;
+
+            cmd.text += '\0';
         }
 
         macro.append(cmd);

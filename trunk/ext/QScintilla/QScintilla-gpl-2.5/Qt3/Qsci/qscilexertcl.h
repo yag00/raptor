@@ -1,6 +1,6 @@
 // This defines the interface to the QsciLexerTCL class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -158,26 +158,25 @@ public:
 	//! by the lexer as a space separated string.
 	const char *keywords(int set) const;
 
-	//! Returns the descriptive name for style number \a style.  If the
-	//! style is invalid for this language then an empty QString is returned.
-	//! This is intended to be used in user preference dialogs.
+	//! Returns the descriptive name for style number \a style.  If the style
+	//! is invalid for this language then an empty QString is returned.  This
+	//! is intended to be used in user preference dialogs.
 	QString description(int style) const;
 
 	//! Causes all properties to be refreshed by emitting the
 	//! propertyChanged() signal as required.
 	void refreshProperties();
 
-	//! Returns true if trailing blank lines are included in a fold block.
+	//! If \a fold is true then multi-line comment blocks can be folded.  The
+    //! default is false.
 	//!
-	//! \sa setFoldCompact()
-	bool foldCompact() const;
+	//! \sa foldComments()
+	void setFoldComments(bool fold);
 
-public slots:
-	//! If \a fold is true then trailing blank lines are included in a fold
-	//! block. The default is true.
+    //! Returns true if multi-line comment blocks can be folded.
 	//!
-	//! \sa foldCompact()
-	virtual void setFoldCompact(bool fold);
+	//! \sa setFoldComments()
+	bool foldComments() const {return fold_comments;}
 
 protected:
 	//! The lexer's properties are read from the settings \a qs.  \a prefix
@@ -193,9 +192,9 @@ protected:
 	bool writeProperties(QSettings &qs,const QString &prefix) const;
 
 private:
-	void setCompactProp();
+	void setCommentProp();
 
-	bool fold_compact;
+	bool fold_comments;
 
 	QsciLexerTCL(const QsciLexerTCL &);
 	QsciLexerTCL &operator=(const QsciLexerTCL &);

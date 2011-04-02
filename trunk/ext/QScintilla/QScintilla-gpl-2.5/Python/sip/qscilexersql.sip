@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerSQL.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -56,6 +56,7 @@ public:
         KeywordSet6,
         KeywordSet7,
         KeywordSet8,
+        QuotedIdentifier,
     };
 
 %If (Qsci_Qt4)
@@ -77,14 +78,24 @@ public:
     QString description(int style) const;
 
     void refreshProperties();
+    bool backslashEscapes() const;
+    void setDottedWords(bool enable);
+    bool dottedWords() const;
+    void setFoldAtElse(bool fold);
+    bool foldAtElse() const;
     bool foldComments() const;
     bool foldCompact() const;
-    bool backslashEscapes() const;
+    void setFoldOnlyBegin(bool fold);
+    bool foldOnlyBegin() const;
+    void setHashComments(bool enable);
+    bool hashComments() const;
+    void setQuotedIdentifiers(bool enable);
+    bool quotedIdentifiers() const;
 
 public slots:
+    virtual void setBackslashEscapes(bool enable);
     virtual void setFoldComments(bool fold);
     virtual void setFoldCompact(bool fold);
-    virtual void setBackslashEscapes(bool enable);
 
 protected:
     bool readProperties(QSettings &qs, const QString &prefix);

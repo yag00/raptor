@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerCustom.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -50,7 +50,7 @@ public:
     void setStyling(int length, int style);
     void setStyling(int length, const QsciStyle &style);
 
-    void startStyling(int pos, int style_bits = 0);
+    void startStyling(int pos, int styleBits = 0);
     virtual void styleText(int start, int end) = 0;
 
 private:

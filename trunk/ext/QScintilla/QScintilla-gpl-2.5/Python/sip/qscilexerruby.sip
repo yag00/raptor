@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerRuby.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -86,6 +86,16 @@ public:
     QColor defaultPaper(int style) const;
     const char *keywords(int) const;
     QString description(int style) const;
+
+    void refreshProperties();
+    void setFoldComments(bool fold);
+    bool foldComments() const;
+    void setFoldCompact(bool fold);
+    bool foldCompact() const;
+
+protected:
+    bool readProperties(QSettings &qs, const QString &prefix);
+    bool writeProperties(QSettings &qs, const QString &prefix) const;
 
 private:
     QsciLexerRuby(const QsciLexerRuby &);

@@ -1,6 +1,6 @@
 // This defines the interface to the QsciLexerCSS class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -122,7 +122,10 @@ public:
 
         //! An extended (browser specific) pseudo element.  The list of
         //! extended pseudo elements is defined by keyword set 8.
-        ExtendedPseudoElement = 21
+        ExtendedPseudoElement = 21,
+
+        //! A media rule.
+        MediaRule = 22
     };
 
     //! Construct a QsciLexerCSS with parent \a parent.  \a parent is typically

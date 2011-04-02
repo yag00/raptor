@@ -1,6 +1,6 @@
 // This module implements the QsciLexerD class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -321,6 +321,21 @@ QString QsciLexerD::description(int style) const
 
     case CommentDocKeywordError:
         return tr("DDoc keyword error");
+
+    case BackquoteString:
+        return tr("Backquoted string");
+
+    case RawString:
+        return tr("Raw string");
+
+    case KeywordSet5:
+        return tr("User defined 1");
+
+    case KeywordSet6:
+        return tr("User defined 2");
+
+    case KeywordSet7:
+        return tr("User defined 3");
     }
 
     return QString();

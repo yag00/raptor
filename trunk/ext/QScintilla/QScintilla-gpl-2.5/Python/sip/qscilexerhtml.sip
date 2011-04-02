@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerHTML.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -167,14 +167,17 @@ public:
     QString description(int style) const;
 
     void refreshProperties();
+    bool caseSensitiveTags() const;
+    void setDjangoTemplates(bool enable);
+    bool djangoTemplates() const;
     bool foldCompact() const;
     bool foldPreprocessor() const;
-    bool caseSensitiveTags() const;
-
     void setFoldScriptComments(bool fold);
     bool foldScriptComments() const;
     void setFoldScriptHeredocs(bool fold);
     bool foldScriptHeredocs() const;
+    void setMakoTemplates(bool enable);
+    bool makoTemplates() const;
 
 public slots:
     virtual void setFoldCompact(bool fold);

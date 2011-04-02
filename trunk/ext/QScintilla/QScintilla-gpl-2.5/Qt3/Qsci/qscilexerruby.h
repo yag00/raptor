@@ -1,6 +1,6 @@
 // This defines the interface to the QsciLexerRuby class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -201,7 +201,52 @@ public:
     //! is intended to be used in user preference dialogs.
     QString description(int style) const;
 
+    //! Causes all properties to be refreshed by emitting the
+    //! propertyChanged() signal as required.
+    void refreshProperties();
+
+    //! If \a fold is true then multi-line comment blocks can be folded.
+    //! The default is false.
+    //!
+    //! \sa foldComments()
+    void setFoldComments(bool fold);
+
+    //! Returns true if multi-line comment blocks can be folded.
+    //!
+    //! \sa setFoldComments()
+    bool foldComments() const {return fold_comments;}
+
+    //! If \a fold is true then trailing blank lines are included in a fold
+    //! block. The default is true.
+    //!
+    //! \sa foldCompact()
+    void setFoldCompact(bool fold);
+
+    //! Returns true if trailing blank lines are included in a fold block.
+    //!
+    //! \sa setFoldCompact()
+    bool foldCompact() const {return fold_compact;}
+
+protected:
+    //! The lexer's properties are read from the settings \a qs.  \a prefix
+    //! (which has a trailing '/') should be used as a prefix to the key of
+    //! each setting.  true is returned if there is no error.
+    //!
+    bool readProperties(QSettings &qs, const QString &prefix);
+
+    //! The lexer's properties are written to the settings \a qs.
+    //! \a prefix (which has a trailing '/') should be used as a prefix to
+    //! the key of each setting.  true is returned if there is no error.
+    //!
+    bool writeProperties(QSettings &qs, const QString &prefix) const;
+
 private:
+    void setCommentProp();
+    void setCompactProp();
+
+    bool fold_comments;
+    bool fold_compact;
+
     QsciLexerRuby(const QsciLexerRuby &);
     QsciLexerRuby &operator=(const QsciLexerRuby &);
 };

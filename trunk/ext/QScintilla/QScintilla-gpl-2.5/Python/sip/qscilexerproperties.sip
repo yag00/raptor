@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerProperties.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -64,6 +64,8 @@ public:
 
     void refreshProperties();
     bool foldCompact() const;
+    void setInitialSpaces(bool enable);
+    bool initialSpaces() const;
 
 public slots:
     virtual void setFoldCompact(bool fold);

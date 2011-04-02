@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerTCL.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -79,10 +79,8 @@ public:
     QString description(int style) const;
 
     void refreshProperties();
-    bool foldCompact() const;
-
-public slots:
-    virtual void setFoldCompact(bool fold);
+    void setFoldComments(bool fold);
+    bool foldComments() const;
 
 protected:
     bool readProperties(QSettings &qs, const QString &prefix);

@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerTeX.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -58,6 +58,20 @@ public:
     QColor defaultColor(int style) const;
     const char *keywords(int set) const;
     QString description(int style) const;
+
+    void refreshProperties();
+    void setFoldComments(bool fold);
+    bool foldComments() const;
+    void setFoldCompact(bool fold);
+    bool foldCompact() const;
+    void setProcessComments(bool enable);
+    bool processComments() const;
+    void setProcessIf(bool enable);
+    bool processIf() const;
+
+protected:
+    bool readProperties(QSettings &qs, const QString &prefix);
+    bool writeProperties(QSettings &qs, const QString &prefix) const;
 
 private:
     QsciLexerTeX(const QsciLexerTeX &);

@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QsciLexerD.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -54,6 +54,11 @@ public:
         CommentLineDoc,
         CommentDocKeyword,
         CommentDocKeywordError,
+        BackquoteString,
+        RawString,
+        KeywordSet5,
+        KeywordSet6,
+        KeywordSet7,
     };
 
 %If (Qsci_Qt4)

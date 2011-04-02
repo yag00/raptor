@@ -1,6 +1,6 @@
 // This module implements the QsciLexerCSS class.
 //
-// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2011 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
@@ -130,6 +130,7 @@ QColor QsciLexerCSS::defaultColor(int style) const
         return QColor(0xff,0x80,0x00);
 
     case AtRule:
+    case MediaRule:
         return QColor(0x7f,0x7f,0x00);
 
     case CSS2Property:
@@ -159,7 +160,7 @@ QFont QsciLexerCSS::defaultFont(int style) const
         {
         case Tag:
         case Important:
-        case AtRule:
+        case MediaRule:
             f.setBold(true);
             break;
 
@@ -296,6 +297,9 @@ QString QsciLexerCSS::description(int style) const
 
     case ExtendedPseudoElement:
         return tr("Extended pseudo-element");
+
+    case MediaRule:
+        return tr("Media rule");
     }
 
     return QString();
