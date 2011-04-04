@@ -35,7 +35,7 @@ ScintillaExt::ScintillaExt(QWidget* parent_) : QsciScintilla(parent_){
 	connect(this, SIGNAL(selectionChanged()), this, SLOT(selectedTextChanged()));
 	connect(this, SIGNAL(linesChanged()), this, SLOT(updateLineNumberWidth()));
 	connect(this, SIGNAL(linesChanged()), this, SLOT(checkHighlight()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(checkHighlight()));	
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(checkHighlight()));
 }
 
 ScintillaExt::~ScintillaExt(){
@@ -60,7 +60,9 @@ void ScintillaExt::reindent(){
 void ScintillaExt::replaceAllText(const QString& text_){
 	//get the current line
 	int currentLine = firstVisibleLine();
-	
+	int cline,cindex;
+	getCursorPosition(&cline, &cindex);
+
 	//replace text
 	//note : we do not use setText to keep the undo action available
 	int start = SendScintilla(SCI_POSITIONFROMLINE, 0);
@@ -68,12 +70,13 @@ void ScintillaExt::replaceAllText(const QString& text_){
 	SendScintilla(SCI_SETTARGETSTART, start);
 	SendScintilla(SCI_SETTARGETEND, end);
 	SendScintilla(SCI_REPLACETARGET, -1, text_.toStdString().c_str());
-	
+
 	//set the current line visible to have the same view as before
-	setFirstVisibleLine(currentLine);	
+	setFirstVisibleLine(currentLine);
+	setCursorPosition(cline, cindex);
 }
 
-void ScintillaExt::doTrimTrailing(){	
+void ScintillaExt::doTrimTrailing(){
 	QString eol = getEol();
 	QString buffer;
 
@@ -81,10 +84,10 @@ void ScintillaExt::doTrimTrailing(){
 	for (int line = 0; line < nbLines; line++){
 		QString str = text(line);
 		int i = str.size() - 1;
-	
+
 		if(i < 0)
 			continue;
-		
+
 		while( i >= 0 && str[i].isSpace())
 			i--;
 
@@ -302,7 +305,7 @@ void ScintillaExt::setFoldMarker(int marknr, int mark, const QColor& foreground_
 void ScintillaExt::setFolding(FoldStyleExt folding_, const QColor& foreground_, const QColor& background_, int margin_) {
 	///@todo fixme avoid this useless call but we need to update private member(fold,foldmargin)
 	QsciScintilla::setFolding((QsciScintilla::FoldStyle)folding_, margin_);
-	
+
 	if (folding_ == NoFoldStyle) {
         SendScintilla(SCI_SETMARGINWIDTHN, margin_, 0L);
         return;
@@ -317,7 +320,7 @@ void ScintillaExt::setFolding(FoldStyleExt folding_, const QColor& foreground_, 
     SendScintilla(SCI_SETMARGINMASKN, margin_, SC_MASK_FOLDERS);
     SendScintilla(SCI_SETMARGINSENSITIVEN, margin_, 1);
 
-	
+
 	switch (folding_) {
 		case PlainFoldStyle:
 			setFoldMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_MINUS, foreground_, background_);
@@ -376,7 +379,7 @@ void ScintillaExt::setFolding(FoldStyleExt folding_, const QColor& foreground_, 
 			setFoldMarker(SC_MARKNUM_FOLDEREND, SC_MARK_EMPTY, foreground_, background_);
 			setFoldMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_EMPTY, foreground_, background_);
 			setFoldMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_EMPTY, foreground_, background_);
-			break;			
+			break;
 	case ArrowTreeFoldStyle:
 			setFoldMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_ARROWDOWN, foreground_, background_);
 			setFoldMarker(SC_MARKNUM_FOLDER, SC_MARK_ARROW, foreground_, background_);
@@ -385,7 +388,7 @@ void ScintillaExt::setFolding(FoldStyleExt folding_, const QColor& foreground_, 
 			setFoldMarker(SC_MARKNUM_FOLDEREND, SC_MARK_PLUS, foreground_, background_);
 			setFoldMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_MINUS, foreground_, background_);
 			setFoldMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_TCORNER, foreground_, background_);
-			break;			
+			break;
 		default:
 			break;
     }
@@ -414,9 +417,9 @@ bool ScintillaExt::isQualifiedWord(const QString& str_) const {
 };
 
 bool ScintillaExt::isWordChar(char ch) const {
-	if (ch < 0x20) 
+	if (ch < 0x20)
 		return false;
-	
+
 	switch(ch)
 	{
 		case ' ':
@@ -462,7 +465,7 @@ int ScintillaExt::getCurrentPosition() const {
 	return SendScintilla(SCI_GETCURRENTPOS);
 }
 
-void ScintillaExt::foldLevel(int level_){	
+void ScintillaExt::foldLevel(int level_){
 	for (int line = 0; line < lines(); line++) {
 		int level = SendScintilla(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG){
@@ -475,7 +478,7 @@ void ScintillaExt::foldLevel(int level_){
 	}
 }
 
-void ScintillaExt::unfoldLevel(int level_){	
+void ScintillaExt::unfoldLevel(int level_){
 	for (int line = 0; line < lines(); line++) {
 		int level = SendScintilla(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG){
@@ -512,15 +515,15 @@ void ScintillaExt::selectedTextChanged(){
 		clearIndicators(INDICATOR_QUICK_SEARCH1, INDICATOR_QUICK_SEARCH2);
 	}
 	return;
-	
+
 	/*// save target locations for other search functions
 	int originalStartPos = SendScintilla(SCI_GETTARGETSTART);
 	int originalEndPos = SendScintilla(SCI_GETTARGETEND);
-	
+
 	//clear marker
 	//SendScintilla(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE_SMART);
 	SendScintilla(SCI_INDICATORCLEARRANGE, 0, text().length());
-	
+
 
 	QString selection = selectedText();
 	if(selection == "")
@@ -539,21 +542,21 @@ void ScintillaExt::selectedTextChanged(){
 		return;
 
 
-		
-	//a single word is selected, highlight the word in the whole document 
+
+	//a single word is selected, highlight the word in the whole document
 	qDebug() << selection << " " << lineFrom << " " << indexFrom << " " << lineTo << " " << indexTo;
 	//setSelectionBackgroundColor(QColor(0,255,0));
-	
-	
+
+
 	int firstLine =		SendScintilla(SCI_GETFIRSTVISIBLELINE);
 	int nrLines =		SendScintilla(SCI_LINESONSCREEN);
 	int lastLine =		firstLine+nrLines;
 	int startPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, firstLine);
 	int endPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, lastLine);
-	
+
 	int currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
-	
+
 	for(; currentLine < lastLine; currentLine++) {
 		int docLine = SendScintilla(SCI_DOCLINEFROMVISIBLE, currentLine);
 		if (docLine == prevDocLineChecked)
@@ -561,7 +564,7 @@ void ScintillaExt::selectedTextChanged(){
 		prevDocLineChecked = docLine;
 		startPos = SendScintilla(SCI_POSITIONFROMLINE, docLine);
 		endPos = SendScintilla(SCI_POSITIONFROMLINE, docLine+1);
-		
+
 		int targetStart = 0;
 		int targetEnd = 0;
 
@@ -569,7 +572,7 @@ void ScintillaExt::selectedTextChanged(){
 		SendScintilla(SCI_SETSEARCHFLAGS, SCFIND_WHOLEWORD);
 		targetStart = searchInTarget(selection.toStdString().c_str(), selection.size(), startPos, endPos);
 		qDebug() << currentLine << " " << startPos << " " << endPos << " " << targetStart;
-		
+
 		while (targetStart != -1){
 			targetStart = SendScintilla(SCI_GETTARGETSTART);
 			targetEnd = SendScintilla(SCI_GETTARGETEND);
@@ -581,12 +584,12 @@ void ScintillaExt::selectedTextChanged(){
 			//SendScintilla(SCI_INDICSETFORE, 0, 0x00ff00);
 			//SendScintilla(SCI_INDICSETALPHA, 0, 255);
 			SendScintilla(SCI_INDICATORFILLRANGE,  targetStart, selection.size());
-			
+
 			startPos = targetStart + selection.size();
 			targetStart = searchInTarget(selection.toStdString().c_str(), selection.size(), startPos, endPos);
 		}
 	}
-	
+
 	// restore the original targets to avoid conflicts with the search/replace functions
 	SendScintilla(SCI_SETTARGETSTART, originalStartPos);
 	SendScintilla(SCI_SETTARGETEND, originalEndPos);*/
@@ -641,7 +644,7 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 
 	int line1 = firstVisibleLine();   // visual coords
 	line1 = SendScintilla(SCI_DOCLINEFROMVISIBLE, line1);   // document coords
-	if (line1 < 0) 
+	if (line1 < 0)
 		line1 = 0;
 	int line2 = line1 + linesVisible() + 2;
 
@@ -651,10 +654,10 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	}
 
 	int pos1 = positionFromLineIndex(line1, 0);
-	if (pos1 < 0) 
+	if (pos1 < 0)
 		pos1 = 0;
 	int pos2 = positionFromLineIndex(line2, 0);
-	if (pos2 < 0) 
+	if (pos2 < 0)
 		pos2 = length();
 
 	///@todo make it configurable
