@@ -245,6 +245,9 @@ void SettingsDialog::loadSettingsDialog(){
 
 	/** Editor **/
 	//  - General
+	cbAutoTrim->setChecked(_settings->autoTrimOnSave());
+	cbAddNewLine->setChecked(_settings->addNewLineOnSave());
+	
 	cbUseForeground->setChecked(_settings->useSelectionForegroundColor());
 	tbSelectionForeground->setEnabled(_settings->useSelectionForegroundColor());
 	tbSelectionBackground->setColor(_settings->getSelectionBackgroundColor());
@@ -434,6 +437,9 @@ void SettingsDialog::saveSettingsDialog(){
 	// Editor
 
 	//  General
+	_settings->setAutoTrimOnSave(cbAutoTrim->checkState());
+	_settings->setAddNewLineOnSave(cbAddNewLine->checkState());
+	
 	_settings->setDefaultCodec(cbDefaultCodec->currentText());
 
 	_settings->useSelectionForegroundColor(cbUseForeground->isChecked());

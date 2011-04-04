@@ -77,7 +77,9 @@ class ScintillaExt : public QsciScintilla {
 		void increaseIndentation();
 		/** unindent the text */
 		void decreaseIndentation();
-
+		/** reindent the text (using astyle) */
+		void reindent();
+		
 		/** remove all whitespaces at the end of each line */
 		void doTrimTrailing();
 		/** remove all whitespaces at the start and the end of each line
@@ -121,6 +123,10 @@ class ScintillaExt : public QsciScintilla {
 		 * @param level_ the unfold level */
 		void unfoldLevel(int level_);
 		
+		/** do the same as setText() but do not clear the cancel action list and
+		 * set the editor view same as before */
+		void replaceAllText(const QString& text_);
+		
 	protected slots:
 		/** update margin width */
 		void updateLineNumberWidth();
@@ -146,6 +152,8 @@ class ScintillaExt : public QsciScintilla {
 		void createIndicator(int id_, int type_, const QColor &color_, bool under_ = true);
 		void highlightVisible(const QString &text_, int id1_, int id2_);
 
+		/** @return true if the line is empty */
+		bool isLineEmpty(int line_) const;
 		/** @return true if the string is a qualified word (letter or number sequence of char) */
 		bool isQualifiedWord(const QString& str_) const;
 		bool isWordChar(char ch) const;

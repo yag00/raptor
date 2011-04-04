@@ -1,7 +1,6 @@
 #include <QtGui>
 #include <Qsci/qscimacro.h>
 
-#include "astyle/AStyleIndenter.h"
 #include "settings/settings.h"
 #include "Diff.h"
 #include "document_editor.h"
@@ -294,11 +293,7 @@ void DocumentManager::restoreLastSession(QSettings& settings_){
 }
 
 void DocumentManager::reindentDocument(){
-	Settings settings;
-	AStyleIndenter asi;
-	settings.setAstyleIndenterOptions(asi);
-	QString text = asi.format(getActiveDocument()->text());
-	getActiveDocument()->setText(text);
+	getActiveDocument()->reindent();
 }
 
 void DocumentManager::reindentOpenDocuments(){

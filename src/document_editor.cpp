@@ -23,6 +23,9 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_) {
 	_hasBom = false;
 	_charsetAutoDetect = true;
 
+	_addNewLineOnSave = false;
+	_trimOnSave = false;
+	
 	_autoDetectEol = false;
 	_autoDetectIndent = false;
 
@@ -242,6 +245,18 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	//file.resize(0);
 	//file.write(codec->fromUnicode(text()));
+	
+	// check if strip spaces
+	if(_trimOnSave == true)
+		doTrimTrailing();
+
+	// check if add new line to the end
+	if (_addNewLineOnSave == true) {
+		if (!isLineEmpty(lines() - 1)){
+			append(getEol());
+		}
+	}
+
 	QTextStream out(&file);
 	out.setCodec(codec);
 	out.setGenerateByteOrderMark(needBOM());
@@ -275,6 +290,21 @@ bool DocumentEditor::saveCopy(const QString &fileName_) {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	//file.resize(0);
 	//file.write(codec->fromUnicode(text()));
+
+	
+	qDebug() << getFullPath() << _trimOnSave << _addNewLineOnSave;
+	
+	// check if strip spaces
+	if(_trimOnSave == true)
+		doTrimTrailing();
+
+	// check if add new line to the end
+	if (_addNewLineOnSave == true) {
+		if (!isLineEmpty(lines() - 1)){
+			append(getEol());
+		}
+	}
+	
 	QTextStream out(&file);
 	out.setCodec(codec);
 	out.setGenerateByteOrderMark(needBOM());
@@ -679,4 +709,12 @@ bool DocumentEditor::detectBOM(const char* bom_){
 			break;
 	}
 	return _hasBom;
+}
+
+void DocumentEditor::setAddNewLineOnSave(bool addNewLine_){
+	_addNewLineOnSave = addNewLine_;
+}
+
+void DocumentEditor::setTrimOnSave(bool trim_){
+	_trimOnSave = trim_;
 }

@@ -53,6 +53,13 @@ class Settings : public QSettings{
 		QStringList getRecentFiles();
 
 		// General
+		/** get/set auto trim on save property */
+		void setAutoTrimOnSave(bool autoTrim_);
+		bool autoTrimOnSave();
+		/** get/set add new line on save property */
+		void setAddNewLineOnSave(bool addNewLine_);
+		bool addNewLineOnSave();
+		
 		// void setAutoSyntaxCheck( bool check );
 		// bool autoSyntaxCheck();
 		// void setConvertTabsUponOpen( bool convert );

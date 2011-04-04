@@ -90,6 +90,13 @@ class DocumentEditor : public ScintillaExt {
 		 * @param autoDetect_ if true enable charset auto detection */
 		void setCharsetAutoDetection(bool autoDetect_);
 		
+		/** enable/disable add new line on save
+		 * @param addNewLine_ if true a new line will be added on save */
+		void setAddNewLineOnSave(bool addNewLine_);
+		/** enable/disable trim extra spaces on save
+		 * @param trim_ if true trim extra spaces on save */
+		void setTrimOnSave(bool trim_);
+		
 	protected:
 		/** reimplement focusInEvent */
 		virtual void focusInEvent(QFocusEvent *event_);
@@ -208,7 +215,9 @@ class DocumentEditor : public ScintillaExt {
 		bool _hasBom;
 		bool _charsetAutoDetect;
 		
-	//friend class DocumentView;
+		/** storing options */
+		bool _addNewLineOnSave;
+		bool _trimOnSave;
 };
 
 #endif /* __DOCUMENT_EDITOR_H__ */

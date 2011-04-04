@@ -1,5 +1,7 @@
 #include <QtGui>
 
+#include "astyle/AStyleIndenter.h"
+#include "settings/settings.h"
 #include "ScintillaExt.h"
 
 // The default fold margin width.
@@ -47,7 +49,31 @@ void ScintillaExt::decreaseIndentation(){
 	SendScintilla(SCI_BACKTAB);
 }
 
-void ScintillaExt::doTrimTrailing(){
+void ScintillaExt::reindent(){
+	Settings settings;
+	AStyleIndenter asi;
+	settings.setAstyleIndenterOptions(asi);
+	QString text = asi.format(this->text());
+	replaceAllText(text);
+}
+
+void ScintillaExt::replaceAllText(const QString& text_){
+	//get the current line
+	int currentLine = firstVisibleLine();
+	
+	//replace text
+	//note : we do not use setText to keep the undo action available
+	int start = SendScintilla(SCI_POSITIONFROMLINE, 0);
+	int end = SendScintilla(SCI_GETLINEENDPOSITION, lines() - 1);
+	SendScintilla(SCI_SETTARGETSTART, start);
+	SendScintilla(SCI_SETTARGETEND, end);
+	SendScintilla(SCI_REPLACETARGET, -1, text_.toStdString().c_str());
+	
+	//set the current line visible to have the same view as before
+	setFirstVisibleLine(currentLine);	
+}
+
+void ScintillaExt::doTrimTrailing(){	
 	QString eol = getEol();
 	QString buffer;
 
@@ -55,13 +81,10 @@ void ScintillaExt::doTrimTrailing(){
 	for (int line = 0; line < nbLines; line++){
 		QString str = text(line);
 		int i = str.size() - 1;
-
+	
 		if(i < 0)
 			continue;
-		if(!str[i].isSpace())
-			continue;
-
-		i--;
+		
 		while( i >= 0 && str[i].isSpace())
 			i--;
 
@@ -69,13 +92,8 @@ void ScintillaExt::doTrimTrailing(){
 		str.append(eol);
 		buffer.append(str);
 	}
-	//replace text
-	//note : we do not use setText to keep the undo action available
-	int start = SendScintilla(SCI_POSITIONFROMLINE, 0);
-	int end = SendScintilla(SCI_GETLINEENDPOSITION, nbLines - 1);
-	SendScintilla(SCI_SETTARGETSTART, start);
-	SendScintilla(SCI_SETTARGETEND, end);
-	SendScintilla(SCI_REPLACETARGET, -1, buffer.toStdString().c_str());
+
+	replaceAllText(buffer);
 }
 
 void ScintillaExt::doSimplified(){
@@ -89,13 +107,8 @@ void ScintillaExt::doSimplified(){
 		str.append(eol);
 		buffer.append(str);
 	}
-	//replace text
-	//note : we do not use setText to keep the undo action available
-	int start = SendScintilla(SCI_POSITIONFROMLINE, 0);
-	int end = SendScintilla(SCI_GETLINEENDPOSITION, nbLines - 1);
-	SendScintilla(SCI_SETTARGETSTART, start);
-	SendScintilla(SCI_SETTARGETEND, end);
-	SendScintilla(SCI_REPLACETARGET, -1, buffer.toStdString().c_str());
+
+	replaceAllText(buffer);
 }
 
 void ScintillaExt::convertSelectedTextToUpperCase(){
@@ -378,6 +391,17 @@ void ScintillaExt::setFolding(FoldStyleExt folding_, const QColor& foreground_, 
     }
 
     SendScintilla(SCI_SETMARGINWIDTHN, margin_, defaultFoldMarginWidth);
+}
+
+bool ScintillaExt::isLineEmpty(int line_) const {
+	int start = SendScintilla(SCI_POSITIONFROMLINE, line_);
+	int end = SendScintilla(SCI_GETLINEENDPOSITION, line_);
+	for (int i = start; i < end; i++) {
+		char ch = SendScintilla(SCI_GETCHARAT, i);
+		if (ch != ' ' && ch != '\t')
+			return false;
+	}
+	return true;
 }
 
 bool ScintillaExt::isQualifiedWord(const QString& str_) const {
