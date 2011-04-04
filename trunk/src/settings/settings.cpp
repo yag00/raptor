@@ -85,6 +85,9 @@ void Settings::applyToDocument(DocumentEditor* document_){
 	}
 
 	// General
+	document_->setAddNewLineOnSave(addNewLineOnSave());
+	document_->setTrimOnSave(autoTrimOnSave());	
+	
 	if(useSelectionForegroundColor())
 		document_->setSelectionForegroundColor(getSelectionForegroundColor());
 	else
@@ -230,6 +233,20 @@ QStringList Settings::getRecentFiles(){
 }
 
 // General
+
+void Settings::setAutoTrimOnSave(bool autoTrim_){
+	setValue("Editor/autoTrimOnSave", autoTrim_);
+}
+bool Settings::autoTrimOnSave(){
+	return value("Editor/autoTrimOnSave", true).toBool();
+}
+
+void Settings::setAddNewLineOnSave(bool addNewLine_){
+	setValue("Editor/addNewLineOnSave", addNewLine_);
+}
+bool Settings::addNewLineOnSave(){
+	return value("Editor/addNewLineOnSave", true).toBool();
+}
 // void setAutoSyntaxCheck( bool check );
 // bool autoSyntaxCheck();
 // void setConvertTabsUponOpen( bool convert );
