@@ -1,7 +1,7 @@
 #include <QtGui>
 
-#include "astyle/AStyleIndenter.h"
-#include "settings/settings.h"
+#include "../astyle/AStyleIndenter.h"
+#include "../settings/settings.h"
 #include "ScintillaExt.h"
 
 // The default fold margin width.
