@@ -29,6 +29,13 @@ namespace{
 }
 
 ScintillaExt::ScintillaExt(QWidget* parent_) : QsciScintilla(parent_){
+#ifdef Q_WS_WIN
+	/** the "courier new font" (default font for cpp lexer ... ) with the default
+	 * value (SC_EFF_QUALITY_DEFAULT) is kind of blurred
+	 * this was not usefull for previous version of qscintilla (<2.5) ?? */
+	SendScintilla(SCI_SETFONTQUALITY, SC_EFF_QUALITY_NON_ANTIALIASED);
+#endif
+
 	_HLID1 = -1;
 	_HLID2 = -1;
 
