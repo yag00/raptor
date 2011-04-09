@@ -186,8 +186,7 @@ class DocumentEditor : public ScintillaExt {
 		
 		/** document path + fileName */
 		QString _fullPath;
-		/** document type */
-		QString _type;
+
 		/** hold if document is new */
 		bool _isNew;
 
