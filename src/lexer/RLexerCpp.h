@@ -35,4 +35,4 @@ class RLexerCPP : public QsciLexerCPP
 		RLexerCPP &operator=(const RLexerCPP &);
 };
 
-#endif //__LEXER_CPP_H__
+#endif //__RLEXER_CPP_H__

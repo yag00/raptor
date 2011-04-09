@@ -36,6 +36,8 @@ HEADERS       *= mainwindow.h \
 				lexer_manager.h \
 				RLexerCpp.h \
 				RLexerJava.h \
+				RLexerHTML.h \
+				RLexerXML.h \
 				RLexerTxt2Tags.h \
 				document_view.h \
 				document_manager.h \
@@ -61,6 +63,8 @@ SOURCES       *= main.cpp \
 				lexer_manager.cpp \
 				RLexerCpp.cpp \
 				RLexerJava.cpp \
+				RLexerHTML.cpp \
+				RLexerXML.cpp \
 				RLexerTxt2Tags.cpp \
 				document_view.cpp \
 				document_manager.cpp \

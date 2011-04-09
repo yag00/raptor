@@ -211,8 +211,7 @@ QString RLexerCPP::description(int style) const {
 }
 
 // Returns the font of the text for a style.
-QFont RLexerCPP::defaultFont(int style) const
-{
+QFont RLexerCPP::defaultFont(int style) const {
     QFont f;
 #if defined(Q_OS_WIN)
 	f = QFont("Courier New",10);
