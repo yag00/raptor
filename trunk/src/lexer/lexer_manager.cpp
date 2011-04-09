@@ -35,6 +35,8 @@
 
 #include "RLexerCpp.h"
 #include "RLexerJava.h"
+#include "RLexerHTML.h"
+#include "RLexerXML.h"
 #include "RLexerTxt2Tags.h"
 
 #include "../settings/settings_dialog.h"
@@ -223,7 +225,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "d" )
 			return qobject_cast<QsciLexerD*>(lexer_)->foldCompact();
 		else if ( lng == "html" )
-			return qobject_cast<QsciLexerHTML*>(lexer_)->foldCompact();
+			return qobject_cast<RLexerHTML*>(lexer_)->foldCompact();
 		else if ( lng == "lua" )
 			return qobject_cast<QsciLexerLua*>(lexer_)->foldCompact();
 		else if ( lng == "perl" )
@@ -253,7 +255,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "postscript" )
 			return qobject_cast<QsciLexerPostScript*>(lexer_)->foldCompact();
 		else if ( lng == "xml" )
-			return qobject_cast<QsciLexerXML*>(lexer_)->foldCompact();
+			return qobject_cast<RLexerXML*>(lexer_)->foldCompact();
 		else if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldCompact();
 	}
@@ -299,7 +301,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 	}
 	else if ( property_ == "foldPreprocessor" )	{
 		if ( lng == "html" )
-			return qobject_cast<QsciLexerHTML*>(lexer_)->foldPreprocessor();
+			return qobject_cast<RLexerHTML*>(lexer_)->foldPreprocessor();
 		else if ( lng == "javascript" )
 			return qobject_cast<QsciLexerJavaScript*>(lexer_)->foldPreprocessor();
 		else if ( lng == "java" )
@@ -311,7 +313,7 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 		else if ( lng == "pascal" )
 			return qobject_cast<QsciLexerPascal*>(lexer_)->foldPreprocessor();
 		else if ( lng == "xml" )
-			return qobject_cast<QsciLexerXML*>(lexer_)->foldPreprocessor();
+			return qobject_cast<RLexerXML*>(lexer_)->foldPreprocessor();
 		else if ( lng == "verilog" )
 			return qobject_cast<QsciLexerVerilog*>(lexer_)->foldPreprocessor();
 	}
@@ -327,9 +329,9 @@ QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_
 	}
 	else if ( property_ == "caseSensitiveTags" ) {
 		if ( lng == "html" )
-			return qobject_cast<QsciLexerHTML*>(lexer_)->caseSensitiveTags();
+			return qobject_cast<RLexerHTML*>(lexer_)->caseSensitiveTags();
 		else if ( lng == "xml" )
-			return qobject_cast<QsciLexerXML*>(lexer_)->caseSensitiveTags();
+			return qobject_cast<RLexerXML*>(lexer_)->caseSensitiveTags();
 	}
 	else if ( property_ == "backslashEscapes" ) {
 		if ( lng == "sql" )
@@ -368,7 +370,7 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	else if(name_ == "Fortran77")
 		lexer =  (QsciLexer*)new QsciLexerFortran77(parent_);
 	else if(name_ == "HTML")
-		lexer =  (QsciLexer*)new QsciLexerHTML(parent_);
+		lexer =  (QsciLexer*)new RLexerHTML(parent_);
 	else if(name_ == "IDL")
 		lexer =  (QsciLexer*)new QsciLexerIDL(parent_);
 	else if(name_ == "Java")
@@ -408,7 +410,7 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	else if(name_ == "VHDL")
 		lexer =  (QsciLexer*)new QsciLexerVHDL(parent_);
 	else if(name_ == "XML")
-		lexer =  (QsciLexer*)new QsciLexerXML(parent_);
+		lexer =  (QsciLexer*)new RLexerXML(parent_);
 	else if(name_ == "YAML")
 		lexer =  (QsciLexer*)new QsciLexerYAML(parent_);
 	return lexer;
