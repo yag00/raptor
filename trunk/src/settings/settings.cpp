@@ -9,7 +9,7 @@
 #include "../document_editor.h"
 #include "settings.h"
 
-Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings", parent_){
+Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings-dev", parent_){
 
 }
 
@@ -28,17 +28,7 @@ QStringList Settings::availableTextCodecs(){
 }
 
 QStringList Settings::availableLanguages(){
-	static QStringList languages;
-
-	if (languages.isEmpty()){
-		languages = QStringList() << "Bash" << "Batch" << "C#" << "C++" << "CMake" << "CSS"
-			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" << "Perl"
-			<< "POV" << "Properties" << "Ruby" << "Python" << "SQL" << "TeX" << "VHDL"
-			<< "Fortran" << "Fortran77" << "Pascal" << "PostScript" << "TCL" << "XML" << "YAML"
-			<< "Verilog" << "Spice";
-		languages.sort();
-	}
-	return languages;
+	return LexerManager::getInstance().getAvailableLexer();
 }
 
 QStringList Settings::availableTranslations(){
@@ -793,6 +783,10 @@ QMap<QString, QStringList> Settings::getDefaultLexerAssociations(){
 	filePatternList.clear();
 	filePatternList << "*.sql";
 	lexerAssociation.insert("SQL", filePatternList);
+	//Txt2Tags
+	filePatternList.clear();
+	filePatternList << "*.t2t";
+	lexerAssociation.insert("Txt2Tags", filePatternList);	
 	//TCL
 	filePatternList.clear();
 	filePatternList << "*.tcl";

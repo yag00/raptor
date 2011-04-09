@@ -32,7 +32,6 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_) {
 	_isNew = true;
 	_isCloned = false;
 	_clone = 0;
-	_type = "Normal Text file";
 	_fullPath = "";
 
 	//macro
@@ -83,7 +82,6 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 	_autoDetectIndent = document_->_autoDetectIndent;
 	_isNew = document_->isNew();
 	_fullPath = document_->getFullPath();
-	_type = document_->getType();
 
 	setDocument(document_->document());
 
@@ -101,7 +99,6 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 			newLex = LexerManager::getInstance().getAutoLexer(this);
 		}
 		setLexer(newLex);
-		_type = LexerManager::getInstance().getFileType(lexer());
 	}
 
 	//macro
@@ -134,7 +131,10 @@ QString DocumentEditor::getPath() const {
 	return QFileInfo(_fullPath).path();
 }
 QString DocumentEditor::getType() const {
-	return _type;
+	QsciLexer* lex = lexer();
+	if(lex)
+		return lex->language();
+	return "Normal Text";
 }
 
 bool DocumentEditor::stillExist() const {
@@ -368,7 +368,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 	if(l != 0)
 		delete l;
 	setLexer(LexerManager::getInstance().getAutoLexer(this));
-	_type = LexerManager::getInstance().getFileType(lexer());
+
 	//reload settings for lexer
 	Settings settings;
 	settings.applyToDocument(this);
@@ -411,7 +411,7 @@ void DocumentEditor::setLanguage(const QString &language_) {
 	undo();*/
 	l = LexerManager::getInstance().lexerFactory(language_, this);
 	setLexer(l);
-	_type = LexerManager::getInstance().getFileType(lexer());
+
 	//reload settings for lexer
 	Settings settings;
 	settings.applyToDocument(this);

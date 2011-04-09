@@ -24,11 +24,12 @@ class LexerManager : public  Singleton<LexerManager>
 		 * @param method_ slot */
 		void connectTo(const QObject * receiver_, const char * method_);
 		
-		/** return auto lexer from extension file association defined in settings */
+		/** @return auto lexer from extension file association defined in settings */
 		QsciLexer* getAutoLexer(DocumentEditor* document_);
 		
-		
-		QString getFileType(QsciLexer* lexer_);
+		/** @return a sorted list of all available lexer */
+		QStringList getAvailableLexer() const;
+	
 		
 		void setAssociationList(QMap<QString, QStringList> associations_);
 		

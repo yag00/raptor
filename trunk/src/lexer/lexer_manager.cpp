@@ -35,6 +35,7 @@
 
 #include "RLexerCpp.h"
 #include "RLexerJava.h"
+#include "RLexerTxt2Tags.h"
 
 #include "../settings/settings_dialog.h"
 #include "../document_editor.h"
@@ -46,15 +47,16 @@ LexerManager::LexerManager(QWidget* parent_){
 	Settings settings;
 	setAssociationList(settings.getAssociations());
 	
-	_availableLexer << "Normal Text" << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
+	_availableLexer << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
 		"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
 		"Lua" << "Makefile" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
-		"Python" << "Ruby" << "Spice" << "SQL" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
+		"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
+	
+	_availableLexer.sort();
 	
 	_fileType["Normal Text"] = "Normal Text file";
 	_fileType["C++"] = "C++ source file";
 	_fileType["Java"] = "Java source file";
-	//Todo ...
 	
 	_actionGroup = 0;
 }
@@ -63,10 +65,18 @@ LexerManager::~LexerManager(){
 
 }
 
+
+QStringList LexerManager::getAvailableLexer() const{
+	return _availableLexer;
+}
+
 void LexerManager::initialize(QMenu* menu_){
 	_actionGroup = new QActionGroup(menu_);
+	QAction* action = menu_->addAction("Normal Text");
+	action->setCheckable(true);
+	_actionGroup->addAction(action);
 	for(QStringList::iterator it = _availableLexer.begin(); it != _availableLexer.end(); it++){
-		QAction* action = menu_->addAction(*it);
+		action = menu_->addAction(*it);
 		action->setCheckable(true);
 		_actionGroup->addAction(action);
 	}	
@@ -387,6 +397,8 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 		lexer =  (QsciLexer*)new QsciLexerSpice(parent_);
 	else if(name_ == "SQL")
 		lexer =  (QsciLexer*)new QsciLexerSQL(parent_);
+	else if(name_ == "Txt2Tags")
+		lexer =  (QsciLexer*)new RLexerTxt2Tags(parent_);	
 	else if(name_ == "TCL")
 		lexer =  (QsciLexer*)new QsciLexerTCL(parent_);
 	else if(name_ == "TeX")
@@ -426,16 +438,3 @@ QsciLexer* LexerManager::getAutoLexer(DocumentEditor* document_){
 	}
 	return 0;
 }
-
-QString LexerManager::getFileType(QsciLexer* lexer_){
-	if(lexer_ == 0)
-		return _fileType["Normal Text"];
-	else{
-		QString name = lexer_->language();
-		if(_fileType.contains(name))
-			return _fileType[name];
-	}
-	return _fileType["Normal Text"];
-}
-
-

@@ -734,6 +734,7 @@ void SettingsDialog::on_pbLexersAssociationsDelete_clicked(){
 
 void SettingsDialog::on_cbLexersHighlightingLanguages_currentIndexChanged(const QString& s){
 	QsciLexer* lexer = _lexers.value(s);
+		
 	//clear the widget list
 	lwLexersHighlightingElements->clear();
 	for ( int i = 0; i < 128; i++ )	{
