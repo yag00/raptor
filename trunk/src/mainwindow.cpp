@@ -50,16 +50,6 @@ MainWindow::MainWindow() {
 
 	//read Settings
 	readSettings();
-
-	//if launch from console open arg document ...
-	///@todo dislay usage if arg == --help
-	///@todo dislay version if arg == --version || -v
-	QStringList args = QCoreApplication::arguments();
-	args.pop_front();
-	if(args.count() > 0) {
-		_documentManager->openDocument(args);
-		updateRecentFile(args);
-	}
 }
 
 MainWindow::~MainWindow() {
