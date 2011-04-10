@@ -26,7 +26,7 @@
 #include "mainwindow.h"
 
 namespace {
-	void displayOption(const std::string& shortOption, const std::string& fullOption, const std::string& desc){	
+	inline void displayOption(const std::string& shortOption, const std::string& fullOption, const std::string& desc){	
 		std::cout.flags(std::ios::right);
 		std::cout.width(2);
 		std::cout << "  ";
@@ -45,14 +45,14 @@ namespace {
 		std::cout << desc << std::endl;
 	}
 	
-	void version(){
+	inline void version(){
 		std::cout << PACKAGE_NAME << " - " << PACKAGE_VERSION << std::endl;
 	}
-	void qsciVersion(){
+	inline void qsciVersion(){
 		version();
 		std::cout << "build on qscintilla " << QSCINTILLA_VERSION_STR << std::endl;
 	}
-	void help(){
+	inline void help(){
 		std::cout << "Usage : " << std::endl;
 		std::cout << "  raptor [args] <files...> - Edit files" << std::endl;
 		std::cout << std::endl;
@@ -62,43 +62,48 @@ namespace {
 		displayOption("", "reset-lexers", "reset all lexers configuration to default");
 		std::cout << std::endl;
 	}
-	void resetLexer(){
+	inline void resetLexer(){
 		Settings settings;
 		settings.remove("/Scintilla");
+	}
+	
+	inline int parseOption(const QString& option){
+		if(option == "-v" || option =="--version"){
+			version();
+			return 0;
+		}
+		if(option == "--qsci-version"){
+			qsciVersion();
+			return 0;
+		}
+		if(option == "--reset-lexers"){
+			resetLexer();
+			return 0;
+		}			
+		help();
+		return 0;
 	}
 }
 
 int main(int argc, char *argv[]) {
 	Q_INIT_RESOURCE(ressources);
 	
+	QtSingleApplication app(argc, argv);
+	
+	QStringList args = QCoreApplication::arguments();
+	args.pop_front();
+	
 	QString message;
-	for (int a = 1; a < argc; ++a) {
-		QString arg = argv[a];
-		
+	foreach(QString arg, args){	
 		if(arg[0] == '-'){
-			if(arg == "-v" || arg =="--version"){
-				version();
-				return 0;
-			}
-			if(arg == "--qsci-version"){
-				qsciVersion();
-				return 0;
-			}
-			if(arg == "--reset-lexers"){
-				resetLexer();
-				return 0;
-			}			
-			help();
+			parseOption(arg);
 			return 0;
 		}else{
 			message += arg;
-			if (a < argc-1)
-				message += ";";
+			message += ";";
 		}
 	}
 
-	//QApplication app(argc, argv);
-	QtSingleApplication app(argc, argv);
 	if (app.sendMessage(message))
 		return 0;
 
