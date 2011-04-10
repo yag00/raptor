@@ -141,6 +141,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		
 		/** Settings */
 		void settings();
+		void shortcuts();
 		
 		void about();
 

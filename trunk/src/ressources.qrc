@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/settings_shortcuts.png</file>
     <file>images/save-question-mark.png</file>
     <file>images/charset.png</file>
     <file>images/raptor.png</file>

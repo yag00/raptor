@@ -49,6 +49,7 @@ HEADERS       *= mainwindow.h \
 				settings_dialog.h \
 				search.h \
 				settings.h \
+				ShortcutEditor.h \
 				splitter.h \
 				ScintillaExt.h \
 				ColorPushButton.h \
@@ -77,6 +78,7 @@ SOURCES       *= main.cpp \
 				settings_dialog.cpp \
 				search.cpp \
 				settings.cpp \
+				ShortcutEditor.cpp \
 				splitter.cpp \
 				ScintillaExt.cpp \
 				ColorPushButton.cpp \
@@ -100,6 +102,7 @@ SOURCES       *= main.cpp \
 
 FORMS *= mainwindow.ui \
 		 settings.ui \
+		 shortcut.ui \
 		 search.ui \
 		 macro.ui \
 		 about.ui

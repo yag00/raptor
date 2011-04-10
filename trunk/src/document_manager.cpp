@@ -53,6 +53,7 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	connect(view, SIGNAL(documentMoveRequested(QWidget*, int, QWidget*, int)), this, SLOT(moveDocument(QWidget*, int, QWidget*, int)));
 	//add context menu
 	QMenu *menu = new QMenu(view);
+	menu->setObjectName("TabContextMenu");
 	QAction* close = menu->addAction(QIcon(":/images/closeallpage.png"), tr("Close"));
 	connect(close, SIGNAL(triggered()), view, SLOT(closeCurrentDocument()));
 	QAction* closeAllExceptCurrent = menu->addAction(QIcon(":/images/forbiddenpage.png"), tr("Close All Except Me"));

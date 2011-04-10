@@ -26,6 +26,7 @@
 #include "about/About.h"
 #include "ui_macro.h"
 #include "settings/settings_dialog.h"
+#include "settings/ShortcutEditor.h"
 #include "search.h"
 #include "document_editor.h"
 #include "document_view.h"
@@ -209,16 +210,20 @@ void MainWindow::initMenuEncoding() {
 	foreach(QTextCodec* codec, codecMap.values()){
 		//menu use charset
 		QAction* action = menuUseCharset->addAction(codec->name());
+		action->setObjectName("codec_menuUseCharset_" + codec->name());
 		action->setCheckable(true);
 		useCharsetActionGroup->addAction(action);
 		//menu menuSaveWithCharset
 		action = menuSaveWithCharset->addAction(codec->name());
+		action->setObjectName("codec_menuSaveWithCharset_" + codec->name());
 		saveWithCharsetActionGroup->addAction(action);
 		//menu menuSaveWithCharsetAs
 		action = menuSaveWithCharsetAs->addAction(codec->name());
+		action->setObjectName("codec_menuSaveWithCharsetAs_" + codec->name());
 		saveWithCharsetAsActionGroup->addAction(action);
 		//menu menuForceSaveWithCharsetAs
 		action = menuForceSaveWithCharsetAs->addAction(codec->name());
+		action->setObjectName("codec_menuForceSaveWithCharsetAs_" + codec->name());
 		forceSaveWithCharsetAsActionGroup->addAction(action);
 	}
 	connect(useCharsetActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(changeCharset(QAction*)));
@@ -267,6 +272,7 @@ void MainWindow::initMenuMacro() {
 void MainWindow::initMenuSettings() {
 	//connect menu "Settings" Action
 	connect(actionSettings, SIGNAL(triggered()), this, SLOT(settings()));
+	connect(actionShortcuts, SIGNAL(triggered()), this, SLOT(shortcuts()));
 }
 
 void MainWindow::initMenuHelp() {
@@ -285,13 +291,17 @@ void MainWindow::createDocumentManager() {
 
 void MainWindow::createStatusBar() {
 	_encodingLabel = new MenuLabel(this);
+	_encodingLabel->setObjectName("EncodingLabel");
 	_encodingLabel->setText("??");
+	_encodingLabel->getMenu()->setObjectName("EncodingLabelMenu");
 	_encodingLabel->getMenu()->addMenu(menuUseCharset);
 	_encodingLabel->getMenu()->addMenu(menuSaveWithCharset);
 	_encodingLabel->getMenu()->addMenu(menuSaveWithCharsetAs);
 	_encodingLabel->getMenu()->addMenu(menuForceSaveWithCharsetAs);
 
 	_formatLabel = new MenuLabel(this);
+	_formatLabel->setObjectName("FormatLabel");
+	_formatLabel->getMenu()->setObjectName("FormatLabelMenu");
 	_formatLabel->getMenu()->addAction(actionConvertToWindowsFormat);
 	_formatLabel->getMenu()->addAction(actionConvertToUnixFormat);
 	_formatLabel->getMenu()->addAction(actionConvertToMacFormat);
@@ -797,6 +807,11 @@ void MainWindow::settings() {
 	SettingsDialog* settingsDlg = new SettingsDialog(*this, &settings);
 	settingsDlg->exec();
 	delete settingsDlg;
+}
+void MainWindow::shortcuts() {
+	QList<QMenu*> menus = findChildren<QMenu*>();
+	ShortcutEditor dlg(menus, this);
+	dlg.exec();
 }
 
 void MainWindow::about() {

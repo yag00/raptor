@@ -95,10 +95,12 @@ QStringList LexerManager::getAvailableLexer() const{
 void LexerManager::initialize(QMenu* menu_){
 	_actionGroup = new QActionGroup(menu_);
 	QAction* action = menu_->addAction("Normal Text");
+	action->setObjectName("lexer_0");
 	action->setCheckable(true);
 	_actionGroup->addAction(action);
 	for(QStringList::iterator it = _availableLexer.begin(); it != _availableLexer.end(); it++){
 		action = menu_->addAction(*it);
+		action->setObjectName("lexer_" + (*it));
 		action->setCheckable(true);
 		_actionGroup->addAction(action);
 	}	
