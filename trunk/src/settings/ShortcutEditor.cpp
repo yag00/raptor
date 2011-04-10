@@ -1,3 +1,23 @@
+/**
+ * This file is part of the raptor project.
+ *
+ * Copyright (C) 2011 Christophe Duvernois <christophe.duvernois@gmail.com>
+ *
+ * Raptor is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Raptor is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ */
+
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QAction>
@@ -17,8 +37,8 @@ ShortcutEditor::ShortcutEditor(QList<QMenu*>& menus_, QWidget* parent ) : QDialo
 	connect(clearShortcutButton, SIGNAL(clicked()), shortcutLineEdit, SLOT(clear()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
-	//connect(setShortcutButton, SIGNAL(clicked()), shortcutLineEdit, SLOT(set()));
-	//connect(restoreButton, SIGNAL(clicked()), shortcutLineEdit, SLOT(restoreDefault()));
+	connect(setShortcutButton, SIGNAL(clicked()), this, SLOT(set()));
+	connect(restoreButton, SIGNAL(clicked()), this, SLOT(restoreDefault()));
 }
 
 ShortcutEditor::~ShortcutEditor() {
@@ -87,7 +107,7 @@ void ShortcutEditor::on_actionTreeWidget_itemSelectionChanged() {
 	// get action
 	QAction* action = (QAction*)item->data(0, Qt::UserRole).value<void*>();
 	// set shortcut
-	shortcutLineEdit->setText( action->shortcut().toString() );
+	shortcutLineEdit->setText(action->shortcut().toString());
 	// give focus to lineedit
 	shortcutLineEdit->setFocus();
 }
@@ -107,7 +127,15 @@ void ShortcutEditor::on_actionFilterLineEdit_textChanged(const QString& text_) {
 }
 
 void ShortcutEditor::set() {
-
+	// get selected item
+	QTreeWidgetItem* item = actionTreeWidget->selectedItems().value(0);
+	if(item == 0)
+		return;
+	// get action
+	QAction* action = (QAction*)item->data(0, Qt::UserRole).value<void*>();
+	// set shortcut
+	action->setShortcut(QKeySequence(shortcutLineEdit->text()));
+	item->setText(1, action->shortcut().toString());
 }
 
 void ShortcutEditor::restoreDefault() {

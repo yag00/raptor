@@ -55,7 +55,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLineEdit" name="shortcutLineEdit"/>
+      <widget class="KeySequenceInput" name="shortcutLineEdit"/>
      </item>
      <item>
       <widget class="QPushButton" name="setShortcutButton">
@@ -106,6 +106,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KeySequenceInput</class>
+   <extends>QLineEdit</extends>
+   <header location="global">../../../src/widget/KeySequenceInput.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../ressources.qrc"/>
  </resources>
