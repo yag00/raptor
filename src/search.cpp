@@ -76,6 +76,7 @@ Search::Search(DocumentManager* documentMgr_, QWidget *parent_) : QWidget(parent
 
 	
 	_domainMenu = new QMenu(this);
+	_domainMenu->setObjectName("SearchDomainMenu");
     QAction* actCurrent = _domainMenu->addAction(tr("Whole Document"));
     actCurrent->setData(SD_FILE);
     QAction*  actFiles = _domainMenu->addAction(tr("Open Documents"));

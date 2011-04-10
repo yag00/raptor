@@ -213,12 +213,6 @@
     <addaction name="separator"/>
     <addaction name="actionSaveMacro"/>
    </widget>
-   <widget class="QMenu" name="menuSettings">
-    <property name="title">
-     <string>Settings</string>
-    </property>
-    <addaction name="actionSettings"/>
-   </widget>
    <widget class="QMenu" name="menuBookmarks">
     <property name="title">
      <string>Bookmarks</string>
@@ -292,6 +286,13 @@
     <addaction name="menuSaveWithCharset"/>
     <addaction name="menuSaveWithCharsetAs"/>
     <addaction name="menuForceSaveWithCharsetAs"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionSettings"/>
+    <addaction name="actionShortcuts"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1408,6 +1409,15 @@
   <action name="actionDiffClearResult">
    <property name="text">
     <string>Clear Result</string>
+   </property>
+  </action>
+  <action name="actionShortcuts">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/settings_shortcuts.png</normaloff>:/images/settings_shortcuts.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shortcuts</string>
    </property>
   </action>
  </widget>
