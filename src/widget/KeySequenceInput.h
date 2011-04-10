@@ -18,32 +18,32 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __SHORTCUT_EDITOR_H__
-#define __SHORTCUT_EDITOR_H__
+#ifndef __KEY_SEQUENCE_INPUT_H__
+#define __KEY_SEQUENCE_INPUT_H__
 
-#include <QDialog>
-#include "ui_shortcut.h"
+#include <QLineEdit>
 
-class ShortcutEditor : public QDialog, private Ui::UIShortcut{
+/*!
+	\brief A special QLineEdit that allow to define QShortcut
+	\details When the user press some combinaison keyx, the result is
+	\details wrotten in the QLineEdit
+*/
+class KeySequenceInput : public QLineEdit
+{
 	Q_OBJECT
 
 	public:
-		ShortcutEditor(QList<QMenu*>& menus_, QWidget* parent_ = 0);
-		~ShortcutEditor();
-		
-		void addItems(QMenu *menu_);
+		KeySequenceInput(QWidget* parent_ = 0);
+		~KeySequenceInput();
+	
+		QString checkKeyEvent(QKeyEvent* event_);
 
+	protected:
+		void keyPressEvent(QKeyEvent* event_);
+		void keyReleaseEvent(QKeyEvent* event_);
+	
 	private:
-		void addItem(QAction *action_, QTreeWidgetItem* parent_);
-		void addItems(QList<QAction*>& actions_, QTreeWidgetItem* parent_);
-	
-	private slots:
-		void on_actionTreeWidget_itemSelectionChanged();
-		void on_actionFilterLineEdit_textChanged(const QString& text_);
-	
-		void set();
-		void restoreDefault();
-	
+		bool _sequenceEnd;
 };
 
-#endif // __SHORTCUT_EDITOR_H__
+#endif // __KEY_SEQUENCE_INPUT_H__

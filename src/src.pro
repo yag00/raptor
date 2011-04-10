@@ -65,6 +65,7 @@ HEADERS       *= mainwindow.h \
 				document_manager.h \
 				document_editor.h \
 				MenuLabel.h \
+				KeySequenceInput.h \
 				PathListEditor.h \
 				FileListEditor.h \
 				StringListEditor.h \
@@ -93,6 +94,7 @@ SOURCES       *= main.cpp \
 				document_manager.cpp \
 				document_editor.cpp \
 				MenuLabel.cpp \
+				KeySequenceInput.cpp \
 				PathListEditor.cpp \
 				FileListEditor.cpp \
 				StringListEditor.cpp \
