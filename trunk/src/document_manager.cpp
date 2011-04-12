@@ -361,7 +361,7 @@ void DocumentManager::runMacro(int times_){
 			return;
 		}
 	}
-	QMessageBox::warning(this, tr("Application"), tr("Cannot run the macro! Maybe Record one\n"));
+	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));
 }
 
 void DocumentManager::runMacroUntilEOF(){
@@ -384,7 +384,7 @@ void DocumentManager::runMacroUntilEOF(){
 			return;
 		}
 	}
-	QMessageBox::warning(this, tr("Application"), tr("Cannot run the macro! Maybe Record one\n"));	
+	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));	
 }
 
 void DocumentManager::watchedFileChanged(const QString& path_){

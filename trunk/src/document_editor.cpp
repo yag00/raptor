@@ -181,7 +181,7 @@ void DocumentEditor::print(bool quick_) {
 	if (quick_) {
 		// check if default printer is set
 		if ( p.printerName().isEmpty() ) {
-			QMessageBox::warning(this, tr("Application"), tr( "There is no default printer, please set one before trying quick print" ));
+			QMessageBox::warning(this, PACKAGE_NAME, tr( "There is no default printer, please set one before trying quick print" ));
 			return;
 		}
 
@@ -231,7 +231,7 @@ bool DocumentEditor::saveACopyAs() {
 }
 bool DocumentEditor::maybeSave() {
 	if (isModified()) {
-		int ret = QMessageBox::warning(this, tr("Application"),
+		int ret = QMessageBox::warning(this, PACKAGE_NAME,
 									   tr("The document %1 has been modified.\n"
 										  "Do you want to save your changes?").arg(getName()),
 									   QMessageBox::Yes | QMessageBox::Default,
@@ -247,7 +247,7 @@ bool DocumentEditor::maybeSave() {
 bool DocumentEditor::saveFile(const QString &fileName_) {
 	QFile file(fileName_);
 	if (!file.open(QFile::WriteOnly)) {
-		QMessageBox::warning(this, tr("Application"),
+		QMessageBox::warning(this, PACKAGE_NAME,
 							 tr("Cannot save file %1:\n%2.")
 							 .arg(fileName_)
 							 .arg(file.errorString()));
@@ -256,7 +256,7 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0) {
-		QMessageBox::critical(this, tr("Application"),
+		QMessageBox::critical(this, PACKAGE_NAME,
 							  tr("Cannot save file %1:\nUnsupported charset %2 !!")
 							  .arg(fileName_).arg(_codec));
 		return false;
@@ -292,7 +292,7 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 bool DocumentEditor::saveCopy(const QString &fileName_) {
 	QFile file(fileName_);
 	if (!file.open(QFile::WriteOnly)) {
-		QMessageBox::warning(this, tr("Application"),
+		QMessageBox::warning(this, PACKAGE_NAME,
 							 tr("Cannot save file %1:\n%2.")
 							 .arg(fileName_)
 							 .arg(file.errorString()));
@@ -301,7 +301,7 @@ bool DocumentEditor::saveCopy(const QString &fileName_) {
 
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0) {
-		QMessageBox::critical(this, tr("Application"),
+		QMessageBox::critical(this, PACKAGE_NAME,
 							  tr("Cannot save file %1:\nUnsupported charset %2 !!")
 							  .arg(fileName_).arg(_codec));
 		return false;
@@ -348,7 +348,7 @@ bool DocumentEditor::saveWithCharsetAs(const QString& codec_) {
 bool DocumentEditor::load(const QString &fileName_) {
 	QFile file(fileName_);
 	if (!file.open(QFile::ReadOnly)) {
-		QMessageBox::warning(this, tr("Application"),
+		QMessageBox::warning(this, PACKAGE_NAME,
 							 tr("Cannot read file %1:\n%2.")
 							 .arg(fileName_)
 							 .arg(file.errorString()));
@@ -363,7 +363,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0) {
-		QMessageBox::critical(this, tr("Application"),
+		QMessageBox::critical(this, PACKAGE_NAME,
 							  tr("Cannot load file %1:\nUnsupported charset %2 !!")
 							  .arg(fileName_).arg(_codec));
 		return false;

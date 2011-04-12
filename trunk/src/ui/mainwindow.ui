@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Raptor</string>
+   <string notr="true">Raptor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../ressources.qrc">
@@ -29,11 +29,11 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string comment="menu File">File</string>
     </property>
     <widget class="QMenu" name="menuRecentFiles">
      <property name="title">
-      <string>Recent Files</string>
+      <string comment="menu Recent Files">Recent Files</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -44,7 +44,7 @@
     </widget>
     <widget class="QMenu" name="menuSessions">
      <property name="title">
-      <string>Sessions</string>
+      <string comment="menu Sessions">Sessions</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -77,11 +77,11 @@
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>Edit</string>
+     <string comment="menu Edit">Edit</string>
     </property>
     <widget class="QMenu" name="menuIndentation">
      <property name="title">
-      <string>Indentation</string>
+      <string comment="menu Indentation">Indentation</string>
      </property>
      <addaction name="actionIndent"/>
      <addaction name="actionUnindent"/>
@@ -94,14 +94,14 @@
     </widget>
     <widget class="QMenu" name="menuConvertCaseTo">
      <property name="title">
-      <string>Convert Case To</string>
+      <string comment="menu Convert Case To">Convert Case To</string>
      </property>
      <addaction name="actionUpperCase"/>
      <addaction name="actionLowerCase"/>
     </widget>
     <widget class="QMenu" name="menuLines">
      <property name="title">
-      <string>Lines/Words</string>
+      <string comment="menu Lines/Words">Lines/Words</string>
      </property>
      <addaction name="actionDuplicateLine"/>
      <addaction name="actionCutLine"/>
@@ -129,11 +129,11 @@
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>View</string>
+     <string comment="menu View">View</string>
     </property>
     <widget class="QMenu" name="menuZoom">
      <property name="title">
-      <string>Zoom</string>
+      <string comment="menu Zoom">Zoom</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -146,7 +146,7 @@
     </widget>
     <widget class="QMenu" name="menuInvisibleSymbol">
      <property name="title">
-      <string>Invisible Symbol</string>
+      <string comment="menu Invisible Symbol">Invisible Symbol</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -160,7 +160,7 @@
     </widget>
     <widget class="QMenu" name="menuFold_level">
      <property name="title">
-      <string>Fold level</string>
+      <string comment="menu Fold Level">Fold level</string>
      </property>
      <addaction name="actionFoldLevel_1"/>
      <addaction name="actionFoldLevel_2"/>
@@ -173,7 +173,7 @@
     </widget>
     <widget class="QMenu" name="menuUnfold_level">
      <property name="title">
-      <string>Unfold level</string>
+      <string comment="menu Unfold level">Unfold level</string>
      </property>
      <addaction name="actionUnfoldLevel_1"/>
      <addaction name="actionUnfoldLevel_2"/>
@@ -193,18 +193,18 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string comment="menu Help">Help</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuLanguage">
     <property name="title">
-     <string>Language</string>
+     <string comment="menu Language">Language</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuMacro">
     <property name="title">
-     <string>Macro</string>
+     <string comment="menu Macro">Macro</string>
     </property>
     <addaction name="actionStartRecording"/>
     <addaction name="actionStopRecording"/>
@@ -215,7 +215,7 @@
    </widget>
    <widget class="QMenu" name="menuBookmarks">
     <property name="title">
-     <string>Bookmarks</string>
+     <string comment="menu Bookmarks">Bookmarks</string>
     </property>
     <addaction name="actionToggleBookmark"/>
     <addaction name="actionRemoveAllBookmarks"/>
@@ -225,7 +225,7 @@
    </widget>
    <widget class="QMenu" name="menuSearch">
     <property name="title">
-     <string>Search</string>
+     <string comment="menu Search">Search</string>
     </property>
     <addaction name="actionSearch"/>
     <addaction name="actionFindNext"/>
@@ -233,18 +233,18 @@
    </widget>
    <widget class="QMenu" name="menuDiff">
     <property name="title">
-     <string>Diff</string>
+     <string comment="menu Diff">Diff</string>
     </property>
     <addaction name="actionDiff"/>
     <addaction name="actionDiffClearResult"/>
    </widget>
    <widget class="QMenu" name="menuEncoding">
     <property name="title">
-     <string>Encoding</string>
+     <string comment="menu Encoding">Encoding</string>
     </property>
     <widget class="QMenu" name="menuUseCharset">
      <property name="title">
-      <string>Use Charset</string>
+      <string comment="menu Use Charset">Use Charset</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -253,7 +253,7 @@
     </widget>
     <widget class="QMenu" name="menuSaveWithCharset">
      <property name="title">
-      <string>Convert and Save with Charset</string>
+      <string comment="menu Convert and Save with charset">Convert and Save with Charset</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -262,7 +262,7 @@
     </widget>
     <widget class="QMenu" name="menuSaveWithCharsetAs">
      <property name="title">
-      <string>Convert and Save with Charset As</string>
+      <string comment="menu Convert and Save with Charset As">Convert and Save with Charset As</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -271,7 +271,7 @@
     </widget>
     <widget class="QMenu" name="menuForceSaveWithCharsetAs">
      <property name="title">
-      <string>Force Conversion and Save As</string>
+      <string comment="menu Force Conversion and Save As">Force Conversion and Save As</string>
      </property>
      <property name="icon">
       <iconset resource="../ressources.qrc">
@@ -289,7 +289,7 @@
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
-     <string>Settings</string>
+     <string comment="menu Settings">Settings</string>
     </property>
     <addaction name="actionSettings"/>
     <addaction name="actionShortcuts"/>
@@ -309,7 +309,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBarFile">
    <property name="windowTitle">
-    <string>File</string>
+    <string comment="toolbar File">File</string>
    </property>
    <property name="iconSize">
     <size>
@@ -335,7 +335,7 @@
   </widget>
   <widget class="QToolBar" name="toolBarEdit">
    <property name="windowTitle">
-    <string>Edit</string>
+    <string comment="toolbar Edit">Edit</string>
    </property>
    <property name="iconSize">
     <size>
@@ -358,7 +358,7 @@
   </widget>
   <widget class="QToolBar" name="toolBarView">
    <property name="windowTitle">
-    <string>View</string>
+    <string comment="toolbar View">View</string>
    </property>
    <property name="iconSize">
     <size>
@@ -379,7 +379,7 @@
   </widget>
   <widget class="QToolBar" name="toolBarMacro">
    <property name="windowTitle">
-    <string>Macro</string>
+    <string comment="toolbar Macro">Macro</string>
    </property>
    <property name="iconSize">
     <size>
@@ -404,13 +404,13 @@
      <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
    </property>
    <property name="text">
-    <string>New</string>
+    <string comment="action new">New</string>
    </property>
    <property name="statusTip">
-    <string>Create new fie</string>
+    <string comment="statustip action new">Create new file</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string comment="shortcut action new">Ctrl+N</string>
    </property>
   </action>
   <action name="actionOpen">
@@ -419,13 +419,13 @@
      <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
    </property>
    <property name="text">
-    <string>Open</string>
+    <string comment="action open">Open</string>
    </property>
    <property name="statusTip">
-    <string>Open file</string>
+    <string comment="statustip action open">Open file</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+O</string>
+    <string comment="shortcut action open">Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave">
@@ -434,13 +434,13 @@
      <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string comment="action save">Save</string>
    </property>
    <property name="statusTip">
-    <string>Save file</string>
+    <string comment="statustip action save">Save file</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+S</string>
+    <string comment="shortcut action save">Ctrl+S</string>
    </property>
   </action>
   <action name="actionSaveAs">
@@ -449,21 +449,21 @@
      <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
    </property>
    <property name="text">
-    <string>Save As ...</string>
+    <string comment="action save as">Save As ...</string>
    </property>
    <property name="statusTip">
-    <string>Save file as ...</string>
+    <string comment="statustip action save as">Save file as ...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+S</string>
+    <string comment="shortcut action save as">Ctrl+Alt+S</string>
    </property>
   </action>
   <action name="actionSaveACopyAs">
    <property name="text">
-    <string>Save a Copy As ...</string>
+    <string comment="action save a copy as">Save a Copy As ...</string>
    </property>
    <property name="statusTip">
-    <string>Save a copy of this file as ...</string>
+    <string comment="statustip save a copy as">Save a copy of this file as ...</string>
    </property>
   </action>
   <action name="actionClose">
@@ -472,13 +472,13 @@
      <normaloff>:/images/closepage.png</normaloff>:/images/closepage.png</iconset>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string comment="action close">Close</string>
    </property>
    <property name="statusTip">
-    <string>Close file</string>
+    <string comment="statustip action close">Close file</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+W</string>
+    <string comment="shortcut action close">Ctrl+W</string>
    </property>
   </action>
   <action name="actionCloseAll">
@@ -487,10 +487,10 @@
      <normaloff>:/images/closeallpage.png</normaloff>:/images/closeallpage.png</iconset>
    </property>
    <property name="text">
-    <string>Close All</string>
+    <string comment="action close all">Close All</string>
    </property>
    <property name="statusTip">
-    <string>Close all files</string>
+    <string comment="statustip action close all">Close all files</string>
    </property>
   </action>
   <action name="actionCloseAllExceptCurrentDocument">
@@ -499,10 +499,10 @@
      <normaloff>:/images/forbiddenpage.png</normaloff>:/images/forbiddenpage.png</iconset>
    </property>
    <property name="text">
-    <string>Close All Except Current Document</string>
+    <string comment="action close all except current document">Close All Except Current Document</string>
    </property>
    <property name="statusTip">
-    <string>Close all files except the current one</string>
+    <string comment="statustip action close all except current document">Close all files except the current one</string>
    </property>
   </action>
   <action name="actionExit">
@@ -511,13 +511,13 @@
      <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
    </property>
    <property name="text">
-    <string>Exit</string>
+    <string comment="action exit">Exit</string>
    </property>
    <property name="statusTip">
-    <string>Exit</string>
+    <string comment="statustip action exit">Exit</string>
    </property>
    <property name="shortcut">
-    <string>Alt+F4</string>
+    <string comment="shortcut action exit">Alt+F4</string>
    </property>
   </action>
   <action name="actionSaveAll">
@@ -526,13 +526,13 @@
      <normaloff>:/images/saveall.png</normaloff>:/images/saveall.png</iconset>
    </property>
    <property name="text">
-    <string>Save All</string>
+    <string comment="action save all">Save All</string>
    </property>
    <property name="statusTip">
-    <string>Save all files</string>
+    <string comment="statustip action save all">Save all files</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+S</string>
+    <string comment="shortcut action save all">Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionPrint">
@@ -541,13 +541,13 @@
      <normaloff>:/images/print.png</normaloff>:/images/print.png</iconset>
    </property>
    <property name="text">
-    <string>Print</string>
+    <string comment="action print">Print</string>
    </property>
    <property name="statusTip">
-    <string>Print file</string>
+    <string comment="statustip action print">Print file</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+P</string>
+    <string comment="shortcut action print">Ctrl+P</string>
    </property>
   </action>
   <action name="actionUndo">
@@ -556,13 +556,13 @@
      <normaloff>:/images/undo.png</normaloff>:/images/undo.png</iconset>
    </property>
    <property name="text">
-    <string>Undo</string>
+    <string comment="action undo">Undo</string>
    </property>
    <property name="statusTip">
-    <string>Undo</string>
+    <string comment="statustip action undo">Undo</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Z</string>
+    <string comment="shortcut action undo">Ctrl+Z</string>
    </property>
   </action>
   <action name="actionRedo">
@@ -571,13 +571,13 @@
      <normaloff>:/images/redo.png</normaloff>:/images/redo.png</iconset>
    </property>
    <property name="text">
-    <string>Redo</string>
+    <string comment="action redo">Redo</string>
    </property>
    <property name="statusTip">
-    <string>Redo</string>
+    <string comment="statustip action redo">Redo</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Y</string>
+    <string comment="shortcut action redo">Ctrl+Y</string>
    </property>
   </action>
   <action name="actionCut">
@@ -586,13 +586,13 @@
      <normaloff>:/images/cut.png</normaloff>:/images/cut.png</iconset>
    </property>
    <property name="text">
-    <string>Cut</string>
+    <string comment="action cut">Cut</string>
    </property>
    <property name="statusTip">
-    <string>Cut</string>
+    <string comment="statustip action cut">Cut</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+X</string>
+    <string comment="shortcut action cut">Ctrl+X</string>
    </property>
   </action>
   <action name="actionCopy">
@@ -601,13 +601,13 @@
      <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
    </property>
    <property name="text">
-    <string>Copy</string>
+    <string comment="action copy">Copy</string>
    </property>
    <property name="statusTip">
-    <string>Copy</string>
+    <string comment="statustip action copy">Copy</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+C</string>
+    <string comment="shortcut action copy">Ctrl+C</string>
    </property>
   </action>
   <action name="actionPaste">
@@ -616,13 +616,13 @@
      <normaloff>:/images/paste.png</normaloff>:/images/paste.png</iconset>
    </property>
    <property name="text">
-    <string>Paste</string>
+    <string comment="action paste">Paste</string>
    </property>
    <property name="statusTip">
-    <string>Paste</string>
+    <string comment="statustip action paste">Paste</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+V</string>
+    <string comment="shortcut action paste">Ctrl+V</string>
    </property>
   </action>
   <action name="actionSelectAll">
@@ -631,16 +631,16 @@
      <normaloff>:/images/selectall.png</normaloff>:/images/selectall.png</iconset>
    </property>
    <property name="text">
-    <string>Select All</string>
+    <string comment="action select all">Select All</string>
    </property>
    <property name="statusTip">
-    <string>Select All</string>
+    <string comment="statustip action select all">Select All</string>
    </property>
    <property name="whatsThis">
-    <string>Select All</string>
+    <string comment="whatsThis action select all">Select All</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string comment="shortcut action select all">Ctrl+A</string>
    </property>
   </action>
   <action name="actionOpenAllRecentFiles">
@@ -649,10 +649,10 @@
      <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
    </property>
    <property name="text">
-    <string>Open All Recent Files</string>
+    <string comment="action open all recent files">Open All Recent Files</string>
    </property>
    <property name="statusTip">
-    <string>Open all recent files</string>
+    <string comment="statustip action open all recent files">Open all recent files</string>
    </property>
   </action>
   <action name="actionEmptyRecentFilesList">
@@ -661,10 +661,10 @@
      <normaloff>:/images/trashcan_empty.png</normaloff>:/images/trashcan_empty.png</iconset>
    </property>
    <property name="text">
-    <string>Empty Recent Files List</string>
+    <string comment="action clear recent files list">Empty Recent Files List</string>
    </property>
    <property name="statusTip">
-    <string>Clear the &quot;recent files&quot; list</string>
+    <string comment="statustip clear the recent files list">Clear the &quot;recent files&quot; list</string>
    </property>
   </action>
   <action name="actionIndent">
@@ -673,13 +673,13 @@
      <normaloff>:/images/increase_indent.png</normaloff>:/images/increase_indent.png</iconset>
    </property>
    <property name="text">
-    <string>Increase Line Indent</string>
+    <string comment="action indent text>Increase Line Indent</string>
    </property>
    <property name="statusTip">
-    <string>Indent text</string>
+    <string comment="statustip action indent text">Indent text</string>
    </property>
    <property name="shortcut">
-    <string>Tab</string>
+    <string comment="shortcut action indent text">Tab</string>
    </property>
   </action>
   <action name="actionUnindent">
@@ -688,13 +688,13 @@
      <normaloff>:/images/decrease_indent.png</normaloff>:/images/decrease_indent.png</iconset>
    </property>
    <property name="text">
-    <string>Decrease Line Indent</string>
+    <string comment="action unindent text">Decrease Line Indent</string>
    </property>
    <property name="statusTip">
-    <string>Unindent text</string>
+    <string comment="statustip action unindent text">Unindent text</string>
    </property>
    <property name="shortcut">
-    <string>Shift+Tab</string>
+    <string comment="shortcut action unindent text">Shift+Tab</string>
    </property>
   </action>
   <action name="actionAutoIndentation">
@@ -705,10 +705,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Auto Indentation</string>
+    <string comment="action auto indentation">Auto Indentation</string>
    </property>
    <property name="statusTip">
-    <string>Enable/Disable auto indentation</string>
+    <string comment="statustip action auto indentation">Enable/Disable auto indentation</string>
    </property>
   </action>
   <action name="actionIndentationGuides">
@@ -719,10 +719,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Indentation Guides</string>
+    <string comment="action indentation guides">Indentation Guides</string>
    </property>
    <property name="statusTip">
-    <string>Show indentation guides</string>
+    <string comment="statustip action indentation guides">Show indentation guides</string>
    </property>
   </action>
   <action name="actionZoomIn">
@@ -731,13 +731,13 @@
      <normaloff>:/images/zoomin.png</normaloff>:/images/zoomin.png</iconset>
    </property>
    <property name="text">
-    <string>Zoom In</string>
+    <string comment="action zoom in">Zoom In</string>
    </property>
    <property name="statusTip">
-    <string>Zoom In</string>
+    <string comment="statustip action zoom in">Zoom In</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl++</string>
+    <string comment="shortcut action zoom in">Ctrl++</string>
    </property>
   </action>
   <action name="actionZoomOut">
@@ -746,13 +746,13 @@
      <normaloff>:/images/zoomout.png</normaloff>:/images/zoomout.png</iconset>
    </property>
    <property name="text">
-    <string>Zoom Out</string>
+    <string comment="action zoom out">Zoom Out</string>
    </property>
    <property name="statusTip">
-    <string>Zoom Out</string>
+    <string comment="statustip action zoom out">Zoom Out</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+-</string>
+    <string comment="shortcut action zoom out>Ctrl+-</string>
    </property>
   </action>
   <action name="actionRestoreDefaultZoom">
@@ -761,13 +761,13 @@
      <normaloff>:/images/zoom.png</normaloff>:/images/zoom.png</iconset>
    </property>
    <property name="text">
-    <string>Restore Default Zoom</string>
+    <string comment="action restore default zoom">Restore Default Zoom</string>
    </property>
    <property name="statusTip">
-    <string>Restore default zoom</string>
+    <string comment="statustip action restore default zoom">Restore default zoom</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+/</string>
+    <string comment="shortcut action restore default zoom">Ctrl+/</string>
    </property>
   </action>
   <action name="actionShowWhitespaceAndTab">
@@ -775,10 +775,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show Whitespace and Tab</string>
+    <string comment="action show whitespaces and tabs">Show Whitespaces and Tabs</string>
    </property>
    <property name="statusTip">
-    <string>Show whitespaces and tabs</string>
+    <string comment="statustip action show whitespaces and tabs">Show whitespaces and tabs</string>
    </property>
   </action>
   <action name="actionShowEndOfLine">
@@ -786,10 +786,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show End Of Line</string>
+    <string comment="action show end of line">Show End Of Line</string>
    </property>
    <property name="statusTip">
-    <string>Show end of line</string>
+    <string comment="statustip action show end of line">Show end of line</string>
    </property>
   </action>
   <action name="actionShowAll">
@@ -801,21 +801,18 @@
      <normaloff>:/images/paragraph.png</normaloff>:/images/paragraph.png</iconset>
    </property>
    <property name="text">
-    <string>Show All</string>
+    <string comment="action show all">Show All</string>
    </property>
    <property name="statusTip">
-    <string>Show whitespaces, tabs and end of line</string>
+    <string comment="statustip show all">Show whitespaces, tabs and end of line</string>
    </property>
   </action>
   <action name="actionTrimTrailingSpaces">
    <property name="text">
-    <string>Trim Trailing Spaces</string>
+    <string comment="action trim trailing spaces">Trim Trailing Spaces</string>
    </property>
    <property name="statusTip">
-    <string>Trim trailing spaces</string>
-   </property>
-   <property name="whatsThis">
-    <string/>
+    <string comment="statustip action trim trailing spaces">Trim trailing spaces</string>
    </property>
   </action>
   <action name="actionUpperCase">
@@ -824,13 +821,13 @@
      <normaloff>:/images/uppercase.png</normaloff>:/images/uppercase.png</iconset>
    </property>
    <property name="text">
-    <string>UPPER CASE</string>
+    <string comment="action uppercase">UPPER CASE</string>
    </property>
    <property name="statusTip">
-    <string>Convert selected text to upper case</string>
+    <string comment="statustip action uppercase">Convert selected text to upper case</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+U</string>
+    <string comment="shortcut action uppercase">Ctrl+Shift+U</string>
    </property>
   </action>
   <action name="actionLowerCase">
@@ -839,13 +836,13 @@
      <normaloff>:/images/lowercase.png</normaloff>:/images/lowercase.png</iconset>
    </property>
    <property name="text">
-    <string>lower case</string>
+    <string comment="action lowercase">lower case</string>
    </property>
    <property name="statusTip">
-    <string>Convert selected text to lower case</string>
+    <string comment="statustip action lowercase">Convert selected text to lower case</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+U</string>
+    <string comment="shortcut action lowercase">Ctrl+U</string>
    </property>
   </action>
   <action name="actionReadOnly">
@@ -853,16 +850,13 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Read-Only</string>
+    <string comment="action read-only">Read-Only</string>
    </property>
    <property name="toolTip">
-    <string>Read-Only</string>
+    <string comment="tooltip action read-only">Read-Only</string>
    </property>
    <property name="statusTip">
-    <string>Set/Unset document in read-only</string>
-   </property>
-   <property name="whatsThis">
-    <string/>
+    <string comment="statustip action read-only">Set/Unset document in read-only</string>
    </property>
   </action>
   <action name="actionConvertToWindowsFormat">
@@ -871,13 +865,13 @@
      <normaloff>:/images/windows.png</normaloff>:/images/windows.png</iconset>
    </property>
    <property name="text">
-    <string>Convert To Windows Format</string>
+    <string comment="action convert to window EOL">Convert To Windows Format</string>
    </property>
    <property name="toolTip">
-    <string>Convert To Windows Format</string>
+    <string comment="tooltip action convert to window EOL">Convert To Windows Format</string>
    </property>
    <property name="statusTip">
-    <string>Set end of line to a carriage return/line feed as used on Windows systems. (&quot;\r\n&quot;)</string>
+    <string comment="statustip action convert to window EOL">Set end of line to a carriage return/line feed as used on Windows systems. (&quot;\r\n&quot;)</string>
    </property>
   </action>
   <action name="actionConvertToUnixFormat">
@@ -886,13 +880,13 @@
      <normaloff>:/images/linux.png</normaloff>:/images/linux.png</iconset>
    </property>
    <property name="text">
-    <string>Convert To Unix Format</string>
+    <string comment="action convert to unix EOL">Convert To Unix Format</string>
    </property>
    <property name="toolTip">
-    <string>Convert To Unix Format</string>
+    <string comment="tooltip action convert to unix EOL">Convert To Unix Format</string>
    </property>
    <property name="statusTip">
-    <string>Set end of line to a line feed as used on Unix systems. (&quot;\n&quot;)</string>
+    <string comment="statustip action convert to unix EOL">Set end of line to a line feed as used on Unix systems. (&quot;\n&quot;)</string>
    </property>
   </action>
   <action name="actionConvertToMacFormat">
@@ -901,21 +895,21 @@
      <normaloff>:/images/mac.png</normaloff>:/images/mac.png</iconset>
    </property>
    <property name="text">
-    <string>Convert To Mac Format</string>
+    <string comment="action convert to mac EOL">Convert To Mac Format</string>
    </property>
    <property name="toolTip">
-    <string>Convert To Mac Format</string>
+    <string comment="tooltip action convert to mac EOL">Convert To Mac Format</string>
    </property>
    <property name="statusTip">
-    <string>Set end of line to a carriage return as used on Mac systems. (&quot;\r&quot;)</string>
+    <string comment="statustip action convert to mac EOL">Set end of line to a carriage return as used on Mac systems. (&quot;\r&quot;)</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string comment="action about">About</string>
    </property>
    <property name="statusTip">
-    <string>About...</string>
+    <string comment="statustip action about">About...</string>
    </property>
   </action>
   <action name="actionStartRecording">
@@ -924,10 +918,10 @@
      <normaloff>:/images/record.png</normaloff>:/images/record.png</iconset>
    </property>
    <property name="text">
-    <string>Start Recording</string>
+    <string comment="action start recording macro">Start Recording</string>
    </property>
    <property name="statusTip">
-    <string>Start recording macro</string>
+    <string comment="statustip action start recording macro">Start recording macro</string>
    </property>
   </action>
   <action name="actionStopRecording">
@@ -936,10 +930,10 @@
      <normaloff>:/images/player_stop.png</normaloff>:/images/player_stop.png</iconset>
    </property>
    <property name="text">
-    <string>Stop Recording</string>
+    <string comment="action stop recording macro">Stop Recording</string>
    </property>
    <property name="statusTip">
-    <string>Stop recording macro</string>
+    <string comment="statustip action stop recording macro">Stop recording macro</string>
    </property>
   </action>
   <action name="actionRunMacro">
@@ -948,10 +942,10 @@
      <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
    </property>
    <property name="text">
-    <string>Run Macro</string>
+    <string comment="action run macro">Run Macro</string>
    </property>
    <property name="statusTip">
-    <string>Run macro</string>
+    <string comment="statustip action run macro">Run macro</string>
    </property>
   </action>
   <action name="actionRunMacroMultipleTimes">
@@ -960,10 +954,10 @@
      <normaloff>:/images/play_forward.png</normaloff>:/images/play_forward.png</iconset>
    </property>
    <property name="text">
-    <string>Run Macro Multiple Times ...</string>
+    <string comment="action run macro multiple times">Run Macro Multiple Times ...</string>
    </property>
    <property name="statusTip">
-    <string>Run macro multiple times</string>
+    <string comment="statustip action run macro multiple times">Run macro multiple times</string>
    </property>
   </action>
   <action name="actionSaveMacro">
@@ -972,10 +966,10 @@
      <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
    </property>
    <property name="text">
-    <string>Save Macro</string>
+    <string comment="action save macro">Save Macro</string>
    </property>
    <property name="statusTip">
-    <string>Save macro</string>
+    <string comment="statustip action save macro">Save macro</string>
    </property>
   </action>
   <action name="actionSettings">
@@ -984,10 +978,10 @@
      <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
    </property>
    <property name="text">
-    <string>Settings</string>
+    <string comment="action settings">Settings</string>
    </property>
    <property name="statusTip">
-    <string>Settings window</string>
+    <string comment="statustip action settings">Settings window</string>
    </property>
   </action>
   <action name="actionSessionSave">
@@ -996,10 +990,10 @@
      <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string comment="action session save">Save</string>
    </property>
    <property name="statusTip">
-    <string>Save session</string>
+    <string comment="statustip action session save">Save session</string>
    </property>
   </action>
   <action name="actionSessionRestore">
@@ -1008,10 +1002,10 @@
      <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
    </property>
    <property name="text">
-    <string>Restore</string>
+    <string comment="action session restore">Restore</string>
    </property>
    <property name="statusTip">
-    <string>Restore session</string>
+    <string comment="statustip action session restore">Restore session</string>
    </property>
   </action>
   <action name="actionToggleBookmark">
@@ -1020,21 +1014,21 @@
      <normaloff>:/images/ledblue.png</normaloff>:/images/ledblue.png</iconset>
    </property>
    <property name="text">
-    <string>Toggle bookmark</string>
+    <string comment="action toggle bookmark">Toggle bookmark</string>
    </property>
    <property name="statusTip">
-    <string>Toggle bookmark</string>
+    <string comment="statustip action toggle bookmark">Toggle bookmark</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+F2</string>
+    <string comment="shortcut action toggle bookmark">Ctrl+F2</string>
    </property>
   </action>
   <action name="actionRemoveAllBookmarks">
    <property name="text">
-    <string>Remove All bookmarks</string>
+    <string comment="action remove all bookmarks">Remove All bookmarks</string>
    </property>
    <property name="statusTip">
-    <string>Remove all bookmarks</string>
+    <string comment="statustip action remove all bookmarks">Remove all bookmarks</string>
    </property>
   </action>
   <action name="actionNextBookmark">
@@ -1043,13 +1037,13 @@
      <normaloff>:/images/bookmark-next.png</normaloff>:/images/bookmark-next.png</iconset>
    </property>
    <property name="text">
-    <string>Next bookmark</string>
+    <string comment="action next bookmark">Next bookmark</string>
    </property>
    <property name="statusTip">
-    <string>Go to the next bookmark</string>
+    <string comment="statustip action next bookmark">Go to the next bookmark</string>
    </property>
    <property name="shortcut">
-    <string>F2</string>
+    <string comment="shortcut action next bookmark">F2</string>
    </property>
   </action>
   <action name="actionPreviousBookmark">
@@ -1058,13 +1052,13 @@
      <normaloff>:/images/bookmark-prev.png</normaloff>:/images/bookmark-prev.png</iconset>
    </property>
    <property name="text">
-    <string>Previous bookmark</string>
+    <string comment="action previous bookmark">Previous bookmark</string>
    </property>
    <property name="statusTip">
-    <string>Go to the previous bookmark</string>
+    <string comment="statustip action previous bookmark">Go to the previous bookmark</string>
    </property>
    <property name="shortcut">
-    <string>Shift+F2</string>
+    <string comment="shortcut action previous bookmark">Shift+F2</string>
    </property>
   </action>
   <action name="actionSearch">
@@ -1073,13 +1067,13 @@
      <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
    </property>
    <property name="text">
-    <string>Search...</string>
+    <string comment="action search">Search...</string>
    </property>
    <property name="statusTip">
-    <string>Search...</string>
+    <string comment="statustip action search">Search...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+F</string>
+    <string comment="shortcut action search">Ctrl+F</string>
    </property>
   </action>
   <action name="actionFindNext">
@@ -1088,13 +1082,13 @@
      <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
    </property>
    <property name="text">
-    <string>Find next</string>
+    <string comment="action find next">Find next</string>
    </property>
    <property name="statusTip">
-    <string>Find next occurence</string>
+    <string comment="statustip action find next">Find next occurence</string>
    </property>
    <property name="shortcut">
-    <string>F3</string>
+    <string comment="shortcut action find next">F3</string>
    </property>
   </action>
   <action name="actionFindPrevious">
@@ -1103,13 +1097,13 @@
      <normaloff>:/images/backward.png</normaloff>:/images/backward.png</iconset>
    </property>
    <property name="text">
-    <string>Find previous</string>
+    <string comment="action find previous">Find previous</string>
    </property>
    <property name="statusTip">
-    <string>Find previous occurence</string>
+    <string comment="statustip action find previous">Find previous occurence</string>
    </property>
    <property name="shortcut">
-    <string>Shift+F3</string>
+    <string comment="shortcut action find previous">Shift+F3</string>
    </property>
   </action>
   <action name="actionReload">
@@ -1118,179 +1112,176 @@
      <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
    </property>
    <property name="text">
-    <string>Reload</string>
+    <string comment="action reload">Reload</string>
    </property>
    <property name="statusTip">
-    <string>Reload file from disk</string>
+    <string comment="statustip action reload">Reload file from disk</string>
    </property>
    <property name="shortcut">
-    <string>F5</string>
+    <string comment="shortcut action reload">F5</string>
    </property>
   </action>
   <action name="actionFoldAll">
    <property name="text">
-    <string>Fold/Unfold All</string>
+    <string comment="action fold/unfold all">Fold/Unfold All</string>
    </property>
    <property name="statusTip">
-    <string>Fold/Unfold all</string>
+    <string comment="statustip action fold/unfold all">Fold/Unfold all</string>
    </property>
    <property name="shortcut">
-    <string>Alt+²</string>
+    <string comment="shortcut action fold/unfold all">Alt+?</string>
    </property>
   </action>
   <action name="actionFoldLevel_1">
    <property name="text">
-    <string>Level 1</string>
+    <string comment="action fold level 1">Level 1</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 1</string>
+    <string comment="statustip action fold level 1">Fold level 1</string>
    </property>
    <property name="shortcut">
-    <string>Alt+1</string>
+    <string comment="shortcut action fold level 1">Alt+1</string>
    </property>
   </action>
   <action name="actionFoldLevel_2">
    <property name="text">
-    <string>Level 2</string>
+    <string comment="action fold level 2">Level 2</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 2</string>
+    <string comment="statustip action fold level 2">Fold level 2</string>
    </property>
    <property name="shortcut">
-    <string>Alt+2</string>
+    <string comment="shortcut action fold level 2">Alt+2</string>
    </property>
   </action>
   <action name="actionFoldLevel_3">
    <property name="text">
-    <string>Level 3</string>
+    <string comment="action fold level 3">Level 3</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 3</string>
+    <string comment="statustip action fold level 3">Fold level 3</string>
    </property>
    <property name="shortcut">
-    <string>Alt+3</string>
+    <string comment="shortcut action fold level 3">Alt+3</string>
    </property>
   </action>
   <action name="actionFoldLevel_4">
    <property name="text">
-    <string>Level 4</string>
+    <string comment="action fold level 4">Level 4</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 4</string>
+    <string comment="statustip action fold level 4">Fold level 4</string>
    </property>
    <property name="shortcut">
-    <string>Alt+4</string>
+    <string comment="shortcut action fold level 4">Alt+4</string>
    </property>
   </action>
   <action name="actionFoldLevel_5">
    <property name="text">
-    <string>Level 5</string>
+    <string comment="action fold level 5">Level 5</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 5</string>
+    <string comment="statustip action fold level 5">Fold level 5</string>
    </property>
    <property name="shortcut">
-    <string>Alt+5</string>
+    <string comment="shortcut action fold level 5">Alt+5</string>
    </property>
   </action>
   <action name="actionFoldLevel_6">
    <property name="text">
-    <string>Level 6</string>
+    <string comment="action fold level 6">Level 6</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 6</string>
+    <string comment="statustip action fold level 6">Fold level 6</string>
    </property>
    <property name="shortcut">
-    <string>Alt+6</string>
+    <string comment="shortcut action fold level 6">Alt+6</string>
    </property>
   </action>
   <action name="actionFoldLevel_7">
    <property name="text">
-    <string>Level 7</string>
+    <string comment="action fold level 7">Level 7</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 7</string>
+    <string comment="statustip action fold level 7">Fold level 7</string>
    </property>
    <property name="shortcut">
-    <string>Alt+7</string>
+    <string comment="shortcut action fold level 7">Alt+7</string>
    </property>
   </action>
   <action name="actionFoldLevel_8">
    <property name="text">
-    <string>Level 8</string>
+    <string comment="action fold level 8">Level 8</string>
    </property>
    <property name="statusTip">
-    <string>Fold level 8</string>
+    <string comment="statustip action fold level 8">Fold level 8</string>
    </property>
    <property name="shortcut">
-    <string>Alt+8</string>
+    <string comment="shortcut action fold level 8">Alt+8</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_1">
    <property name="text">
-    <string>Level 1</string>
+    <string comment="action unfold level 1">Level 1</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 1</string>
+    <string comment="statustip action unfold level 1">Unfold level 1</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_2">
    <property name="text">
-    <string>Level 2</string>
+    <string comment="action unfold level 2">Level 2</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 2</string>
+    <string comment="statustip action unfold level 2">Unfold level 2</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_3">
    <property name="text">
-    <string>Level 3</string>
+    <string comment="action unfold level 3">Level 3</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 3</string>
+    <string comment="statustip action unfold level 3">Unfold level 3</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_4">
    <property name="text">
-    <string>Level 4</string>
-   </property>
-   <property name="toolTip">
-    <string>Level 4</string>
+    <string comment="action unfold level 4">Level 4</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 4</string>
+    <string comment="statustip action unfold level 4">Unfold level 4</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_5">
    <property name="text">
-    <string>Level 5</string>
+    <string comment="action unfold level 5">Level 5</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 5</string>
+    <string comment="statustip action unfold level 5">Unfold level 5</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_6">
    <property name="text">
-    <string>Level 6</string>
+    <string comment="action unfold level 6">Level 6</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 6</string>
+    <string comment="statustip action unfold level 6">Unfold level 6</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_7">
    <property name="text">
-    <string>Level 7</string>
+    <string comment="action unfold level 7">Level 7</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 7</string>
+    <string comment="statustip action unfold level 7">Unfold level 7</string>
    </property>
   </action>
   <action name="actionUnfoldLevel_8">
    <property name="text">
-    <string>Level 8</string>
+    <string comment="action unfold level 8">Level 8</string>
    </property>
    <property name="statusTip">
-    <string>Unfold level 8</string>
+    <string comment="statustip action unfold level 8">Unfold level 8</string>
    </property>
   </action>
   <action name="actionReindentFile">
@@ -1299,13 +1290,13 @@
      <normaloff>:/astyle/images/astyle/astyle.png</normaloff>:/astyle/images/astyle/astyle.png</iconset>
    </property>
    <property name="text">
-    <string>Reindent File</string>
+    <string comment="action reindent file">Reindent File</string>
    </property>
    <property name="statusTip">
-    <string>Reindent the file with astyle</string>
+    <string comment="statustip action reindent file">Reindent the file with astyle</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+I</string>
+    <string comment="shortcut action reindent file">Ctrl+Alt+I</string>
    </property>
   </action>
   <action name="actionReindentOpenFiles">
@@ -1314,87 +1305,87 @@
      <normaloff>:/astyle/images/astyle/astyle.png</normaloff>:/astyle/images/astyle/astyle.png</iconset>
    </property>
    <property name="text">
-    <string>Reindent Open Files</string>
+    <string comment="action reindent open files">Reindent Open Files</string>
    </property>
    <property name="statusTip">
-    <string>Reindent open files with astyle</string>
+    <string comment="statustip action reindent open files">Reindent open files with astyle</string>
    </property>
   </action>
   <action name="actionDuplicateLine">
    <property name="text">
-    <string>Duplicate Current Line</string>
+    <string comment="action duplicate current line">Duplicate Current Line</string>
    </property>
    <property name="statusTip">
-    <string>Duplicate the current line</string>
+    <string comment="statustip action duplicate current line">Duplicate the current line</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
+    <string comment="shortcut action duplicate current line">Ctrl+D</string>
    </property>
   </action>
   <action name="actionMoveLineUp">
    <property name="text">
-    <string>Move Current Line Up</string>
+    <string comment="action move line up">Move Current Line Up</string>
    </property>
    <property name="statusTip">
-    <string>Move the current line up</string>
+    <string comment="statustip action move line up">Move the current line up</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+Up</string>
+    <string comment="shortcut action move line up">Ctrl+Shift+Up</string>
    </property>
   </action>
   <action name="actionMoveLineDown">
    <property name="text">
-    <string>Move Current Line Down</string>
+    <string comment="action move line down">Move Current Line Down</string>
    </property>
    <property name="statusTip">
-    <string>Move the current line down</string>
+    <string comment="statustip action move line down">Move the current line down</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+Down</string>
+    <string comment="shortcut action move line down">Ctrl+Shift+Down</string>
    </property>
   </action>
   <action name="actionDeleteLine">
    <property name="text">
-    <string>Delete Current Line</string>
+    <string comment="action delete line">Delete Current Line</string>
    </property>
    <property name="statusTip">
-    <string>Delete the current line</string>
+    <string comment="statustip action delete line">Delete the current line</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+L</string>
+    <string comment="shortcut action delete line">Ctrl+Shift+L</string>
    </property>
   </action>
   <action name="actionDeleteWord">
    <property name="text">
-    <string>Delete Current Word</string>
+    <string comment="action delete current word">Delete Current Word</string>
    </property>
    <property name="statusTip">
-    <string>Delete the current word</string>
+    <string comment="statustip action delete current word">Delete the current word</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Del</string>
+    <string comment="shortcut action delete current word">Ctrl+Del</string>
    </property>
   </action>
   <action name="actionCutLine">
    <property name="text">
-    <string>Cut Current Line</string>
+    <string comment="action cut current line">Cut Current Line</string>
    </property>
    <property name="statusTip">
-    <string>Cut the current line</string>
+    <string comment="statustip action cut current line">Cut the current line</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+L</string>
+    <string comment="shortcut action cut current line">Ctrl+L</string>
    </property>
   </action>
   <action name="actionCopyLine">
    <property name="text">
-    <string>Copy Current Line</string>
+    <string comment="action copy current line">Copy Current Line</string>
    </property>
    <property name="statusTip">
-    <string>Copy the current line</string>
+    <string comment="statustip action copy current line">Copy the current line</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+L</string>
+    <string comment="shortcut action copy current line">Ctrl+Alt+L</string>
    </property>
   </action>
   <action name="actionDiff">
@@ -1403,12 +1394,12 @@
      <normaloff>:/images/diff.png</normaloff>:/images/diff.png</iconset>
    </property>
    <property name="text">
-    <string>Diff</string>
+    <string comment="action diff">Diff</string>
    </property>
   </action>
   <action name="actionDiffClearResult">
    <property name="text">
-    <string>Clear Result</string>
+    <string comment="action clear diff result">Clear Result</string>
    </property>
   </action>
   <action name="actionShortcuts">
@@ -1417,7 +1408,10 @@
      <normaloff>:/images/settings_shortcuts.png</normaloff>:/images/settings_shortcuts.png</iconset>
    </property>
    <property name="text">
-    <string>Shortcuts</string>
+    <string comment="action shortcut edit">Shortcuts</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action shortcut edit">Edit shortcuts</string>
    </property>
   </action>
  </widget>
