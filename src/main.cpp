@@ -60,11 +60,16 @@ namespace {
 		displayOption("v", "version", "show version information and quit");
 		displayOption("h", "help", "show this message and quit");
 		displayOption("", "reset-lexers", "reset all lexers configuration to default");
+		displayOption("", "reset-associations", "reset all lexers associations to default");
 		std::cout << std::endl;
 	}
 	inline void resetLexer(){
 		Settings settings;
 		settings.remove("/Scintilla");
+	}
+	inline void resetAssocitation(){
+		Settings settings;
+		settings.remove("/LexerAssociation");
 	}
 	
 	inline int parseOption(const QString& option){
@@ -80,6 +85,10 @@ namespace {
 			resetLexer();
 			return 0;
 		}			
+		if(option == "--reset-associations"){
+			resetLexer();
+			return 0;
+		}		
 		help();
 		return 0;
 	}

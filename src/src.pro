@@ -61,6 +61,7 @@ HEADERS       *= mainwindow.h \
 				RLexerHTML.h \
 				RLexerXML.h \
 				RLexerTxt2Tags.h \
+				RLexerMatlab.h \
 				document_view.h \
 				document_manager.h \
 				document_editor.h \
@@ -90,6 +91,7 @@ SOURCES       *= main.cpp \
 				RLexerHTML.cpp \
 				RLexerXML.cpp \
 				RLexerTxt2Tags.cpp \
+				RLexerMatlab.cpp \
 				document_view.cpp \
 				document_manager.cpp \
 				document_editor.cpp \
