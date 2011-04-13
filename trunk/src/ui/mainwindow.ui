@@ -1129,7 +1129,7 @@
     <string comment="statustip action fold/unfold all">Fold/Unfold all</string>
    </property>
    <property name="shortcut">
-    <string comment="shortcut action fold/unfold all">Alt+?</string>
+    <string comment="shortcut action fold/unfold all">Alt+²</string>
    </property>
   </action>
   <action name="actionFoldLevel_1">

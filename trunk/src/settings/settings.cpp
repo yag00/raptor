@@ -78,7 +78,7 @@ void Settings::apply(MainWindow& window_){
 
 	//Lexer association
 	LexerManager::getInstance().setAssociationList(getAssociations());
-	
+
 	// apply properties to all open documents
 	foreach(DocumentEditor* document, window_.getDocumentManager().getDocuments()){
 		applyToDocument(document);
@@ -96,8 +96,8 @@ void Settings::applyToDocument(DocumentEditor* document_){
 
 	// General
 	document_->setAddNewLineOnSave(addNewLineOnSave());
-	document_->setTrimOnSave(autoTrimOnSave());	
-	
+	document_->setTrimOnSave(autoTrimOnSave());
+
 	if(useSelectionForegroundColor())
 		document_->setSelectionForegroundColor(getSelectionForegroundColor());
 	else
@@ -112,7 +112,7 @@ void Settings::applyToDocument(DocumentEditor* document_){
 	document_->setDefaultCodec(getDefaultCodec());
 	document_->setUnicodeBomUseMode((DocumentEditor::UnicodeBomUseMode)getUnicodeBomUseMode());
 	document_->setCharsetAutoDetection(getTryAutoDetectCodec());
-	
+
 	// Auto Completion
 	document_->setAutoCompletionCaseSensitivity(getAutoCompletionCaseSensitivity());
 	document_->setAutoCompletionReplaceWord(getAutoCompletionReplaceWord());
@@ -175,7 +175,7 @@ void Settings::applyToDocument(DocumentEditor* document_){
 		document_->setMarginSensitivity(1, false);
 		document_->setMarginWidth(1, 0);
 	}
-	
+
 	if(getFoldMarginEnabled()){
 		document_->setFolding((ScintillaExt::FoldStyleExt)getFolding(), getFoldSymbolForegroundColor(), getFoldSymbolBackgroundColor());
 		document_->setFoldMarginColors(getFoldMarginForegroundColor(), getFoldMarginBackgroundColor());
@@ -779,6 +779,10 @@ QMap<QString, QStringList> Settings::getDefaultLexerAssociations(){
 	filePatternList.clear();
 	filePatternList << "Makefile*" << "*makefile" << "*.mak";
 	lexerAssociation.insert("Makefile", filePatternList);
+	//Matlab
+	filePatternList.clear();
+	filePatternList << "*.m" << "*m.octave";
+	lexerAssociation.insert("Matlab", filePatternList);
 	//POV
 	filePatternList.clear();
 	filePatternList << "*.pov";
@@ -806,7 +810,7 @@ QMap<QString, QStringList> Settings::getDefaultLexerAssociations(){
 	//Txt2Tags
 	filePatternList.clear();
 	filePatternList << "*.t2t";
-	lexerAssociation.insert("Txt2Tags", filePatternList);	
+	lexerAssociation.insert("Txt2Tags", filePatternList);
 	//TCL
 	filePatternList.clear();
 	filePatternList << "*.tcl";
@@ -851,10 +855,10 @@ QMap<QString, QStringList> Settings::getAssociations(){
 	return assocations;
 }
 
-void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){	
+void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){
 	beginGroup("AStyle");
 	asi_.setStyle((astyle::FormatStyle)value("style", astyle::STYLE_NONE).toInt());
-	//add extra option	
+	//add extra option
 	//indentation
 	int space = value("indentation_spt", 4 ).toInt();
 	switch(value("indentation_type", AS_FORCE_INDENT_WITH_TABS).toInt()){
@@ -866,7 +870,7 @@ void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){
 			break;
 		case AS_FORCE_INDENT_WITH_TABS:
 			asi_.formatter().setTabIndentation(space, true);
-			break;		
+			break;
 	}
 	//bracket
 	asi_.formatter().setBracketFormatMode((astyle::BracketMode)value("bracket", astyle::NONE_MODE).toInt());
@@ -888,7 +892,7 @@ void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){
 		asi_.formatter().setBreakBlocksMode(true);
 		asi_.formatter().setBreakClosingHeaderBlocksMode(true);
 	}
-	
+
 	asi_.formatter().setOperatorPaddingMode(value("pad_operators", false).toBool());
 	asi_.formatter().setParensOutsidePaddingMode(value("pad_parenthesis_outside", false).toBool());
 	asi_.formatter().setParensInsidePaddingMode(value("pad_parenthesis_inside", false).toBool());
@@ -896,7 +900,7 @@ void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){
 	asi_.formatter().setParensUnPaddingMode(value("unpad_parenthesis", false).toBool());
 	asi_.formatter().setDeleteEmptyLinesMode(value("delete_empty_lines", false).toBool());
 	asi_.formatter().setEmptyLineFill(value("fill_empty_lines", false).toBool());
-	
+
 	asi_.formatter().setBreakClosingHeaderBracketsMode(value("break_closing_brackets", false).toBool());
 	asi_.formatter().setBreakElseIfsMode(value("break_elseifs", false).toBool());
 	asi_.formatter().setAddBracketsMode(value("add_brackets", false).toBool());
@@ -904,13 +908,13 @@ void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){
 	asi_.formatter().setBreakOneLineBlocksMode(value("keep_one_line_blocks", false).toBool());
 	asi_.formatter().setSingleStatementsMode(value("keep_one_line_statements", false).toBool());
 	asi_.formatter().setTabSpaceConversionMode(value("convert_tabs", false).toBool());
-	
+
 	if(value("pointer_align", 0).toInt() == 1) //"Attach to type"
 		asi_.formatter().setPointerAlignment(astyle::ALIGN_TYPE);
 	else if(value("pointer_align", 0).toInt() == 2) //"Attach in middle"
 		asi_.formatter().setPointerAlignment(astyle::ALIGN_MIDDLE);
 	else if(value("pointer_align", 0).toInt() == 3) //"Attach to name"
 		asi_.formatter().setPointerAlignment(astyle::ALIGN_NAME);
-		
+
 	endGroup();
 }

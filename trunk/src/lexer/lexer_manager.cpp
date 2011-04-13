@@ -58,6 +58,7 @@
 #include "RLexerHTML.h"
 #include "RLexerXML.h"
 #include "RLexerTxt2Tags.h"
+#include "RLexerMatlab.h"
 
 #include "../settings/settings_dialog.h"
 #include "../document_editor.h"
@@ -71,7 +72,7 @@ LexerManager::LexerManager(QWidget* parent_){
 	
 	_availableLexer << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
 		"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
-		"Lua" << "Makefile" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
+		"Lua" << "Makefile" << "Matlab" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
 		"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
 	
 	_availableLexer.sort();
@@ -403,6 +404,8 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 		lexer =  (QsciLexer*)new QsciLexerLua(parent_);
 	else if(name_ == "Makefile")
 		lexer =  (QsciLexer*)new QsciLexerMakefile(parent_);
+	else if(name_ == "Matlab")
+		lexer =  (QsciLexer*)new RLexerMatlab(parent_);
 	else if(name_ == "Pascal")
 		lexer =  (QsciLexer*)new QsciLexerPascal(parent_);
 	else if(name_ == "Perl")
