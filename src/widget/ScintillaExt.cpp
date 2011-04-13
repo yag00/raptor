@@ -96,7 +96,8 @@ void ScintillaExt::replaceAllText(const QString& text_){
 	int end = SendScintilla(SCI_GETLINEENDPOSITION, lines() - 1);
 	SendScintilla(SCI_SETTARGETSTART, start);
 	SendScintilla(SCI_SETTARGETEND, end);
-	SendScintilla(SCI_REPLACETARGET, -1, text_.toStdString().c_str());
+	QByteArray s = text_.toUtf8();
+	SendScintilla(SCI_REPLACETARGET, -1, s.constData());
 
 	//set the current line visible to have the same view as before
 	setFirstVisibleLine(currentLine);
@@ -148,7 +149,8 @@ void ScintillaExt::convertSelectedTextToUpperCase(){
 	text = text.toUpper();
 
 	SendScintilla(SCI_TARGETFROMSELECTION);
-	SendScintilla(SCI_REPLACETARGET, -1, text.toStdString().c_str());
+	QByteArray s = text.toUtf8();
+	SendScintilla(SCI_REPLACETARGET, -1, s.constData());
 }
 
 void ScintillaExt::convertSelectedTextToLowerCase(){
@@ -158,7 +160,8 @@ void ScintillaExt::convertSelectedTextToLowerCase(){
 	text = text.toLower();
 
 	SendScintilla(SCI_TARGETFROMSELECTION);
-	SendScintilla(SCI_REPLACETARGET, -1, text.toStdString().c_str());
+	QByteArray s = text.toUtf8();
+	SendScintilla(SCI_REPLACETARGET, -1, s.constData());
 }
 
 void ScintillaExt::duplicateCurrentLine(){
