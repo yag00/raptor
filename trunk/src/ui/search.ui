@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string comment="windowtitle search replace">Search and Replace</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -31,7 +31,7 @@
      <item>
       <widget class="QLabel" name="lbFilter">
        <property name="text">
-        <string>Filter:</string>
+        <string comment="label search file filter">Filter:</string>
        </property>
       </widget>
      </item>
@@ -45,7 +45,7 @@
      <item>
       <widget class="QLabel" name="lbDirectory">
        <property name="text">
-        <string>Directory:</string>
+        <string comment="label search directory">Directory:</string>
        </property>
       </widget>
      </item>
@@ -65,14 +65,14 @@
      <item>
       <widget class="QToolButton" name="tbDirectory">
        <property name="text">
-        <string>...</string>
+        <string comment="button browse search directory">...</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="cbRecursive">
        <property name="text">
-        <string>recursive</string>
+        <string comment="checkbox recursive search">recursive</string>
        </property>
       </widget>
      </item>
@@ -85,7 +85,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Find:</string>
+          <string comment="label find">Find:</string>
          </property>
         </widget>
        </item>
@@ -102,7 +102,7 @@
        <item row="0" column="2">
         <widget class="QToolButton" name="tbFindPrev">
          <property name="toolTip">
-          <string>Search back</string>
+          <string comment="toolTip button search back">Search back</string>
          </property>
          <property name="text">
           <string>...</string>
@@ -116,7 +116,7 @@
        <item row="0" column="3">
         <widget class="QToolButton" name="tbFindNext">
          <property name="toolTip">
-          <string>Search forward</string>
+          <string comment="toolTip button search forward">Search forward</string>
          </property>
          <property name="text">
           <string>...</string>
@@ -142,17 +142,17 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Search all</string>
+          <string comment="toolTip button search all">Search all</string>
          </property>
          <property name="text">
-          <string>All</string>
+          <string comment="button search back">All</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Replace:</string>
+          <string comment="label replace">Replace:</string>
          </property>
         </widget>
        </item>
@@ -181,10 +181,10 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Replace current selection</string>
+          <string comment="toolTip button replace current selection">Replace current selection</string>
          </property>
          <property name="text">
-          <string>Current</string>
+          <string comment="button replace current selection">Current</string>
          </property>
         </widget>
        </item>
@@ -209,10 +209,10 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Replace all</string>
+          <string comment="toolTip button replace all">Replace all</string>
          </property>
          <property name="text">
-          <string>All</string>
+          <string comment="toolTip button replace all">All</string>
          </property>
         </widget>
        </item>
@@ -236,7 +236,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Options:</string>
+          <string comment="label options">Options:</string>
          </property>
         </widget>
        </item>
@@ -249,10 +249,10 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Case sensitive search</string>
+          <string comment="tooltip button case sensitive search">Case sensitive search</string>
          </property>
          <property name="text">
-          <string>Case</string>
+          <string comment="button case sensitive search">Case</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -268,10 +268,10 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Wrap search</string>
+          <string comment="tooltip button wrap search">Wrap search</string>
          </property>
          <property name="text">
-          <string>Wrap</string>
+          <string comment="button wrap search">Wrap</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -287,10 +287,10 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Search for whole words only</string>
+          <string comment="tooltip button search words only">Search for whole words only</string>
          </property>
          <property name="text">
-          <string>Words Only</string>
+          <string comment="button search words only">Words Only</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -306,10 +306,10 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Search with regular expressions</string>
+          <string comment="tooltip button search regexps">Search with regular expressions</string>
          </property>
          <property name="text">
-          <string>RegExps</string>
+          <string comment="button search regexps">RegExps</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -325,7 +325,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Domain:</string>
+          <string comment="label search domain">Domain:</string>
          </property>
         </widget>
        </item>
@@ -344,10 +344,10 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Scope of the search</string>
+          <string comment="tooltip button domain search">Scope of the search</string>
          </property>
          <property name="text">
-          <string>Whole Text</string>
+          <string comment="button button domain search">Whole Text</string>
          </property>
          <property name="popupMode">
           <enum>QToolButton::InstantPopup</enum>
@@ -381,14 +381,14 @@
         <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
-        <string>Results</string>
+        <string comment="search results">Results</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QToolButton" name="tbCollapseResult">
        <property name="toolTip">
-        <string>Fold/Unfold results</string>
+        <string comment="tooltip button fold/unfold search result">Fold/Unfold results</string>
        </property>
        <property name="text">
         <string>...</string>
@@ -402,7 +402,7 @@
      <item>
       <widget class="QToolButton" name="tbClearResult">
        <property name="toolTip">
-        <string>Clear all results</string>
+        <string comment="tooltip button clear search result">Clear all results</string>
        </property>
        <property name="text">
         <string>...</string>

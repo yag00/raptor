@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Run Macro</string>
+   <string comment="windowTitle run macro">Run Macro</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -34,7 +34,7 @@
      <item>
       <widget class="QRadioButton" name="rbNbTimes">
        <property name="text">
-        <string>Run</string>
+        <string comment="radiobutton run macro">Run</string>
        </property>
        <property name="checked">
         <bool>true</bool>
@@ -63,7 +63,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>times</string>
+        <string comment="label run macro for x times">times</string>
        </property>
       </widget>
      </item>
@@ -85,7 +85,7 @@
    <item>
     <widget class="QRadioButton" name="rbUntilEndOfFile">
      <property name="text">
-      <string>Run until the end of file</string>
+      <string comment="radiobutton run macro until eof">Run until the end of file</string>
      </property>
     </widget>
    </item>

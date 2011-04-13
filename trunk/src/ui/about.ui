@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About : %1</string>
+   <string comment="windowTitle about">About : %1</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../ressources.qrc">
@@ -45,7 +45,7 @@
       <enum>QFrame::Sunken</enum>
      </property>
      <property name="text">
-      <string>Informations</string>
+      <string comment="label informations">Informations</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -68,7 +68,7 @@
        <set>Qt::AlignCenter</set>
       </property>
       <attribute name="title">
-       <string>About</string>
+       <string comment="tab about">About</string>
       </attribute>
      </widget>
      <widget class="QTextBrowser" name="tbTeam">
@@ -79,7 +79,7 @@
        <bool>false</bool>
       </property>
       <attribute name="title">
-       <string>Team</string>
+       <string comment="tab team">Team</string>
       </attribute>
      </widget>
      <widget class="QTextBrowser" name="tbLicense">
@@ -105,7 +105,7 @@
        <bool>false</bool>
       </property>
       <attribute name="title">
-       <string>License</string>
+       <string comment="tab license">License</string>
       </attribute>
      </widget>
      <widget class="QTextBrowser" name="tbDonations">
@@ -113,7 +113,7 @@
        <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <attribute name="title">
-       <string>Donations</string>
+       <string comment="tab donations">Donations</string>
       </attribute>
      </widget>
      <widget class="QTextBrowser" name="tbLinks">
@@ -121,7 +121,7 @@
        <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <attribute name="title">
-       <string>Links</string>
+       <string comment="tab links">Links</string>
       </attribute>
      </widget>
     </widget>
@@ -148,7 +148,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>OK</string>
+      <string comment="button OK">OK</string>
      </property>
      <property name="icon">
       <iconset>

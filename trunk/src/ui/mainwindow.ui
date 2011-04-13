@@ -673,7 +673,7 @@
      <normaloff>:/images/increase_indent.png</normaloff>:/images/increase_indent.png</iconset>
    </property>
    <property name="text">
-    <string comment="action indent text>Increase Line Indent</string>
+    <string comment="action indent text">Increase Line Indent</string>
    </property>
    <property name="statusTip">
     <string comment="statustip action indent text">Indent text</string>
@@ -752,7 +752,7 @@
     <string comment="statustip action zoom out">Zoom Out</string>
    </property>
    <property name="shortcut">
-    <string comment="shortcut action zoom out>Ctrl+-</string>
+    <string comment="shortcut action zoom out">Ctrl+-</string>
    </property>
   </action>
   <action name="actionRestoreDefaultZoom">
