@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Shortcut Editor</string>
+   <string comment="windowTitle Shortcut Editor">Shortcut Editor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../ressources.qrc">
@@ -23,7 +23,7 @@
      <item>
       <widget class="QLabel" name="actionFilterLabel">
        <property name="text">
-        <string>Filter :</string>
+        <string comment="label shortcut filter">Filter :</string>
        </property>
       </widget>
      </item>
@@ -42,12 +42,12 @@
      </property>
      <column>
       <property name="text">
-       <string>Action</string>
+       <string comment="treewidget column 0 action">Action</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Shortcut</string>
+       <string comment="treewidget column 1 shortcut">Shortcut</string>
       </property>
      </column>
     </widget>
@@ -60,14 +60,14 @@
      <item>
       <widget class="QPushButton" name="setShortcutButton">
        <property name="text">
-        <string>Set</string>
+        <string comment="button set shortcut">Set</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="clearShortcutButton">
        <property name="text">
-        <string>Clear</string>
+        <string comment="button clear shortcut">Clear</string>
        </property>
       </widget>
      </item>
@@ -78,7 +78,7 @@
      <item>
       <widget class="QPushButton" name="restoreButton">
        <property name="text">
-        <string>Restore default</string>
+        <string comment="button restore default">Restore default</string>
        </property>
       </widget>
      </item>
@@ -98,7 +98,7 @@
      <item>
       <widget class="QPushButton" name="closeButton">
        <property name="text">
-        <string>Close</string>
+        <string comment="button close">Close</string>
        </property>
       </widget>
      </item>
