@@ -30,7 +30,8 @@
 #include "settings.h"
 #include "settings_dialog.h"
 
-SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWidget* parent) : QDialog(parent), _mainWindow(mainWindow_), _settings(settings_) {
+SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDialog(parent), _mainWindow(mainWindow_) {
+	_settings = new Settings(this);
 	//init ui
 	setupUi(this);
 

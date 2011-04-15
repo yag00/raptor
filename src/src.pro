@@ -50,6 +50,7 @@ HEADERS       *= mainwindow.h \
 				search.h \
 				settings.h \
 				ShortcutEditor.h \
+				ShortcutSettings.h \
 				splitter.h \
 				ScintillaExt.h \
 				ColorPushButton.h \
@@ -81,6 +82,7 @@ SOURCES       *= main.cpp \
 				search.cpp \
 				settings.cpp \
 				ShortcutEditor.cpp \
+				ShortcutSettings.cpp \
 				splitter.cpp \
 				ScintillaExt.cpp \
 				ColorPushButton.cpp \

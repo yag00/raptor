@@ -23,22 +23,17 @@
 #include <QAction>
 #include <QMenu>
 
+#include "ShortcutSettings.h"
 #include "ShortcutEditor.h"
 
 ShortcutEditor::ShortcutEditor(QList<QMenu*>& menus_, QWidget* parent ) : QDialog( parent ) {
+	_settings = new ShortcutSettings(this);
 	//init ui
 	setupUi(this);
 	actionTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);
 
 	foreach(QMenu* menu, menus_)
 		addItems(menu);
-
-	// connections
-	connect(clearShortcutButton, SIGNAL(clicked()), shortcutLineEdit, SLOT(clear()));
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
-
-	connect(setShortcutButton, SIGNAL(clicked()), this, SLOT(set()));
-	connect(restoreButton, SIGNAL(clicked()), this, SLOT(restoreDefault()));
 }
 
 ShortcutEditor::~ShortcutEditor() {
@@ -126,7 +121,32 @@ void ShortcutEditor::on_actionFilterLineEdit_textChanged(const QString& text_) {
 	}
 }
 
-void ShortcutEditor::set() {
+void ShortcutEditor::on_resetButton_clicked(){
+	// get selected item
+	QTreeWidgetItem* item = actionTreeWidget->selectedItems().value(0);
+	if(item == 0)
+		return;
+	// get action
+	QAction* action = (QAction*)item->data(0, Qt::UserRole).value<void*>();
+	// set shortcut
+	_settings->restoreDefaultShortcut(action);
+	item->setText(1, action->shortcut().toString());
+}
+void ShortcutEditor::on_resetAllButton_clicked(){
+	_settings->remove("/Shortcut");
+	for(int i = 0; i < actionTreeWidget->topLevelItemCount(); i++) {
+		QTreeWidgetItem* item = actionTreeWidget->topLevelItem(i);
+		for(int j = 0; j < item->childCount(); j++){
+			QTreeWidgetItem* child = item->child(j);
+			// get action
+			QAction* action = (QAction*)child->data(0, Qt::UserRole).value<void*>();
+			_settings->restoreDefaultShortcut(action);
+			child->setText(1, action->shortcut().toString());
+		}
+	}
+}
+
+void ShortcutEditor::on_setShortcutButton_clicked() {
 	// get selected item
 	QTreeWidgetItem* item = actionTreeWidget->selectedItems().value(0);
 	if(item == 0)
@@ -136,8 +156,6 @@ void ShortcutEditor::set() {
 	// set shortcut
 	action->setShortcut(QKeySequence(shortcutLineEdit->text()));
 	item->setText(1, action->shortcut().toString());
-}
-
-void ShortcutEditor::restoreDefault() {
-
+	
+	_settings->saveUserShortcut(action);
 }
