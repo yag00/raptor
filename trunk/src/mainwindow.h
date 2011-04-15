@@ -202,7 +202,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		QLabel* _fileTypeLabel;
 		
 		/** recent files */
-		enum { MaxRecentFiles = 5 };
+		static const int MaxRecentFiles = 10;
 		QAction *_recentFileActions[MaxRecentFiles];
 		QAction *_recentFileSeparator;
 		
