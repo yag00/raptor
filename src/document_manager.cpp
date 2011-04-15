@@ -285,10 +285,10 @@ void DocumentManager::cloneDocument(){
 }
 
 void DocumentManager::saveSession(){
-	qDebug() << __FUNCTION__ << " todo";
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
 void DocumentManager::restoreSession(){
-	qDebug() << __FUNCTION__ << " todo";
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
 
 void DocumentManager::saveCurrentSession(QSettings& settings_){

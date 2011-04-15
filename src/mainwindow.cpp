@@ -66,6 +66,7 @@ void MainWindow::initMenu() {
 	initMenuEncoding();
 	initMenuBookmarks();
 	initMenuLanguage();
+	initMenuDiff();
 	initMenuMacro();
 	initMenuSettings();
 	initMenuHelp();
@@ -757,8 +758,8 @@ void MainWindow::aboutToShowLanguageMenu(){
 
 
 void MainWindow::diff() {
-	qDebug() << "Not implemented";
 	//_documentManager->diff();
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
 
 void MainWindow::startRecordingMacro() {
