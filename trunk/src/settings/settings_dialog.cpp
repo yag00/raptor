@@ -219,8 +219,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, Settings* settings_, QWi
 		if ( cb != cbLexersHighlightingFillEol )
 			connect( cb, SIGNAL( clicked( bool ) ), this, SLOT( cbLexersHighlightingProperties_clicked( bool ) ) );
 	}
-
-
+	
 	// resize to minimum size
 	resize(minimumSizeHint());
 }
@@ -439,6 +438,16 @@ void SettingsDialog::loadSettingsDialog(){
 
 	if ( cbLexersHighlightingLanguages->count() )
 		on_cbLexersHighlightingLanguages_currentIndexChanged( cbLexersHighlightingLanguages->itemText(0));
+	
+	// Show/Hide lexer	
+	QStringList invisibleLexers = _settings->getInvisibleLexers();
+	foreach(QString lexerName, _settings->availableLanguages()){
+		if(invisibleLexers.contains(lexerName)){
+			lvHideLexer->addItem(lexerName);
+		}else{
+			lvShowLexer->addItem(lexerName);
+		}
+	}
 }
 
 void SettingsDialog::saveSettingsDialog(){
@@ -627,6 +636,13 @@ void SettingsDialog::saveSettingsDialog(){
 		lex->setDefaultColor(_settings->getDocumentPen());
 		lex->writeSettings(*_settings);
 	}
+	
+	// Show/Hide lexer
+	QStringList invisibleLexers;
+	for(int i = 0; i < lvHideLexer->count(); i++){
+		invisibleLexers << lvHideLexer->item(i)->text();
+	}
+	_settings->setInvisibleLexers(invisibleLexers);
 }
 
 void SettingsDialog::on_twMenu_itemSelectionChanged(){
@@ -1053,4 +1069,20 @@ void SettingsDialog::onStyleChanged(){
 	QString text = asi.format(tePreview->text());
 	tePreview->clear();
 	tePreview->insert(text);
+}
+
+void SettingsDialog::on_tbHideLexer_clicked(){
+	QList<QListWidgetItem *> items = lvShowLexer->selectedItems();
+	foreach(QListWidgetItem* item, items){
+		lvHideLexer->addItem(item->text());
+		delete item;
+	}
+}
+
+void SettingsDialog::on_tbShowLexer_clicked(){
+	QList<QListWidgetItem *> items = lvHideLexer->selectedItems();
+	foreach(QListWidgetItem* item, items){
+		lvShowLexer->addItem(item->text());
+		delete item;
+	}
 }

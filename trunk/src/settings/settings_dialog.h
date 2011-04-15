@@ -70,6 +70,9 @@ class SettingsDialog : public QDialog, private Ui::UISettings{
 		void cbLexersHighlightingProperties_clicked(bool);
 		void on_cbLexersHighlightingIndentationWarning_currentIndexChanged(int);
 		void on_pbLexersHighlightingReset_clicked();
+		/** show/hide lexer */
+		void on_tbHideLexer_clicked();
+		void on_tbShowLexer_clicked();
 		
 		/** astyle */
 		void onStyleChanged();

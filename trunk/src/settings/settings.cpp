@@ -48,7 +48,13 @@ QStringList Settings::availableTextCodecs(){
 }
 
 QStringList Settings::availableLanguages(){
-	return LexerManager::getInstance().getAvailableLexer();
+	QStringList availableLexers;
+	availableLexers << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
+	"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
+	"Lua" << "Makefile" << "Matlab" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
+	"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
+	availableLexers.sort();
+	return availableLexers;
 }
 
 QStringList Settings::availableTranslations(){
@@ -78,6 +84,9 @@ void Settings::apply(MainWindow& window_){
 
 	//Lexer association
 	LexerManager::getInstance().setAssociationList(getAssociations());
+
+	//Lexer visibility
+	LexerManager::getInstance().setInvisibleLexers(getInvisibleLexers());
 
 	// apply properties to all open documents
 	foreach(DocumentEditor* document, window_.getDocumentManager().getDocuments()){
@@ -248,7 +257,7 @@ void Settings::setAutoTrimOnSave(bool autoTrim_){
 	setValue("Editor/autoTrimOnSave", autoTrim_);
 }
 bool Settings::autoTrimOnSave(){
-	return value("Editor/autoTrimOnSave", true).toBool();
+	return value("Editor/autoTrimOnSave", false).toBool();
 }
 
 void Settings::setAddNewLineOnSave(bool addNewLine_){
@@ -853,6 +862,13 @@ QMap<QString, QStringList> Settings::getAssociations(){
 		assocations.insert(lexer, filePattern);
 	}
 	return assocations;
+}
+
+void Settings::setInvisibleLexers(const QStringList& lexers_){
+	setValue("InvisibleLexer", lexers_);
+}
+QStringList Settings::getInvisibleLexers(){
+	return value("InvisibleLexer", QStringList()).toStringList();
 }
 
 void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){

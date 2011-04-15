@@ -66,21 +66,14 @@
 
 LexerManager::LexerManager(QWidget* parent_){
 	(void)parent_;
-	//Load Lexer association
 	Settings settings;
+	
+	_availableLexers = settings.availableLanguages();
+
+	//Load Lexer association
 	setAssociationList(settings.getAssociations());
-	
-	_availableLexer << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
-		"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
-		"Lua" << "Makefile" << "Matlab" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
-		"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
-	
-	_availableLexer.sort();
-	
-	_fileType["Normal Text"] = "Normal Text file";
-	_fileType["C++"] = "C++ source file";
-	_fileType["Java"] = "Java source file";
-	
+	setInvisibleLexers(settings.getInvisibleLexers());
+
 	_actionGroup = 0;
 }
 
@@ -90,7 +83,7 @@ LexerManager::~LexerManager(){
 
 
 QStringList LexerManager::getAvailableLexer() const{
-	return _availableLexer;
+	return _availableLexers;
 }
 
 void LexerManager::initialize(QMenu* menu_){
@@ -99,12 +92,12 @@ void LexerManager::initialize(QMenu* menu_){
 	action->setObjectName("lexer_0");
 	action->setCheckable(true);
 	_actionGroup->addAction(action);
-	for(QStringList::iterator it = _availableLexer.begin(); it != _availableLexer.end(); it++){
-		action = menu_->addAction(*it);
-		action->setObjectName("lexer_" + (*it));
+	foreach(QString lexer, _availableLexers){
+		action = menu_->addAction(lexer);
+		action->setObjectName("lexer_" + lexer);
 		action->setCheckable(true);
 		_actionGroup->addAction(action);
-	}	
+	}
 	_actionGroup->actions().first()->setChecked(true);
 }
 
@@ -112,8 +105,12 @@ void LexerManager::connectTo(const QObject * receiver_, const char * method_){
 	QObject::connect(_actionGroup, SIGNAL(triggered(QAction*)), receiver_, method_);
 }
 
-void LexerManager::setAssociationList(QMap<QString, QStringList> associations_){
+void LexerManager::setAssociationList(const QMap<QString, QStringList>& associations_){
 	_associations = associations_;
+}
+
+void LexerManager::setInvisibleLexers(const QStringList& lexers_){
+	_invisibleLexers = lexers_;
 }
 
 void LexerManager::resetLexer(QsciLexer* lexer_) {
@@ -144,60 +141,6 @@ bool LexerManager::setLexerProperty( const QString& property_, QsciLexer* lexer_
 	// return default value
 	return false;
 }
-
-/**
-QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_){
-	// if no member orlexer_return null variant
-	if ( !lexer_ || property_.isEmpty() )
-		return QVariant();
-	
-	// get language
-	//const QString lng = QString( lexer_->language() ).toLower();
-	
-	// checking property
-	if ( property_ == "foldComments" ) {
-		return lexer_->foldComments();
-	}
-	else if ( property_ == "foldCompact" ) {
-		return lexer_->foldCompact();
-	}
-	else if ( property_ == "foldQuotes" ) {
-		return lexer_->foldQuotes();
-	}
-	else if ( property_ == "foldDirectives" ) {
-		return lexer_->foldDirectives();
-	}
-	else if ( property_ == "foldAtBegin" ) {
-		return lexer_->foldAtBegin();
-	}
-	else if ( property_ == "foldAtParenthesis" ) {
-		return lexer_->foldAtParenthesis();
-	}
-	else if ( property_ == "foldAtElse" ) {
-		return lexer_->foldAtElse();
-	}
-	else if ( property_ == "foldAtModule" ) {
-		return lexer_->foldAtModule();
-	}
-	else if ( property_ == "foldPreprocessor" )	{
-		return lexer_->foldPreprocessor();
-	}
-	else if ( property_ == "stylePreprocessor" ) {
-		return lexer_->stylePreprocessor();
-	}
-	else if ( property_ == "caseSensitiveTags" ) {
-		return lexer_->caseSensitiveTags();
-	}
-	else if ( property_ == "backslashEscapes" ) {
-		return lexer_->backslashEscapes();
-	}
-	else if ( property_ == "indentationWarning" ) {
-		return lexer_->indentationWarning();
-	}
-	// default return value
-	return QVariant();
-}
-*/
 
 QVariant LexerManager::lexerProperty(const QString& property_, QsciLexer* lexer_){
 	// if no member orlexer_return null variant
@@ -425,7 +368,7 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	else if(name_ == "SQL")
 		lexer =  (QsciLexer*)new QsciLexerSQL(parent_);
 	else if(name_ == "Txt2Tags")
-		lexer =  (QsciLexer*)new RLexerTxt2Tags(parent_);	
+		lexer =  (QsciLexer*)new RLexerTxt2Tags(parent_);
 	else if(name_ == "TCL")
 		lexer =  (QsciLexer*)new QsciLexerTCL(parent_);
 	else if(name_ == "TeX")
@@ -438,7 +381,7 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 		lexer =  (QsciLexer*)new RLexerXML(parent_);
 	else if(name_ == "YAML")
 		lexer =  (QsciLexer*)new QsciLexerYAML(parent_);
-	
+
 	QFont f;
 #if defined(Q_OS_WIN)
 	f = QFont("Courier New",10);
@@ -446,22 +389,22 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	f = QFont("DejaVu Sans Mono",10);
 #endif
 	lexer->setDefaultFont(f);
-	
+
 	return lexer;
 }
 
 void LexerManager::update(QsciLexer* lexer_){
+	QString name;
 	if(lexer_ == 0)
 		_actionGroup->actions().first()->setChecked(true);
-	else{
-		QString name = lexer_->language();
-		foreach(QAction* action, _actionGroup->actions()){
-			if(action->text() == name){
-				action->setChecked(true);
-				return;
-			}		
-		}
-		_actionGroup->actions().first()->setChecked(true);
+	else
+		name = lexer_->language();
+
+	foreach(QAction* action, _actionGroup->actions()){
+		bool v = _invisibleLexers.contains(action->text());
+		action->setVisible(!v);
+		if(action->text() == name)
+			action->setChecked(true);
 	}
 }
 

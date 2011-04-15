@@ -79,7 +79,7 @@ class Settings : public QSettings{
 		/** get/set add new line on save property */
 		void setAddNewLineOnSave(bool addNewLine_);
 		bool addNewLineOnSave();
-		
+
 		// void setAutoSyntaxCheck( bool check );
 		// bool autoSyntaxCheck();
 		// void setConvertTabsUponOpen( bool convert );
@@ -112,26 +112,26 @@ class Settings : public QSettings{
 		/** get/set default codec */
 		void setDefaultCodec(const QString& codec);
 		QString getDefaultCodec();
-		
+
 		void setUnicodeBomUseMode(int bomMode_);
 		int getUnicodeBomUseMode();
-		
+
 		void setTryAutoDetectCodec(bool auto_);
 		bool getTryAutoDetectCodec();
-		
+
 		// Auto Completion
 		void setAutoCompletionCaseSensitivity(bool caseSensitive_);
 		bool getAutoCompletionCaseSensitivity();
-		
+
 		void setAutoCompletionReplaceWord(bool replace_);
 		bool getAutoCompletionReplaceWord();
-		
+
 		void setAutoCompletionShowSingle(bool showSingle_);
 		bool getAutoCompletionShowSingle();
-		
+
 		void setAutoCompletionSource(QsciScintilla::AutoCompletionSource source_);
 		QsciScintilla::AutoCompletionSource getAutoCompletionSource();
-		
+
 		void setAutoCompletionThreshold(int count_);
 		int getAutoCompletionThreshold();
 
@@ -285,10 +285,13 @@ class Settings : public QSettings{
 
 		// APIs, Lexers
 		QMap<QString, QStringList> getDefaultLexerAssociations();
-		
+
 		void setAssociations(const QMap<QString, QStringList>& associations_);
 		QMap<QString, QStringList> getAssociations();
-		
+
+		void setInvisibleLexers(const QStringList& lexers_);
+		QStringList getInvisibleLexers();
+
 		// AStyle
 		void setAstyleIndenterOptions(AStyleIndenter& asi__);
 };
