@@ -18,37 +18,34 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __SHORTCUT_EDITOR_H__
-#define __SHORTCUT_EDITOR_H__
+#ifndef __SHORTCUT_SETTINGS_H__
+#define __SHORTCUT_SETTINGS_H__
 
-#include <QDialog>
-#include "ui_shortcut.h"
+#include <QSettings>
 
-class ShortcutSettings;
+class QAction;
 
-class ShortcutEditor : public QDialog, private Ui::UIShortcut{
+/** handle all shortcut settings of the application */
+class ShortcutSettings : public QSettings{
+
 	Q_OBJECT
 
 	public:
-		ShortcutEditor(QList<QMenu*>& menus_, QWidget* parent_ = 0);
-		~ShortcutEditor();
-		
-		void addItems(QMenu *menu_);
+		ShortcutSettings(QObject* parent_ = 0);
+		~ShortcutSettings();
 
-	private:
-		void addItem(QAction *action_, QTreeWidgetItem* parent_);
-		void addItems(QList<QAction*>& actions_, QTreeWidgetItem* parent_);
+		bool hasDefaultShortcut();
+		void restoreDefaultShortcut(QAction* action_ = 0);
 	
-	private slots:
-		void on_actionTreeWidget_itemSelectionChanged();
-		void on_actionFilterLineEdit_textChanged(const QString& text_);
-		void on_resetButton_clicked();
-		void on_resetAllButton_clicked();
-		void on_setShortcutButton_clicked();
+		void saveDefaultShortcut(QAction* action_);
+		void saveUserShortcut(QAction* action_);
 	
-	private:	
-		ShortcutSettings* _settings;
+		QKeySequence getDefaultShortcut(QAction* action_); 
+		QKeySequence getUserShortcut(QAction* action_);
 	
+		void updateActionWithDefaultShortcut(QAction* action_);
+		void updateActionWithUserShortcut(QAction* action_);
+
 };
 
-#endif // __SHORTCUT_EDITOR_H__
+#endif // __SHORTCUT_SETTINGS_H__

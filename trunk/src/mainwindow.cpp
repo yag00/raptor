@@ -27,6 +27,7 @@
 #include "ui_macro.h"
 #include "settings/settings_dialog.h"
 #include "settings/ShortcutEditor.h"
+#include "settings/ShortcutSettings.h"
 #include "search.h"
 #include "document_editor.h"
 #include "document_view.h"
@@ -803,14 +804,12 @@ void MainWindow::prevBookmark() {
 }
 
 void MainWindow::settings() {
-	Settings settings;
-	SettingsDialog* settingsDlg = new SettingsDialog(*this, &settings);
-	settingsDlg->exec();
-	delete settingsDlg;
+	SettingsDialog dlg(*this);
+	dlg.exec();
 }
 void MainWindow::shortcuts() {
 	QList<QMenu*> menus = findChildren<QMenu*>();
-	ShortcutEditor dlg(menus, this);
+	ShortcutEditor dlg(menus);
 	dlg.exec();
 }
 
@@ -825,6 +824,45 @@ void MainWindow::writeSettings() {
 }
 
 void MainWindow::readSettings() {
+	//read shortcut settings
+	ShortcutSettings shortcuts;
+	
+	bool hasDefaultShortcut = shortcuts.hasDefaultShortcut();
+	QList<QMenu*> menus = findChildren<QMenu*>();
+	foreach(QMenu* menu, menus){
+		//discard unwanted menu
+		if(menu->title().isEmpty())
+			continue;
+		if(menu->objectName() == "menuLanguage")
+			continue;
+		if(menu->objectName() == "menuUseCharset")
+			continue;
+		if(menu->objectName() == "menuSaveWithCharset")
+			continue;
+		if(menu->objectName() == "menuSaveWithCharsetAs")
+			continue;
+		if(menu->objectName() == "menuForceSaveWithCharsetAs")
+			continue;
+		
+		QList<QAction*> actions = menu->actions();
+		foreach(QAction *action, actions) {
+			//discard unwanted action
+			if (action->menu())
+				continue;
+			if (action->isSeparator())
+				continue;
+			if (action->objectName().isEmpty())
+				continue;
+			
+			//if there is no default shortcuts save them
+			if(!hasDefaultShortcut){
+				shortcuts.saveDefaultShortcut(action);
+			}
+			//load user custom shortcut
+			shortcuts.updateActionWithUserShortcut(action);
+		}
+	}
+
 	Settings settings;
 	//Restore last session
 	_documentManager->restoreLastSession(settings);
