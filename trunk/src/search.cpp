@@ -449,7 +449,7 @@ int Search::doAllFilesSearch(bool replace_){
 		bool deleteAfter = false;
 		DocumentEditor* document = _documentMgr->getDocument(files[i]);
 		if(document == 0){
-			document = new DocumentEditor();
+			document = new DocumentEditor(_documentMgr->getFileSystemWatcher());
 			document->load(files[i]);
 			deleteAfter = true;
 		}

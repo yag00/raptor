@@ -40,6 +40,10 @@ DocumentManager::~DocumentManager(){
 
 }
 
+QFileSystemWatcher& DocumentManager::getFileSystemWatcher(){
+	return *_watcher;
+}
+
 DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	//create and connect the new view
 	DocumentView* view = new DocumentView(*_watcher, document_, this);
@@ -318,7 +322,7 @@ void DocumentManager::reindentDocument(){
 }
 
 void DocumentManager::reindentOpenDocuments(){
-	qDebug() << "DocumentManager::reindentOpenDocuments() is not implemented yet!";
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
 
 void DocumentManager::diff(){
@@ -428,7 +432,6 @@ void DocumentManager::notify(){
 
 				if (ret == QMessageBox::Yes){
 					document->load(file);
-					_watcher->addPath(document->getFullPath());
 				}
 			}
 		}

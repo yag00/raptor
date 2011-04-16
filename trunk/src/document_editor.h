@@ -23,6 +23,7 @@
 
 #include "widget/ScintillaExt.h"
 
+class QFileSystemWatcher;
 class QString;
 class QsciMacro;
 
@@ -31,7 +32,7 @@ class DocumentEditor : public ScintillaExt {
 	public:
 		/** default constructor
 		 * @param parent_ */
-		DocumentEditor(QWidget *parent_ = 0);
+		DocumentEditor(QFileSystemWatcher& watcher_, QWidget *parent_ = 0);
 		/** copy constructor
 		 * @param document_
 		 * @param parent_ */
@@ -237,6 +238,9 @@ class DocumentEditor : public ScintillaExt {
 		/** storing options */
 		bool _addNewLineOnSave;
 		bool _trimOnSave;
+		
+		/** Reference on FileWatcher */
+		QFileSystemWatcher& _watcher;
 };
 
 #endif /* __DOCUMENT_EDITOR_H__ */
