@@ -35,7 +35,7 @@
 #define MARKER_BOOK_MASK  (1 << MARKER_BOOK)
 
 
-DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_) {
+DocumentEditor::DocumentEditor(QFileSystemWatcher& watcher_, QWidget* parent_) : ScintillaExt(parent_), _watcher(watcher_) {
 	//codec
 	setUtf8(true);
 	_codec = "";
@@ -89,7 +89,8 @@ DocumentEditor::DocumentEditor(QWidget* parent_) : ScintillaExt(parent_) {
 	//connection
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
-DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_) {
+
+DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_), _watcher(document_->_watcher) {
 	//codec
 	setUtf8(true);
 	_codec = document_->_codec;
@@ -137,7 +138,9 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 DocumentEditor::~DocumentEditor() {
 	if(isCloned()) {
 		_clone->detachClone();
-		_clone->setLexer();
+		//_clone->setLexer();
+	}else{
+		_watcher.removePath(getFullPath());
 	}
 }
 
@@ -207,7 +210,7 @@ void DocumentEditor::quickPrint() {
 }
 
 bool DocumentEditor::save() {
-	if (!isModified())
+	if (!isModified() && QFile::exists(getFullPath()))
 		return true;
 	if (_fullPath.isEmpty()) {
 		return saveAs();
@@ -245,12 +248,19 @@ bool DocumentEditor::maybeSave() {
 	return true;
 }
 bool DocumentEditor::saveFile(const QString &fileName_) {
+	//remove old path from watcher
+	_watcher.removePath(_fullPath);
+	
 	QFile file(fileName_);
 	if (!file.open(QFile::WriteOnly)) {
 		QMessageBox::warning(this, PACKAGE_NAME,
 							 tr("Cannot save file %1:\n%2.")
 							 .arg(fileName_)
 							 .arg(file.errorString()));
+		
+		//re add the old path to the watcher
+		if(!_fullPath.isEmpty())
+			_watcher.addPath(_fullPath);
 		return false;
 	}
 
@@ -259,6 +269,9 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 		QMessageBox::critical(this, PACKAGE_NAME,
 							  tr("Cannot save file %1:\nUnsupported charset %2 !!")
 							  .arg(fileName_).arg(_codec));
+		//re add the old path to the watcher
+		if(!_fullPath.isEmpty())
+			_watcher.addPath(_fullPath);		
 		return false;
 	}
 
@@ -281,12 +294,16 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 	out.setCodec(codec);
 	out.setGenerateByteOrderMark(needBOM());
 	out << text();
-
+	out.flush();
+	
 	_fullPath = fileName_;
 	setModified(false);
 	_isNew = false;
 
 	QApplication::restoreOverrideCursor();
+
+	//add it to the watcher
+	_watcher.addPath(_fullPath);
 	return true;
 }
 bool DocumentEditor::saveCopy(const QString &fileName_) {
@@ -311,9 +328,6 @@ bool DocumentEditor::saveCopy(const QString &fileName_) {
 	//file.resize(0);
 	//file.write(codec->fromUnicode(text()));
 
-	
-	qDebug() << getFullPath() << _trimOnSave << _addNewLineOnSave;
-	
 	// check if strip spaces
 	if(_trimOnSave == true)
 		doTrimTrailing();
@@ -329,6 +343,7 @@ bool DocumentEditor::saveCopy(const QString &fileName_) {
 	out.setCodec(codec);
 	out.setGenerateByteOrderMark(needBOM());
 	out << text();
+	out.flush();
 	QApplication::restoreOverrideCursor();
 	return true;
 }
@@ -392,6 +407,9 @@ bool DocumentEditor::load(const QString &fileName_) {
 	//reload settings for lexer
 	Settings settings;
 	settings.applyToDocument(this);
+
+	//add it to the watcher
+	_watcher.addPath(_fullPath);
 
 	QApplication::restoreOverrideCursor();
 

@@ -41,6 +41,9 @@ class DocumentManager : public Splitter{
 		/** destructor */
 		~DocumentManager();
 		
+		/** @return the file watcher */
+		QFileSystemWatcher& getFileSystemWatcher();
+	
 		/** @return active view */
 		DocumentView* getActiveView() const;
 		/** @return active document */

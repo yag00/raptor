@@ -230,7 +230,7 @@ void DocumentView::updateAllDocuments(){
 }
 
 void DocumentView::newDocument(){
-	DocumentEditor* document = new DocumentEditor(this);
+	DocumentEditor* document = new DocumentEditor(_watcher, this);
 	connectDocument(document);
 	addTab(document, QIcon(":/images/saved.png"), tr("new %1").arg(_docCounter++));
 	setCurrentWidget(document);
@@ -244,8 +244,6 @@ void DocumentView::addDocument(DocumentEditor* document_){
 	QString docName = document_->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
-	else
-		_watcher.addPath(document_->getFullPath());
 	
 	if(document_->isModified())
 		addTab(document_, QIcon(":/images/unsaved.png"), docName);
@@ -265,8 +263,6 @@ void DocumentView::insertDocument(int index_, DocumentEditor* document_){
 	QString docName = document_->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
-	else
-		_watcher.addPath(document_->getFullPath());
 
 	if(document_->isModified())
 		insertTab(index_, document_, QIcon(":/images/unsaved.png"), docName);
@@ -296,11 +292,10 @@ void DocumentView::cloneDocument(DocumentEditor* document_){
 }
 
 void DocumentView::openDocument(const QString& file_){
-	DocumentEditor* document = new DocumentEditor(this);
+	DocumentEditor* document = new DocumentEditor(_watcher, this);
 	connectDocument(document);
 
 	if(document->load(file_)){		
-		_watcher.addPath(document->getFullPath());
 		addTab(document, QIcon(":/images/saved.png"), document->getName());
 		removeFirstNewDocument();
 		setCurrentWidget(document);
@@ -311,11 +306,10 @@ void DocumentView::openDocument(const QString& file_){
 }
 void DocumentView::openDocument(const QStringList& files_){
 	for(int i = 0; i < files_.size(); i++){
-		DocumentEditor* document = new DocumentEditor(this);
+		DocumentEditor* document = new DocumentEditor(_watcher, this);
 		connectDocument(document);
 
 		if(document->load(files_[i])){
-			_watcher.addPath(document->getFullPath());
 			addTab(document, QIcon(":/images/saved.png"), document->getName());
 			removeFirstNewDocument();
 			setCurrentWidget(document);
@@ -334,7 +328,6 @@ bool DocumentView::closeDocument(int index_){
     if(count() == 1){
 		if(document->maybeSave()){
 			newDocument();
-			_watcher.removePath(document->getFullPath());
 			delete document;
 			emit empty();
 			return true;
@@ -344,7 +337,6 @@ bool DocumentView::closeDocument(int index_){
 	}
 	else{
 		if(document->maybeSave()){
-			_watcher.removePath(document->getFullPath());
 			delete document;
 			return true;
 		}
@@ -386,7 +378,6 @@ DocumentEditor* DocumentView::removeDocumentAt(int index_){
 		emitEmptySignal = true;
 	}
 	DocumentEditor* document = getDocument(index_);
-	_watcher.removePath(document->getFullPath());
 	disconnect(document);
 	removeTab(index_);
 	//note: this do a remove tab but i'm not sure it's clean
@@ -402,18 +393,12 @@ DocumentEditor* DocumentView::removeCurrentDocument(){
 }
 
 void DocumentView::save(){
-	DocumentEditor* document = currentDocument();
-	_watcher.removePath(document->getFullPath());
-	document->save();
+	currentDocument()->save();
 	documentChanged();
-	_watcher.addPath(document->getFullPath());
 }
 void DocumentView::saveAs(){
-	DocumentEditor* document = currentDocument();
-	_watcher.removePath(document->getFullPath());
 	currentDocument()->saveAs();
 	documentChanged();
-	_watcher.addPath(document->getFullPath());
 }
 void DocumentView::saveACopyAs(){
 	currentDocument()->saveACopyAs();
@@ -421,9 +406,7 @@ void DocumentView::saveACopyAs(){
 void DocumentView::saveAll(){
 	for(int i = 0; i < count(); i++){
 		DocumentEditor* document = getDocument(i);
-		_watcher.removePath(document->getFullPath());
 		document->save();
-		_watcher.addPath(document->getFullPath());
 	}
 	updateAllDocuments();
 }
