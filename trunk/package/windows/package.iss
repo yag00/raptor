@@ -3,7 +3,7 @@
 ; ----------------------------------------------------------------------
 #define MyAppSrcDir "C:\raptor"
 #define MyAppName "Raptor"
-#define MyAppVersion "0.1.0"
+#define MyAppVersion "0.2.0"
 #define MyAppPublisher "Raptor"
 #define MyAppURL "http://code.google.com/p/raptor/"
 #define MyAppExeName "raptor.exe"
