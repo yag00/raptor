@@ -136,11 +136,14 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 }
 
 DocumentEditor::~DocumentEditor() {
+	QsciLexer* l = lexer();
+	if(l != 0)
+		delete l;
+
 	if(isCloned()) {
-		QsciLexer* l = lexer();
-		if(l)
-			delete l;
+		_isCloned = false;
 		_clone->detachClone();
+		_clone = 0;
 	}else{
 		_watcher.removePath(getFullPath());
 	}
@@ -402,8 +405,12 @@ bool DocumentEditor::load(const QString &fileName_) {
 
 	//add lexer
 	QsciLexer* l = lexer();
-	if(l != 0)
+	//detach lexer from document before delete it
+	setLexer(0);
+	if(l != 0){
 		delete l;
+		l = 0;
+	}
 	setLexer(LexerManager::getInstance().getAutoLexer(this));
 
 	//reload settings for lexer
@@ -445,9 +452,14 @@ void DocumentEditor::redo() {
 
 void DocumentEditor::setLanguage(const QString &language_) {
 	QsciLexer* l = lexer();
-	if(l != 0)
+	//detach lexer from document before delete it
+	setLexer(0);
+	if(l != 0){
 		delete l;
-
+		l = 0;
+	}
+	
+	//set the new lexer
 	l = LexerManager::getInstance().lexerFactory(language_, this);
 	setLexer(l);
 
