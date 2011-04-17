@@ -279,9 +279,17 @@ void DocumentManager::cloneDocument(){
 				docView->cloneDocument(document);
 				//remove document created with the view
 				docView->closeDocument(0);
-			}else{
+			}else{				
 				int nb = (i+1)%nbView;
 				_viewList[nb]->cloneDocument(document);
+				
+				if(_viewList[nb]->count() == 2){
+					DocumentEditor* d = _viewList[nb]->getDocument(0);
+					if(d->isNew() && !d->isModified())
+						_viewList[nb]->closeDocument(0);
+				}
+				
+				_viewList[nb]->setVisible(true);
 			}
 			return;
 		}
