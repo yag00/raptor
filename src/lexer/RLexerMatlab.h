@@ -21,33 +21,21 @@
 #ifndef __RLEXER_MATLAB_H__
 #define __RLEXER_MATLAB_H__
 
-#include <Qsci/qscilexer.h>
+#include <Qsci/qscilexermatlab.h>
 
-class RLexerMatlab : public QsciLexer {
+class RLexerMatlab : public QsciLexerMatlab {
 	Q_OBJECT
-	public:
-		enum {
-			Default,
-			Comment,
-			Command,
-			Number,
-			Keyword,
-			String,
-			Operator,
-			Identifier,
-			DoubleQuotedString,
-		};
-		
+	public:		
 		RLexerMatlab(QObject *parent = 0);
 		virtual ~RLexerMatlab();
-
-		const char *language() const;
-		const char *lexer() const;
-		
+	
 		const char *keywords(int set) const;
-		QString description(int style) const;
 		QColor defaultColor(int style) const;
 		QFont defaultFont(int style) const;
+	
+	private:
+		RLexerMatlab(const RLexerMatlab &);
+		RLexerMatlab &operator=(const RLexerMatlab &);
 };
 
 #endif // __RLEXER_MATLAB_H__
