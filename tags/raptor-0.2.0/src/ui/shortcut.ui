@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UIShortcut</class>
+ <widget class="QDialog" name="UIShortcut">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>380</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string comment="windowTitle Shortcut Editor">Shortcut Editor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../ressources.qrc">
+    <normaloff>:/images/settings_shortcuts.png</normaloff>:/images/settings_shortcuts.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="actionFilterLabel">
+       <property name="text">
+        <string comment="label shortcut filter">Filter :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="actionFilterLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeWidget" name="actionTreeWidget">
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string comment="treewidget column 0 action">Action</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string comment="treewidget column 1 shortcut">Shortcut</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="KeySequenceInput" name="shortcutLineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="setShortcutButton">
+       <property name="text">
+        <string comment="button set shortcut">Set</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clearShortcutButton">
+       <property name="text">
+        <string comment="button clear shortcut">Clear</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="resetButton">
+       <property name="toolTip">
+        <string comment="tooltip Reset current shortcut">Reset current shortcut</string>
+       </property>
+       <property name="statusTip">
+        <string comment="statustip Reset current shortcut">Reset current shortcut</string>
+       </property>
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="resetAllButton">
+       <property name="toolTip">
+        <string comment="tooltip button reset all default shortcuts">Restore all the default shorcuts</string>
+       </property>
+       <property name="statusTip">
+        <string comment="statustip button reset all default shortcuts">Restore all the default shorcuts</string>
+       </property>
+       <property name="text">
+        <string comment="button reset all default shortcuts">Reset All</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeButton">
+       <property name="text">
+        <string comment="button close">Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KeySequenceInput</class>
+   <extends>QLineEdit</extends>
+   <header location="global">../../../src/widget/KeySequenceInput.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../ressources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>clearShortcutButton</sender>
+   <signal>clicked()</signal>
+   <receiver>shortcutLineEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>482</x>
+     <y>331</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>332</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>UIShortcut</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>362</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>274</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
