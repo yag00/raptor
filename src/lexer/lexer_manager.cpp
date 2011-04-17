@@ -382,13 +382,15 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 	else if(name_ == "YAML")
 		lexer =  (QsciLexer*)new QsciLexerYAML(parent_);
 
-	QFont f;
+	if(lexer){
+		QFont f;
 #if defined(Q_OS_WIN)
-	f = QFont("Courier New",10);
+		f = QFont("Courier New",10);
 #else
-	f = QFont("DejaVu Sans Mono",10);
+		f = QFont("DejaVu Sans Mono",10);
 #endif
-	lexer->setDefaultFont(f);
+		lexer->setDefaultFont(f);
+	}
 
 	return lexer;
 }

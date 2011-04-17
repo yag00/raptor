@@ -137,8 +137,10 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 
 DocumentEditor::~DocumentEditor() {
 	if(isCloned()) {
+		QsciLexer* l = lexer();
+		if(l)
+			delete l;
 		_clone->detachClone();
-		//_clone->setLexer();
 	}else{
 		_watcher.removePath(getFullPath());
 	}
@@ -445,8 +447,7 @@ void DocumentEditor::setLanguage(const QString &language_) {
 	QsciLexer* l = lexer();
 	if(l != 0)
 		delete l;
-	/*clear();
-	undo();*/
+
 	l = LexerManager::getInstance().lexerFactory(language_, this);
 	setLexer(l);
 
@@ -525,23 +526,6 @@ bool DocumentEditor::isCloned() const {
 	return _isCloned;
 }
 void DocumentEditor::detachClone() {
-	//QsciLexer* l = lexer();
-
-	//setDocument(_clone->document());
-	/*if(l != 0){
-		QString lexLang = l->language();
-		QsciLexer* newLex = LexerManager::getInstance().lexerFactory("C", this);
-		delete l;
-		if(newLex == 0){
-			newLex = LexerManager::getInstance().getAutoLexer(this);
-		}
-		setLexer(0);
-		qDebug() << newLex->language();
-		setLexer(newLex);
-	}
-
-	Settings settings;
-	settings.applyToDocument(this);*/
 	_clone = 0;
 	_isCloned = false;
 }
