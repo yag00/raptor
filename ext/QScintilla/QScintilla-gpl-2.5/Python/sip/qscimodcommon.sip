@@ -90,6 +90,8 @@ const char *QSCINTILLA_VERSION_STR;
 %Include qscilexerjavascript.sip
 %Include qscilexerlua.sip
 %Include qscilexermakefile.sip
+%Include qscilexermatlab.sip
+%Include qscilexeroctave.sip
 %Include qscilexerpascal.sip
 %Include qscilexerperl.sip
 %Include qscilexerpostscript.sip

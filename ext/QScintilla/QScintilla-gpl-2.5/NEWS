@@ -1,3 +1,6 @@
+v2.5.1 17th April 2011
+  - Added QsciLexerMatlab and QsciLexerOctave.
+
 v2.5 29th March 2011
   - Based on Scintilla v2.25.
   - Rectangular selections are now fully supported and compatible with SciTE.
