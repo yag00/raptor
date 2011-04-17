@@ -1827,6 +1827,54 @@
     </message>
 </context>
 <context>
+    <name>QsciLexerMatlab</name>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="141"/>
+        <source>Default</source>
+        <translation>Standard</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="144"/>
+        <source>Comment</source>
+        <translation>Kommentar</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="147"/>
+        <source>Command</source>
+        <translation>Befehl</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="150"/>
+        <source>Number</source>
+        <translation>Zahl</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="153"/>
+        <source>Keyword</source>
+        <translation>Schlüsselwort</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="156"/>
+        <source>Single-quoted string</source>
+        <translation>Zeichenkette in Hochkommata</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="159"/>
+        <source>Operator</source>
+        <translation>Operator</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="162"/>
+        <source>Identifier</source>
+        <translation>Bezeichner</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="165"/>
+        <source>Double-quoted string</source>
+        <translation>Zeichenkette in Anführungszeichen</translation>
+    </message>
+</context>
+<context>
     <name>QsciLexerPOV</name>
     <message>
         <location filename="qscilexerpov.cpp" line="283"/>

@@ -1827,6 +1827,54 @@
     </message>
 </context>
 <context>
+    <name>QsciLexerMatlab</name>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="141"/>
+        <source>Default</source>
+        <translation type="unfinished">Padrão</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="144"/>
+        <source>Comment</source>
+        <translation type="unfinished">Comentário</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="147"/>
+        <source>Command</source>
+        <translation type="unfinished">Comando</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="150"/>
+        <source>Number</source>
+        <translation type="unfinished">Número</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="153"/>
+        <source>Keyword</source>
+        <translation type="unfinished">Palavra Chave</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="156"/>
+        <source>Single-quoted string</source>
+        <translation type="unfinished">Cadeia de caracteres envolvida por aspas simples</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="159"/>
+        <source>Operator</source>
+        <translation type="unfinished">Operador</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="162"/>
+        <source>Identifier</source>
+        <translation type="unfinished">Identificador</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="165"/>
+        <source>Double-quoted string</source>
+        <translation type="unfinished">Cadeia de caracteres envolvida por aspas duplas</translation>
+    </message>
+</context>
+<context>
     <name>QsciLexerPOV</name>
     <message>
         <location filename="qscilexerpov.cpp" line="283"/>

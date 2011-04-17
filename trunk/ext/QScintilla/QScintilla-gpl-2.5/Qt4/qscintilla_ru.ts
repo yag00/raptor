@@ -1827,6 +1827,54 @@
     </message>
 </context>
 <context>
+    <name>QsciLexerMatlab</name>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="141"/>
+        <source>Default</source>
+        <translation type="unfinished">По умолчанию</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="144"/>
+        <source>Comment</source>
+        <translation type="unfinished">Комментарий</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="147"/>
+        <source>Command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="150"/>
+        <source>Number</source>
+        <translation type="unfinished">Число</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="153"/>
+        <source>Keyword</source>
+        <translation type="unfinished">Ключевое слово</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="156"/>
+        <source>Single-quoted string</source>
+        <translation type="unfinished">Строка в одинарных кавычках</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="159"/>
+        <source>Operator</source>
+        <translation type="unfinished">Оператор</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="162"/>
+        <source>Identifier</source>
+        <translation type="unfinished">Идентификатор</translation>
+    </message>
+    <message>
+        <location filename="qscilexermatlab.cpp" line="165"/>
+        <source>Double-quoted string</source>
+        <translation type="unfinished">Строка в двойных кавычках</translation>
+    </message>
+</context>
+<context>
     <name>QsciLexerPOV</name>
     <message>
         <location filename="qscilexerpov.cpp" line="283"/>

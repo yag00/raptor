@@ -29,7 +29,7 @@
 
 
 # This must be kept in sync with configure.py.
-!win32:VERSION = 6.0.0
+!win32:VERSION = 6.1.0
 
 TEMPLATE = lib
 TARGET = qscintilla2
@@ -91,6 +91,8 @@ HEADERS = \
 	./Qsci/qscilexerjavascript.h \
 	./Qsci/qscilexerlua.h \
 	./Qsci/qscilexermakefile.h \
+	./Qsci/qscilexermatlab.h \
+	./Qsci/qscilexeroctave.h \
 	./Qsci/qscilexerpascal.h \
 	./Qsci/qscilexerperl.h \
 	./Qsci/qscilexerpostscript.h \
@@ -183,6 +185,8 @@ SOURCES = \
 	qscilexerjavascript.cpp \
 	qscilexerlua.cpp \
 	qscilexermakefile.cpp \
+	qscilexermatlab.cpp \
+	qscilexeroctave.cpp \
 	qscilexerpascal.cpp \
 	qscilexerperl.cpp \
 	qscilexerpostscript.cpp \
