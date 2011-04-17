@@ -51,7 +51,7 @@ QStringList Settings::availableLanguages(){
 	QStringList availableLexers;
 	availableLexers << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
 	"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
-	"Lua" << "Makefile" << "Matlab" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
+	"Lua" << "Makefile" << "Matlab" << "Octave" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
 	"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
 	availableLexers.sort();
 	return availableLexers;
@@ -788,10 +788,13 @@ QMap<QString, QStringList> Settings::getDefaultLexerAssociations(){
 	filePatternList.clear();
 	filePatternList << "Makefile*" << "*makefile" << "*.mak";
 	lexerAssociation.insert("Makefile", filePatternList);
-	//Matlab
+	//Matlab / Octave
 	filePatternList.clear();
-	filePatternList << "*.m" << "*m.octave";
+	filePatternList << "*.m";
 	lexerAssociation.insert("Matlab", filePatternList);
+	filePatternList.clear();
+	filePatternList << "*m.octave";
+	lexerAssociation.insert("Octave", filePatternList);
 	//POV
 	filePatternList.clear();
 	filePatternList << "*.pov";

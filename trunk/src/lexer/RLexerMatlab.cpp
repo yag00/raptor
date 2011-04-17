@@ -20,19 +20,11 @@
 
 #include "RLexerMatlab.h"
 
-RLexerMatlab::RLexerMatlab(QObject *parent) : QsciLexer(parent) {
+RLexerMatlab::RLexerMatlab(QObject *parent) : QsciLexerMatlab(parent) {
 }
 
 RLexerMatlab::~RLexerMatlab(){
 	
-}
-
-const char *RLexerMatlab::language() const { 
-	return "Matlab"; 
-}
-
-const char *RLexerMatlab::lexer() const {
-	return "matlab";
 }
 
 const char *RLexerMatlab::keywords(int set) const {
@@ -41,30 +33,6 @@ const char *RLexerMatlab::keywords(int set) const {
 		       "function global if otherwise parfor persistent return "
 		       "switch try while";
 	return 0;
-}
-
-QString RLexerMatlab::description(int style) const {
-	switch (style) {
-		case Default :
-			return tr("Default");
-		case Comment :
-			return tr("Comment");
-		case Command :
-			return tr("Command");
-		case Number :
-			return tr("Number");
-		case Keyword :
-			return tr("Keyword");
-		case String :
-			return tr("String");
-		case Operator :
-			return tr("Operator");
-		case Identifier :
-			return tr("Identifier");
-		case DoubleQuotedString :
-			return tr("Double Quoted String");
-	}
-	return QString();
 }
 
 QColor RLexerMatlab::defaultColor(int style) const {
@@ -79,7 +47,7 @@ QColor RLexerMatlab::defaultColor(int style) const {
 			return QColor(0xFF, 0x80, 0x00);
 		case Keyword :
 			return QColor(0x00, 0x00, 0xFF);		
-		case String :
+		case SingleQuotedString :
 			return QColor(0x80, 0x80, 0x80);
 		case Operator :
 			return QColor(0x00, 0x00, 0x80);

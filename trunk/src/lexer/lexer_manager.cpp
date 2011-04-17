@@ -59,6 +59,7 @@
 #include "RLexerXML.h"
 #include "RLexerTxt2Tags.h"
 #include "RLexerMatlab.h"
+#include "RLexerOctave.h"
 
 #include "../settings/settings_dialog.h"
 #include "../document_editor.h"
@@ -349,6 +350,8 @@ QsciLexer* LexerManager::lexerFactory(const QString& name_, DocumentEditor* pare
 		lexer =  (QsciLexer*)new QsciLexerMakefile(parent_);
 	else if(name_ == "Matlab")
 		lexer =  (QsciLexer*)new RLexerMatlab(parent_);
+	else if(name_ == "Octave")
+		lexer =  (QsciLexer*)new RLexerOctave(parent_);	
 	else if(name_ == "Pascal")
 		lexer =  (QsciLexer*)new QsciLexerPascal(parent_);
 	else if(name_ == "Perl")
