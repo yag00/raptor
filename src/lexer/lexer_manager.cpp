@@ -137,8 +137,12 @@ bool LexerManager::setLexerProperty( const QString& property_, QsciLexer* lexer_
 	if ( value_.type() == QVariant::Bool )
 		return QMetaObject::invokeMethod(lexer_, property_.toLocal8Bit().constData(), Q_ARG(bool, value_.toBool()));
 	// if int
-	else if ( value_.type() == QVariant::Int )
-		return QMetaObject::invokeMethod( lexer_, property_.toLocal8Bit().constData(), Q_ARG(QsciLexerPython::IndentationWarning, (QsciLexerPython::IndentationWarning)value_.toInt()));
+	else if ( value_.type() == QVariant::Int ){
+		if(qobject_cast<QsciLexerPython*>(lexer_))
+			return QMetaObject::invokeMethod( lexer_, property_.toLocal8Bit().constData(), Q_ARG(QsciLexerPython::IndentationWarning, (QsciLexerPython::IndentationWarning)value_.toInt()));
+		else
+			return false;
+	}
 	// return default value
 	return false;
 }

@@ -48,13 +48,14 @@ QStringList Settings::availableTextCodecs(){
 }
 
 QStringList Settings::availableLanguages(){
-	QStringList availableLexers;
-	availableLexers << "Bash" << "Batch" << "CMake" << "C" << "C++" << "C#" << "CSS" << "D" <<
-	"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
-	"Lua" << "Makefile" << "Matlab" << "Octave" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
-	"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
-	availableLexers.sort();
-	return availableLexers;
+	QStringList languages;
+	languages = QStringList() << "Bash" << "Batch" << "CMake" << "C++" << "C#" << "CSS" << "D" <<
+			"Diff" << "Fortran" << "Fortran77" << "HTML" << "IDL" << "Java" << "JavaScript" <<
+			"Lua" << "Makefile" << "Matlab" << "Octave" << "Pascal" << "Perl" << "PostScript" << "POV" << "Properties" <<
+			"Python" << "Ruby" << "Spice" << "SQL" << "Txt2Tags" << "TCL" << "TeX" << "Verilog" << "VHDL" << "XML" << "YAML";
+	languages.sort();
+
+	return languages;
 }
 
 QStringList Settings::availableTranslations(){
