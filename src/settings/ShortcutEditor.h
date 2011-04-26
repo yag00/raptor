@@ -32,23 +32,23 @@ class ShortcutEditor : public QDialog, private Ui::UIShortcut{
 	public:
 		ShortcutEditor(QList<QMenu*>& menus_, QWidget* parent_ = 0);
 		~ShortcutEditor();
-		
+
 		void addItems(QMenu *menu_);
 
 	private:
 		void addItem(QAction *action_, QTreeWidgetItem* parent_);
 		void addItems(QList<QAction*>& actions_, QTreeWidgetItem* parent_);
-	
+
 	private slots:
 		void on_actionTreeWidget_itemSelectionChanged();
 		void on_actionFilterLineEdit_textChanged(const QString& text_);
 		void on_resetButton_clicked();
 		void on_resetAllButton_clicked();
 		void on_setShortcutButton_clicked();
-	
-	private:	
+
+	private:
 		ShortcutSettings* _settings;
-	
+
 };
 
 #endif // __SHORTCUT_EDITOR_H__

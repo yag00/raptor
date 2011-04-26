@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <QMessageBox>
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QAction>
@@ -154,8 +155,21 @@ void ShortcutEditor::on_setShortcutButton_clicked() {
 	// get action
 	QAction* action = (QAction*)item->data(0, Qt::UserRole).value<void*>();
 	// set shortcut
-	action->setShortcut(QKeySequence(shortcutLineEdit->text()));
+	QString shortcut = shortcutLineEdit->text();
+	for(int i = 0; i < actionTreeWidget->topLevelItemCount(); i++) {
+		QTreeWidgetItem* item = actionTreeWidget->topLevelItem(i);
+		for(int j = 0; j < item->childCount(); j++){
+			QTreeWidgetItem* child = item->child(j);
+			if(child->text(1) == shortcut){
+				QMessageBox::warning(this, PACKAGE_NAME,
+					tr("Conflicting shortcut %1!\nShortcut already used by action %2!").arg(shortcut).arg(child->text(0)));
+				return;
+			}
+		}
+	}
+
+	action->setShortcut(QKeySequence(shortcut));
 	item->setText(1, action->shortcut().toString());
-	
+
 	_settings->saveUserShortcut(action);
 }
