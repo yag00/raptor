@@ -299,17 +299,22 @@ void DocumentView::openDocument(const QString& file_){
 		addTab(document, QIcon(":/images/saved.png"), document->getName());
 		removeFirstNewDocument();
 		setCurrentWidget(document);
+		QStringList openedFiles;
+		openedFiles << file_;
+		emit opened(openedFiles);
 		documentChanged();
 	}else{
 		delete document;
 	}
 }
 void DocumentView::openDocument(const QStringList& files_){
+	QStringList openedFiles;
 	for(int i = 0; i < files_.size(); i++){
 		DocumentEditor* document = new DocumentEditor(_watcher, this);
 		connectDocument(document);
 
 		if(document->load(files_[i])){
+			openedFiles << files_[i];
 			addTab(document, QIcon(":/images/saved.png"), document->getName());
 			removeFirstNewDocument();
 			setCurrentWidget(document);
@@ -317,6 +322,7 @@ void DocumentView::openDocument(const QStringList& files_){
 			delete document;
 		}
 	}
+	emit opened(openedFiles);
 	documentChanged();
 }
 

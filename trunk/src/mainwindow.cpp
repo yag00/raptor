@@ -74,19 +74,19 @@ void MainWindow::initMenu() {
 
 void MainWindow::initMenuFile() {
 	//connect menu "File" Action
-	connect(actionNew, SIGNAL(triggered()), this, SLOT(fileNew()));
-	connect(actionOpen, SIGNAL(triggered()), this, SLOT(fileOpen()));
-	connect(actionSave, SIGNAL(triggered()), this, SLOT(fileSave()));
-	connect(actionSaveAs, SIGNAL(triggered()), this, SLOT(fileSaveAs()));
-	connect(actionSaveACopyAs, SIGNAL(triggered()), this, SLOT(fileSaveACopyAs()));
-	connect(actionSaveAll, SIGNAL(triggered()), this, SLOT(fileSaveAll()));
-	connect(actionClose, SIGNAL(triggered()), this, SLOT(fileClose()));
-	connect(actionCloseAll, SIGNAL(triggered()), this, SLOT(fileCloseAll()));
-	connect(actionCloseAllExceptCurrentDocument, SIGNAL(triggered()), this, SLOT(fileCloseAllExceptCurrentDocument()));
+	connect(actionNew, SIGNAL(triggered()), _documentManager, SLOT(newDocument()));
+	connect(actionOpen, SIGNAL(triggered()), _documentManager, SLOT(open()));
+	connect(actionSave, SIGNAL(triggered()), _documentManager, SLOT(save()));
+	connect(actionSaveAs, SIGNAL(triggered()), _documentManager, SLOT(saveAs()));
+	connect(actionSaveACopyAs, SIGNAL(triggered()), _documentManager, SLOT(saveACopyAs()));
+	connect(actionSaveAll, SIGNAL(triggered()), _documentManager, SLOT(saveAll()));
+	connect(actionClose, SIGNAL(triggered()), _documentManager, SLOT(close()));
+	connect(actionCloseAll, SIGNAL(triggered()), _documentManager, SLOT(closeAll()));
+	connect(actionCloseAllExceptCurrentDocument, SIGNAL(triggered()), _documentManager, SLOT(closeAllExceptCurrentDocument()));
 	connect(actionSessionSave, SIGNAL(triggered()), _documentManager, SLOT(saveSession()));
 	connect(actionSessionRestore, SIGNAL(triggered()), _documentManager, SLOT(restoreSession()));
-	connect(actionReload, SIGNAL(triggered()), this, SLOT(fileReload()));
-	connect(actionPrint, SIGNAL(triggered()), this, SLOT(filePrint()));
+	connect(actionReload, SIGNAL(triggered()), _documentManager, SLOT(reload()));
+	connect(actionPrint, SIGNAL(triggered()), _documentManager, SLOT(print()));
 	connect(actionExit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 	//recent file actions
 	connect(actionEmptyRecentFilesList, SIGNAL(triggered()), this, SLOT(clearRecentFile()));
@@ -103,30 +103,30 @@ void MainWindow::initMenuFile() {
 
 void MainWindow::initMenuEdit() {
 	//connect menu "Edit" Action
-	connect(actionCut, SIGNAL(triggered()), this, SLOT(editCut()));
-	connect(actionCopy, SIGNAL(triggered()), this, SLOT(editCopy()));
-	connect(actionPaste, SIGNAL(triggered()), this, SLOT(editPaste()));
-	connect(actionUndo, SIGNAL(triggered()), this, SLOT(editUndo()));
-	connect(actionRedo, SIGNAL(triggered()), this, SLOT(editRedo()));
-	connect(actionSelectAll, SIGNAL(triggered()), this, SLOT(editSelectAll()));
+	connect(actionCut, SIGNAL(triggered()), _documentManager, SLOT(cut()));
+	connect(actionCopy, SIGNAL(triggered()), _documentManager, SLOT(copy()));
+	connect(actionPaste, SIGNAL(triggered()), _documentManager, SLOT(paste()));
+	connect(actionUndo, SIGNAL(triggered()), _documentManager, SLOT(undo()));
+	connect(actionRedo, SIGNAL(triggered()), _documentManager, SLOT(redo()));
+	connect(actionSelectAll, SIGNAL(triggered()), _documentManager, SLOT(selectAll()));
 
 	connect(actionIndent, SIGNAL(triggered()), this, SLOT(increaseIndentation()));
 	connect(actionUnindent, SIGNAL(triggered()), this, SLOT(decreaseIndentation()));
-	connect(actionAutoIndentation, SIGNAL(toggled(bool)), this, SLOT(setAutoIndentation(bool)));
-	connect(actionIndentationGuides, SIGNAL(toggled(bool)), this, SLOT(showIndentationGuides(bool)));
+	connect(actionAutoIndentation, SIGNAL(toggled(bool)), _documentManager, SLOT(setAutoIndentation(bool)));
+	connect(actionIndentationGuides, SIGNAL(toggled(bool)), _documentManager, SLOT(showIndentationGuides(bool)));
 
-	connect(actionTrimTrailingSpaces, SIGNAL(triggered()), this, SLOT(doTrimTrailing()));
-	connect(actionUpperCase, SIGNAL(triggered()), this, SLOT(convertSelectedTextToUpperCase()));
-	connect(actionLowerCase, SIGNAL(triggered()), this, SLOT(convertSelectedTextToLowerCase()));
-	connect(actionDuplicateLine, SIGNAL(triggered()), this, SLOT(duplicateCurrentLine()));
-	connect(actionCopyLine, SIGNAL(triggered()), this, SLOT(copyCurrentLine()));
-	connect(actionCutLine, SIGNAL(triggered()), this, SLOT(cutCurrentLine()));
-	connect(actionDeleteLine, SIGNAL(triggered()), this, SLOT(deleteCurrentLine()));
-	connect(actionMoveLineUp, SIGNAL(triggered()), this, SLOT(moveCurrentLineUp()));
-	connect(actionMoveLineDown, SIGNAL(triggered()), this, SLOT(moveCurrentLineDown()));
-	connect(actionDeleteWord, SIGNAL(triggered()), this, SLOT(deleteCurrentWord()));
+	connect(actionTrimTrailingSpaces, SIGNAL(triggered()), _documentManager, SLOT(doTrimTrailing()));
+	connect(actionUpperCase, SIGNAL(triggered()), _documentManager, SLOT(convertSelectedTextToUpperCase()));
+	connect(actionLowerCase, SIGNAL(triggered()), _documentManager, SLOT(convertSelectedTextToLowerCase()));
+	connect(actionDuplicateLine, SIGNAL(triggered()), _documentManager, SLOT(duplicateCurrentLine()));
+	connect(actionCopyLine, SIGNAL(triggered()), _documentManager, SLOT(copyCurrentLine()));
+	connect(actionCutLine, SIGNAL(triggered()), _documentManager, SLOT(cutCurrentLine()));
+	connect(actionDeleteLine, SIGNAL(triggered()), _documentManager, SLOT(deleteCurrentLine()));
+	connect(actionMoveLineUp, SIGNAL(triggered()), _documentManager, SLOT(moveCurrentLineUp()));
+	connect(actionMoveLineDown, SIGNAL(triggered()), _documentManager, SLOT(moveCurrentLineDown()));
+	connect(actionDeleteWord, SIGNAL(triggered()), _documentManager, SLOT(deleteCurrentWord()));
 
-	connect(actionReadOnly, SIGNAL(triggered(bool)), this, SLOT(setReadOnly(bool)));
+	connect(actionReadOnly, SIGNAL(triggered(bool)), _documentManager, SLOT(setReadOnly(bool)));
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
 
@@ -136,13 +136,13 @@ void MainWindow::initMenuEdit() {
 
 void MainWindow::initMenuView() {
 	//connect menu "View" Action
-	connect(actionZoomIn, SIGNAL(triggered()), this, SLOT(zoomIn()));
-	connect(actionZoomOut, SIGNAL(triggered()), this, SLOT(zoomOut()));
-	connect(actionRestoreDefaultZoom, SIGNAL(triggered()), this, SLOT(zoomRestore()));
+	connect(actionZoomIn, SIGNAL(triggered()), _documentManager, SLOT(zoomIn()));
+	connect(actionZoomOut, SIGNAL(triggered()), _documentManager, SLOT(zoomOut()));
+	connect(actionRestoreDefaultZoom, SIGNAL(triggered()), _documentManager, SLOT(zoomRestore()));
 	connect(actionShowWhitespaceAndTab, SIGNAL(triggered(bool)), this, SLOT(showWhiteSpaceAndTab(bool)));
 	connect(actionShowEndOfLine, SIGNAL(triggered(bool)), this, SLOT(showEndOfLine(bool)));
 	connect(actionShowAll, SIGNAL(triggered(bool)), this, SLOT(showAll(bool)));
-	connect(actionFoldAll, SIGNAL(triggered()), this, SLOT(foldUnfoldAll()));
+	connect(actionFoldAll, SIGNAL(triggered()), _documentManager, SLOT(foldUnfoldAll()));
 
 	connect(actionFoldLevel_1, SIGNAL(triggered()), this, SLOT(foldLevel()));
 	connect(actionFoldLevel_2, SIGNAL(triggered()), this, SLOT(foldLevel()));
@@ -241,10 +241,10 @@ void MainWindow::initMenuEncoding() {
 
 void MainWindow::initMenuBookmarks() {
 	//connect menu "Bookmarks" Action
-	connect(actionToggleBookmark, SIGNAL(triggered()), this, SLOT(toggleBookmark()));
-	connect(actionRemoveAllBookmarks, SIGNAL(triggered()), this, SLOT(removeAllBookmarks()));
-	connect(actionNextBookmark, SIGNAL(triggered()), this, SLOT(nextBookmark()));
-	connect(actionPreviousBookmark, SIGNAL(triggered()), this, SLOT(prevBookmark()));
+	connect(actionToggleBookmark, SIGNAL(triggered()), _documentManager, SLOT(toggleBookmark()));
+	connect(actionRemoveAllBookmarks, SIGNAL(triggered()), _documentManager, SLOT(removeAllBookmarks()));
+	connect(actionNextBookmark, SIGNAL(triggered()), _documentManager, SLOT(nextBookmark()));
+	connect(actionPreviousBookmark, SIGNAL(triggered()), _documentManager, SLOT(prevBookmark()));
 }
 
 void MainWindow::initMenuLanguage() {
@@ -263,9 +263,9 @@ void MainWindow::initMenuDiff() {
 
 void MainWindow::initMenuMacro() {
 	//connect menu "Macro" Action
-	connect(actionStartRecording, SIGNAL(triggered()), this, SLOT(startRecordingMacro()));
-	connect(actionStopRecording, SIGNAL(triggered()), this, SLOT(stopRecordingMacro()));
-	connect(actionRunMacro, SIGNAL(triggered()), this, SLOT(runMacro()));
+	connect(actionStartRecording, SIGNAL(triggered()), _documentManager, SLOT(startRecordingMacro()));
+	connect(actionStopRecording, SIGNAL(triggered()), _documentManager, SLOT(stopRecordingMacro()));
+	connect(actionRunMacro, SIGNAL(triggered()), _documentManager, SLOT(runMacro()));
 	connect(actionRunMacroMultipleTimes, SIGNAL(triggered()), this, SLOT(runMacroMultipleTimes()));
 	//connect(actionSaveMacro, SIGNAL(triggered()), this, SLOT(saveMacro()));
 	//connect(actionLoadMacro, SIGNAL(triggered()), this, SLOT(loadMacro()));
@@ -286,9 +286,11 @@ void MainWindow::createDocumentManager() {
 	_documentManager = new DocumentManager(this);
 	setCentralWidget(_documentManager);
 
+	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
 	connect(_documentManager, SIGNAL(documentChanged(DocumentEditor*)), this, SLOT(update(DocumentEditor*)));
-	connect(_documentManager, SIGNAL(selectionChanged(DocumentEditor*)), this, SLOT(update(DocumentEditor*)));
-	connect(_documentManager, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SLOT(update(DocumentEditor*)));
+	connect(_documentManager, SIGNAL(selectionChanged(DocumentEditor*)), this, SLOT(updateStatusBar(DocumentEditor*)));
+	connect(_documentManager, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SLOT(updateStatusBar(DocumentEditor*, int, int)));
+	connect(_documentManager, SIGNAL(opened(QStringList)), this, SLOT(updateRecentFile(QStringList)));
 }
 
 void MainWindow::createStatusBar() {
@@ -341,7 +343,7 @@ void MainWindow::handleMessage(const QString& message_) {
 	QStringList files = message_.split(";");
 	files.removeAll("");
 	if(!files.empty()) {
-		_documentManager->openDocument(files);
+		_documentManager->open(files);
 		updateRecentFile(files);
 	}
 }
@@ -354,6 +356,7 @@ void MainWindow::update(DocumentEditor* document_) {
 	//update actions
 	updateActions(document_);
 }
+
 void MainWindow::updateMainWindowTitle(DocumentEditor* document_) {
 	QString docName = document_->getFullPath();
 	if(docName.isEmpty())
@@ -362,20 +365,29 @@ void MainWindow::updateMainWindowTitle(DocumentEditor* document_) {
 	setWindowTitle(tr("[*]%1 - %2").arg( PACKAGE_NAME ).arg(docName));
 	setWindowModified(document_->isModified());
 }
+
 void MainWindow::updateStatusBar(DocumentEditor* document_) {
+	int line,column;
+	document_->getCursorPosition(&line, &column);
+	updateStatusBar(document_, line, column);
+}
+
+void MainWindow::updateStatusBar(DocumentEditor* document_, int line_, int col_) {
 	int nbChars = document_->text().length();
 	int nbLines = document_->lines();
-	int line, column;
-	document_->getCursorPosition(&line, &column);
 	int select = document_->selectedText().length();
-
-	_editInfoLabel->setText(tr("Line : %1  Col : %2  Sel : %3     ").arg(line+1).arg(column).arg(select));
+	_editInfoLabel->setText(tr("Line : %1  Col : %2  Sel : %3     ").arg(line_).arg(col_).arg(select));
 	_fileInfoLabel->setText(tr("%1 chars  %2 lines     ").arg(nbChars).arg(nbLines));
 	_encodingLabel->setText(document_->getCodec());
 	//_formatLabel->setText(document->getFormat() + "     ");
 	_formatLabel->setPixmap(document_->getFormatPixmap().scaled(16,16));
 	_fileTypeLabel->setText(document_->getType());
 }
+
+void MainWindow::updateStatusBarMessage(QString message_){
+	statusBar()->showMessage(message_, 1000);
+}
+
 void MainWindow::updateActions(DocumentEditor* document_) {
 	//update all actions on the tool bar always visibe
 	//other actions will be update by aboutToShow slots ....
@@ -393,7 +405,7 @@ void MainWindow::updateActions(DocumentEditor* document_) {
 
 void MainWindow::closeEvent(QCloseEvent *event_) {
 	writeSettings();
-	if(fileCloseAll() == true) {
+	if(_documentManager->closeAll() == true) {
 		event_->accept();
 	}
 	else
@@ -416,6 +428,7 @@ void MainWindow::updateRecentFileActions() {
 
 	_recentFileSeparator->setVisible(numRecentFiles > 0);
 }
+
 void MainWindow::updateRecentFile(const QStringList &fileList_) {
 	Settings settings;
 	QStringList files = settings.getRecentFiles();
@@ -428,6 +441,7 @@ void MainWindow::updateRecentFile(const QStringList &fileList_) {
 	settings.setRecentFiles(files);
 	updateRecentFileActions();
 }
+
 void MainWindow::clearRecentFile() {
 	Settings settings;
 	QStringList files = settings.getRecentFiles();
@@ -435,6 +449,7 @@ void MainWindow::clearRecentFile() {
 	settings.setRecentFiles(files);
 	updateRecentFileActions();
 }
+
 void MainWindow::openRecentFile() {
 	QAction *action = qobject_cast<QAction *>(sender());
 	if(action == 0)
@@ -442,8 +457,9 @@ void MainWindow::openRecentFile() {
 
 	QString fileName = action->data().toString();
 	if(!_documentManager->documentExists(fileName))
-		_documentManager->getActiveView()->openDocument(fileName);
+		_documentManager->open(fileName);
 }
+
 void MainWindow::openAllRecentFile() {
 	Settings settings;
 	QStringList files = settings.getRecentFiles();
@@ -460,188 +476,64 @@ void MainWindow::openAllRecentFile() {
 		if(!fileRemoved)
 			i++;
 	}
-	_documentManager->getActiveView()->openDocument(files);
-}
-
-void MainWindow::fileNew() {
-	_documentManager->getActiveView()->newDocument();
-}
-void MainWindow::fileOpen() {
-	///@todo add filter
-	QStringList files = QFileDialog::getOpenFileNames(this, tr("Select one or more files to open"), _documentManager->getActiveDocument()->getPath());
-	_documentManager->openDocument(files);
-	updateRecentFile(files);
-}
-void MainWindow::fileSave() {
-	_documentManager->getActiveView()->save();
-}
-void MainWindow::fileSaveAs() {
-	_documentManager->getActiveView()->saveAs();
-}
-void MainWindow::fileSaveACopyAs() {
-	_documentManager->getActiveView()->saveACopyAs();
-}
-void MainWindow::fileSaveAll() {
-	_documentManager->saveAll();
-}
-bool MainWindow::fileClose() {
-	return _documentManager->getActiveView()->closeCurrentDocument();
-}
-bool MainWindow::fileCloseAll() {
-	return _documentManager->closeAll();
-}
-void MainWindow::fileCloseAllExceptCurrentDocument() {
-	_documentManager->closeAllExceptActiveDocument();
-}
-void MainWindow::filePrint() {
-	_documentManager->getActiveView()->print();
-}
-void MainWindow::fileReload() {
-	if(_documentManager->getActiveDocument()->reload()) {
-		_documentManager->getActiveView()->updateAllDocuments();
-		statusBar()->showMessage(tr("File reloaded"), 1000);
-	}
-}
-
-void MainWindow::editCut() {
-	_documentManager->getActiveDocument()->cut();
-}
-void MainWindow::editCopy() {
-	_documentManager->getActiveDocument()->copy();
-}
-void MainWindow::editPaste() {
-	_documentManager->getActiveDocument()->paste();
-}
-void MainWindow::editUndo() {
-	DocumentEditor* document = _documentManager->getActiveDocument();
-	document->undo();
-	actionUndo->setEnabled(document->isUndoAvailable());
-	actionRedo->setEnabled(document->isRedoAvailable());
-}
-void MainWindow::editRedo() {
-	DocumentEditor* document = _documentManager->getActiveDocument();
-	document->redo();
-	actionUndo->setEnabled(document->isUndoAvailable());
-	actionRedo->setEnabled(document->isRedoAvailable());
-}
-void MainWindow::editSelectAll() {
-	_documentManager->getActiveDocument()->selectAll();
+	_documentManager->open(files);
 }
 
 void MainWindow::increaseIndentation() {
 	if(!_searchDock->focusWidget()->hasFocus()) {
-		_documentManager->getActiveDocument()->increaseIndentation();
+		_documentManager->increaseIndentation();
 	}
 }
+
 void MainWindow::decreaseIndentation() {
 	if(!_searchDock->focusWidget()->hasFocus()) {
-		_documentManager->getActiveDocument()->decreaseIndentation();
+		_documentManager->decreaseIndentation();
 	}
 }
-void MainWindow::setAutoIndentation(bool b) {
-	_documentManager->getActiveDocument()->setAutoIndent(b);
-}
-void MainWindow::showIndentationGuides(bool b) {
-	_documentManager->getActiveDocument()->setIndentationGuides(b);
-}
-void MainWindow::doTrimTrailing() {
-	_documentManager->getActiveDocument()->doTrimTrailing();
-}
 
-void MainWindow::convertSelectedTextToUpperCase() {
-	_documentManager->getActiveDocument()->convertSelectedTextToUpperCase();
-}
-void MainWindow::convertSelectedTextToLowerCase() {
-	_documentManager->getActiveDocument()->convertSelectedTextToLowerCase();
-}
-void MainWindow::duplicateCurrentLine() {
-	_documentManager->getActiveDocument()->duplicateSelectionOrCurrentLine();
-}
-void MainWindow::copyCurrentLine() {
-	_documentManager->getActiveDocument()->copyCurrentLine();
-}
-void MainWindow::cutCurrentLine() {
-	_documentManager->getActiveDocument()->cutCurrentLine();
-}
-void MainWindow::deleteCurrentLine() {
-	_documentManager->getActiveDocument()->deleteCurrentLine();
-}
-void MainWindow::moveCurrentLineUp() {
-	_documentManager->getActiveDocument()->moveCurrentLineUp();
-}
-void MainWindow::moveCurrentLineDown() {
-	_documentManager->getActiveDocument()->moveCurrentLineDown();
-}
-void MainWindow::deleteCurrentWord() {
-	_documentManager->getActiveDocument()->deleteCurrentWord();
-}
-
-void MainWindow::setReadOnly(bool b) {
-	_documentManager->getActiveDocument()->setReadOnly(b);
-}
 
 void MainWindow::aboutToShowEditMenu(){
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	actionReadOnly->setChecked(document->isReadOnly());
 }
+
 void MainWindow::aboutToShowEditIndentationMenu(){
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	actionAutoIndentation->setChecked(document->autoIndent());
 	actionIndentationGuides->setChecked(document->indentationGuides());
 }
 
-void MainWindow::zoomIn() {
-	_documentManager->getActiveDocument()->zoomIn();
-}
-void MainWindow::zoomOut() {
-	_documentManager->getActiveDocument()->zoomOut();
-}
-void MainWindow::zoomRestore() {
-	_documentManager->getActiveDocument()->zoomTo(0);
-}
 
 void MainWindow::showWhiteSpaceAndTab(bool b_) {
 	actionShowEndOfLine->setChecked(false);
 	actionShowAll->setChecked(false);
-
-	_documentManager->getActiveDocument()->setEolVisibility(false);
-	if(b_)
-		_documentManager->getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsVisible);
-	else
-		_documentManager->getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsInvisible);
-
+	_documentManager->showWhiteSpaceAndTab(b_);
 }
+
 void MainWindow::showEndOfLine(bool b_) {
 	actionShowWhitespaceAndTab->setChecked(false);
 	actionShowAll->setChecked(false);
-	_documentManager->getActiveDocument()->setEolVisibility(b_);
-	_documentManager->getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsInvisible);
+	_documentManager->showEndOfLine(b_);
 }
+
 void MainWindow::showAll(bool b_) {
 	actionShowWhitespaceAndTab->setChecked(false);
 	actionShowEndOfLine->setChecked(false);
-
-	_documentManager->getActiveDocument()->setEolVisibility(b_);
-	if(b_)
-		_documentManager->getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsVisible);
-	else
-		_documentManager->getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsInvisible);
+	_documentManager->showAll(b_);
 }
 
-void MainWindow::foldUnfoldAll() {
-	_documentManager->getActiveDocument()->foldAll(true);
-}
 void MainWindow::foldLevel() {
 	QAction* action = qobject_cast<QAction*>(sender());
 	QString actionNb = action->objectName().split("_")[1];
 	int level = actionNb.toInt();
-	_documentManager->getActiveDocument()->foldLevel(level);
+	_documentManager->foldLevel(level);
 }
+
 void MainWindow::unfoldLevel() {
 	QAction* action = qobject_cast<QAction*>(sender());
 	QString actionNb = action->objectName().split("_")[1];
 	int level = actionNb.toInt();
-	_documentManager->getActiveDocument()->unfoldLevel(level);
+	_documentManager->unfoldLevel(level);
 }
 
 void MainWindow::aboutToShowViewInvisibleSymbolMenu(){
@@ -667,54 +559,44 @@ void MainWindow::aboutToShowViewInvisibleSymbolMenu(){
 
 void MainWindow::convertToWindowFormat() {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	DocumentEditor* document = _documentManager->getActiveDocument();
-	document->convertEols(QsciScintilla::EolWindows);
-	document->setEolMode(QsciScintilla::EolWindows);
+	_documentManager->convertToWindowFormat();
 	actionConvertToWindowsFormat->setEnabled(false);
 	actionConvertToUnixFormat->setEnabled(true);
 	actionConvertToMacFormat->setEnabled(true);
-	updateStatusBar(document);
+	//updateStatusBar(document);
 	QApplication::restoreOverrideCursor();
 }
+
 void MainWindow::convertToUnixFormat() {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	DocumentEditor* document = _documentManager->getActiveDocument();
-	document->convertEols(QsciScintilla::EolUnix);
-	document->setEolMode(QsciScintilla::EolUnix);
+	_documentManager->convertToUnixFormat();
 	actionConvertToWindowsFormat->setEnabled(true);
 	actionConvertToUnixFormat->setEnabled(false);
 	actionConvertToMacFormat->setEnabled(true);
-	updateStatusBar(document);
+	//updateStatusBar(document);
 	QApplication::restoreOverrideCursor();
 }
+
 void MainWindow::convertToMacFormat() {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	DocumentEditor* document = _documentManager->getActiveDocument();
-	document->convertEols(QsciScintilla::EolMac);
-	document->setEolMode(QsciScintilla::EolMac);
+	_documentManager->convertToMacFormat();
 	actionConvertToWindowsFormat->setEnabled(true);
 	actionConvertToUnixFormat->setEnabled(true);
 	actionConvertToMacFormat->setEnabled(false);
-	updateStatusBar(document);
+	//updateStatusBar(document);
 	QApplication::restoreOverrideCursor();
 }
+
 void MainWindow::changeCharset(QAction* action_){
-	if(_documentManager->getActiveDocument()->setCodec(action_->text())) {
-		_documentManager->getActiveView()->updateAllDocuments();
-		statusBar()->showMessage(tr("File reloaded with charset %1").arg(action_->text()), 1000);
-	}
+	_documentManager->changeCharset(action_->text());
 }
+
 void MainWindow::saveWithCharset(QAction* action_){
-	if(_documentManager->getActiveDocument()->saveWithCharset(action_->text())){
-		_documentManager->getActiveView()->updateAllDocuments();
-		statusBar()->showMessage(tr("File save with charset %1").arg(action_->text()), 1000);
-	}
+	_documentManager->saveWithCharset(action_->text());
 }
+
 void MainWindow::saveWithCharsetAs(QAction* action_){
-	if(_documentManager->getActiveDocument()->saveWithCharsetAs(action_->text())){
-		_documentManager->getActiveView()->updateAllDocuments();
-		statusBar()->showMessage(tr("File save with charset %1").arg(action_->text()), 1000);
-	}
+	_documentManager->saveWithCharsetAs(action_->text());
 }
 
 void MainWindow::aboutToShowEncodingMenu(){
@@ -723,6 +605,7 @@ void MainWindow::aboutToShowEncodingMenu(){
 	actionConvertToUnixFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolUnix));
 	actionConvertToMacFormat->setEnabled(not (document->eolMode() == QsciScintilla::EolMac));
 }
+
 void MainWindow::aboutToShowChangeCharsetMenu(){
 	QString codec = _documentManager->getActiveDocument()->getCodec();
 	foreach(QAction* action, menuUseCharset->actions()){
@@ -732,6 +615,7 @@ void MainWindow::aboutToShowChangeCharsetMenu(){
 		}
 	}
 }
+
 void MainWindow::aboutToShowSaveWithCharsetMenu(){
 	QString currentText = _documentManager->getActiveDocument()->text();
 	foreach (QAction *action, menuSaveWithCharset->actions()) {
@@ -739,6 +623,7 @@ void MainWindow::aboutToShowSaveWithCharsetMenu(){
 		action->setVisible(codec && codec->canEncode(currentText));
 	}
 }
+
 void MainWindow::aboutToShowSaveWithCharsetAsMenu(){
 	QString currentText = _documentManager->getActiveDocument()->text();
 	foreach (QAction *action, menuSaveWithCharsetAs->actions()) {
@@ -748,8 +633,9 @@ void MainWindow::aboutToShowSaveWithCharsetAsMenu(){
 }
 
 void MainWindow::changeLanguage(QAction* action_) {
-	_documentManager->getActiveDocument()->setLanguage(action_->text());
+	_documentManager->changeLanguage(action_->text());
 }
+
 void MainWindow::aboutToShowLanguageMenu(){
 	//langage actions
 	DocumentEditor* document = _documentManager->getActiveDocument();
@@ -762,15 +648,6 @@ void MainWindow::diff() {
 	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
 
-void MainWindow::startRecordingMacro() {
-	_documentManager->startRecordingMacro();
-}
-void MainWindow::stopRecordingMacro() {
-	_documentManager->stopRecordingMacro();
-}
-void MainWindow::runMacro() {
-	_documentManager->runMacro();
-}
 void MainWindow::runMacroMultipleTimes() {
 	Ui::RunMacroDialog ui;
 	QDialog* dlg = new QDialog();
@@ -791,18 +668,6 @@ void MainWindow::saveMacro() {
 	qDebug() << "Not implemented";
 }
 
-void MainWindow::toggleBookmark() {
-	_documentManager->getActiveDocument()->toggleBookmark();
-}
-void MainWindow::removeAllBookmarks() {
-	_documentManager->getActiveDocument()->removeAllBookmarks();
-}
-void MainWindow::nextBookmark() {
-	_documentManager->getActiveDocument()->nextBookmark();
-}
-void MainWindow::prevBookmark() {
-	_documentManager->getActiveDocument()->prevBookmark();
-}
 
 void MainWindow::settings() {
 	SettingsDialog dlg(*this);
