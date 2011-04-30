@@ -70,19 +70,37 @@ class DocumentManager : public Splitter{
 		QList<DocumentEditor*> getDocuments();
 		
 	public slots:
+		/** @{ */
+		
+		/** create a new document */
+		void newDocument();
+		/** open a document */
+		void open();
 		/** open a document
 		 * @param file_ document to open */
-		void openDocument(const QString& file_);
+		void open(const QString& file_);
 		/** open many documents
 		 * @param files_ list of documents to open */
-		void openDocument(QStringList& files_);
-		
-		/** save all document */
-		bool saveAll();
-		/** close all document */
+		void open(QStringList& files_);
+		/** save the current document */		
+		void save();
+		/** save the current document as */		
+		void saveAs();
+		/** save a copy of the current document as */		
+		void saveACopyAs();
+		/** save all documents */
+		void saveAll();
+		/** close current document */
+		bool close();
+		/** close all documents */
 		bool closeAll();
 		/** close all except active document */
-		bool closeAllExceptActiveDocument();
+		bool closeAllExceptCurrentDocument();
+		/** reload current document */
+		void reload();
+		
+		/** print current document */
+		void print();
 	
 		/** save session */
 		void saveSession();
@@ -94,19 +112,139 @@ class DocumentManager : public Splitter{
 		/** restore last session */
 		void restoreLastSession(QSettings& settings_);
 		
+		/** @} */
+		
+		
+		/** @{ */
+		
+		/** cut the current document selection */
+		void cut();
+		/** copy the current document selection */
+		void copy();
+		/** pase into the current document */
+		void paste();
+		/** undo the last action for the current document */
+		void undo();
+		/** redo the last action for the current document */
+		void redo();
+		/** select all the current document */
+		void selectAll();
+		/** increase indentation for the current document selection */
+		void increaseIndentation();
+		/** decrease indentation for the current document selection */
+		void decreaseIndentation();
+		/** set autoindentation for current document */
+		void setAutoIndentation(bool b_);
+		/** show autoindentation guide for current document */
+		void showIndentationGuides(bool b_);
+		/** remove extra space at the end of lines on the current document */
+		void doTrimTrailing();
+		
+		/** convert selection to upper case for the current document */
+		void convertSelectedTextToUpperCase();
+		/** convert selection to lower case for the current document */
+		void convertSelectedTextToLowerCase();
+		/** duplicate the current line for the current document */
+		void duplicateCurrentLine();
+		/** copy the current line for the current document */
+		void copyCurrentLine();
+		/** cut the current line for the current document */
+		void cutCurrentLine();
+		/** delete the current line for the current document */
+		void deleteCurrentLine();
+		/** move up the current selection for the current document */
+		void moveCurrentLineUp();
+		/** move down the current selection for the current document */
+		void moveCurrentLineDown();
+		/** delete the current word for the current document */
+		void deleteCurrentWord();
+		/** set current document in read only mode */
+		void setReadOnly(bool b_);
+		
 		/** astyle reindent current document */
 		void reindentDocument();
 		/** astyle reindent all open documents */
 		void reindentOpenDocuments();
 		
-		/** Macro Menu */
+		/** @} */
+		
+		/** @{ */
+		
+		/** zoom in on current document */
+		void zoomIn();
+		/** zoom out on current document */
+		void zoomOut();
+		/** restore zoom on current document */
+		void zoomRestore();
+		/** show white space and tab for the current document */
+		void showWhiteSpaceAndTab(bool b_);
+		/** show end of line for the current document */
+		void showEndOfLine(bool b_);
+		/** show all(white space,tab and end of line) for the current document */
+		void showAll(bool b_);
+		
+		/** fold/unfold all */
+		void foldUnfoldAll();
+		/** fold level x */
+		void foldLevel(int level_);
+		/** unfold level x */
+		void unfoldLevel(int level_);
+		
+		/** @} */
+		
+		/** @{ */
+		
+		/** convert current document to to window eol */
+		void convertToWindowFormat();
+		/** convert current document to to unix eol */
+		void convertToUnixFormat();
+		/** convert current document to to mac eol */
+		void convertToMacFormat();
+		/** change the charset and reload the current document */
+		void changeCharset(const QString& codec_);
+		/** save current document with charset */
+		void saveWithCharset(const QString& codec_);
+		/** save current document as with charset */
+		void saveWithCharsetAs(const QString& codec_);
+		
+		/** @} */
+		
+		/** @{ */
+		
+		/** set bookmark on current line */
+		void toggleBookmark();
+		/** remove all bookmarks */
+		void removeAllBookmarks();
+		/** go to next bookmarks */
+		void nextBookmark();
+		/** go to previous bookmarks */
+		void prevBookmark();
+		
+		/** @} */
+		
+		/** @{ */
+		
+		/** set/change the language for the current document */
+		void changeLanguage(const QString& language_);
+		
+		/** @} */
+		
+		/** @{ */
+		
+		/** start recording a macro */
 		void startRecordingMacro();
+		/** stop recording a macro */
 		void stopRecordingMacro();
+		/** run the current macro \a times_ */
 		void runMacro(int times_ = 1);
+		/** run the current macro until the end of file */
 		void runMacroUntilEOF();
+		/** @return the current macro */
 		QString getCurrentMacro() const;
 		//void loadMacro();
 		//void saveMacro();
+		
+		/** @} */
 		
 		void diff();
 		
@@ -135,13 +273,17 @@ class DocumentManager : public Splitter{
 		void watchedFileChanged(const QString& path_);
 		
 	signals:
+		/**emit when a documents have been successfully opened */
+		void opened(QStringList);
 		/**emit when a document changed */
 		void documentChanged(DocumentEditor*);
 		/**emit when a document selection changed */
 		void selectionChanged(DocumentEditor*);
 		/**emit when a document cursor position changed */
 		void cursorPositionChanged(DocumentEditor*, int, int);
-	
+		/** emit on a new a status message */
+		void statusMessage(QString);
+		
 	protected:
 		/** create a new view 
 		 * @param document_ initialize the view with the document */

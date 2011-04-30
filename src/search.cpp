@@ -554,7 +554,7 @@ void Search::on_twResults_activated(const QModelIndex & index_){
 		_documentMgr->setActiveDocument(document);
 	}else{
 		// open the file, it will switch automatically
-		_documentMgr->openDocument(fileName);
+		_documentMgr->open(fileName);
 		document = _documentMgr->getActiveDocument();
 	}
 

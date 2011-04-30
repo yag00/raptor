@@ -50,6 +50,7 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	//connect(view, SIGNAL(destroyViewRequested()), this, SLOT(destroyView()));
 	connect(view, SIGNAL(empty()), this, SLOT(updateView()));
 	connect(view, SIGNAL(activeStatusChanged(bool)), this, SLOT(activeViewChanged(bool)));
+	connect(view, SIGNAL(opened(QStringList)), this, SIGNAL(opened(QStringList)));
 	connect(view, SIGNAL(documentChanged(DocumentEditor*)), this, SLOT(activeViewChanged()));
 	connect(view, SIGNAL(documentChanged(DocumentEditor*)), this, SIGNAL(documentChanged(DocumentEditor*)));
 	connect(view, SIGNAL(selectionChanged(DocumentEditor*)), this, SIGNAL(selectionChanged(DocumentEditor*)));
@@ -188,14 +189,27 @@ bool DocumentManager::documentExists(const QString& name_){
 	return false;
 }
 
-void DocumentManager::openDocument(const QString& file_){
+//==================== files slots ====================//
+
+void DocumentManager::newDocument(){
+	getActiveView()->newDocument();
+}
+
+void DocumentManager::open(){
+	///@todo add filter
+	QStringList files = QFileDialog::getOpenFileNames(this, tr("Select one or more files to open"), getActiveDocument()->getPath());
+	open(files);
+}
+
+void DocumentManager::open(const QString& file_){
 	if(documentExists(file_)){
 		setActiveDocument(file_);
 		return;
 	}
 	getActiveView()->openDocument(file_);
 }
-void DocumentManager::openDocument(QStringList& files_){
+
+void DocumentManager::open(QStringList& files_){
 	int i = 0;
 	while(i != files_.size()){
 		QString fileName = files_[i];
@@ -212,13 +226,29 @@ void DocumentManager::openDocument(QStringList& files_){
 	getActiveView()->openDocument(files_);
 }
 
-bool DocumentManager::saveAll(){
+void DocumentManager::save(){
+	getActiveView()->save();
+}
+
+void DocumentManager::saveAs(){
+	getActiveView()->saveAs();
+}
+
+void DocumentManager::saveACopyAs(){
+	getActiveView()->saveACopyAs();
+}
+
+void DocumentManager::saveAll(){
 	std::vector<DocumentView*>::iterator it;
 	for(it = _viewList.begin(); it < _viewList.end(); ++it){
 		(*it)->saveAll();
 	}
-	return true;
 }
+
+bool DocumentManager::close(){
+	getActiveView()->closeCurrentDocument();
+}
+
 bool DocumentManager::closeAll(){
 	std::vector<DocumentView*>::iterator it;
 	for(it = _viewList.begin(); it < _viewList.end(); ++it){
@@ -227,7 +257,8 @@ bool DocumentManager::closeAll(){
 	}
 	return true;
 }
-bool DocumentManager::closeAllExceptActiveDocument(){
+
+bool DocumentManager::closeAllExceptCurrentDocument(){
 	std::vector<DocumentView*>::iterator it;
 	for(it = _viewList.begin(); it < _viewList.end(); ++it){
 		if((*it) == _activeView)
@@ -238,6 +269,310 @@ bool DocumentManager::closeAllExceptActiveDocument(){
 	
 	_activeView->closeAllDocumentsExceptCurrent();
 	return true;
+}
+
+void DocumentManager::reload(){
+	if(getActiveDocument()->reload()) {
+		getActiveView()->updateAllDocuments();
+		emit statusMessage(tr("File reloaded"));
+	}
+}
+
+void DocumentManager::print(){
+	getActiveView()->print();
+}
+
+void DocumentManager::saveSession(){
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
+}
+
+void DocumentManager::restoreSession(){
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
+}
+
+void DocumentManager::saveCurrentSession(QSettings& settings_){
+	settings_.setValue("View/number", (int)_viewList.size());
+	for(unsigned int i = 0; i < _viewList.size(); i++){
+		settings_.setValue(QString("View/View%1/files").arg(i), _viewList[i]->getDocumentNameList());
+	}
+}
+
+void DocumentManager::restoreLastSession(QSettings& settings_){
+	int nbView = settings_.value("View/number", 0).toInt();
+	for(int i = 0; i < nbView; i++){
+		QStringList list  = settings_.value(QString("View/View%1/files").arg(i)).toStringList();
+		foreach(QString fileName, list){
+			if(fileName.isEmpty())
+				continue;
+			open(fileName);
+			if(i == 1){
+				moveDocument();
+			}
+		}
+	}
+}
+
+//==================== edition slots ====================//
+
+void DocumentManager::cut(){
+	getActiveDocument()->cut();
+}
+
+void DocumentManager::copy(){
+	getActiveDocument()->copy();
+}
+
+void DocumentManager::paste(){
+	getActiveDocument()->paste();
+}
+
+void DocumentManager::undo(){
+	getActiveDocument()->undo();
+}
+
+void DocumentManager::redo(){
+	getActiveDocument()->redo();
+}
+
+void DocumentManager::selectAll(){
+	getActiveDocument()->selectAll();
+}
+
+void DocumentManager::increaseIndentation(){
+	getActiveDocument()->increaseIndentation();
+}
+
+void DocumentManager::decreaseIndentation(){
+	getActiveDocument()->decreaseIndentation();
+}
+
+void DocumentManager::setAutoIndentation(bool b_){
+	getActiveDocument()->setAutoIndent(b_);
+}
+
+void DocumentManager::showIndentationGuides(bool b_){
+	getActiveDocument()->setIndentationGuides(b_);
+}
+
+void DocumentManager::doTrimTrailing(){
+	getActiveDocument()->doTrimTrailing();
+}
+
+void DocumentManager::convertSelectedTextToUpperCase(){
+	getActiveDocument()->convertSelectedTextToUpperCase();
+}
+
+void DocumentManager::convertSelectedTextToLowerCase(){
+	getActiveDocument()->convertSelectedTextToLowerCase();
+}
+
+void DocumentManager::duplicateCurrentLine(){
+	getActiveDocument()->duplicateSelectionOrCurrentLine();
+}
+
+void DocumentManager::copyCurrentLine(){
+	getActiveDocument()->copyCurrentLine();
+}
+
+void DocumentManager::cutCurrentLine(){
+	getActiveDocument()->cutCurrentLine();
+}
+
+void DocumentManager::deleteCurrentLine(){
+	getActiveDocument()->deleteCurrentLine();
+}
+
+void DocumentManager::moveCurrentLineUp(){
+	getActiveDocument()->moveCurrentLineUp();
+}
+
+void DocumentManager::moveCurrentLineDown(){
+	getActiveDocument()->moveCurrentLineDown();
+}
+
+void DocumentManager::deleteCurrentWord(){
+	getActiveDocument()->deleteCurrentWord();
+}
+
+void DocumentManager::setReadOnly(bool b_){
+	getActiveDocument()->setReadOnly(b_);
+}
+
+void DocumentManager::reindentDocument(){
+	getActiveDocument()->reindent();
+}
+
+void DocumentManager::reindentOpenDocuments(){
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
+}
+
+//==================== view slots ====================//
+
+void DocumentManager::zoomIn(){
+	getActiveDocument()->zoomIn();
+}
+
+void DocumentManager::zoomOut(){
+	getActiveDocument()->zoomOut();
+}
+
+void DocumentManager::zoomRestore(){
+	getActiveDocument()->zoomTo(0);
+}
+
+void DocumentManager::showWhiteSpaceAndTab(bool b_){
+	getActiveDocument()->setEolVisibility(false);
+	if(b_)
+		getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsVisible);
+	else
+		getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsInvisible);
+}
+
+void DocumentManager::showEndOfLine(bool b_){
+	getActiveDocument()->setEolVisibility(b_);
+	getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsInvisible);
+}
+
+void DocumentManager::showAll(bool b_){
+	getActiveDocument()->setEolVisibility(b_);
+	if(b_)
+		getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsVisible);
+	else
+		getActiveDocument()->setWhitespaceVisibility(QsciScintilla::WsInvisible);
+}
+
+void DocumentManager::foldUnfoldAll(){
+	getActiveDocument()->foldAll(true);
+}
+
+void DocumentManager::foldLevel(int level_){
+	getActiveDocument()->foldLevel(level_);
+}
+
+void DocumentManager::unfoldLevel(int level_){
+	getActiveDocument()->unfoldLevel(level_);
+}
+
+//==================== encoding slots ====================//
+
+void DocumentManager::convertToWindowFormat(){
+	DocumentEditor* document = getActiveDocument();
+	document->convertEols(QsciScintilla::EolWindows);
+	document->setEolMode(QsciScintilla::EolWindows);
+}
+
+void DocumentManager::convertToUnixFormat(){
+	DocumentEditor* document = getActiveDocument();
+	document->convertEols(QsciScintilla::EolUnix);
+	document->setEolMode(QsciScintilla::EolUnix);
+}
+
+void DocumentManager::convertToMacFormat(){
+	DocumentEditor* document = getActiveDocument();
+	document->convertEols(QsciScintilla::EolMac);
+	document->setEolMode(QsciScintilla::EolMac);
+}
+
+void DocumentManager::changeCharset(const QString& codec_){
+	if(getActiveDocument()->setCodec(codec_)) {
+		getActiveView()->updateAllDocuments();
+		emit statusMessage(tr("File reloaded with charset %1").arg(codec_));
+	}
+}
+void DocumentManager::saveWithCharset(const QString& codec_){
+	if(getActiveDocument()->saveWithCharset(codec_)){
+		getActiveView()->updateAllDocuments();
+		emit statusMessage(tr("File save with charset %1").arg(codec_));
+	}
+}
+
+void DocumentManager::saveWithCharsetAs(const QString& codec_){
+	if(getActiveDocument()->saveWithCharsetAs(codec_)){
+		getActiveView()->updateAllDocuments();
+		emit statusMessage(tr("File save with charset %1").arg(codec_));
+	}
+}
+
+//==================== bookmarks slots ====================//
+
+void DocumentManager::toggleBookmark(){
+	getActiveDocument()->toggleBookmark();
+}
+
+void DocumentManager::removeAllBookmarks(){
+	getActiveDocument()->removeAllBookmarks();
+}
+
+void DocumentManager::nextBookmark(){
+	getActiveDocument()->nextBookmark();
+}
+
+void DocumentManager::prevBookmark(){
+	getActiveDocument()->prevBookmark();
+}
+
+//==================== language slots ====================//
+
+void DocumentManager::changeLanguage(const QString& language_){
+	getActiveDocument()->setLanguage(language_);
+}
+
+//==================== macro slots ====================//
+
+void DocumentManager::startRecordingMacro(){
+	//clear the current macro
+	_macro.clear();
+	//start recording
+	getActiveDocument()->getMacro()->startRecording();
+}
+
+void DocumentManager::stopRecordingMacro(){
+	QsciMacro* m = getActiveDocument()->getMacro();
+	//stop recording
+	m->endRecording();
+	//get the current macro
+	_macro = m->save();
+}
+
+void DocumentManager::runMacro(int times_){
+	if(!_macro.isEmpty()){
+		QsciMacro* m = getActiveDocument()->getMacro();
+		//load the macro
+		if(m->load(_macro)){
+			//run it
+			for(int i = 0; i < times_; i++)
+				m->play();
+			return;
+		}
+	}
+	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));
+}
+
+void DocumentManager::runMacroUntilEOF(){
+	if(!_macro.isEmpty()){
+		QsciMacro* m = getActiveDocument()->getMacro();
+		//load the macro
+		if(m->load(_macro)){
+			//run it
+			DocumentEditor* document = getActiveDocument();
+			int nbLines = document->lines();
+			int line, column;
+			document->getCursorPosition(&line, &column);
+			while(line < nbLines){
+				m->play();
+				int oldLine = line;
+				document->getCursorPosition(&line, &column);
+				if(oldLine == line)
+					break;
+			}
+			return;
+		}
+	}
+	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));	
+}
+
+QString DocumentManager::getCurrentMacro() const{
+	return _macro;
 }
 
 void DocumentManager::moveDocument(){
@@ -296,42 +631,9 @@ void DocumentManager::cloneDocument(){
 	}
 }
 
-void DocumentManager::saveSession(){
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
-}
-void DocumentManager::restoreSession(){
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
-}
 
-void DocumentManager::saveCurrentSession(QSettings& settings_){
-	settings_.setValue("View/number", (int)_viewList.size());
-	for(unsigned int i = 0; i < _viewList.size(); i++){
-		settings_.setValue(QString("View/View%1/files").arg(i), _viewList[i]->getDocumentNameList());
-	}
-}
 
-void DocumentManager::restoreLastSession(QSettings& settings_){
-	int nbView = settings_.value("View/number", 0).toInt();
-	for(int i = 0; i < nbView; i++){
-		QStringList list  = settings_.value(QString("View/View%1/files").arg(i)).toStringList();
-		foreach(QString fileName, list){
-			if(fileName.isEmpty())
-				continue;
-			openDocument(fileName);
-			if(i == 1){
-				moveDocument();
-			}
-		}
-	}
-}
 
-void DocumentManager::reindentDocument(){
-	getActiveDocument()->reindent();
-}
-
-void DocumentManager::reindentOpenDocuments(){
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
-}
 
 void DocumentManager::diff(){
 	DocumentView* view1 = _viewList[0];
@@ -343,61 +645,9 @@ void DocumentManager::diff(){
 	c.diff();
 }
 
-QString DocumentManager::getCurrentMacro() const{
-	return _macro;
-}
 
-void DocumentManager::startRecordingMacro(){
-	//clear the current macro
-	_macro.clear();
-	//start recording
-	getActiveDocument()->getMacro()->startRecording();
-}
 
-void DocumentManager::stopRecordingMacro(){
-	QsciMacro* m = getActiveDocument()->getMacro();
-	//stop recording
-	m->endRecording();
-	//get the current macro
-	_macro = m->save();
-}
 
-void DocumentManager::runMacro(int times_){
-	if(!_macro.isEmpty()){
-		QsciMacro* m = getActiveDocument()->getMacro();
-		//load the macro
-		if(m->load(_macro)){
-			//run it
-			for(int i = 0; i < times_; i++)
-				m->play();
-			return;
-		}
-	}
-	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));
-}
-
-void DocumentManager::runMacroUntilEOF(){
-	if(!_macro.isEmpty()){
-		QsciMacro* m = getActiveDocument()->getMacro();
-		//load the macro
-		if(m->load(_macro)){
-			//run it
-			DocumentEditor* document = getActiveDocument();
-			int nbLines = document->lines();
-			int line, column;
-			document->getCursorPosition(&line, &column);
-			while(line < nbLines){
-				m->play();
-				int oldLine = line;
-				document->getCursorPosition(&line, &column);
-				if(oldLine == line)
-					break;
-			}
-			return;
-		}
-	}
-	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));	
-}
 
 void DocumentManager::watchedFileChanged(const QString& path_){
 	//remove path_ of the filewatcher

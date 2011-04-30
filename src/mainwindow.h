@@ -34,77 +34,38 @@ class DocumentEditor;
 class DocumentManager;
 
 class MainWindow : public QMainWindow, private Ui::MainWindow{
-	
+
 	Q_OBJECT
 
 	public:
 		MainWindow();
 		~MainWindow();
-		
+
 		/** @return reference on documentManager */
 		DocumentManager& getDocumentManager();
-		
-	protected:		
+
+	protected:
 		virtual void closeEvent(QCloseEvent *event_);
 		virtual bool eventFilter(QObject *obj_, QEvent *ev_);
-	
+
 	public slots:
 		void handleMessage(const QString& message_);
-	
+
 	private slots:
-		/** File Menu */
-		void fileNew();
-		void fileOpen();
-		void fileSave();
-		void fileSaveAs();
-		void fileSaveACopyAs();
-		void fileSaveAll();
-		bool fileClose();
-		bool fileCloseAll();
-		void fileCloseAllExceptCurrentDocument();
-		void fileReload();
-		void filePrint();	
 		/** Edit Menu */
-		void editCut();
-		void editCopy();
-		void editPaste();
-		void editUndo();
-		void editRedo();
-		void editSelectAll();
 		void increaseIndentation();
 		void decreaseIndentation();
-		void setAutoIndentation(bool b_);
-		void showIndentationGuides(bool b_);
-		void doTrimTrailing();
-		
-		void convertSelectedTextToUpperCase();
-		void convertSelectedTextToLowerCase();
-		void duplicateCurrentLine();
-		void copyCurrentLine();
-		void cutCurrentLine();
-		void deleteCurrentLine();
-		void moveCurrentLineUp();
-		void moveCurrentLineDown();
-		void deleteCurrentWord();
-		
-		void setReadOnly(bool b_);
-		
 		void aboutToShowEditMenu();
 		void aboutToShowEditIndentationMenu();
-		
+
 		/** Wiew Menu */
-		void zoomIn();
-		void zoomOut();
-		void zoomRestore();
 		void showWhiteSpaceAndTab(bool b_);
 		void showEndOfLine(bool b_);
-		void showAll(bool b);
-		void foldUnfoldAll();
+		void showAll(bool b_);
 		void foldLevel();
 		void unfoldLevel();
-		
 		void aboutToShowViewInvisibleSymbolMenu();
-		
+
 		/** Encoding Menu */
 		void convertToWindowFormat();
 		void convertToUnixFormat();
@@ -112,37 +73,29 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void changeCharset(QAction*);
 		void saveWithCharset(QAction*);
 		void saveWithCharsetAs(QAction*);
-		
 		void aboutToShowEncodingMenu();
 		void aboutToShowChangeCharsetMenu();
 		void aboutToShowSaveWithCharsetMenu();
 		void aboutToShowSaveWithCharsetAsMenu();
-		
+
 		/** Language Menu */
 		void changeLanguage(QAction*);
 		void aboutToShowLanguageMenu();
-		
+
 		/** Diff Menu */
 		void diff();
-		
+
 		/** Macro Menu */
-		void startRecordingMacro();
-		void stopRecordingMacro();
-		void runMacro();
 		void runMacroMultipleTimes();
-		void loadMacro();
-		void saveMacro();
-		
+		void loadMacro(); //@todo
+		void saveMacro(); //@todo
+
 		/** Bookmarks Menu */
-	    void toggleBookmark();
-		void removeAllBookmarks();
-		void nextBookmark();
-		void prevBookmark();
-		
+
 		/** Settings */
 		void settings();
 		void shortcuts();
-		
+
 		void about();
 
 		/** update all */
@@ -151,20 +104,23 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void updateMainWindowTitle(DocumentEditor*);
 		/** update the status bar information */
 		void updateStatusBar(DocumentEditor*);
+		void updateStatusBar(DocumentEditor*, int, int);
+		/** update & display a status message */
+		void updateStatusBarMessage(QString);
 		/** update menu actions */
 		void updateActions(DocumentEditor*);
-		
+
 		void updateRecentFile(const QStringList &fileList_);
 		void updateRecentFileActions();
 		void clearRecentFile();
 		void openRecentFile();
 		void openAllRecentFile();
-	
+
 	private:
 		/** create a search dock
 		 * @return the associated toggle view action */
 		QAction* createSearchDock();
-		
+
 		void readSettings();
 		void writeSettings();
 
@@ -172,7 +128,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void createDocumentManager();
 		/** create the status bar */
 		void createStatusBar();
-		
+
 		/** intialize and connect menu */
 		void initMenu();
 		void initMenuFile();
@@ -186,26 +142,26 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void initMenuMacro();
 		void initMenuSettings();
 		void initMenuHelp();
-		
+
 	private:
 		/** document manager */
 		DocumentManager* _documentManager;
-		
+
 		/** search dock */
 		QDockWidget* _searchDock;
-		
+
 		/** status bar widget */
 		MenuLabel* _encodingLabel;
 		MenuLabel* _formatLabel;
 		QLabel* _editInfoLabel;
 		QLabel* _fileInfoLabel;
 		QLabel* _fileTypeLabel;
-		
+
 		/** recent files */
 		static const int MaxRecentFiles = 10;
 		QAction *_recentFileActions[MaxRecentFiles];
 		QAction *_recentFileSeparator;
-		
+
 		friend class Settings;
 };
 
