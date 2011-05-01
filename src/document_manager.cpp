@@ -246,7 +246,7 @@ void DocumentManager::saveAll(){
 }
 
 bool DocumentManager::close(){
-	getActiveView()->closeCurrentDocument();
+	return getActiveView()->closeCurrentDocument();
 }
 
 bool DocumentManager::closeAll(){
