@@ -80,7 +80,7 @@ class LexerManager : public  Singleton<LexerManager>
 	private:
 		friend class Singleton<LexerManager>;
 
-		LexerManager(QWidget* parent_ = 0);
+		LexerManager(QObject* parent_ = 0);
 		~LexerManager();
 
 		QActionGroup* _actionGroup;
