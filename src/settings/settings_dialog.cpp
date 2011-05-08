@@ -257,7 +257,7 @@ void SettingsDialog::loadSettingsDialog(){
 	cbToolBarView->setChecked(_settings->getShowToolBar("View"));
 	cbToolBarMacro->setChecked(_settings->getShowToolBar("Macro"));
 	cbToolBarSymbol->setChecked(_settings->getShowToolBar("Symbol"));
-	cbDockSymbol->setChecked(_settings->getShowToolBar("DockSymbol"));
+	cbDockSymbol->setChecked(_settings->getShowToolBar("DockSymbol", false));
 	
 	// - Status Bar
 	if(_settings->getShowStatusBar())
