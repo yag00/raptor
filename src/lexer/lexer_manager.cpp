@@ -65,7 +65,7 @@
 #include "../document_editor.h"
 #include "lexer_manager.h"
 
-LexerManager::LexerManager(QWidget* parent_){
+LexerManager::LexerManager(QObject* parent_){
 	(void)parent_;
 	Settings settings;
 	
