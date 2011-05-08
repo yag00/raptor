@@ -72,7 +72,6 @@ void SymbolManager::tagFile(const QString& file_){
 
 	QStandardItem* anonymousNamespace = 0;
 		
-	int i = 0;
 	while (tags != 0) {
 		tagEntryInfo tag = tags->tag;
 
