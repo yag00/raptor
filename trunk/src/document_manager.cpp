@@ -51,6 +51,7 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	connect(view, SIGNAL(empty()), this, SLOT(updateView()));
 	connect(view, SIGNAL(activeStatusChanged(bool)), this, SLOT(activeViewChanged(bool)));
 	connect(view, SIGNAL(opened(QStringList)), this, SIGNAL(opened(QStringList)));
+	connect(view, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SIGNAL(activeDocumentChanged(DocumentEditor*)));
 	connect(view, SIGNAL(documentChanged(DocumentEditor*)), this, SLOT(activeViewChanged()));
 	connect(view, SIGNAL(documentChanged(DocumentEditor*)), this, SIGNAL(documentChanged(DocumentEditor*)));
 	connect(view, SIGNAL(selectionChanged(DocumentEditor*)), this, SIGNAL(selectionChanged(DocumentEditor*)));
@@ -404,6 +405,10 @@ void DocumentManager::reindentDocument(){
 
 void DocumentManager::reindentOpenDocuments(){
 	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
+}
+
+void DocumentManager::gotoLine(int line_){
+	getActiveDocument()->gotoLine(line_);
 }
 
 //==================== view slots ====================//

@@ -33,6 +33,7 @@
 #include "document_view.h"
 #include "document_manager.h"
 #include "lexer/lexer_manager.h"
+#include "ctags/SymbolManager.h"
 #include "widget/MenuLabel.h"
 
 #include "mainwindow.h"
@@ -42,14 +43,18 @@ MainWindow::MainWindow() {
 	setupUi(this);
 
 	//create manager
-	createDocumentManager();
+	createManager();
 
 	//initialize menu
 	initMenu();
 
 	//create status bar
 	createStatusBar();
-
+	//create tool bar
+	createToolBar();
+	//create docks
+	createDocks();
+	
 	//read Settings
 	readSettings();
 }
@@ -166,7 +171,8 @@ void MainWindow::initMenuView() {
 
 void MainWindow::initMenuSearch() {
 	//connect memu "Search" Action
-	connect(actionSearch, SIGNAL(triggered()), createSearchDock(), SLOT(trigger()));
+	//nothing to do here 
+	//connection is done during the dock creation
 }
 
 void MainWindow::initMenuEncoding() {
@@ -282,15 +288,21 @@ void MainWindow::initMenuHelp() {
 	connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
-void MainWindow::createDocumentManager() {
+void MainWindow::createManager() {
 	_documentManager = new DocumentManager(this);
 	setCentralWidget(_documentManager);
-
+	
+	_symbolManager = new SymbolManager(this);
+	
+	//connection
 	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
+	connect(_documentManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(activeDocumentChanged(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(documentChanged(DocumentEditor*)), this, SLOT(update(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(selectionChanged(DocumentEditor*)), this, SLOT(updateStatusBar(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SLOT(updateStatusBar(DocumentEditor*, int, int)));
 	connect(_documentManager, SIGNAL(opened(QStringList)), this, SLOT(updateRecentFile(QStringList)));
+	
+	connect(_symbolManager, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
 }
 
 void MainWindow::createStatusBar() {
@@ -321,18 +333,30 @@ void MainWindow::createStatusBar() {
 	statusBar()->addPermanentWidget(_formatLabel);
 }
 
-QAction* MainWindow::createSearchDock() {
+void MainWindow::createToolBar(){
+	QToolBar* toolbar = addToolBar("Symbol");
+	toolbar->setObjectName(QString::fromUtf8("toolBarSymbol"));
+	toolbar->addAction(_symbolManager->getSymbolBrowerAction());
+}
+
+void MainWindow::createDocks() {
+	//create the Search Dock
 	_searchDock = new QDockWidget(tr("Search/Replace"), this);
 	Search* search = new Search(_documentManager, _searchDock);
 	_searchDock->setWidget(search);
 	addDockWidget(Qt::BottomDockWidgetArea, _searchDock);
-
+	//connect the Search Dock
 	connect(_searchDock, SIGNAL(visibilityChanged(bool)), search, SLOT(setVisible(bool)));
+	connect(actionSearch, SIGNAL(triggered()), _searchDock->toggleViewAction(), SLOT(trigger()));
 	connect(actionFindNext, SIGNAL(triggered()), search, SLOT(next()));
 	connect(actionFindPrevious, SIGNAL(triggered()), search, SLOT(prev()));
-
 	_searchDock->hide();
-	return _searchDock->toggleViewAction();
+	
+	//create the Symbol Dock
+	_symbolDock = new QDockWidget(tr("Symbol Browser"), this);
+	_symbolDock->setWidget(_symbolManager->getSymbolBrowerTreeView());
+	addDockWidget(Qt::RightDockWidgetArea, _symbolDock);
+	//connect the Symbol Dock
 }
 
 DocumentManager& MainWindow::getDocumentManager() {
@@ -346,6 +370,14 @@ void MainWindow::handleMessage(const QString& message_) {
 		_documentManager->open(files);
 		updateRecentFile(files);
 	}
+}
+
+void MainWindow::activeDocumentChanged(DocumentEditor* document_){
+	//update mainwindow
+	update(document_);
+	//display symbol
+	///@todo only if toolbar or dock is visible ...
+	_symbolManager->tagFile(document_->getFullPath());
 }
 
 void MainWindow::update(DocumentEditor* document_) {
@@ -732,6 +764,7 @@ void MainWindow::readSettings() {
 	Settings settings;
 	//Restore last session
 	_documentManager->restoreLastSession(settings);
+	settings.apply(*this);
 }
 
 bool MainWindow::eventFilter(QObject *obj_, QEvent *ev_) {

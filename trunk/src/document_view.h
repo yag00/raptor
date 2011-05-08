@@ -53,6 +53,7 @@ class DocumentView : public QTabWidget {
 		 * @param name_ path + filename of the document
 		 * @return the index of the document or -1 if doesn't exist */
 		int getDocumentIndex(const QString& name_);
+		int getDocumentIndex(const DocumentEditor* document_);
 
 		/** set the active document (do nothing if document doesn't exist
 		 * @param document_ the document to be active
@@ -68,7 +69,7 @@ class DocumentView : public QTabWidget {
 		void setContextMenu(QMenu* menu_);
 
 		/** @return true if the view is active */
-		bool isActive() const;
+		//bool isActive() const;
 
 		/** @return number of new created document */
 		int getNbNewCreatedDocument() const;
@@ -85,6 +86,8 @@ class DocumentView : public QTabWidget {
 	signals:
 		/**emit when a documents have been successfully opened */
 		void opened(QStringList);
+		/** emit when the active document changed */
+		void activeDocumentChanged(DocumentEditor*);
 		/**emit when a document changed */
 		void documentChanged(DocumentEditor*);
 		/**emit when a document selection changed */
@@ -175,8 +178,8 @@ class DocumentView : public QTabWidget {
 		/** use when a document cursor position changed */
 		void cursorPositionChanged(int, int);
 		
-		/** active/desactive the view */
-		void setActive(bool active_);
+		/** active/desactive the view */	
+		void documentfocusChanged(bool active_);
 		
 	private:
 		/** connect document's signal to the view */
@@ -184,6 +187,8 @@ class DocumentView : public QTabWidget {
 		/** remove the first new document of the view if there is one
 		 * (the view must always have at least one tab, remove it if this tab is not wanted anymore)*/
 		void removeFirstNewDocument();
+		/** set current document */
+		void setCurrentDocument(DocumentEditor* document_);
 		
 	private:
 		/** Reference on FileWatcher */
@@ -193,9 +198,8 @@ class DocumentView : public QTabWidget {
 		QMenu* _documentContextMenu;
 		/** count the new document created */
 		int _docCounter;
-		/** manager status */
+		/** view status */
 		bool _isActive;
-
 };
 
 #endif /* __DOCUMENT_VIEW_H__ */

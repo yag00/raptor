@@ -62,7 +62,7 @@ class Settings : public QSettings{
 		int getToolBarIconSize();
 
 		void setShowToolBar(const QString& toolbar_, bool show_);
-		bool getShowToolBar(const QString& toolbar_);
+		bool getShowToolBar(const QString& toolbar_, bool default_ = true);
 
 		void setShowStatusBar(bool show_);
 		bool getShowStatusBar();

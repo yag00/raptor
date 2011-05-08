@@ -248,7 +248,7 @@
    <item row="1" column="1">
     <widget class="QStackedWidget" name="swPages">
      <property name="currentIndex">
-      <number>17</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="pGeneral">
       <layout class="QVBoxLayout">
@@ -329,7 +329,7 @@
          <property name="title">
           <string>Tool Bar</string>
          </property>
-         <layout class="QVBoxLayout">
+         <layout class="QVBoxLayout" name="verticalLayout_21">
           <item>
            <layout class="QHBoxLayout">
             <item>
@@ -382,6 +382,24 @@
              <string>Show Macro Tool Bar</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QCheckBox" name="cbToolBarSymbol">
+              <property name="text">
+               <string>Show Symbol Tool Bar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbDockSymbol">
+              <property name="text">
+               <string>Show Symbol Dock</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -3182,12 +3200,6 @@
          <property name="allColumnsShowFocus">
           <bool>true</bool>
          </property>
-         <attribute name="headerDefaultSectionSize">
-          <number>150</number>
-         </attribute>
-         <attribute name="headerMinimumSectionSize">
-          <number>50</number>
-         </attribute>
          <attribute name="headerDefaultSectionSize">
           <number>150</number>
          </attribute>

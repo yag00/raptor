@@ -25,6 +25,7 @@ include( ../config.pri )
 include( ../ext/QScintilla/QScintilla.pri )
 include( ../ext/AStyle/AStyle.pri )
 include( ../ext/qt-solutions/qtsingleapplication/src/qtsingleapplication.pri )
+include( ../ext/ctags/ctags.pri )
 #include( ../ext/GoogleDiffMatchPatch/GoogleDiffMatchPatch.pri )
 #include( ../ext/dtl/dtl.pri )
 
@@ -35,10 +36,11 @@ DESTDIR		= $$PACKAGE_DESTDIR
 CONFIG  += debug_and_release
 CONFIG  += warn_on
 
-INCLUDE_PATH *= . $$PWD $$PWD/ui $$PWD/widget $$PWD/lexer $$PWD/settings $$PWD/astyle $$PWD/about
+INCLUDE_PATH *= . $$PWD $$PWD/ui $$PWD/widget $$PWD/lexer $$PWD/settings $$PWD/astyle $$PWD/ctags $$PWD/about
 
 DEPENDPATH    *= $$PWD \
 				 $$PWD/astyle \
+				 $$PWD/ctags \
 				 $$PWD/ui \
 				 $$PWD/widget \
 				 $$PWD/lexer \
@@ -75,6 +77,9 @@ HEADERS       *= mainwindow.h \
 				AStyleIndenter.h \
 				SourceIterator.h \
 				Diff.h \
+				SymbolManager.h \
+				SymbolTreeComboBox.h \
+				SymbolComboBoxAction.h \
 				About.h
 				
 SOURCES       *= main.cpp \
@@ -106,6 +111,9 @@ SOURCES       *= main.cpp \
 				StringListEditor.cpp \
 				AStyleIndenter.cpp \
 				Diff.cpp \
+				SymbolManager.cpp \
+				SymbolTreeComboBox.cpp \
+				SymbolComboBoxAction.cpp \
 				About.cpp
 
 FORMS *= mainwindow.ui \
@@ -114,11 +122,11 @@ FORMS *= mainwindow.ui \
 		 search.ui \
 		 macro.ui \
 		 about.ui
-
+	
 RESOURCES     *= ressources.qrc
 win32:RC_FILE += rc/ressources.rc
 
-LIBS += -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2
+LIBS *= -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2 -lctags
 # -ldiff
 
 
