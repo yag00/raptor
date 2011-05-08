@@ -160,6 +160,8 @@ class DocumentManager : public Splitter{
 		void deleteCurrentWord();
 		/** set current document in read only mode */
 		void setReadOnly(bool b_);
+		/** go to \a line_ */
+		void gotoLine(int line_);
 		
 		/** astyle reindent current document */
 		void reindentDocument();
@@ -275,6 +277,8 @@ class DocumentManager : public Splitter{
 	signals:
 		/**emit when a documents have been successfully opened */
 		void opened(QStringList);
+		/** use when the active document changed */
+		void activeDocumentChanged(DocumentEditor*);
 		/**emit when a document changed */
 		void documentChanged(DocumentEditor*);
 		/**emit when a document selection changed */

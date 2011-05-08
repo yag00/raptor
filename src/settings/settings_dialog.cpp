@@ -256,7 +256,9 @@ void SettingsDialog::loadSettingsDialog(){
 	cbToolBarEdit->setChecked(_settings->getShowToolBar("Edit"));
 	cbToolBarView->setChecked(_settings->getShowToolBar("View"));
 	cbToolBarMacro->setChecked(_settings->getShowToolBar("Macro"));
-
+	cbToolBarSymbol->setChecked(_settings->getShowToolBar("Symbol"));
+	cbDockSymbol->setChecked(_settings->getShowToolBar("DockSymbol"));
+	
 	// - Status Bar
 	if(_settings->getShowStatusBar())
 		cbStatusBar->setCheckState(Qt::Checked);
@@ -461,6 +463,8 @@ void SettingsDialog::saveSettingsDialog(){
 		_settings->setShowToolBar("Edit", cbToolBarEdit->checkState());
 		_settings->setShowToolBar("View", cbToolBarView->checkState());
 		_settings->setShowToolBar("Macro", cbToolBarMacro->checkState());
+		_settings->setShowToolBar("Symbol", cbToolBarSymbol->checkState());
+		_settings->setShowToolBar("DockSymbol", cbDockSymbol->checkState());
 		// - Status Bar
 		_settings->setShowStatusBar(cbStatusBar->checkState());
 	}

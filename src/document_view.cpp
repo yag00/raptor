@@ -33,8 +33,8 @@ DocumentView::DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * docume
 	connect(tabBar(), SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showTabBarContextMenu(QPoint)));
 	connect(tabBar(), SIGNAL(tabMoveRequested(QWidget*, int, QWidget*, int)), this, SIGNAL(documentMoveRequested(QWidget*, int, QWidget*, int)));
 	//currentChanged signal is not needed anymore since tabClicked handle it
-	connect(tabBar(), SIGNAL(tabClicked(int)), this, SLOT(currentTabChanged(int)));
-	//connect(this, SIGNAL(currentChanged(int)), this, SLOT(currentTabChanged(int)));
+	connect(tabBar(), SIGNAL(tabClicked(int)), this, SIGNAL(currentChanged(int)));
+	connect(this, SIGNAL(currentChanged(int)), this, SLOT(currentTabChanged(int)));
 	connect(tabBar(), SIGNAL(tabBarDoubleClicked()), this, SLOT(newDocument()));
 	
 	//create tabBar button
@@ -78,11 +78,16 @@ void DocumentView::connectDocument(DocumentEditor* document_){
 	connect(document_, SIGNAL(textChanged()), this, SLOT(documentChanged()));
 	connect(document_, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
 	connect(document_, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(cursorPositionChanged(int, int)));
-	connect(document_, SIGNAL(focusChanged(bool)), this, SLOT(setActive(bool)));
+	connect(document_, SIGNAL(focusChanged(bool)), this, SLOT(documentfocusChanged(bool)));
 }
 
 DocumentEditor* DocumentView::currentDocument(){
 	return static_cast<DocumentEditor*>(currentWidget());
+}
+
+void DocumentView::setCurrentDocument(DocumentEditor* document_){
+	setCurrentWidget(document_);
+	emit activeDocumentChanged(document_);
 }
 
 DocumentEditor* DocumentView::getDocument(int index_){
@@ -105,6 +110,14 @@ int DocumentView::getDocumentIndex(const QString& name_){
 	}
 	return -1;
 }
+int DocumentView::getDocumentIndex(const DocumentEditor* document_){
+	for(int i = 0; i < count(); i++){
+		DocumentEditor* doc = getDocument(i);
+		if(doc == document_)
+			return i;
+	}
+	return -1;
+}
 
 QList<DocumentEditor*> DocumentView::getDocuments(){
 	QList<DocumentEditor*> list;
@@ -123,7 +136,7 @@ bool DocumentView::setActiveDocument(DocumentEditor* document_){
 	for(int i = 0; i < count(); i++){
 		DocumentEditor* doc = getDocument(i);
 		if(doc == document_){
-			setCurrentWidget(doc);
+			setCurrentDocument(doc);
 			return true;
 		}
 	}
@@ -133,19 +146,16 @@ bool DocumentView::setActiveDocument(const QString& name_){
 	for(int i = 0; i < count(); i++){
 		DocumentEditor* doc = getDocument(i);
 		if(doc->getFullPath() == name_){
-			setCurrentWidget(doc);
+			setCurrentDocument(doc);
 			return true;
 		}
 	}
 	return false;
 }
 
-bool DocumentView::isActive() const{
-	return _isActive;
-}
 
-void DocumentView::setActive(bool active_){
-	///NOTE: there is a bug :
+void DocumentView::documentfocusChanged(bool active_){
+	///FIXME @todo there is a bug :
 	///when the second view is clicked, there is focusInEvent for each view instead of the second one
 	///when the first view is clicked, there is focusOutEvent for each view instead of the second one
 	///???? Don't know why ????
@@ -154,31 +164,19 @@ void DocumentView::setActive(bool active_){
 	//_isActive = active;
 	if(currentDocument()->hasFocus()){
 		_isActive = true;
+		activeDocumentChanged(qobject_cast<DocumentEditor*>(sender()));
 	}else{
 		_isActive = false;
-	}	
+	}       
+	
 	updateAllDocuments();
 	emit activeStatusChanged(_isActive);
 }
 
 void DocumentView::currentTabChanged(int tab_){
-	for(int i = 0; i < count(); i++){
-		DocumentEditor* document = getDocument(i);
-		if(i == tab_){
-			if(!document->getName().isEmpty())
-				setTabText(i, document->getName());
-			//set the focus on the new selected document	
-			document->setFocus();
-			//set selected active font
-			tabBar()->setTabTextColor(i, QColor(0,0,170));
-			//call to documentChanged() may not be necessary
-			documentChanged();
-		}
-		else{
-			//set normal tab font
-			tabBar()->setTabTextColor(i, QColor(80,80,80));
-		}
-	}
+	DocumentEditor* document = getDocument(tab_);
+	document->setFocus();
+	emit activeDocumentChanged(document);
 }
 
 void DocumentView::documentChanged(){
@@ -233,7 +231,7 @@ void DocumentView::newDocument(){
 	DocumentEditor* document = new DocumentEditor(_watcher, this);
 	connectDocument(document);
 	addTab(document, QIcon(":/images/saved.png"), tr("new %1").arg(_docCounter++));
-	setCurrentWidget(document);
+	setCurrentDocument(document);
 	documentChanged();
 }
 
@@ -252,7 +250,7 @@ void DocumentView::addDocument(DocumentEditor* document_){
 
 	connectDocument(document_);
 	removeFirstNewDocument();
-	setCurrentWidget(document_);
+	setCurrentDocument(document_);
 	documentChanged();
 }
 
@@ -270,7 +268,7 @@ void DocumentView::insertDocument(int index_, DocumentEditor* document_){
 		insertTab(index_, document_, QIcon(":/images/saved.png"), docName);
 	connectDocument(document_);
 	removeFirstNewDocument();
-	setCurrentWidget(document_);
+	setCurrentDocument(document_);
 	documentChanged();
 }
 
@@ -287,7 +285,7 @@ void DocumentView::cloneDocument(DocumentEditor* document_){
 
 	connectDocument(doc);
 
-	setCurrentWidget(doc);
+	setCurrentDocument(doc);
 	documentChanged();
 }
 
@@ -298,7 +296,7 @@ void DocumentView::openDocument(const QString& file_){
 	if(document->load(file_)){		
 		addTab(document, QIcon(":/images/saved.png"), document->getName());
 		removeFirstNewDocument();
-		setCurrentWidget(document);
+		setCurrentDocument(document);
 		QStringList openedFiles;
 		openedFiles << file_;
 		emit opened(openedFiles);
@@ -317,7 +315,7 @@ void DocumentView::openDocument(const QStringList& files_){
 			openedFiles << files_[i];
 			addTab(document, QIcon(":/images/saved.png"), document->getName());
 			removeFirstNewDocument();
-			setCurrentWidget(document);
+			setCurrentDocument(document);
 		}else{
 			delete document;
 		}

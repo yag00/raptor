@@ -254,6 +254,13 @@ void ScintillaExt::deleteCurrentWord(){
 	endUndoAction();
 }
 
+void ScintillaExt::gotoLine(int line_, int pos_){
+	setCursorPosition(line_ - 1, pos_);
+	ensureLineVisible(line_ - 1);
+	ensureCursorVisible();
+	setFocus(Qt::OtherFocusReason);
+}
+
 QString ScintillaExt::getEol() const{
 	QString eol;
 	switch (eolMode()){

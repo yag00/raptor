@@ -128,7 +128,9 @@ class ScintillaExt : public QsciScintilla {
 		void moveCurrentLineDown();
 		/** delete current word */
 		void deleteCurrentWord();
-		
+		/** go to the specified line */
+		void gotoLine(int line_, int pos_ = 0);
+
 		/** define folding style 
 		 * @param folding_ folding style
 		 * @param foreground_ foreground color

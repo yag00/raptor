@@ -32,6 +32,7 @@ class QsciScintilla;
 class MenuLabel;
 class DocumentEditor;
 class DocumentManager;
+class SymbolManager;
 
 class MainWindow : public QMainWindow, private Ui::MainWindow{
 
@@ -100,6 +101,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 
 		/** update all */
 		void update(DocumentEditor*);
+
+		void activeDocumentChanged(DocumentEditor*);
+		
 		/** update the main window information */
 		void updateMainWindowTitle(DocumentEditor*);
 		/** update the status bar information */
@@ -117,17 +121,19 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void openAllRecentFile();
 
 	private:
-		/** create a search dock
-		 * @return the associated toggle view action */
-		QAction* createSearchDock();
-
+		/** create window docks */
+		void createDocks();
+		/** create the status bar */
+		void createStatusBar();
+		/** create the extra toolbar */
+		void createToolBar();
+		
 		void readSettings();
 		void writeSettings();
 
-		/** create the documentManager */
-		void createDocumentManager();
-		/** create the status bar */
-		void createStatusBar();
+		/** create the all manager */
+		void createManager();
+		
 
 		/** intialize and connect menu */
 		void initMenu();
@@ -146,9 +152,13 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 	private:
 		/** document manager */
 		DocumentManager* _documentManager;
+		/** symbol manager */
+		SymbolManager* _symbolManager;
 
 		/** search dock */
 		QDockWidget* _searchDock;
+		/** symbol dock */
+		QDockWidget* _symbolDock;
 
 		/** status bar widget */
 		MenuLabel* _encodingLabel;

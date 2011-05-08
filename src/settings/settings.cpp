@@ -71,15 +71,14 @@ QStringList Settings::availableTranslations(){
 void Settings::apply(MainWindow& window_){
 	// ToolBar
 	int iconSize = getToolBarIconSize();
-	window_.toolBarFile->setIconSize(QSize(iconSize,iconSize));
-	window_.toolBarEdit->setIconSize(QSize(iconSize,iconSize));
-	window_.toolBarView->setIconSize(QSize(iconSize,iconSize));
-	window_.toolBarMacro->setIconSize(QSize(iconSize,iconSize));
-
-	window_.toolBarFile->setVisible(getShowToolBar("File"));
-	window_.toolBarEdit->setVisible(getShowToolBar("Edit"));
-	window_.toolBarView->setVisible(getShowToolBar("View"));
-	window_.toolBarMacro->setVisible(getShowToolBar("Macro"));
+	
+	QList<QToolBar*> toolbars = window_.findChildren<QToolBar*>();
+	foreach(QToolBar* toolbar, toolbars){
+		toolbar->setIconSize(QSize(iconSize,iconSize));
+		toolbar->setVisible(getShowToolBar(toolbar->windowTitle()));
+	}
+	window_._symbolDock->setVisible(getShowToolBar("DockSymbol", false));
+	
 	// StatusBar
 	window_.statusbar->setVisible(getShowStatusBar());
 
@@ -231,8 +230,8 @@ int Settings::getToolBarIconSize(){
 void Settings::setShowToolBar(const QString& toolbar_, bool show_){
 	setValue("Interface/toolbar/show" + toolbar_, show_);
 }
-bool Settings::getShowToolBar(const QString& toolbar_){
-	return value("Interface/toolbar/show" + toolbar_, true).toBool();
+bool Settings::getShowToolBar(const QString& toolbar_, bool default_){
+	return value("Interface/toolbar/show" + toolbar_, default_).toBool();
 }
 
 void Settings::setShowStatusBar(bool show_){

@@ -18,42 +18,33 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __SINGLETON_H__
-#define __SINGLETON_H__
+#ifndef __SYMBOL_TREE_COMBO_BOX_H__
+#define __SYMBOL_TREE_COMBO_BOX_H__
 
-template <class T> class Singleton{
-	public :
+#include <QComboBox>
+
+class QObject;
+class QEvent;
+class QAbstractItemModel;
+class QModelIndex;
+
+class SymbolTreeComboBox : public QComboBox {
+	Q_OBJECT
+
+	public:
+		SymbolTreeComboBox(QAbstractItemModel* model_, QWidget* parent_ = 0);
+		virtual ~SymbolTreeComboBox();
+
+		virtual void showPopup();
+		virtual void hidePopup();
 	
-		/** @return unique instance of the class */
-		static T& getInstance(QObject * parent_ = 0){
-			if (!_instance)
-				_instance = new T(parent_);
-			return *_instance;
-		}
+	signals:
+		//void symbolActivated(const QString& name_, int line_);
+		void symbolActivated(int line_);
+		
+	private slots:
+		void pressed(const QModelIndex& index_);
 
-		/** destroy the instance of the class */
-		static void destroy(){
-			delete _instance;
-			_instance = 0;
-		}
-
-	protected :    
-		/** Constructor */
-		Singleton(){}
-		/** Destructor */
-		~Singleton() {}
-
-	private :
-		/** instance of the class */
-		static T* _instance;
-  
-		/** Copy constructor : copy forbidden */
-		Singleton(Singleton&);
-		/** copy forbidden */
-		void operator =(Singleton&);
 };
 
-/** Static declaration */
-template <class T> T* Singleton<T>::_instance = 0;
-
-#endif /* __SINGLETON_H__ */
+#endif /* __SYMBOL_TREE_COMBO_BOX_H__ */
