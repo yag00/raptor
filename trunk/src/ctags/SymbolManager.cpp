@@ -68,10 +68,11 @@ QTreeView* SymbolManager::getSymbolBrowerTreeView(){
 void SymbolManager::tagFile(const QString& file_){
 	_model->clear();
 	
-	TagEntryListItem* tags = createTagEntryListItem(file_.toLocal8Bit().constData(), 0);
+	TagEntryListItem* tagsEntryList = createTagEntryListItem(file_.toLocal8Bit().constData(), 0);
 
 	QStandardItem* anonymousNamespace = 0;
 		
+	TagEntryListItem* tags = tagsEntryList;
 	while (tags != 0) {
 		tagEntryInfo tag = tags->tag;
 
@@ -135,7 +136,7 @@ void SymbolManager::tagFile(const QString& file_){
 	
 	_treeView->expandAll();
 	
-	freeTagEntryListItem(tags);
+	freeTagEntryListItem(tagsEntryList);
 }
 
 QStandardItem* SymbolManager::getItem(const QString& name_, const QString& kind_){
