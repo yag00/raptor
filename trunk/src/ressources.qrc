@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/switch.png</file>
     <file>images/settings_shortcuts.png</file>
     <file>images/save-question-mark.png</file>
     <file>images/charset.png</file>
@@ -62,7 +63,7 @@
     <file>rc/indent-sample.cpp</file>
     <file>images/astyle/astyle.png</file>
   </qresource>
-  <qresource prefix="ctags" >
+  <qresource prefix="ctags">
     <file alias="class.png">images/ctags/class.png</file>
     <file alias="enumerator.png">images/ctags/enumerator.png</file>
     <file alias="enum.png">images/ctags/enum.png</file>
@@ -81,7 +82,7 @@
     <file alias="variable_protected.png">images/ctags/var_prot.png</file>
     <file alias="structure.png">images/ctags/struct.png</file>
     <file alias="typedef.png">images/ctags/typedef.png</file>
-</qresource>
+  </qresource>
   <qresource prefix="/listeditor">
     <file>images/listeditor/add.png</file>
     <file>images/listeditor/clear.png</file>

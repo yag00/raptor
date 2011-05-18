@@ -937,3 +937,70 @@ void Settings::setAstyleIndenterOptions(AStyleIndenter& asi_){
 
 	endGroup();
 }
+
+// Switcher
+void Settings::setSwitcherNotification(bool enable_){
+	setValue("Switcher/notification", enable_);
+}
+bool Settings::getSwitcherNotification(){
+	return value("Switcher/notification", false).toBool();
+}
+void Settings::setSwitcherValues(const QMap<QString, QStringList>& values_){
+	beginWriteArray("Switcher");
+	int i = 0;
+	for(QMap<QString, QStringList>::const_iterator it = values_.begin(); it != values_.end(); it++){
+		setArrayIndex(i++);
+		setValue("filePattern", it.key());
+		setValue("switchTo", it.value());
+	}
+	endArray();
+}
+
+QMap<QString, QStringList> Settings::getDefaultSwitcherValues(){
+	QMap<QString, QStringList> switcherMap;
+	//build default map
+	QStringList switchTo = QStringList();
+
+	switchTo.clear();
+	switchTo << "*.cxx";
+	switcherMap.insert("*.hxx", switchTo);
+	
+	switchTo.clear();
+	switchTo << "*.cpp";
+	switcherMap.insert("*.hpp", switchTo);
+	
+	switchTo.clear();
+	switchTo << "*.c" << "*.cpp" << "*.cxx";
+	switcherMap.insert("*.h", switchTo);
+	
+	switchTo.clear();
+	switchTo << "*.h";
+	switcherMap.insert("*.c", switchTo);
+	
+	switchTo.clear();
+	switchTo << "*.hpp" << "*.h";
+	switcherMap.insert("*.cpp", switchTo);
+	
+	switchTo.clear();
+	switchTo << "*.hxx" << "*.h";
+	switcherMap.insert("*.cxx", switchTo);
+	return switcherMap;
+}
+
+QMap<QString, QStringList> Settings::getSwitcherValues(){
+	QMap<QString, QStringList> switcherMap;
+	int size = beginReadArray("Switcher");
+	if(size == 0){
+		endArray();
+		return getDefaultSwitcherValues();
+	}
+	
+	for (int i = 0; i < size; ++i) {
+		setArrayIndex(i);
+		QString key = value("filePattern").toString();
+		QStringList values = value("switchTo").toStringList();
+		switcherMap[key] = values;
+	}
+	endArray();
+	return switcherMap;
+}

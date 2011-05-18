@@ -152,6 +152,12 @@ DocumentEditor::~DocumentEditor() {
 QString DocumentEditor::getName() const {
 	return QFileInfo(_fullPath).fileName();
 }
+QString DocumentEditor::getSuffix() const{
+	return QFileInfo(_fullPath).suffix();
+}
+QString DocumentEditor::getBaseName() const{
+	return QFileInfo(_fullPath).baseName();
+} 
 QString DocumentEditor::getFullPath() const {
 	return _fullPath;
 }

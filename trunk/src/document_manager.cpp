@@ -410,6 +410,47 @@ void DocumentManager::reindentOpenDocuments(){
 void DocumentManager::gotoLine(int line_){
 	getActiveDocument()->gotoLine(line_);
 }
+void DocumentManager::switchDocumentSrc(){
+	Settings settings;
+	QMap<QString, QStringList> switcher = settings.getSwitcherValues();
+	
+	DocumentEditor* doc = getActiveDocument();
+	QString name = doc->getName();
+	
+	QList<QString> keys = switcher.keys();
+	foreach(QString k, keys){
+		if(QDir::match(k, name)){
+			QString path = doc->getPath();
+			QString basename = doc->getBaseName();
+			
+			QStringList tryList;
+			foreach(QString suffix, switcher[k]){
+				QString switchPath = path + QDir::separator() + suffix.replace(0,1, basename);
+				tryList << switchPath;
+				//if file exists, open it
+				if(QFileInfo(switchPath).exists()){
+					open(switchPath);
+					return;
+				}
+			}			
+			//no file matches, notify and return
+			if(settings.getSwitcherNotification()){
+				int ret = QMessageBox::question(this, tr("Switcher : Fail !"), tr("Can't find files according to switching rules!\nDo you want to create the file?"), QMessageBox::Yes | QMessageBox::No);
+				if (ret == QMessageBox::Yes){
+					bool ok;
+					QString	fileToCreate = QInputDialog::getItem(this, tr("Switcher : Create new File"), tr("Select or type the new file to create :"), tryList, 0, true, &ok);
+					if(ok){
+						QFile file(fileToCreate);
+						file.open(QIODevice::WriteOnly);
+						file.close();
+						open(fileToCreate);
+					}
+				}
+			}
+			return;
+		}
+	}
+}
 
 //==================== view slots ====================//
 

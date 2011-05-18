@@ -294,6 +294,13 @@ class Settings : public QSettings{
 
 		// AStyle
 		void setAstyleIndenterOptions(AStyleIndenter& asi__);
+
+		// Switcher
+		void setSwitcherNotification(bool enable_);
+		bool getSwitcherNotification();
+		void setSwitcherValues(const QMap<QString, QStringList>& associations_);
+		QMap<QString, QStringList> getDefaultSwitcherValues();
+		QMap<QString, QStringList> getSwitcherValues();
 };
 
 #endif // __SETTINGS_H__
