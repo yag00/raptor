@@ -135,6 +135,8 @@ void MainWindow::initMenuEdit() {
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
 
+	connect(actionSwitchSrc, SIGNAL(triggered()), _documentManager, SLOT(switchDocumentSrc()));
+
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditMenu()));
 	connect(menuIndentation, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditIndentationMenu()));
 }

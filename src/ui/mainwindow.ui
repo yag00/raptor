@@ -125,6 +125,8 @@
     <addaction name="menuLines"/>
     <addaction name="actionTrimTrailingSpaces"/>
     <addaction name="separator"/>
+    <addaction name="actionSwitchSrc"/>
+    <addaction name="separator"/>
     <addaction name="actionReadOnly"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -1412,6 +1414,18 @@
    </property>
    <property name="statusTip">
     <string comment="statustip action shortcut edit">Edit shortcuts</string>
+   </property>
+  </action>
+  <action name="actionSwitchSrc">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/switch.png</normaloff>:/images/switch.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch Source</string>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
    </property>
   </action>
  </widget>

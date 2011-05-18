@@ -43,6 +43,10 @@ class DocumentEditor : public ScintillaExt {
 
 		/** @return filename */
 		QString getName() const;
+		/** @return basename */
+		QString getBaseName() const;
+		/** @return filename extension */
+		QString getSuffix() const;
 		/** @return path with filename */
 		QString getFullPath() const;
 		/** @return path without filename */

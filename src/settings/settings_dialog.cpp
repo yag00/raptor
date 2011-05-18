@@ -451,6 +451,20 @@ void SettingsDialog::loadSettingsDialog(){
 			lvShowLexer->addItem(lexerName);
 		}
 	}
+	
+	//Switcher
+	cbSwitcherNotify->setCheckState((Qt::CheckState)_settings->getSwitcherNotification());
+	QMap<QString, QStringList> switcherList = _settings->getSwitcherValues();
+	foreach (QString k, switcherList.keys())	{
+		QString value;
+		foreach ( QString e, switcherList.value( k ) )	{
+			value += e;
+			value += ";";
+		}
+		QTreeWidgetItem* it = new QTreeWidgetItem(twSwitcher);
+		it->setText(0, k);
+		it->setText(1, value);
+	}
 }
 
 void SettingsDialog::saveSettingsDialog(){
@@ -648,6 +662,15 @@ void SettingsDialog::saveSettingsDialog(){
 		invisibleLexers << lvHideLexer->item(i)->text();
 	}
 	_settings->setInvisibleLexers(invisibleLexers);
+	
+	//Switcher
+	_settings->setSwitcherNotification((bool)cbSwitcherNotify->checkState());
+	QMap<QString, QStringList> switcherValue;
+	for ( int i = 0; i < twSwitcher->topLevelItemCount(); i++ ){
+		QTreeWidgetItem* it = twSwitcher->topLevelItem(i);
+		switcherValue[ it->text(0) ] << it->text(1).split(";");
+	}
+	_settings->setSwitcherValues(switcherValue);
 }
 
 void SettingsDialog::on_twMenu_itemSelectionChanged(){
@@ -770,6 +793,49 @@ void SettingsDialog::on_pbLexersAssociationsDelete_clicked(){
 		twLexersAssociations->selectionModel()->clear();
 		leLexersAssociationsFilenamePattern->clear();
 		cbLexersAssociationsLanguages->setCurrentIndex(-1);
+	}
+}
+
+void SettingsDialog::on_twSwitcher_itemSelectionChanged(){
+	QTreeWidgetItem* it = twSwitcher->selectedItems().value(0);
+	if (it)	{
+		leSwitcherFilenamePattern->setText(it->text(0));
+		leSwitchTo->setText(it->text(1));
+	}
+}
+void SettingsDialog::on_pbSwitcherAddChange_clicked(){
+	QString f = leSwitcherFilenamePattern->text();
+	QString l = leSwitchTo->text();
+	if (f.isEmpty() || l.isEmpty())
+		return;
+	QTreeWidgetItem* it = twSwitcher->selectedItems().value(0);
+	if (it == 0) {
+		QList<QTreeWidgetItem*> itList = twSwitcher->findItems(f, Qt::MatchFixedString);
+		if (itList.count()){
+			it = itList.at(0);
+			QString s = it->text(1);
+			s.append(QString(";"));
+			s.append(l);
+			it->setText(1, s);
+		}else{
+			it = new QTreeWidgetItem(twSwitcher);
+			it->setText(0, f);
+			it->setText(1, l);
+		}
+	}
+	twSwitcher->setCurrentItem(0);
+	twSwitcher->selectionModel()->clear();
+	leSwitcherFilenamePattern->clear();
+	leSwitchTo->clear();
+}
+void SettingsDialog::on_pbSwitcherDelete_clicked(){
+	QTreeWidgetItem* it = twSwitcher->selectedItems().value(0);
+	if (it){
+		delete it;
+		twSwitcher->setCurrentItem(0);
+		twSwitcher->selectionModel()->clear();
+		leSwitcherFilenamePattern->clear();
+		leSwitchTo->clear();
 	}
 }
 

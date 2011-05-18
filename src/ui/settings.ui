@@ -233,6 +233,11 @@
        <string>Languages</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>Switcher</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item row="2" column="0" colspan="2">
@@ -248,7 +253,7 @@
    <item row="1" column="1">
     <widget class="QStackedWidget" name="swPages">
      <property name="currentIndex">
-      <number>1</number>
+      <number>18</number>
      </property>
      <widget class="QWidget" name="pGeneral">
       <layout class="QVBoxLayout">
@@ -3819,6 +3824,68 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="pSwitcher">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0" colspan="3">
+        <widget class="QTreeWidget" name="twSwitcher">
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>File Pattern</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Switch To</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lSwitcherFilenamePattern">
+         <property name="text">
+          <string>Filename Pattern :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="leSwitcherFilenamePattern"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="pbSwitcherAddChange">
+         <property name="text">
+          <string>Add/Change</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="lSwitchTo">
+         <property name="text">
+          <string>Switch To :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="leSwitchTo"/>
+       </item>
+       <item row="3" column="2">
+        <widget class="QPushButton" name="pbSwitcherDelete">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="cbSwitcherNotify">
+         <property name="text">
+          <string>Notification when switch fails</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -3843,6 +3910,209 @@
  </customwidgets>
  <tabstops>
   <tabstop>dbbButtons</tabstop>
+  <tabstop>twMenu</tabstop>
+  <tabstop>cbTranslation</tabstop>
+  <tabstop>cbSaveSession</tabstop>
+  <tabstop>cbRestoreSession</tabstop>
+  <tabstop>rbSmallToolBarIcon</tabstop>
+  <tabstop>rbMediumToolBarIcon</tabstop>
+  <tabstop>rbBigToolBarIcon</tabstop>
+  <tabstop>cbToolBarFile</tabstop>
+  <tabstop>cbToolBarEdit</tabstop>
+  <tabstop>cbToolBarView</tabstop>
+  <tabstop>cbToolBarMacro</tabstop>
+  <tabstop>cbToolBarSymbol</tabstop>
+  <tabstop>cbDockSymbol</tabstop>
+  <tabstop>cbTodo</tabstop>
+  <tabstop>cbStatusBar</tabstop>
+  <tabstop>cbAutoTrim</tabstop>
+  <tabstop>cbAddNewLine</tabstop>
+  <tabstop>cbAutoSyntaxCheck</tabstop>
+  <tabstop>cbConvertTabsUponOpen</tabstop>
+  <tabstop>cbCreateBackupUponOpen</tabstop>
+  <tabstop>cbAutoEolConversion</tabstop>
+  <tabstop>tbDocumentPen</tabstop>
+  <tabstop>tbDocumentPaper</tabstop>
+  <tabstop>tbDocumentFont</tabstop>
+  <tabstop>tbSelectionBackground</tabstop>
+  <tabstop>tbSelectionForeground</tabstop>
+  <tabstop>cbUseForeground</tabstop>
+  <tabstop>cbDefaultCodec</tabstop>
+  <tabstop>rbDoNotAddOrRemoveBom</tabstop>
+  <tabstop>cbAddBomToNewFile</tabstop>
+  <tabstop>rbAlwaysAddBom</tabstop>
+  <tabstop>rbAlwaysRemoveBom</tabstop>
+  <tabstop>cbTryCharsetDetection</tabstop>
+  <tabstop>gbAutoCompletionEnabled</tabstop>
+  <tabstop>cbAutoCompletionCaseSensitivity</tabstop>
+  <tabstop>cbAutoCompletionShowSingle</tabstop>
+  <tabstop>cbAutoCompletionReplaceWord</tabstop>
+  <tabstop>sAutoCompletionThreshold</tabstop>
+  <tabstop>rbAcsDocument</tabstop>
+  <tabstop>rbAcsAPIs</tabstop>
+  <tabstop>rbAcsAll</tabstop>
+  <tabstop>gbCalltipsEnabled</tabstop>
+  <tabstop>sCallTipsVisible</tabstop>
+  <tabstop>rbCallTipsNoContext</tabstop>
+  <tabstop>rbCallTipsContext</tabstop>
+  <tabstop>rbCallTipsNoAutoCompletionContext</tabstop>
+  <tabstop>tbCalltipsHighlight</tabstop>
+  <tabstop>tbCalltipsBackground</tabstop>
+  <tabstop>tbCalltipsForeground</tabstop>
+  <tabstop>cbAutoIndent</tabstop>
+  <tabstop>cbIndentationUseTabs</tabstop>
+  <tabstop>cbBackspaceUnindents</tabstop>
+  <tabstop>cbTabIndents</tabstop>
+  <tabstop>cbIndentationGuides</tabstop>
+  <tabstop>cbAutodetectIndent</tabstop>
+  <tabstop>sIndentationTabWidth</tabstop>
+  <tabstop>sIndentationWidth</tabstop>
+  <tabstop>tbIndentationGuidesBackground</tabstop>
+  <tabstop>tbIndentationGuidesForeground</tabstop>
+  <tabstop>twAstyle</tabstop>
+  <tabstop>rbANSI</tabstop>
+  <tabstop>rbKR</tabstop>
+  <tabstop>rbLinux</tabstop>
+  <tabstop>rbGNU</tabstop>
+  <tabstop>rbJava</tabstop>
+  <tabstop>rbStroustrup</tabstop>
+  <tabstop>rbWhitesmith</tabstop>
+  <tabstop>rbBanner</tabstop>
+  <tabstop>rbHorstmann</tabstop>
+  <tabstop>rb1TBS</tabstop>
+  <tabstop>rbCustom</tabstop>
+  <tabstop>rbIndentWithSpaces</tabstop>
+  <tabstop>rbIndentWithTabs</tabstop>
+  <tabstop>rbForceIndentWithTabs</tabstop>
+  <tabstop>spbSpacePerTab</tabstop>
+  <tabstop>rbBracketNoChange</tabstop>
+  <tabstop>rbBracketBreak</tabstop>
+  <tabstop>rbBracketAttach</tabstop>
+  <tabstop>rbBracketLinux</tabstop>
+  <tabstop>rbBracketStroustrup</tabstop>
+  <tabstop>rbBracketHorstmann</tabstop>
+  <tabstop>chkIndentClasses</tabstop>
+  <tabstop>chkIndentSwitches</tabstop>
+  <tabstop>chkIndentCase</tabstop>
+  <tabstop>chkIndentBrackets</tabstop>
+  <tabstop>chkIndentBlocks</tabstop>
+  <tabstop>chkIndentNamespaces</tabstop>
+  <tabstop>chkIndentLabels</tabstop>
+  <tabstop>chkIndentPreprocessor</tabstop>
+  <tabstop>chkIndentColumnOneComment</tabstop>
+  <tabstop>chkBreakHeaderBlocks</tabstop>
+  <tabstop>chkBreakAllBlocks</tabstop>
+  <tabstop>chkPadOperators</tabstop>
+  <tabstop>chkPadParenthesisOutside</tabstop>
+  <tabstop>chkPadParenthesisInside</tabstop>
+  <tabstop>chkPadHeader</tabstop>
+  <tabstop>chkUnpadParenthesis</tabstop>
+  <tabstop>chkDeleteEmptyLines</tabstop>
+  <tabstop>chkFillEmptyLines</tabstop>
+  <tabstop>chkBreakClosingBrackets</tabstop>
+  <tabstop>chkBreakIfElseStatements</tabstop>
+  <tabstop>chkAddBrackets</tabstop>
+  <tabstop>chkAddOneLineBrackets</tabstop>
+  <tabstop>chkKeepOneLineBlocks</tabstop>
+  <tabstop>chkKeepOneLineStatements</tabstop>
+  <tabstop>chkCOnvertTabs</tabstop>
+  <tabstop>cbPointerAlign</tabstop>
+  <tabstop>tePreview</tabstop>
+  <tabstop>gbBraceMatchingEnabled</tabstop>
+  <tabstop>tbMatchedBraceBackground</tabstop>
+  <tabstop>tbMatchedBraceForeground</tabstop>
+  <tabstop>tbUnmatchedBraceBackground</tabstop>
+  <tabstop>tbUnmatchedBraceForeground</tabstop>
+  <tabstop>rbStrictBraceMatch</tabstop>
+  <tabstop>rbSloppyBraceMatch</tabstop>
+  <tabstop>gbEdgeModeEnabled</tabstop>
+  <tabstop>tbEdgeColor</tabstop>
+  <tabstop>sEdgeColumnNumber</tabstop>
+  <tabstop>rbEdgeLine</tabstop>
+  <tabstop>rbEdgeBackground</tabstop>
+  <tabstop>gbCaretLineVisible</tabstop>
+  <tabstop>tbCaretForeground</tabstop>
+  <tabstop>sCaretWidth</tabstop>
+  <tabstop>tbCaretLineBackground</tabstop>
+  <tabstop>gbMarginEnabled</tabstop>
+  <tabstop>tbMarginsForeground</tabstop>
+  <tabstop>tbMarginsBackground</tabstop>
+  <tabstop>tbMarginsFont</tabstop>
+  <tabstop>gbMarginBookmarkEnabled</tabstop>
+  <tabstop>gbFoldMarginEnabled</tabstop>
+  <tabstop>rbPlainFoldStyle</tabstop>
+  <tabstop>rbCircledTreeFoldStyle</tabstop>
+  <tabstop>rbCircledFoldStyle</tabstop>
+  <tabstop>rbBoxedFoldStyle</tabstop>
+  <tabstop>rbBoxedTreeFoldStyle</tabstop>
+  <tabstop>rbArrowedFoldStyle</tabstop>
+  <tabstop>rbArrowedTreeFoldStyle</tabstop>
+  <tabstop>tbFoldMarginForeground</tabstop>
+  <tabstop>tbFoldMarginBackground</tabstop>
+  <tabstop>tbFoldSymbolForeground</tabstop>
+  <tabstop>tbFoldSymbolBackground</tabstop>
+  <tabstop>rbEolUnix</tabstop>
+  <tabstop>rbEolMac</tabstop>
+  <tabstop>rbEolWindows</tabstop>
+  <tabstop>cbAutoDetectEol</tabstop>
+  <tabstop>cbEolVisibility</tabstop>
+  <tabstop>gbWhitespaceVisibilityEnabled</tabstop>
+  <tabstop>rbWsVisible</tabstop>
+  <tabstop>rbWsVisibleAfterIndent</tabstop>
+  <tabstop>gbWrapModeEnabled</tabstop>
+  <tabstop>rbWrapWord</tabstop>
+  <tabstop>rbWrapCharacter</tabstop>
+  <tabstop>gbWrapVisualFlagsEnabled</tabstop>
+  <tabstop>sWrappedLineIndentWidth</tabstop>
+  <tabstop>rbEndWrapFlagByText</tabstop>
+  <tabstop>rbEndWrapFlagByBorder</tabstop>
+  <tabstop>rbStartWrapFlagByText</tabstop>
+  <tabstop>rbStartWrapFlagByBorder</tabstop>
+  <tabstop>lwSourceAPIs</tabstop>
+  <tabstop>pbSourceAPIsAdd</tabstop>
+  <tabstop>leSourceAPIs</tabstop>
+  <tabstop>pbSourceAPIsBrowse</tabstop>
+  <tabstop>pbSourceAPIsDelete</tabstop>
+  <tabstop>cbSourceAPIsLanguages</tabstop>
+  <tabstop>pbLexersAssociationsAddChange</tabstop>
+  <tabstop>cbLexersAssociationsLanguages</tabstop>
+  <tabstop>pbLexersAssociationsDelete</tabstop>
+  <tabstop>leLexersAssociationsFilenamePattern</tabstop>
+  <tabstop>twLexersAssociations</tabstop>
+  <tabstop>lwLexersHighlightingElements</tabstop>
+  <tabstop>pbLexersHighlightingForeground</tabstop>
+  <tabstop>pbLexersHighlightingBackground</tabstop>
+  <tabstop>pbLexersHighlightingFont</tabstop>
+  <tabstop>cbLexersHighlightingFillEol</tabstop>
+  <tabstop>cbLexersHighlightingFoldComments</tabstop>
+  <tabstop>cbLexersHighlightingFoldCompact</tabstop>
+  <tabstop>cbLexersHighlightingFoldQuotes</tabstop>
+  <tabstop>cbLexersHighlightingFoldDirectives</tabstop>
+  <tabstop>cbLexersHighlightingFoldAtBegin</tabstop>
+  <tabstop>cbLexersHighlightingFoldAtParenthesis</tabstop>
+  <tabstop>cbLexersHighlightingFoldAtElse</tabstop>
+  <tabstop>cbLexersHighlightingFoldAtModule</tabstop>
+  <tabstop>cbLexersHighlightingFoldPreprocessor</tabstop>
+  <tabstop>cbLexersHighlightingStylePreprocessor</tabstop>
+  <tabstop>cbLexersHighlightingIndentOpeningBrace</tabstop>
+  <tabstop>cbLexersHighlightingIndentClosingBrace</tabstop>
+  <tabstop>cbLexersHighlightingCaseSensitiveTags</tabstop>
+  <tabstop>cbLexersHighlightingBackslashEscapes</tabstop>
+  <tabstop>cbLexersHighlightingIndentationWarning</tabstop>
+  <tabstop>pbLexersHighlightingAllForeground</tabstop>
+  <tabstop>pbLexersHighlightingAllBackground</tabstop>
+  <tabstop>pbLexersHighlightingAllFont</tabstop>
+  <tabstop>pbLexersHighlightingReset</tabstop>
+  <tabstop>cbLexersHighlightingLanguages</tabstop>
+  <tabstop>lvShowLexer</tabstop>
+  <tabstop>tbHideLexer</tabstop>
+  <tabstop>tbShowLexer</tabstop>
+  <tabstop>lvHideLexer</tabstop>
+  <tabstop>twSwitcher</tabstop>
+  <tabstop>leSwitcherFilenamePattern</tabstop>
+  <tabstop>leSwitchTo</tabstop>
+  <tabstop>pbSwitcherAddChange</tabstop>
+  <tabstop>pbSwitcherDelete</tabstop>
  </tabstops>
  <resources>
   <include location="../ressources.qrc"/>
