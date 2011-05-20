@@ -457,9 +457,10 @@ void SettingsDialog::loadSettingsDialog(){
 	QMap<QString, QStringList> switcherList = _settings->getSwitcherValues();
 	foreach (QString k, switcherList.keys())	{
 		QString value;
-		foreach ( QString e, switcherList.value( k ) )	{
+		foreach(QString e, switcherList.value(k)){
 			value += e;
-			value += ";";
+			if(e.endsWith(";") == false)
+				value += ";";
 		}
 		QTreeWidgetItem* it = new QTreeWidgetItem(twSwitcher);
 		it->setText(0, k);
@@ -667,8 +668,12 @@ void SettingsDialog::saveSettingsDialog(){
 	_settings->setSwitcherNotification((bool)cbSwitcherNotify->checkState());
 	QMap<QString, QStringList> switcherValue;
 	for ( int i = 0; i < twSwitcher->topLevelItemCount(); i++ ){
-		QTreeWidgetItem* it = twSwitcher->topLevelItem(i);
-		switcherValue[ it->text(0) ] << it->text(1).split(";");
+		QTreeWidgetItem* it = twSwitcher->topLevelItem(i);		
+		QStringList list = it->text(1).split(";");
+		while(list.last().isEmpty()){
+			list.removeLast();
+		}
+		switcherValue[it->text(0)] = list;
 	}
 	_settings->setSwitcherValues(switcherValue);
 }
@@ -808,21 +813,24 @@ void SettingsDialog::on_pbSwitcherAddChange_clicked(){
 	QString l = leSwitchTo->text();
 	if (f.isEmpty() || l.isEmpty())
 		return;
-	QTreeWidgetItem* it = twSwitcher->selectedItems().value(0);
-	if (it == 0) {
-		QList<QTreeWidgetItem*> itList = twSwitcher->findItems(f, Qt::MatchFixedString);
-		if (itList.count()){
-			it = itList.at(0);
-			QString s = it->text(1);
-			s.append(QString(";"));
-			s.append(l);
-			it->setText(1, s);
-		}else{
-			it = new QTreeWidgetItem(twSwitcher);
-			it->setText(0, f);
-			it->setText(1, l);
-		}
+
+	QList<QTreeWidgetItem*> itList = twSwitcher->findItems(f, Qt::MatchFixedString);
+	if (itList.count()){
+		QTreeWidgetItem* it = itList.at(0);
+		QString s = it->text(1);
+		if(s.endsWith(";") == false)
+			s.append(";");
+		s.append(l);
+
+		QStringList list = s.split(";");
+		list.removeDuplicates();		
+		it->setText(1, list.join(";"));
+	}else{
+		QTreeWidgetItem* it = new QTreeWidgetItem(twSwitcher);
+		it->setText(0, f);
+		it->setText(1, l);
 	}
+
 	twSwitcher->setCurrentItem(0);
 	twSwitcher->selectionModel()->clear();
 	leSwitcherFilenamePattern->clear();
