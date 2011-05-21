@@ -23,6 +23,7 @@
 
 #include <QSettings>
 #include <Qsci/qsciscintilla.h>
+#include "../about/Version.h"
 #include "../lexer/lexer_manager.h"
 
 class MainWindow;
@@ -55,8 +56,11 @@ class Settings : public QSettings{
 		 * @param document_ */
 		void applyToDocument(DocumentEditor* document_);
 
-
-
+		/** @return raptor settings version */
+		Version getVersion();
+		/** @param version_ settings version */
+		void setVersion(const Version& version_);
+		
 		// Interface
 		void setToolBarIconSize(int size_);
 		int getToolBarIconSize();
