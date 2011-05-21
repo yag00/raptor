@@ -38,7 +38,7 @@ Settings::~Settings(){
 }
 
 QStringList Settings::availableTextCodecs(){
-	static QMap<QString, QString> codecs;
+	QMap<QString, QString> codecs;
 
 	if(codecs.isEmpty()){
 		foreach (const QByteArray& codec, QTextCodec::availableCodecs())
@@ -59,7 +59,7 @@ QStringList Settings::availableLanguages(){
 }
 
 QStringList Settings::availableTranslations(){
-	static QStringList translations;
+	QStringList translations;
 
 	if (translations.isEmpty()){
 		translations = QStringList() << "English";
@@ -218,6 +218,14 @@ void Settings::applyToDocument(DocumentEditor* document_){
 }
 
 /**** SETTINGS GETTER/SETTER ****/
+
+Version Settings::getVersion(){
+	QString v= value("Version", RaptorVersion.getVersion()).toString();
+	return Version(v);
+}
+void Settings::setVersion(const Version& version_){
+	setValue("Version", version_.getVersion());
+}
 
 // Interface
 void Settings::setToolBarIconSize(int size_){

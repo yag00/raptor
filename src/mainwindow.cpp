@@ -23,8 +23,9 @@
 
 #include <assert.h>
 
-#include "about/About.h"
 #include "ui_macro.h"
+#include "about/About.h"
+#include "about/Version.h"
 #include "settings/settings_dialog.h"
 #include "settings/ShortcutEditor.h"
 #include "settings/ShortcutSettings.h"
@@ -720,13 +721,42 @@ void MainWindow::about() {
 
 void MainWindow::writeSettings() {
 	Settings settings;
+	settings.setVersion(RaptorVersion);
 	_documentManager->saveCurrentSession(settings);
 }
 
 void MainWindow::readSettings() {
-	//read shortcut settings
+	Settings settings;
 	ShortcutSettings shortcuts;
 	
+	//check version
+	Version settingsVersion = settings.getVersion();
+	if(settingsVersion != RaptorVersion){
+		QMessageBox msgBox;
+		msgBox.setWindowTitle(tr("Old Settings!"));
+		msgBox.setText(tr("Found settings file for raptor version ") + settingsVersion.getVersion() + tr(". Current version is ") + RaptorVersion.getVersion());
+		msgBox.setInformativeText(tr("What do you want to do?"));
+	
+		QString detailedTxt;
+		detailedTxt += tr("Reset : Remove old settings file and create a new one\n");
+		detailedTxt += tr("Upgrade : keep&upgrade your old settings\n");
+		msgBox.setDetailedText(detailedTxt);
+		QPushButton* resetSettings = msgBox.addButton(tr("Reset"), QMessageBox::AcceptRole);
+		resetSettings->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogResetButton));
+		QPushButton* upgradeSettings = msgBox.addButton(tr("Upgrade"), QMessageBox::AcceptRole);
+		upgradeSettings->setIcon(QApplication::style()->standardIcon(QStyle::SP_BrowserReload));
+		msgBox.setDefaultButton(upgradeSettings);
+		int ret = msgBox.exec();
+		if (ret == 0){
+			//remove old settings!!
+			settings.clear();
+			shortcuts.clear();
+		}else{
+			QMessageBox::information(this, PACKAGE_NAME, tr("Settings upgrade is not implemented yet!\nCurrent settings file is kept but some settings can now be inconsistent! A settings reset is recommanded!"));
+		}
+	}
+	
+	//read shortcut settings
 	bool hasDefaultShortcut = shortcuts.hasDefaultShortcut();
 	QList<QMenu*> menus = findChildren<QMenu*>();
 	foreach(QMenu* menu, menus){
@@ -763,7 +793,7 @@ void MainWindow::readSettings() {
 		}
 	}
 
-	Settings settings;
+	
 	//Restore last session
 	_documentManager->restoreLastSession(settings);
 	settings.apply(*this);

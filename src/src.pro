@@ -80,6 +80,7 @@ HEADERS       *= mainwindow.h \
 				SymbolManager.h \
 				SymbolTreeComboBox.h \
 				SymbolComboBoxAction.h \
+				Version.h \
 				About.h
 				
 SOURCES       *= main.cpp \
@@ -114,6 +115,7 @@ SOURCES       *= main.cpp \
 				SymbolManager.cpp \
 				SymbolTreeComboBox.cpp \
 				SymbolComboBoxAction.cpp \
+				Version.cpp \
 				About.cpp
 
 FORMS *= mainwindow.ui \
