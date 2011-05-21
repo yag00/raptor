@@ -82,7 +82,7 @@ void SymbolManager::tagFile(const QString& file_){
 		
 		QString scopeKind(tag.extensionFields.scope[0]);
 		QString scopeName(tag.extensionFields.scope[1]);
-				
+		
 		if(scopeName.isEmpty()){
 			QStandardItem* item = new QStandardItem(getSymbolIcon(tag.kindName, tag.extensionFields.access), symbol);
 			item->setData(tag.kindName, TAG_KIND);
@@ -142,7 +142,8 @@ void SymbolManager::tagFile(const QString& file_){
 QStandardItem* SymbolManager::getItem(const QString& name_, const QString& kind_){
 	QStringList	splittedScope = name_.split("::");
 	//start by the end, the required item is probably the last.
-	for(int i = _model->rowCount() - 1; i != 0; --i){
+	int i = _model->rowCount();
+	while(i-- != 0){
 		QStandardItem* item = getItemChild(_model->item(i), name_, splittedScope.last(), kind_);
 		if(item != 0)
 			return item;
