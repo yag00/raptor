@@ -83,6 +83,17 @@ void SymbolManager::tagFile(const QString& file_){
 		QString scopeKind(tag.extensionFields.scope[0]);
 		QString scopeName(tag.extensionFields.scope[1]);
 		
+		if(QString(tag.language) == "Java"){
+			if(scopeKind.isEmpty() && scopeName.isEmpty()){
+				if(QString(tag.kindName) == "local" || QString(tag.kindName) == "method"){
+					tags = tags->next;
+					continue;
+				}
+			}
+		}
+		
+		//qDebug() << "symbol : " << tag.language << tag.kindName << tag.name << scopeKind << scopeName;
+		
 		if(scopeName.isEmpty()){
 			QStandardItem* item = new QStandardItem(getSymbolIcon(tag.kindName, tag.extensionFields.access), symbol);
 			item->setData(tag.kindName, TAG_KIND);
@@ -174,13 +185,13 @@ QStandardItem* SymbolManager::getItemChild(QStandardItem* child_, const QString&
 }
 
 QIcon SymbolManager::getSymbolIcon(const QString& kind_, const QString& access_){
-	if(kind_ == "class"){
+	if(kind_ == "class" || kind_ == "package"  || kind_ == "interface"){
 		return QIcon(":/ctags/class.png");
 	}else if(kind_ == "macro"){
 		return QIcon(":/ctags/macro.png");
 	}else if(kind_ == "enumerator"){
 		return QIcon(":/ctags/enumerator.png");
-	}else if(kind_ == "function" || kind_ == "prototype"){
+	}else if(kind_ == "method" || kind_ == "function" || kind_ == "prototype"){
 		if(access_ == "private")
 			return QIcon(":/ctags/function_private.png");
 		else if(access_ == "protected")
@@ -189,8 +200,8 @@ QIcon SymbolManager::getSymbolIcon(const QString& kind_, const QString& access_)
 			return QIcon(":/ctags/function.png");
 	}else if(kind_ == "enum"){
 		return QIcon(":/ctags/enum.png");
-	}else if(kind_ == "member" || kind_ == "local" || kind_ == "variable" || kind_ == "externvar"){
-		if(access_ == "private")
+	}else if(kind_ == "member" || kind_ == "local" || kind_ == "variable" || kind_ == "externvar" || kind_ == "field"){
+		if(access_ == "private" || access_ == "default")
 			return QIcon(":/ctags/variable_private.png");
 		else if(access_ == "protected")
 			return QIcon(":/ctags/variable_protected.png");
