@@ -84,12 +84,12 @@ class DocumentView : public QTabWidget {
 		QStringList getDocumentNameList();
 
 	signals:
-		/**emit when a documents have been successfully opened */
+		/**emit when documents have been successfully opened */
 		void opened(QStringList);
+		/**emit when documents have been successfully saved */
+		void saved(QStringList);
 		/** emit when the active document changed */
 		void activeDocumentChanged(DocumentEditor*);
-		/**emit when a document changed */
-		void documentChanged(DocumentEditor*);
 		/**emit when a document selection changed */
 		void selectionChanged(DocumentEditor*);
 		/**emit when a document cursor position changed */
