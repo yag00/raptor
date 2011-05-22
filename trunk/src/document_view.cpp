@@ -190,7 +190,7 @@ void DocumentView::documentChanged(){
 	//update tab text
 	if(!document->getName().isEmpty())
 		setTabText(index, document->getName());
-	emit documentChanged(currentDocument());
+	emit activeDocumentChanged(currentDocument());
 }
 void DocumentView::selectionChanged(){
 	emit selectionChanged(currentDocument());
@@ -398,20 +398,25 @@ DocumentEditor* DocumentView::removeCurrentDocument(){
 
 void DocumentView::save(){
 	currentDocument()->save();
+	emit saved((QStringList() << currentDocument()->getFullPath()));
 	documentChanged();
 }
 void DocumentView::saveAs(){
 	currentDocument()->saveAs();
+	emit saved((QStringList() << currentDocument()->getFullPath()));
 	documentChanged();
 }
 void DocumentView::saveACopyAs(){
 	currentDocument()->saveACopyAs();
 }
 void DocumentView::saveAll(){
+	QStringList list;
 	for(int i = 0; i < count(); i++){
 		DocumentEditor* document = getDocument(i);
 		document->save();
+		list << document->getFullPath();
 	}
+	emit saved(list);
 	updateAllDocuments();
 }
 

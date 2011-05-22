@@ -124,6 +124,14 @@ void SymbolManager::tagFile(const QString& file_){
 						item->setData(scopeKind, SCOPE_KIND);
 						item->setData(scopeName, SCOPE_NAME);			
 						anonymousNamespace->appendRow(item);
+					} else if(scopeName.contains("__anon") && (scopeKind == "enum")){
+						QStandardItem* item = new QStandardItem(getSymbolIcon(tag.kindName, tag.extensionFields.access), symbol);
+						item->setData(tag.kindName, TAG_KIND);
+						item->setData(tag.name, TAG_NAME);
+						item->setData((qulonglong)tag.lineNumber, TAG_LINE);
+						item->setData(scopeKind, SCOPE_KIND);
+						item->setData(scopeName, SCOPE_NAME);
+						_model->appendRow(item);						
 					}else{
 						qWarning() << "ERROR symbol ignored : " << tag.kindName << tag.name << scopeKind << scopeName;
 					}

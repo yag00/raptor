@@ -83,9 +83,6 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void changeLanguage(QAction*);
 		void aboutToShowLanguageMenu();
 
-		/** Diff Menu */
-		void diff();
-
 		/** Macro Menu */
 		void runMacroMultipleTimes();
 		void loadMacro(); //@todo
@@ -119,6 +116,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void clearRecentFile();
 		void openRecentFile();
 		void openAllRecentFile();
+
+		void visibilityChanged(bool visible_);
 
 	private:
 		/** create window docks */

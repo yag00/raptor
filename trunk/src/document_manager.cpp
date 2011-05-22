@@ -51,9 +51,9 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	connect(view, SIGNAL(empty()), this, SLOT(updateView()));
 	connect(view, SIGNAL(activeStatusChanged(bool)), this, SLOT(activeViewChanged(bool)));
 	connect(view, SIGNAL(opened(QStringList)), this, SIGNAL(opened(QStringList)));
+	connect(view, SIGNAL(saved(QStringList)), this, SIGNAL(saved(QStringList)));
 	connect(view, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SIGNAL(activeDocumentChanged(DocumentEditor*)));
-	connect(view, SIGNAL(documentChanged(DocumentEditor*)), this, SLOT(activeViewChanged()));
-	connect(view, SIGNAL(documentChanged(DocumentEditor*)), this, SIGNAL(documentChanged(DocumentEditor*)));
+	connect(view, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(activeViewChanged()));
 	connect(view, SIGNAL(selectionChanged(DocumentEditor*)), this, SIGNAL(selectionChanged(DocumentEditor*)));
 	connect(view, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)));
 	connect(view, SIGNAL(documentMoveRequested(QWidget*, int, QWidget*, int)), this, SLOT(moveDocument(QWidget*, int, QWidget*, int)));
@@ -682,18 +682,16 @@ void DocumentManager::cloneDocument(){
 
 
 void DocumentManager::diff(){
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
+	/*
 	DocumentView* view1 = _viewList[0];
 	DocumentView* view2 = _viewList[1];
 	DocumentEditor* doc1 = view1->currentDocument();
 	DocumentEditor* doc2 = view2->currentDocument();
 	
 	Compare c(doc1, doc2);
-	c.diff();
+	c.diff();*/
 }
-
-
-
-
 
 void DocumentManager::watchedFileChanged(const QString& path_){
 	//remove path_ of the filewatcher

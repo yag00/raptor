@@ -267,7 +267,7 @@ void MainWindow::initMenuLanguage() {
 
 void MainWindow::initMenuDiff() {
 	//connect menu "Diff" Action
-	connect(actionDiff, SIGNAL(triggered()), this, SLOT(diff()));
+	connect(actionDiff, SIGNAL(triggered()), _documentManager, SLOT(diff()));
 }
 
 void MainWindow::initMenuMacro() {
@@ -300,10 +300,11 @@ void MainWindow::createManager() {
 	//connection
 	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
 	connect(_documentManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(activeDocumentChanged(DocumentEditor*)));
-	connect(_documentManager, SIGNAL(documentChanged(DocumentEditor*)), this, SLOT(update(DocumentEditor*)));
+	connect(_documentManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(update(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(selectionChanged(DocumentEditor*)), this, SLOT(updateStatusBar(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SLOT(updateStatusBar(DocumentEditor*, int, int)));
 	connect(_documentManager, SIGNAL(opened(QStringList)), this, SLOT(updateRecentFile(QStringList)));
+	connect(_documentManager, SIGNAL(saved(QStringList)), this, SLOT(updateRecentFile(QStringList)));
 	
 	connect(_symbolManager, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
 }
@@ -340,6 +341,7 @@ void MainWindow::createToolBar(){
 	QToolBar* toolbar = addToolBar("Symbol");
 	toolbar->setObjectName(QString::fromUtf8("toolBarSymbol"));
 	toolbar->addAction(_symbolManager->getSymbolBrowerAction());
+	connect(toolbar, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
 }
 
 void MainWindow::createDocks() {
@@ -358,7 +360,9 @@ void MainWindow::createDocks() {
 	//create the Symbol Dock
 	_symbolDock = new QDockWidget(tr("Symbol Browser"), this);
 	_symbolDock->setWidget(_symbolManager->getSymbolBrowerTreeView());
+	_symbolDock->setObjectName(QString::fromUtf8("dockSymbol"));
 	addDockWidget(Qt::RightDockWidgetArea, _symbolDock);
+	connect(_symbolDock, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
 	//connect the Symbol Dock
 }
 
@@ -379,8 +383,10 @@ void MainWindow::activeDocumentChanged(DocumentEditor* document_){
 	//update mainwindow
 	update(document_);
 	//display symbol
-	///@todo only if toolbar or dock is visible ...
-	_symbolManager->tagFile(document_->getFullPath());
+	QToolBar* toolbar = (findChildren<QToolBar*>("toolBarSymbol"))[0];
+	if(_symbolDock->isVisible() || toolbar->isVisible()){
+		_symbolManager->tagFile(document_->getFullPath());
+	}
 }
 
 void MainWindow::update(DocumentEditor* document_) {
@@ -437,6 +443,13 @@ void MainWindow::updateActions(DocumentEditor* document_) {
 	actionShowAll->setChecked(wsIsVisible & eolIsVisible);
 }
 
+void MainWindow::visibilityChanged(bool visible_){
+	QObject *s = sender();
+	if(visible_){
+		if((s->objectName() == "toolBarSymbol") || (s->objectName() == "dockSymbol"))
+			_symbolManager->tagFile(_documentManager->getActiveDocument()->getFullPath());
+	}
+}
 
 void MainWindow::closeEvent(QCloseEvent *event_) {
 	writeSettings();
@@ -675,12 +688,6 @@ void MainWindow::aboutToShowLanguageMenu(){
 	//langage actions
 	DocumentEditor* document = _documentManager->getActiveDocument();
 	LexerManager::getInstance().update(document->lexer());
-}
-
-
-void MainWindow::diff() {
-	//_documentManager->diff();
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
 
 void MainWindow::runMacroMultipleTimes() {
