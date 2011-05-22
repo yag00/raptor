@@ -444,10 +444,12 @@ void MainWindow::updateActions(DocumentEditor* document_) {
 }
 
 void MainWindow::visibilityChanged(bool visible_){
-	QObject *s = sender();
 	if(visible_){
-		if((s->objectName() == "toolBarSymbol") || (s->objectName() == "dockSymbol"))
+		//display symbol
+		QToolBar* toolbar = (findChildren<QToolBar*>("toolBarSymbol"))[0];
+		if(_symbolDock->isVisible() || toolbar->isVisible()){
 			_symbolManager->tagFile(_documentManager->getActiveDocument()->getFullPath());
+		}
 	}
 }
 
