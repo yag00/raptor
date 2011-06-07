@@ -35,6 +35,7 @@ DESTDIR		= $$PACKAGE_DESTDIR
 
 CONFIG  += debug_and_release
 CONFIG  += warn_on
+CONFIG  += help
 
 INCLUDE_PATH *= . $$PWD $$PWD/ui $$PWD/widget $$PWD/lexer $$PWD/settings $$PWD/astyle $$PWD/ctags $$PWD/about
 
@@ -80,7 +81,9 @@ HEADERS       *= mainwindow.h \
 				SymbolManager.h \
 				SymbolTreeComboBox.h \
 				SymbolComboBoxAction.h \
+				HelpBrowser.h \
 				Version.h \
+				ApplicationPath.h \
 				About.h
 				
 SOURCES       *= main.cpp \
@@ -115,7 +118,9 @@ SOURCES       *= main.cpp \
 				SymbolManager.cpp \
 				SymbolTreeComboBox.cpp \
 				SymbolComboBoxAction.cpp \
+				HelpBrowser.cpp \
 				Version.cpp \
+				ApplicationPath.cpp \
 				About.cpp
 
 FORMS *= mainwindow.ui \
@@ -132,8 +137,13 @@ LIBS *= -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2 -lctags
 # -ldiff
 
 
-# define variable for source code
+# define variable
 DEFINES	*= "PACKAGE_NAME=\"\\\"$${PACKAGE_NAME_CAPITALIZE}\\\"\"" \
 		   "PACKAGE_VERSION=\"\\\"$${PACKAGE_VERSION}\\\"\"" \
 		   "PACKAGE_DESCRIPTION=\"\\\"$${PACKAGE_DESCRIPTION}\\\"\""
+
+# define package install paths
+DEFINES	*= "PACKAGE_BIN=\"\\\"$${PACKAGE_BIN}\\\"\"" \
+		   "PACKAGE_LIB=\"\\\"$${PACKAGE_LIB}\\\"\"" \
+		   "PACKAGE_DATA=\"\\\"$${PACKAGE_DATA}\\\"\""
 

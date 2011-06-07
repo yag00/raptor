@@ -26,6 +26,7 @@
 #include "ui_macro.h"
 #include "about/About.h"
 #include "about/Version.h"
+#include "about/HelpBrowser.h"
 #include "settings/settings_dialog.h"
 #include "settings/ShortcutEditor.h"
 #include "settings/ShortcutSettings.h"
@@ -289,6 +290,7 @@ void MainWindow::initMenuSettings() {
 void MainWindow::initMenuHelp() {
 	//connect menu "Help" Action
 	connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+	connect(actionHelp,  SIGNAL(triggered()), this, SLOT(showDocumentation()));
 }
 
 void MainWindow::createManager() {
@@ -296,6 +298,8 @@ void MainWindow::createManager() {
 	setCentralWidget(_documentManager);
 	
 	_symbolManager = new SymbolManager(this);
+	
+	_helpBrowser = new HelpBrowser(this);
 	
 	//connection
 	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
@@ -721,6 +725,10 @@ void MainWindow::shortcuts() {
 	QList<QMenu*> menus = findChildren<QMenu*>();
 	ShortcutEditor dlg(menus);
 	dlg.exec();
+}
+
+void MainWindow::showDocumentation() {
+	_helpBrowser->showDocumentation("index.html");
 }
 
 void MainWindow::about() {

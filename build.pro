@@ -20,4 +20,6 @@
 
 CONFIG += debug_and_release
 TEMPLATE	= subdirs
-SUBDIRS		= ext src
+SUBDIRS		= ext doc src
+
+#QMAKE_POST_LINK += "copy doc delivery/release/doc"
