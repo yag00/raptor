@@ -33,6 +33,7 @@ class MenuLabel;
 class DocumentEditor;
 class DocumentManager;
 class SymbolManager;
+class HelpBrowser;
 
 class MainWindow : public QMainWindow, private Ui::MainWindow{
 
@@ -95,7 +96,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void shortcuts();
 
 		void about();
-
+		void showDocumentation();
+		
 		/** update all */
 		void update(DocumentEditor*);
 
@@ -154,6 +156,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		/** symbol manager */
 		SymbolManager* _symbolManager;
 
+		/** help browser */
+		HelpBrowser* _helpBrowser;
+		
 		/** search dock */
 		QDockWidget* _searchDock;
 		/** symbol dock */

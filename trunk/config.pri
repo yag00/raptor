@@ -49,3 +49,47 @@ OBJECTS_DIR	= $${PACKAGE_BUILD_PATH}/obj
 UI_DIR	= $${PACKAGE_BUILD_PATH}/ui
 MOC_DIR	= $${PACKAGE_BUILD_PATH}/moc
 RCC_DIR	= $${PACKAGE_BUILD_PATH}/rcc
+
+# get package install paths
+unix:!mac {
+	# default prefix path
+	isEmpty( prefix ):prefix = /usr/local
+
+	!isEmpty( prefix ) {
+		# libraries path
+		isEmpty( libraries ) {
+			isEqual( QT_ARCH, "i386" ) {
+				libraries	= $$prefix/lib
+			} else {
+				libraries	= $$prefix/lib64
+			}
+		}
+
+		# datas path
+		isEmpty( datas ) {
+			datas	= $$prefix/share
+		}
+	}
+} else:mac {
+	prefix	= $${PACKAGE_DESTDIR}/$${PACKAGE_NAME}.app/Contents
+	libraries	= $${prefix}
+	datas	= $${prefix}/Resources
+} else:win32 {
+	prefix	= $${PACKAGE_DESTDIR}
+	libraries	= $${prefix}
+	datas	= $${prefix}
+}
+
+unix:!mac {
+	PACKAGE_BIN		= $$quote($$prefix/bin)
+	PACKAGE_LIB		= $$quote($$libraries/$$PACKAGE_NAME)
+	PACKAGE_DATA	= $$quote($$datas/$$PACKAGE_NAME)
+} else:mac {
+	PACKAGE_BIN		= $$quote($$prefix/MacOS)
+	PACKAGE_LIB		= $$quote($$libraries)
+	PACKAGE_DATA	= $$quote($$datas)
+} else:win32 {
+	PACKAGE_BIN		= $$quote($$prefix)
+	PACKAGE_LIB		= $$quote($$libraries)
+	PACKAGE_DATA	= $$quote($$datas)
+}

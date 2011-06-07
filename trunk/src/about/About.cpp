@@ -23,6 +23,7 @@
 #include <QFile>
 #include <QDesktopServices>
 #include <QTabBar>
+#include "Version.h"
 
 namespace {
 	struct Datas {
@@ -86,7 +87,7 @@ AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
 
 	// show informations table
 	lInformations->setTextInteractionFlags( Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard );
-	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( PACKAGE_VERSION ).arg( PACKAGE_DESCRIPTION ).arg("http://code.google.com/p/raptor/"));
+	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( RaptorVersion.getVersion() ).arg( PACKAGE_DESCRIPTION ).arg("http://code.google.com/p/raptor/"));
 
 	// team
 	foreach ( Datas i, mTeamates )
