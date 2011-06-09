@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-    Custom qthelp sphinx builder
-    ~~~~~~~~~~~~~~~~~~~~~~
-
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Raptor Builder is a custom qthelp sphinx builder
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Original file from Sphinx_1.0.7
     sphinx.builders.qthelp
     Build input files for the Qt collection generator.
     :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
     :license: BSD, see LICENSE for details.
-
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
 import os
@@ -33,14 +33,6 @@ _idpattern = re.compile(
 # It contains references to compressed help files which should be
 # included in the collection.
 # It may contain various other information for customizing Qt Assistant.
-"""<applicationIcon>%(icon)</applicationIcon>
-<aboutMenuText>
-    <text>About %(project)</text>
-</aboutMenuText>
-<aboutDialog>
-    <file>%(aboutDialogTextFile</file>
-    <icon>%(icon)</icon>
-</aboutDialog>"""
 collection_template = u'''\
 <?xml version="1.0" encoding="utf-8" ?>
 <QHelpCollectionProject version="1.0">
@@ -48,6 +40,14 @@ collection_template = u'''\
         <title>%(title)s</title>
         <homePage>%(homepage)s</homePage>
         <startPage>%(startpage)s</startPage>
+        <applicationIcon>%(assistant_logo)s</applicationIcon>
+        <aboutMenuText>
+            <text>About %(project)s</text>
+        </aboutMenuText>
+        <aboutDialog>
+            <file>%(assistant_about_file)s</file>
+            <icon>%(assistant_logo)s</icon>
+        </aboutDialog>        
     </assistant>
     <docFiles>
         <generate>
@@ -203,6 +203,9 @@ class RaptorBuilder(StandaloneHTMLBuilder):
             f.write(collection_template % {
                 'outname': escape(outname),
                 'title': escape(self.config.html_short_title),
+                'project': escape(self.config.project),
+                'assistant_logo': escape(self.config.assistant_logo),
+                'assistant_about_file': escape(self.config.assistant_about_file),
                 'homepage': escape(homepage),
                 'startpage': escape(startpage)})
         finally:
@@ -300,4 +303,5 @@ class RaptorBuilder(StandaloneHTMLBuilder):
 def setup(app):
     app.add_builder(RaptorBuilder)
     # this config value adds to sys.path
-    #app.add_config_value('raptorhelp_namespace', [], False)
+    app.add_config_value('assistant_logo', [], False)
+    app.add_config_value('assistant_about_file', [], False)

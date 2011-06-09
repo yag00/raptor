@@ -66,7 +66,7 @@ language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = []
+exclude_patterns = ['**/.svn']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
@@ -175,7 +175,7 @@ htmlhelp_basename = 'Raptordoc'
 
 #List of directories, relative to source directories, that shouldn’t be searched for source files:
 #exclude_dirs = []
-exclude_dirnames = [".svn"]
+exclude_dirnames = ['.svn']
 
 #If true, the reST sources are included in the HTML build as _sources/<name>. (needed for the search feature):
 html_copy_source = False
@@ -227,3 +227,8 @@ man_pages = [
     ('index', 'raptor', u'Raptor Documentation',
      [u'Christophe Duvernois'], 1)
 ]
+
+# -- Options for raptorhelp page output --------------------------------------------
+
+assistant_logo = '_static/raptor.png'
+assistant_about_file = '_static/about.txt'
