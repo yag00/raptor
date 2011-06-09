@@ -29,7 +29,7 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 clean:
-	rm -rf build/*
+	rm -rf build
 
 # Dependencies to perform before running other builds.
 SPHINX_DEPENDENCIES = en fr
@@ -64,11 +64,12 @@ htmlhelp: $(SPHINX_DEPENDENCIES)
 	cd src/fr && make $@ LANG=fr
 
 qthelp: $(SPHINX_DEPENDENCIES)
-	pwd
 	cd src/en && make $@ LANG=en
-	pwd
 	cd src/fr && make $@ LANG=fr
-	pwd
+
+raptorhelp: $(SPHINX_DEPENDENCIES)
+	cd src/en && make $@ LANG=en
+	cd src/fr && make $@ LANG=fr
 
 devhelp: $(SPHINX_DEPENDENCIES)
 	cd src/en && make $@ LANG=en

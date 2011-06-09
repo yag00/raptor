@@ -5,7 +5,7 @@ Introduction
 .. sectionauthor:: Christophe Duvernois <christophe.duvernois@gmail.com>
 
 About Raptor
-===========
+=============
 raptor (ˈræptə) — n carnivorous bipedal dinosaur of the late Cretaceous period
 
 Raptor is a source code editor supporting several languages. 

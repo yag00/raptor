@@ -47,16 +47,21 @@ htmlhelp:
 
 qthelp:
 	$(SPHINXBUILD) -E -b qthelp $(ALLSPHINXOPTS) $(BUILDDIR)/qthelp/$(LANG)
-	#patch qhcp file
-	$(PYTHON) ../../config/patch.py $(BUILDDIR)/qthelp/$(LANG)/Raptor.qhcp
-	qcollectiongenerator $(BUILDDIR)/qthelp/$(LANG)/Raptor.qhcp
 	@echo
-#	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
-#	      ".qhcp project file in $(BUILDDIR)/qthelp/$(LANG), like this:"
-#	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/$(LANG)/Raptor.qhcp"
+	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
+	      ".qhcp project file in $(BUILDDIR)/qthelp/$(LANG), like this:"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/$(LANG)/Raptor.qhcp"
 	@echo "To view the help file:"
 	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/$(LANG)/Raptor.qhc"
-	assistant -collectionFile $(BUILDDIR)/qthelp/$(LANG)/Raptor.qhc
+
+raptorhelp:
+	$(SPHINXBUILD) -E -b raptorhelp $(ALLSPHINXOPTS) $(BUILDDIR)/raptorhelp/$(LANG)
+	qcollectiongenerator $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.qhcp
+	@echo
+	@echo "Build finished!"
+	@echo "To view the help file:"
+	@echo "# assistant -collectionFile $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.qhc"
+	@echo
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp/$(LANG)
