@@ -59,7 +59,7 @@ qthelp:
 
 raptorhelp:
 	$(SPHINXBUILD) -E -b raptorhelp $(ALLSPHINXOPTS) $(BUILDDIR)/raptorhelp/$(LANG)
-	qcollectiongenerator $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.qhcp -o $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.$(LANG).qhc
+	qcollectiongenerator $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.$(LANG).qhcp -o $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.$(LANG).qhc
 	@echo
 	@echo "Build finished!"
 	@echo "To view the help file:"

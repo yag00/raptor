@@ -52,12 +52,12 @@ collection_template = u'''\
     <docFiles>
         <generate>
             <file>
-                <input>%(outname)s.qhp</input>
-                <output>%(outname)s.qch</output>
+                <input>%(outname)s.%(language)s.qhp</input>
+                <output>%(outname)s.%(language)s.qch</output>
             </file>
         </generate>
         <register>
-            <file>%(outname)s.qch</file>
+            <file>%(outname)s.%(language)s.qch</file>
         </register>
     </docFiles>
 </QHelpCollectionProject>
@@ -178,7 +178,7 @@ class RaptorBuilder(StandaloneHTMLBuilder):
         nspace = nspace.lower()
 
         # write the project file
-        f = codecs.open(path.join(outdir, outname+'.qhp'), 'w', 'utf-8')
+        f = codecs.open(path.join(outdir, outname + '.' + escape(self.config.language) + '.qhp'), 'w', 'utf-8')
         try:
             f.write(project_template % {
                 'outname': escape(outname),
@@ -198,10 +198,11 @@ class RaptorBuilder(StandaloneHTMLBuilder):
         startpage = 'qthelp://' + posixpath.join(nspace, 'doc', 'index.html')
 
         self.info('writing collection project file...')
-        f = codecs.open(path.join(outdir, outname+'.qhcp'), 'w', 'utf-8')
+        f = codecs.open(path.join(outdir, outname + '.' + escape(self.config.language) + '.qhcp'), 'w', 'utf-8')
         try:
             f.write(collection_template % {
                 'outname': escape(outname),
+                'language': escape(self.config.language),
                 'title': escape(self.config.html_short_title),
                 'project': escape(self.config.project),
                 'assistant_logo': escape(self.config.assistant_logo),
