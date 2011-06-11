@@ -38,16 +38,16 @@ QString ApplicationPath::libraryPath(){
 
 QString ApplicationPath::translationPath(){
 	if(ApplicationPath::isInstalled())
-		return QString(PACKAGE_DATA) + QDir::separator() + "translation";
+		return QString(PACKAGE_DATA) + QDir::separator() + "translation" + QDir::separator();
 	else
-		return ApplicationPath::applicationPath() + QDir::separator() + "translation";
+		return ApplicationPath::applicationPath() + QDir::separator() + "translation" + QDir::separator();
 }
 
 QString ApplicationPath::documentationPath(){
 	if(ApplicationPath::isInstalled())
-		return QString(PACKAGE_DATA) + QDir::separator() + "doc";
+		return QString(PACKAGE_DATA) + QDir::separator() + "doc" + QDir::separator();
 	else
-		return ApplicationPath::applicationPath() + QDir::separator() + "doc";
+		return ApplicationPath::applicationPath() + QDir::separator() + "doc" + QDir::separator();
 }
 
 bool ApplicationPath::isLocal(){
@@ -66,9 +66,5 @@ bool ApplicationPath::isInstalled(){
 }
 
 QString ApplicationPath::applicationLanguage(){
-	return "fr";
-}
-
-QString ApplicationPath::documentationPathLanguage(){
-	return ApplicationPath::documentationPath() + QDir::separator() + ApplicationPath::applicationLanguage();
+	return "en";
 }

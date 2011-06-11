@@ -66,7 +66,7 @@ namespace {
                 QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
                 hLayout->addWidget(splitter);
                 
-                QString docPath = ApplicationPath::documentationPathLanguage()  + QDir::separator() +  "Raptor.qhc";
+                QString docPath = HelpBrowser::getDocumentationFile();
                 
                 QHelpEngine* helpEngine = new QHelpEngine(docPath, splitter);
                 helpEngine->setupData();
@@ -76,8 +76,8 @@ namespace {
                 splitter->addWidget(helpEngine->contentWidget());
                 splitter->addWidget(helpBrowser);
                 splitter->setStretchFactor(1, 1);
-                
-                helpBrowser->setSource("qthelp://org.sphinx.raptor." + RaptorVersion.getVersion() + "/doc/index.html");
+
+                helpBrowser->setSource(HelpBrowser::getDocumentationNamespace() + "index.html");
                 
                 connect(helpEngine->contentWidget(), SIGNAL(linkActivated(const QUrl &)), helpBrowser, SLOT(setSource(const QUrl &)));
                 setModal(false);
@@ -100,13 +100,23 @@ HelpBrowser::~HelpBrowser() {
         delete _helpDlg;
 }
 
+QString HelpBrowser::getDocumentationFile(){
+    return ApplicationPath::documentationPath() +  "Raptor."+ ApplicationPath::applicationLanguage() + ".qhc";
+}
+QString HelpBrowser::getDocumentationNamespace(){
+    QString source = "qthelp://org." + ApplicationPath::applicationLanguage();
+    source += ".raptor." + RaptorVersion.getVersionXY() + "/doc/";
+    qDebug() << source;
+    return source;
+}
+
 void HelpBrowser::showDocumentation(const QString &page_) {
     if (!startAssistant()){
         startSimpleHelpBrowser();
         return;
     }else{
         QByteArray ba("SetSource ");
-        ba.append("qthelp://org.sphinx.raptor." + RaptorVersion.getVersion() + "/doc/");   
+        ba.append(HelpBrowser::getDocumentationNamespace());   
         _process->write(ba + page_.toLocal8Bit() + '\n');
     }
 }
@@ -125,13 +135,16 @@ bool HelpBrowser::startAssistant() {
 #else
         app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");    
 #endif
-        QString docPath = ApplicationPath::documentationPathLanguage()  + QDir::separator() +  "Raptor.qhc";
         
-        qDebug() << "doc : " << docPath;
+        QString helpCollectionFile = HelpBrowser::getDocumentationFile();
+        qDebug() << "doc : " << helpCollectionFile;
+        QFileInfo file(helpCollectionFile);
+        if(!file.exists())
+            return false;
         
         QStringList args;
         args << QLatin1String("-collectionFile")
-            << docPath
+            << HelpBrowser::getDocumentationFile()
             << QLatin1String("-enableRemoteControl");
 
         _process->start(app, args);

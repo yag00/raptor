@@ -1,22 +1,13 @@
 # include config file
 include( ../config.pri )
 
-clean.commands = make -f SphinxMakefile clean
-generate.commands = make -f SphinxMakefile raptorhelp
+#generate sphinx documentation
+docs.depends = 
+docs.commands = $(MKDIR) $$PACKAGE_DESTDIR/doc; \ 
+				make -f SphinxMakefile raptorhelp DELIVERY_DIR=$$PACKAGE_DESTDIR; \
+				$(COPY_DIR) build/raptorhelp/**/*.qhc $$PACKAGE_DESTDIR/doc/;
 
-#done by Sphinx build
-#collect.depends = generate
-#collect.commands = qcollectiongenerator build/qthelp/Raptor.qhcp -o build/qthelp/Raptor.qhc
-
-docdelivery.depends = generate
-docdelivery.commands = $(COPY_DIR) build/qthelp/* $$PACKAGE_DESTDIR/doc
-
-docs.depends = generate
-docs.commands = @echo "Documentation built"
-
-QMAKE_EXTRA_TARGETS += clean generate docdelivery docs
+QMAKE_CLEAN += -r build
+QMAKE_EXTRA_TARGETS += docs
 
 TARGET = docs
-
-#do not work, $(TARGET) is not called ...
-#QMAKE_POST_LINK += "@echo COPY_DIR build/qthelp $$PACKAGE_DESTDIR/doc"

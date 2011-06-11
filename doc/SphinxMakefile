@@ -68,8 +68,8 @@ qthelp: $(SPHINX_DEPENDENCIES)
 	cd src/fr && make $@ LANG=fr
 
 raptorhelp: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	cd src/en && make $@ LANG=en DELIVERY_DIR=$(DELIVERY_DIR)
+	cd src/fr && make $@ LANG=fr DELIVERY_DIR=$(DELIVERY_DIR)
 
 devhelp: $(SPHINX_DEPENDENCIES)
 	cd src/en && make $@ LANG=en

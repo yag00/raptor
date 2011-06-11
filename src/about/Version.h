@@ -46,8 +46,10 @@ class Version {
 		/** destructor */
 		virtual ~Version();
 
-		/** @return filename */
+		/** @return version x.y.z */
 		QString getVersion() const;
+		/** @return version x.y */
+		QString getVersionXY() const;
 		/** @return major version number */
 		uint32_t getMajor() const;
 		/** @return minor version number */

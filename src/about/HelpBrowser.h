@@ -37,6 +37,9 @@ class HelpBrowser : public QObject {
         
         void showDocumentation(const QString &file_);
     
+		static QString getDocumentationFile();
+		static QString getDocumentationNamespace();
+	
     public slots:
         bool startAssistant();
         void endAssistant(int exitCode_, QProcess::ExitStatus exitStatus_);
