@@ -137,7 +137,7 @@ bool HelpBrowser::startAssistant() {
 #endif
         
         QString helpCollectionFile = HelpBrowser::getDocumentationFile();
-        qDebug() << "doc : " << helpCollectionFile;
+        //qDebug() << "doc : " << helpCollectionFile;
         QFileInfo file(helpCollectionFile);
         if(!file.exists())
             return false;
