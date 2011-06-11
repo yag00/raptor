@@ -55,6 +55,10 @@ QString Version::getVersion() const{
 	return QString("%1.%2.%3").arg(_major).arg(_minor).arg(_patch);
 }
 
+QString Version::getVersionXY() const{
+	return QString("%1.%2").arg(_major).arg(_minor);
+}
+
 uint32_t Version::getMajor() const{
 	return _major;
 }

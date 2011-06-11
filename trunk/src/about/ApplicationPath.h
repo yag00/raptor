@@ -37,8 +37,6 @@ class ApplicationPath {
 		static QString translationPath();
 		/** @return documentation install path */
 		static QString documentationPath();
-		/** @return documentation in the current language install path (ie doc/en or doc/fr ... )*/
-		static QString documentationPathLanguage();
 	
 		/** @return true is the application is local ie not installed */
 		static bool isLocal();

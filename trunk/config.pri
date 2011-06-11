@@ -24,7 +24,7 @@ PACKAGE_PWD	= $$PWD
 
 # package name & version 
 PACKAGE_NAME	= raptor
-PACKAGE_VERSION	= 0.2.0
+PACKAGE_VERSION	= 0.3.0
 PACKAGE_DESCRIPTION	= "Raptor A Portable Text editOR"
 PACKAGE_NAME_CAPITALIZE	= Raptor
 

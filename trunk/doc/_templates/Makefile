@@ -13,6 +13,9 @@ PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees/$(LANG) $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
+#command to copy file ... unused delivery is done at the top level
+#$(PYTHON) -c 'import shutil;shutil.copy("$(BUILDDIR)/raptorhelp/$(LANG)/Raptor.$(LANG).qhc", "$(DELIVERY_DIR)/doc/$(LANG)/Raptor.$(LANG).qhc");'
+
 html:
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html/$(LANG)."
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html/$(LANG)
@@ -56,11 +59,11 @@ qthelp:
 
 raptorhelp:
 	$(SPHINXBUILD) -E -b raptorhelp $(ALLSPHINXOPTS) $(BUILDDIR)/raptorhelp/$(LANG)
-	qcollectiongenerator $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.qhcp
+	qcollectiongenerator $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.qhcp -o $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.$(LANG).qhc
 	@echo
 	@echo "Build finished!"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/raptorhelp/$(LANG)/Raptor.$(LANG).qhc"
 	@echo
 
 devhelp:
