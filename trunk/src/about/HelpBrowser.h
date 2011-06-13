@@ -30,28 +30,33 @@ class QDialog;
 class HelpBrowser : public QObject {
 
 	Q_OBJECT
-    
+
     public:
         HelpBrowser(QObject * parent_ = 0);
         ~HelpBrowser();
-        
+
         void showDocumentation(const QString &file_);
-    
+
 		static QString getDocumentationFile();
 		static QString getDocumentationNamespace();
-	
+
     public slots:
         bool startAssistant();
         void endAssistant(int exitCode_, QProcess::ExitStatus exitStatus_);
         void errorAssistant(QProcess::ProcessError error_);
-    
+
+#ifdef NO_ASSISTANT
         void startSimpleHelpBrowser();
         void endSimpleHelpBrowser(int exitCode_);
-    
+#endif
+
     private:
         QProcess *_process;
 
+#ifdef NO_ASSISTANT
         QDialog* _helpDlg;
+#endif
+
 };
 
 #endif // __HELP_VIEWER__

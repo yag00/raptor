@@ -22,7 +22,11 @@
 #include "ApplicationPath.h"
 
 QString ApplicationPath::binaryPath(){
+#ifdef Q_OS_WIN
+	return ApplicationPath::applicationPath();
+#else
 	return QString(PACKAGE_BIN);
+#endif
 }
 
 QString ApplicationPath::applicationPath(){
@@ -30,24 +34,36 @@ QString ApplicationPath::applicationPath(){
 }
 
 QString ApplicationPath::libraryPath(){
+#ifdef Q_OS_WIN
+	return ApplicationPath::applicationPath();
+#else
 	if(ApplicationPath::isInstalled())
 		return QString(PACKAGE_LIB);
 	else
 		return ApplicationPath::applicationPath();
+#endif
 }
 
 QString ApplicationPath::translationPath(){
+#ifdef Q_OS_WIN
+	return ApplicationPath::applicationPath() + QDir::separator() + "translation" + QDir::separator();
+#else
 	if(ApplicationPath::isInstalled())
 		return QString(PACKAGE_DATA) + QDir::separator() + "translation" + QDir::separator();
 	else
 		return ApplicationPath::applicationPath() + QDir::separator() + "translation" + QDir::separator();
+#endif
 }
 
 QString ApplicationPath::documentationPath(){
+#ifdef Q_OS_WIN
+	return ApplicationPath::applicationPath() + QDir::separator() + "doc" + QDir::separator();
+#else
 	if(ApplicationPath::isInstalled())
 		return QString(PACKAGE_DATA) + QDir::separator() + "doc" + QDir::separator();
 	else
 		return ApplicationPath::applicationPath() + QDir::separator() + "doc" + QDir::separator();
+#endif
 }
 
 bool ApplicationPath::isLocal(){
@@ -55,13 +71,9 @@ bool ApplicationPath::isLocal(){
 }
 
 bool ApplicationPath::isInstalled(){
-#ifdef Q_OS_WIN
-	return true;
-#else
 	if(ApplicationPath::binaryPath() == ApplicationPath::applicationPath()){
 		return true;
 	}
-#endif
 	return false;
 }
 
