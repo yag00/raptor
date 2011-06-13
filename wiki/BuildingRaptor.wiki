@@ -2,7 +2,9 @@
 
 = Prerequisites =
 
-Qt 4.x should be install on your system
+  * [http://qt.nokia.com/products/ Qt 4.x]
+  * [http://www.python.org/ Python] & [http://sphinx.pocoo.org/ Sphinx]
+
 
 = Building raptor on linux =
 {{{
@@ -13,9 +15,32 @@ make
 raptor executable is in delivery/release directory.
 
 = Building raptor on window =
+
+You'll have to setup the Qt environnement, and add python and sphinx executable into your path.
+
+Define the environnement variables as the following exemple:
+
+  * QTDIR
+    * C:\Qt\xxx\qt
+
+  * QMAKESPEC
+    * win32-g++
+
+  * PATH=
+    * C:\Qt\xxx\mingw\bin
+    * C:\Qt\xxx\bin
+    * C:\Qt\xxx\qt\bin
+    * C:\Python27
+    * C:\Python27\Scripts
+
+Then launch a terminal (cmd.exe) or another console 
+( [http://www.mingw.org/wiki/msys msys] or [http://sourceforge.net/projects/console/ console] ) and build raptor :
+
+
+
 {{{
 qmake
-mingw32-make
+mingw32-make release
 }}}
 
 raptor executable is in delivery/release directory.
