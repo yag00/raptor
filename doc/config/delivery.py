@@ -17,5 +17,9 @@ def copyDoc(srcdir, destdir):
                 shutil.copy(pathname, os.path.abspath(destdir))
 
 
+destdir = os.path.abspath(sys.argv[2])
+if not os.path.exists(destdir):
+    print "make directory " + destdir
+    os.mkdir(os.path.abspath(destdir)); 
 print "Copy *.qhc, *.qch from " + sys.argv[1] + " to " + sys.argv[2]
 copyDoc(sys.argv[1], sys.argv[2])

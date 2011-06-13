@@ -18,13 +18,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
-# include install script
-include( install.pri )
+# Raptor Install Project File
 
-CONFIG += debug_and_release
-TEMPLATE	= subdirs
-SUBDIRS		= ext src doc
+# include config file
+include( config.pri )
 
-TMPDIRS = "build/"
-QMAKE_DISTCLEAN += -r $$TMPDIRS
-
+!build_pass {
+	unix{
+		message( "Raptor binary will be installed to : $$PACKAGE_BIN" )
+		message( "Raptor library will be installed to : $$PACKAGE_LIB" )
+		message( "Raptor datas will be installed to : $$PACKAGE_DATA" )
+		message( "You can change this by giving qmake parameters variables: prefix, libraries, datas" )
+		
+		# datas
+		raptor_doc.path	= $${PACKAGE_DATA}/doc
+		raptor_doc.files = $$PACKAGE_DESTDIR/doc/*
+		raptor_doc.CONFIG *= no_check_exist
+		
+		# binary
+		raptor_bin.path	= $${PACKAGE_BIN}
+		raptor_bin.files = $${PACKAGE_DESTDIR}/$${PACKAGE_NAME}
+		raptor_bin.CONFIG *= no_check_exist
+		
+		INSTALLS = raptor_doc raptor_bin
+	}
+}

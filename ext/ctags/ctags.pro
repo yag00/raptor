@@ -2,7 +2,7 @@
 include( ../../config.pri )
 
 # For correctly include ctags headers
-DEFINES *= HAVE_REGCOMP 
+DEFINES *= HAVE_REGCOMP
 win32:DEFINES	*= WIN32 REGEX_MALLOC STDC_HEADERS=1 __USE_GNU HAVE_STDBOOL_H
 unix:DEFINES	*= HAVE_STDLIB_H \
 	HAVE_FGETPOS \
@@ -12,7 +12,7 @@ unix:DEFINES	*= HAVE_STDLIB_H \
 	HAVE_UNISTD_H \
 	HAVE_STRSTR \
 	HAVE_MKSTEMP
-	
+
 include( ctags.pri )
 
 TEMPLATE = lib
@@ -24,8 +24,8 @@ CONFIG	-= qt
 
 DESTDIR	= $${PACKAGE_BUILD_PATH}/lib
 
-INCLUDEPATH 		*= $$CTAGS_VERSION 
-win32:INCLUDEPATH	*= $$CTAGS_VERSION\gnu_regex
+INCLUDEPATH 		*= $$CTAGS_VERSION
+win32:INCLUDEPATH	*= $$CTAGS_VERSION/gnu_regex
 
 HEADERS	= $${CTAGS_VERSION}/ctags.h \
 	$${CTAGS_VERSION}/debug.h \
@@ -111,7 +111,7 @@ SOURCES	= $${CTAGS_VERSION}/ant.c \
 	$${CTAGS_VERSION}/yacc.c \
 	$${CTAGS_VERSION}/LibCtags.c
 
-	
+
 win32:DEFINES *= __USE_GNU HAVE_STDBOOL_H
 win32:SOURCES	*= \
 		$${CTAGS_VERSION}/gnu_regex/regex.c \

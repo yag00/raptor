@@ -39,6 +39,7 @@
 #include "ApplicationPath.h"
 #include "HelpBrowser.h"
 
+#ifdef NO_ASSISTANT
 namespace {
     class qthelpBrowser : public QTextBrowser {
         public:
@@ -47,8 +48,8 @@ namespace {
 
         private:
             QHelpEngine *_helpEngine;
-    };   
-    
+    };
+
     qthelpBrowser::qthelpBrowser(QHelpEngine *helpEngine_, QWidget *parent_) : QTextBrowser(parent_), _helpEngine(helpEngine_){
     }
 
@@ -58,36 +59,40 @@ namespace {
         else
             return QTextBrowser::loadResource(type, url);
     }
-    
+
     class HelpBrowserDialog : public QDialog {
         public:
             HelpBrowserDialog(QWidget *parent=0) : QDialog(parent) {
                 QHBoxLayout* hLayout = new QHBoxLayout(this);
                 QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
                 hLayout->addWidget(splitter);
-                
+
                 QString docPath = HelpBrowser::getDocumentationFile();
-                
+
                 QHelpEngine* helpEngine = new QHelpEngine(docPath, splitter);
                 helpEngine->setupData();
                 qthelpBrowser *helpBrowser = new qthelpBrowser(helpEngine, splitter);
-             
+
                 //helpEngine->contentWidget()->setExpanded(helpEngine->indexModel(), true);
                 splitter->addWidget(helpEngine->contentWidget());
                 splitter->addWidget(helpBrowser);
                 splitter->setStretchFactor(1, 1);
 
                 helpBrowser->setSource(HelpBrowser::getDocumentationNamespace() + "index.html");
-                
+
                 connect(helpEngine->contentWidget(), SIGNAL(linkActivated(const QUrl &)), helpBrowser, SLOT(setSource(const QUrl &)));
                 setModal(false);
             }
     };
 
-    
-};
 
-HelpBrowser::HelpBrowser(QObject * parent_) : QObject(parent_), _process(0), _helpDlg(0) {
+};
+#endif
+
+HelpBrowser::HelpBrowser(QObject * parent_) : QObject(parent_), _process(0) {
+#ifdef NO_ASSISTANT
+    _helpDlg = 0;
+#endif
 }
 
 HelpBrowser::~HelpBrowser() {
@@ -96,8 +101,10 @@ HelpBrowser::~HelpBrowser() {
         _process->waitForFinished(3000);
         delete _process;
     }
+#ifdef NO_ASSISTANT
     if(_helpDlg)
         delete _helpDlg;
+#endif
 }
 
 QString HelpBrowser::getDocumentationFile(){
@@ -106,17 +113,19 @@ QString HelpBrowser::getDocumentationFile(){
 QString HelpBrowser::getDocumentationNamespace(){
     QString source = "qthelp://org." + ApplicationPath::applicationLanguage();
     source += ".raptor." + RaptorVersion.getVersionXY() + "/doc/";
-    qDebug() << source;
+    //qDebug() << source;
     return source;
 }
 
 void HelpBrowser::showDocumentation(const QString &page_) {
     if (!startAssistant()){
+#ifdef NO_ASSISTANT
         startSimpleHelpBrowser();
+#endif
         return;
     }else{
         QByteArray ba("SetSource ");
-        ba.append(HelpBrowser::getDocumentationNamespace());   
+        ba.append(HelpBrowser::getDocumentationNamespace());
         _process->write(ba + page_.toLocal8Bit() + '\n');
     }
 }
@@ -127,21 +136,21 @@ bool HelpBrowser::startAssistant() {
         connect(_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(endAssistant(int, QProcess::ExitStatus)));
         connect(_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(errorAssistant(QProcess::ProcessError)));;
     }
-    
+
     if (_process->state() != QProcess::Running) {
         QString app = QLibraryInfo::location(QLibraryInfo::BinariesPath) + QDir::separator();
 #if !defined(Q_OS_MAC)
         app += QLatin1String("assistant");
 #else
-        app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");    
+        app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");
 #endif
-        
+
         QString helpCollectionFile = HelpBrowser::getDocumentationFile();
         //qDebug() << "doc : " << helpCollectionFile;
         QFileInfo file(helpCollectionFile);
         if(!file.exists())
             return false;
-        
+
         QStringList args;
         args << QLatin1String("-collectionFile")
             << HelpBrowser::getDocumentationFile()
@@ -154,7 +163,7 @@ bool HelpBrowser::startAssistant() {
             delete _process;
             _process = 0;
             return false;
-        }    
+        }
     }
     return true;
 }
@@ -171,6 +180,7 @@ void HelpBrowser::errorAssistant(QProcess::ProcessError error_){
     qDebug() << "errorAssistant " << error_;
 }
 
+#ifdef NO_ASSISTANT
 void HelpBrowser::startSimpleHelpBrowser(){
     if(_helpDlg == 0){
         _helpDlg = new HelpBrowserDialog();
@@ -184,3 +194,4 @@ void HelpBrowser::endSimpleHelpBrowser(int exitCode_){
     _helpDlg->deleteLater();
     _helpDlg = 0;
 }
+#endif

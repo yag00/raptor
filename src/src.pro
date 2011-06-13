@@ -142,8 +142,9 @@ DEFINES	*= "PACKAGE_NAME=\"\\\"$${PACKAGE_NAME_CAPITALIZE}\\\"\"" \
 		   "PACKAGE_VERSION=\"\\\"$${PACKAGE_VERSION}\\\"\"" \
 		   "PACKAGE_DESCRIPTION=\"\\\"$${PACKAGE_DESCRIPTION}\\\"\""
 
-# define package install paths
-DEFINES	*= "PACKAGE_BIN=\"\\\"$${PACKAGE_BIN}\\\"\"" \
-		   "PACKAGE_LIB=\"\\\"$${PACKAGE_LIB}\\\"\"" \
-		   "PACKAGE_DATA=\"\\\"$${PACKAGE_DATA}\\\"\""
-
+unix{
+	# define package install paths
+	DEFINES	*= "PACKAGE_BIN=\"\\\"$${PACKAGE_BIN}\\\"\"" \
+			   "PACKAGE_LIB=\"\\\"$${PACKAGE_LIB}\\\"\"" \
+			   "PACKAGE_DATA=\"\\\"$${PACKAGE_DATA}\\\"\""
+}
