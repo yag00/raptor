@@ -22,5 +22,7 @@ CONFIG += debug_and_release
 TEMPLATE	= subdirs
 SUBDIRS		= ext src doc
 
-QMAKE_DISTCLEAN += -r build/
+TMPDIRS = "build/"
+QMAKE_CLEAN += "-r $$TMPDIRS"
+QMAKE_DISTCLEAN += -r $$TMPDIRS
 
