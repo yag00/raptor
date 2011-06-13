@@ -37,73 +37,78 @@ SPHINX_DEPENDENCIES = en fr
 # Copy-paste the english Makefile everwhere its needed.
 % :
 	$(PYTHON) -c "import shutil; shutil.copyfile('_templates/Makefile', 'src/$@/Makefile')"
-	$(PYTHON) -c "import shutil; shutil.copyfile('_templates/make.bat', 'src/$@/make.bat')"
+
+raptorhelp_debug_delivery:
+	@$(PYTHON) config/delivery.py build/raptorhelp/ ../delivery/debug/doc/
+
+raptorhelp_release_delivery:
+	@$(PYTHON) config/delivery.py build/raptorhelp/ ../delivery/release/doc/
 
 html: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 dirhtml: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 singlehtml: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 pickle: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 json: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 htmlhelp: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 qthelp: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 raptorhelp: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en DELIVERY_DIR=$(DELIVERY_DIR)
-	cd src/fr && make $@ LANG=fr DELIVERY_DIR=$(DELIVERY_DIR)
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 devhelp: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
+	@cd src/en && $(MAKE) $@ LANG=en
 	rm config/config.pyc
-	cd src/fr && make $@ LANG=fr
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 epub: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 latex: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 latexpdf: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 text: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 man: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 changes: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 linkcheck: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr
 
 doctest: $(SPHINX_DEPENDENCIES)
-	cd src/en && make $@ LANG=en
-	cd src/fr && make $@ LANG=fr
+	@cd src/en && $(MAKE) $@ LANG=en
+	@cd src/fr && $(MAKE) $@ LANG=fr

@@ -1,14 +1,45 @@
+#
+# This file is part of the raptor project.
+#
+# Copyright (C) 2011 Christophe Duvernois <christophe.duvernois@gmail.com>
+#
+# Raptor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Raptor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+#
+
+# Dummy, just to avoid qmake error because we're not compiling any application
+TEMPLATE = subdirs
+
 # include config file
 include( ../config.pri )
 
 #generate sphinx documentation
-docs.depends = 
-docs.commands = $(MKDIR) $$PACKAGE_DESTDIR/doc; \ 
-				make -f SphinxMakefile raptorhelp DELIVERY_DIR=$$PACKAGE_DESTDIR; \
-				$(COPY_DIR) build/raptorhelp/**/*.qhc $$PACKAGE_DESTDIR/doc/; \
-				$(COPY_DIR) build/raptorhelp/**/*.qch $$PACKAGE_DESTDIR/doc/;
+docs.depends =
+docs.commands = $(MAKE) -f SphinxMakefile raptorhelp
 
-QMAKE_CLEAN += -r build
-QMAKE_EXTRA_TARGETS += docs
+#generate debug, release, and default target
+debug.depends = docs
+debug.commands = $(MAKE) -f SphinxMakefile raptorhelp_debug_delivery
+release.depends = docs
+release.commands = $(MAKE) -f SphinxMakefile raptorhelp_release_delivery
+make_default.depends = docs debug release
+
+
+TMPDIRS = "build/"
+QMAKE_CLEAN += "-r $$TMPDIRS"
+QMAKE_DISTCLEAN += -r $$TMPDIRS
+QMAKE_EXTRA_TARGETS += debug release make_default docs
 
 TARGET = docs
+
