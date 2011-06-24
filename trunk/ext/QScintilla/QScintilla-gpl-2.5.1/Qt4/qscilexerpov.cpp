@@ -468,3 +468,13 @@ void QsciLexerPOV::setDirectiveProp()
 {
     emit propertyChanged("fold.directive",(fold_directives ? "1" : "0"));
 }
+
+QString QsciLexerPOV::commentLine() const{
+    return QString("//");
+}
+
+QStringList QsciLexerPOV::commentBlock() const{
+    QStringList cb;
+    cb << "/*" << "*/";
+    return cb;
+}

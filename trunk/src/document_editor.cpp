@@ -45,7 +45,7 @@ DocumentEditor::DocumentEditor(QFileSystemWatcher& watcher_, QWidget* parent_) :
 
 	_addNewLineOnSave = false;
 	_trimOnSave = false;
-	
+
 	_autoDetectEol = false;
 	_autoDetectIndent = false;
 
@@ -144,7 +144,7 @@ DocumentEditor::~DocumentEditor() {
 		_isCloned = false;
 		_clone->detachClone();
 		_clone = 0;
-	}else{
+	} else {
 		_watcher.removePath(getFullPath());
 	}
 }
@@ -152,12 +152,12 @@ DocumentEditor::~DocumentEditor() {
 QString DocumentEditor::getName() const {
 	return QFileInfo(_fullPath).fileName();
 }
-QString DocumentEditor::getSuffix() const{
+QString DocumentEditor::getSuffix() const {
 	return QFileInfo(_fullPath).suffix();
 }
-QString DocumentEditor::getBaseName() const{
+QString DocumentEditor::getBaseName() const {
 	return QFileInfo(_fullPath).baseName();
-} 
+}
 QString DocumentEditor::getFullPath() const {
 	return _fullPath;
 }
@@ -261,14 +261,14 @@ bool DocumentEditor::maybeSave() {
 bool DocumentEditor::saveFile(const QString &fileName_) {
 	//remove old path from watcher
 	_watcher.removePath(_fullPath);
-	
+
 	QFile file(fileName_);
 	if (!file.open(QFile::WriteOnly)) {
 		QMessageBox::warning(this, PACKAGE_NAME,
 							 tr("Cannot save file %1:\n%2.")
 							 .arg(fileName_)
 							 .arg(file.errorString()));
-		
+
 		//re add the old path to the watcher
 		if(!_fullPath.isEmpty())
 			_watcher.addPath(_fullPath);
@@ -282,21 +282,21 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 							  .arg(fileName_).arg(_codec));
 		//re add the old path to the watcher
 		if(!_fullPath.isEmpty())
-			_watcher.addPath(_fullPath);		
+			_watcher.addPath(_fullPath);
 		return false;
 	}
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	//file.resize(0);
 	//file.write(codec->fromUnicode(text()));
-	
+
 	// check if strip spaces
 	if(_trimOnSave == true)
 		doTrimTrailing();
 
 	// check if add new line to the end
 	if (_addNewLineOnSave == true) {
-		if (!isLineEmpty(lines() - 1)){
+		if (!isLineEmpty(lines() - 1)) {
 			append(getEol());
 		}
 	}
@@ -306,7 +306,7 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 	out.setGenerateByteOrderMark(needBOM());
 	out << text();
 	out.flush();
-	
+
 	_fullPath = fileName_;
 	setModified(false);
 	_isNew = false;
@@ -345,11 +345,11 @@ bool DocumentEditor::saveCopy(const QString &fileName_) {
 
 	// check if add new line to the end
 	if (_addNewLineOnSave == true) {
-		if (!isLineEmpty(lines() - 1)){
+		if (!isLineEmpty(lines() - 1)) {
 			append(getEol());
 		}
 	}
-	
+
 	QTextStream out(&file);
 	out.setCodec(codec);
 	out.setGenerateByteOrderMark(needBOM());
@@ -382,7 +382,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 	}
 
 	///@todo better charset detection
-	char bom[4];	
+	char bom[4];
 	file.read(bom, 4);
 	file.reset();
 	detectBOM(bom);
@@ -413,7 +413,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 	QsciLexer* l = lexer();
 	//detach lexer from document before delete it
 	setLexer(0);
-	if(l != 0){
+	if(l != 0) {
 		delete l;
 		l = 0;
 	}
@@ -460,11 +460,11 @@ void DocumentEditor::setLanguage(const QString &language_) {
 	QsciLexer* l = lexer();
 	//detach lexer from document before delete it
 	setLexer(0);
-	if(l != 0){
+	if(l != 0) {
 		delete l;
 		l = 0;
 	}
-	
+
 	//set the new lexer
 	l = LexerManager::getInstance().lexerFactory(language_, this);
 	setLexer(l);
@@ -491,16 +491,14 @@ void DocumentEditor::autoDetectIndent() {
 	QRegExp tabRe = QRegExp ("\n\\t");
 	int matchIntex;
 	matchIntex = tabRe.indexIn (currText);
-	if (matchIntex != -1) // Use tabs
-	{
+	if (matchIntex != -1) { // Use tabs
 		setIndentationsUseTabs(true);
 		return;
 	}
 
 	QRegExp spaceRe = QRegExp ("\n( +)");
 	matchIntex = spaceRe.indexIn (currText);
-	if (matchIntex != -1) // Use spaces
-	{
+	if (matchIntex != -1) { // Use spaces
 		setIndentationsUseTabs(false);
 		return;
 	}
@@ -702,59 +700,236 @@ bool DocumentEditor::needBOM() {
 	}
 }
 
-bool DocumentEditor::detectBOM(const char* bom_){	
+bool DocumentEditor::detectBOM(const char* bom_) {
 	_hasBom = false;
 	switch (bom_[0]) {
-		case '\xEF':
-			if (('\xBB' == bom_[1]) && ('\xBF' == bom_[2])){
-				// EF BB BF  UTF-8 encoded BOM
-				_codec = "UTF-8";
-				_hasBom = true;
-			}
-			break;
-		case '\xFE':
-			/*if (('\xFF' == bom_[1]) && ('\x00' == bom_[2]) && ('\x00' == bom_[3])){
-				// FE FF 00 00  UCS-4, unusual octet order BOM (3412)
-				_codec = "X-ISO-10646-UCS-4-3412";
-				_hasBom = true;
-			}*/
-			if ('\xFF' == bom_[1]){
-				// FE FF  UTF-16, big endian BOM
-				_codec = "UTF-16BE";
-				_hasBom = true;
-			}
-			break;
-		case '\x00':
-			if (('\x00' == bom_[1]) && ('\xFE' == bom_[2]) && ('\xFF' == bom_[3])){
-				// 00 00 FE FF  UTF-32, big-endian BOM
-				_codec = "UTF-32BE";
-				_hasBom = true;
-			}
-			/*else if (('\x00' == bom_[1]) && ('\xFF' == bom_[2]) && ('\xFE' == bom_[3])){
-				// 00 00 FF FE  UCS-4, unusual octet order BOM (2143)
-				_codec = "X-ISO-10646-UCS-4-2143";
-				_hasBom = true;
-			}*/
-			break;
-		case '\xFF':
-			if (('\xFE' == bom_[1]) && ('\x00' == bom_[2]) && ('\x00' == bom_[3])){
-				// FF FE 00 00  UTF-32, little-endian BOM
-				_codec = "UTF-32LE";
-				_hasBom = true;
-			}else if ('\xFE' == bom_[1]){
-				// FF FE  UTF-16, little endian BOM
-				_codec = "UTF-16LE";
-				_hasBom = true;
-			}
-			break;
+	case '\xEF':
+		if (('\xBB' == bom_[1]) && ('\xBF' == bom_[2])) {
+			// EF BB BF  UTF-8 encoded BOM
+			_codec = "UTF-8";
+			_hasBom = true;
+		}
+		break;
+	case '\xFE':
+		/*if (('\xFF' == bom_[1]) && ('\x00' == bom_[2]) && ('\x00' == bom_[3])){
+			// FE FF 00 00  UCS-4, unusual octet order BOM (3412)
+			_codec = "X-ISO-10646-UCS-4-3412";
+			_hasBom = true;
+		}*/
+		if ('\xFF' == bom_[1]) {
+			// FE FF  UTF-16, big endian BOM
+			_codec = "UTF-16BE";
+			_hasBom = true;
+		}
+		break;
+	case '\x00':
+		if (('\x00' == bom_[1]) && ('\xFE' == bom_[2]) && ('\xFF' == bom_[3])) {
+			// 00 00 FE FF  UTF-32, big-endian BOM
+			_codec = "UTF-32BE";
+			_hasBom = true;
+		}
+		/*else if (('\x00' == bom_[1]) && ('\xFF' == bom_[2]) && ('\xFE' == bom_[3])){
+			// 00 00 FF FE  UCS-4, unusual octet order BOM (2143)
+			_codec = "X-ISO-10646-UCS-4-2143";
+			_hasBom = true;
+		}*/
+		break;
+	case '\xFF':
+		if (('\xFE' == bom_[1]) && ('\x00' == bom_[2]) && ('\x00' == bom_[3])) {
+			// FF FE 00 00  UTF-32, little-endian BOM
+			_codec = "UTF-32LE";
+			_hasBom = true;
+		} else if ('\xFE' == bom_[1]) {
+			// FF FE  UTF-16, little endian BOM
+			_codec = "UTF-16LE";
+			_hasBom = true;
+		}
+		break;
 	}
 	return _hasBom;
 }
 
-void DocumentEditor::setAddNewLineOnSave(bool addNewLine_){
+void DocumentEditor::setAddNewLineOnSave(bool addNewLine_) {
 	_addNewLineOnSave = addNewLine_;
 }
 
-void DocumentEditor::setTrimOnSave(bool trim_){
+void DocumentEditor::setTrimOnSave(bool trim_) {
 	_trimOnSave = trim_;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
+	QsciLexer* l = lexer();
+	if(l == 0)
+		return;
+	QString comment = l->commentLine();
+	QStringList commentBlock = l->commentBlock();
+	
+	if(comment.isEmpty() && commentBlock.isEmpty()){
+		qDebug() << "Toggle comment is not supported for " << l->language();
+		return;
+	}
+	
+	if (!hasSelectedText()) {
+		//if line is empty, skip it
+		int line = getCurrentLine();
+		if (isLineEmpty(line))
+			return;
+
+		QString selText = text(line);
+		selText.remove("\n"); 
+		selText.remove("\r");
+		QString selTextTrimmed = selText.trimmed();
+		int pos_start = SendScintilla(SCI_POSITIONFROMLINE, line);
+		int pos_end = SendScintilla(SCI_GETLINEENDPOSITION, line);
+	
+		// check for block comments on a line
+		if(commentBlock.size() >= 2){
+			QString blockStart = commentBlock.first();
+			QString blockEnd = commentBlock.last();
+			if (selTextTrimmed.startsWith(blockStart) && selTextTrimmed.endsWith(blockEnd)) {
+				beginUndoAction();
+
+				int idx1 = selText.indexOf(blockStart);
+				selText.remove(idx1, blockEnd.size());
+				int idx2 = selText.lastIndexOf(blockEnd);
+				selText.remove(idx2, blockEnd.size());
+
+				SendScintilla(SCI_SETTARGETSTART, pos_start);
+				SendScintilla(SCI_SETTARGETEND, pos_end);
+				SendScintilla(SCI_REPLACETARGET, -1, selText.toUtf8().data());
+
+				endUndoAction();
+				return;
+			}
+		}
+		
+		// check for single comments
+		if (!comment.isEmpty()) {
+			if (selTextTrimmed.startsWith(comment)) {
+				// remove comment
+				int idx = selText.indexOf(comment);
+				selText = selText.remove(idx, comment.size());
+			} else {
+				// set comment
+				selText = selText.prepend(comment);
+			}
+
+			SendScintilla(SCI_SETTARGETSTART, pos_start);
+			SendScintilla(SCI_SETTARGETEND, pos_end);
+			SendScintilla(SCI_REPLACETARGET, -1, selText.toUtf8().data());
+			return;
+		}
+		
+	}else{
+		// comment out the selection
+		QString selText = selectedText();
+		QString selTextTrimmed = selText.trimmed();
+		if (selTextTrimmed.isEmpty())
+			return;
+
+		int lineFrom, lineTo, indexFrom, indexTo;
+		getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
+
+		int pos_start = positionFromLineIndex(lineFrom, indexFrom);
+		int pos_end = positionFromLineIndex(lineTo, indexTo);
+
+		// check if it is double commented block - to do before single check!
+		if(commentBlock.size() >= 2){
+			QString blockStart = commentBlock.first();
+			QString blockEnd = commentBlock.last();
+			// comment exists? remove?
+			if (selTextTrimmed.startsWith(blockStart) && selTextTrimmed.endsWith(blockEnd)) {
+				beginUndoAction();
+
+				int idx1 = selText.indexOf(blockStart);
+				selText.remove(idx1, blockStart.size());
+				int idx2 = selText.lastIndexOf(blockEnd);
+				selText.remove(idx2, blockEnd.size());
+
+				SendScintilla(SCI_TARGETFROMSELECTION);
+				SendScintilla(SCI_REPLACETARGET, -1, selText.toUtf8().data());
+				SendScintilla(SCI_SETSEL, SendScintilla(SCI_GETTARGETSTART), SendScintilla(SCI_GETTARGETEND));
+
+				endUndoAction();
+				return;
+			}
+		}
+
+		// check if this block can be single commented
+		if (!comment.isEmpty() && lineCommentPrefered_) {
+			bool empty_start = false, empty_end = false;
+
+			if (indexFrom == 0)
+				empty_start = true;
+			else
+				empty_start = getTextRange(positionFromLineIndex(lineFrom, 0), pos_start).trimmed().isEmpty();
+
+			if (indexTo == 0)
+				empty_end = true;
+			else
+				empty_end = getTextRange(pos_end, positionFromLineIndex(lineTo+1, 0)).trimmed().isEmpty();
+
+			if (empty_start && empty_end) {
+				beginUndoAction();
+
+				// corrections
+				if (indexTo == 0) 
+					lineTo--;
+				if (isLineEmpty(lineFrom)) {
+					lineFrom++; indexFrom = 0; 
+				}
+				// a workaround: move cursor to the next line to replace EOL as well
+				setSelection(lineFrom, 0, lineTo+1, 0);
+
+				QStringList sl;
+				for (int i = lineFrom; i <= lineTo; i++)
+					sl += text(i);
+
+				bool comm = false;
+				for (int i = 0; i < sl.count(); i++)
+					if (!sl.at(i).trimmed().startsWith(comment)) {
+						comm = true;
+						break;
+					}
+
+				for (int i = 0; i < sl.count(); i++) {
+					if (comm)
+						sl[i] = sl[i].prepend(comment);
+					else {
+						int idx = sl.at(i).indexOf(comment);
+						sl[i] = sl[i].remove(idx, comment.size());
+					}
+				}
+
+				SendScintilla(SCI_TARGETFROMSELECTION);
+				SendScintilla(SCI_REPLACETARGET, -1, sl.join("").toUtf8().data());
+				SendScintilla(SCI_SETSEL, SendScintilla(SCI_GETTARGETSTART), SendScintilla(SCI_GETTARGETEND));
+
+				endUndoAction();
+				return;
+			}
+		}
+
+		// else, set double comment
+		if(commentBlock.size() >= 2){
+			QString blockStart = commentBlock.first();
+			QString blockEnd = commentBlock.last();
+			beginUndoAction();
+
+			// last is first
+			SendScintilla(SCI_INSERTTEXT, pos_end, blockEnd.toUtf8().data());
+			SendScintilla(SCI_INSERTTEXT, pos_start, blockStart.toUtf8().data());
+
+			// select everything
+			if(lineFrom == lineTo)
+				setSelection(lineFrom, indexFrom, lineTo, indexTo + blockStart.size() + blockEnd.size());
+			else
+				setSelection(lineFrom, indexFrom, lineTo, indexTo + blockEnd.size());
+			
+			endUndoAction();
+			return;
+		}
+	}
 }

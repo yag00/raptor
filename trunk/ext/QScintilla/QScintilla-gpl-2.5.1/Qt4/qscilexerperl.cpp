@@ -553,3 +553,12 @@ void QsciLexerPerl::setPODBlocksProp()
 {
     emit propertyChanged("fold.perl.pod",(fold_pod_blocks ? "1" : "0"));
 }
+
+QString QsciLexerPerl::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerPerl::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

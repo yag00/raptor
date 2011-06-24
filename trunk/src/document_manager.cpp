@@ -406,7 +406,14 @@ void DocumentManager::reindentDocument(){
 void DocumentManager::reindentOpenDocuments(){
 	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
 }
-
+void DocumentManager::toggleComment(){
+	//prefer single line comment when possible
+	getActiveDocument()->toggleComment(true);
+}
+void DocumentManager::toggleBlockComment(){
+	//do not use single line comment on selection
+	getActiveDocument()->toggleComment(false);
+}
 void DocumentManager::gotoLine(int line_){
 	getActiveDocument()->gotoLine(line_);
 }

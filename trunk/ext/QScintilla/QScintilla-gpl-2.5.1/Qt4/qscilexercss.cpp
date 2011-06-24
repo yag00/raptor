@@ -382,3 +382,13 @@ void QsciLexerCSS::setCompactProp()
 {
     emit propertyChanged("fold.compact",(fold_compact ? "1" : "0"));
 }
+
+QString QsciLexerCSS::commentLine() const{
+    return QString("");
+}
+
+QStringList QsciLexerCSS::commentBlock() const{
+    QStringList cb;
+    cb << "/*" << "*/";
+    return cb;
+}

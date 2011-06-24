@@ -311,3 +311,12 @@ void QsciLexerCMake::setAtElseProp()
 {
     emit propertyChanged("fold.at.else",(fold_atelse ? "1" : "0"));
 }
+
+QString QsciLexerCMake::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerCMake::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

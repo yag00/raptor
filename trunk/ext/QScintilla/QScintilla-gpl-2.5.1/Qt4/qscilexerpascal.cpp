@@ -434,3 +434,13 @@ void QsciLexerPascal::setSmartHighlightProp()
 {
     emit propertyChanged("lexer.pascal.smart.highlighting", (smart_highlight ? "1" : "0"));
 }
+
+QString QsciLexerPascal::commentLine() const{
+    return QString("//");
+}
+
+QStringList QsciLexerPascal::commentBlock() const{
+    QStringList cb;
+    cb << "{" << "}";
+    return cb;
+}

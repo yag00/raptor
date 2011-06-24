@@ -303,3 +303,13 @@ void QsciLexerFortran77::setCompactProp()
 {
     emit propertyChanged("fold.compact",(fold_compact ? "1" : "0"));
 }
+
+
+QString QsciLexerFortran77::commentLine() const{
+    return QString("!");
+}
+
+QStringList QsciLexerFortran77::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

@@ -592,3 +592,13 @@ void QsciLexerCPP::setDollarsProp()
 {
     emit propertyChanged("lexer.cpp.allow.dollars",(dollars ? "1" : "0"));
 }
+
+QString QsciLexerCPP::commentLine() const{
+    return QString("//");
+}
+
+QStringList QsciLexerCPP::commentBlock() const{
+    QStringList cb;
+    cb << "/*" << "*/";
+    return cb;
+}

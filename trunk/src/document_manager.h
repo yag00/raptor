@@ -168,6 +168,11 @@ class DocumentManager : public Splitter{
 		/** astyle reindent all open documents */
 		void reindentOpenDocuments();
 		
+		/** toggle comment */
+		void toggleComment();
+		/** toggle block comment */
+		void toggleBlockComment();
+		
 		/** switch to the source file associated to the current document
 		 * select or open the file if exists, do nothing if no association */
 		void switchDocumentSrc();

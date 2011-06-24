@@ -450,3 +450,12 @@ void QsciLexerRuby::setCompactProp()
 {
     emit propertyChanged("fold.compact", (fold_compact ? "1" : "0"));
 }
+
+QString QsciLexerRuby::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerRuby::commentBlock() const{
+    QStringList cb;
+    return cb;
+}
