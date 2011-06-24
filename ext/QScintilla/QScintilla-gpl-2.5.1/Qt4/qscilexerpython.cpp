@@ -473,3 +473,13 @@ void QsciLexerPython::setV3BytesProp()
 {
     emit propertyChanged("lexer.python.strings.b",(v3_bytes ? "1" : "0"));
 }
+
+QString QsciLexerPython::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerPython::commentBlock() const{
+    QStringList cb;
+    cb << "\"\"\"" << "\"\"\"";
+    return cb;
+}

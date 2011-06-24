@@ -678,3 +678,12 @@ void QsciLexer::setPaper(const QColor &c, int style)
         emit paperChanged(c, QsciScintillaBase::STYLE_DEFAULT);
     }
 }
+
+QString QsciLexer::commentLine() const{
+    return QString();
+}
+
+QStringList QsciLexer::commentBlock() const{
+    return QStringList();
+}
+

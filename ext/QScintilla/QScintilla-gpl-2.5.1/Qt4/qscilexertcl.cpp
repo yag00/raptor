@@ -443,3 +443,13 @@ void QsciLexerTCL::setCommentProp()
 {
     emit propertyChanged("fold.comment", (fold_comments ? "1" : "0"));
 }
+
+QString QsciLexerTCL::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerTCL::commentBlock() const{
+    QStringList cb;
+    cb << "##" << "##";
+    return cb;
+}

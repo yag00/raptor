@@ -491,6 +491,15 @@ public:
     //! \sa setMakoTemplates()
     bool makoTemplates() const {return mako_templates;}
 
+    //! Returns the string that comment a line
+    //! An empty string is returned if there is no such string (ie comment line
+    //! is not supported.
+    virtual QString commentLine() const;
+    //! Returns a string list of two element to comment a block
+    //! the comment block start string and the comment block end string
+    //! An empty string list is block comments are not supported.
+    virtual QStringList commentBlock() const;
+
 public slots:
     //! If \a fold is true then trailing blank lines are included in a fold
     //! block. The default is true.

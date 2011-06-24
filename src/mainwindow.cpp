@@ -136,6 +136,9 @@ void MainWindow::initMenuEdit() {
 	connect(actionReadOnly, SIGNAL(triggered(bool)), _documentManager, SLOT(setReadOnly(bool)));
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
+	
+	connect(actionToggleComment, SIGNAL(triggered()), _documentManager, SLOT(toggleComment()));
+	connect(actionToggleBlockComment, SIGNAL(triggered()), _documentManager, SLOT(toggleBlockComment()));
 
 	connect(actionSwitchSrc, SIGNAL(triggered()), _documentManager, SLOT(switchDocumentSrc()));
 

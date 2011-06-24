@@ -189,6 +189,10 @@ class DocumentEditor : public ScintillaExt {
 		/** quick print */
 		void quickPrint();
 		
+		/** toggle comment
+		 * @param lineCommentPrefered_ if true will try to comment a block using single comment line */
+		void toggleComment(bool lineCommentPrefered_ = true);
+		
 	protected slots:
 	
 		void toggleBookmark(int margin_, int line_,	Qt::KeyboardModifiers state_);

@@ -124,6 +124,8 @@
     <addaction name="menuConvertCaseTo"/>
     <addaction name="menuLines"/>
     <addaction name="actionTrimTrailingSpaces"/>
+    <addaction name="actionToggleComment"/>
+    <addaction name="actionToggleBlockComment"/>
     <addaction name="separator"/>
     <addaction name="actionSwitchSrc"/>
     <addaction name="separator"/>
@@ -1438,6 +1440,28 @@
    </property>
    <property name="shortcut">
     <string>F1</string>
+   </property>
+  </action>
+  <action name="actionToggleComment">
+   <property name="text">
+    <string>Toggle Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle comment (single comment prefered )</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionToggleBlockComment">
+   <property name="text">
+    <string>Toggle Block Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle block comment</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
   </action>
  </widget>

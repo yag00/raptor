@@ -503,6 +503,21 @@ int ScintillaExt::getCurrentPosition() const {
 	return SendScintilla(SCI_GETCURRENTPOS);
 }
 
+int ScintillaExt::getCurrentLine() const {
+	return SendScintilla(SCI_LINEFROMPOSITION, getCurrentPosition()); 
+}
+
+QString ScintillaExt::getTextRange(int pos1_, int pos2_) {
+	TextRange tr;
+	tr.chrg.cpMin = pos1_;
+	tr.chrg.cpMax = pos2_;
+	tr.lpstrText = new char[pos2_ - pos1_ + 1];
+	SendScintilla(SCI_GETTEXTRANGE, 0, &tr);
+	QString str = QString::fromUtf8(tr.lpstrText, pos2_ - pos1_);
+	delete[] tr.lpstrText;
+	return str;
+}
+
 void ScintillaExt::foldLevel(int level_){
 	for (int line = 0; line < lines(); line++) {
 		int level = SendScintilla(SCI_GETFOLDLEVEL, line);

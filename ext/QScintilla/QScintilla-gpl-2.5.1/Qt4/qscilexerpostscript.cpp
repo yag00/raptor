@@ -452,3 +452,12 @@ void QsciLexerPostScript::setAtElseProp()
 {
     emit propertyChanged("fold.at.else",(fold_atelse ? "1" : "0"));
 }
+
+QString QsciLexerPostScript::commentLine() const{
+    return QString("%");
+}
+
+QStringList QsciLexerPostScript::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

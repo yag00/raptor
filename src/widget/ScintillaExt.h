@@ -80,6 +80,11 @@ class ScintillaExt : public QsciScintilla {
 		inline int linesVisible() const { return SendScintilla(SCI_LINESONSCREEN); }
 		/** return current position */
 		int getCurrentPosition() const;
+		/** return current line */
+		int getCurrentLine() const;
+		/** This collects the text between the positions pos1_ and pos2_ 
+		 * If pos2_ is -1, text is returned to the end of the document */
+		QString getTextRange(int pos1_, int pos2_);
 		
 		//highlighting slots
 		void applyIndicator(int start_, int end_, int id_);

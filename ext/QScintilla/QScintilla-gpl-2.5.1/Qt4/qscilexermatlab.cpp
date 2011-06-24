@@ -167,3 +167,13 @@ QString QsciLexerMatlab::description(int style) const
 
     return QString();
 }
+
+QString QsciLexerMatlab::commentLine() const{
+    return QString("%");
+}
+
+QStringList QsciLexerMatlab::commentBlock() const{
+    QStringList cb;
+    cb << "%{" << "}%";
+    return cb;
+}

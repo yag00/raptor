@@ -425,3 +425,13 @@ void QsciLexerVHDL::setAtParenthProp()
 {
     emit propertyChanged("fold.at.Parenthese",(fold_atparenth ? "1" : "0"));
 }
+
+
+QString QsciLexerVHDL::commentLine() const{
+    return QString("--");
+}
+
+QStringList QsciLexerVHDL::commentBlock() const{
+    QStringList cb;
+    return cb;
+}
