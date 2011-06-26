@@ -29,8 +29,9 @@ rm -rf `find . -type d -name .svn`
 # Create the package
 echo "Create package"
 echo "dh_make : " | dh_make -e christophe.duvernois@gmail.com -n -s -c gpl3
-rm -rf debian/*.ex  debian/*.EX  debian/docs  debian/dirs
+rm -rf debian/*.ex  debian/*.EX  debian/README.* debian/docs  debian/dirs
 cp -r ../debian .
+debuild -S -sa
 dpkg-buildpackage -rfakeroot
 cd ../
 ls
