@@ -1,14 +1,12 @@
 #summary How to get raptor.
 #labels Featured,Phase-Deploy
-= Windows =
-
-Download the windows installer, and follow the setup instructions.
+=Windows=
+[http://raptor.googlecode.com/svn/wiki/images/windows.png] Download the windows installer, and follow the setup instructions.
 Go to the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
 
-= Linux =
- * == Ubuntu ==
-   You can get a binary ubuntu package from the repository since lucid lynx.
-   Just add the repository following one of these two methods :
+=Linux=
+ =[http://raptor.googlecode.com/svn/wiki/images/ubuntu.png] Ubuntu =
+ You can get a binary ubuntu package from the repository since lucid lynx. Just add the repository following one of these two methods:
   * Add the repository using the add-apt-repository command
 {{{
 sudo add-apt-repository ppa:raptor-project/raptor
@@ -18,13 +16,16 @@ sudo add-apt-repository ppa:raptor-project/raptor
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B87FA0A 
 deb http://ppa.launchpad.net/raptor-project/raptor/ubuntu natty main
 }}}
-  Then install raptor
+ Then install raptor
 {{{
 sudo apt-get update
 sudo apt-get install raptor
 }}}
 
 
- * == Others distributions ==
+ =[http://raptor.googlecode.com/svn/wiki/images/linux.png] Others distributions =
 
-No binary packages are available yet for your disribution. Get the source and compile it. See the How to build raptor wiki page [BuildingRaptor]
+ No binary packages are available yet for your disribution. Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
+ 
+=MAC OS=
+[http://raptor.googlecode.com/svn/wiki/images/mac.png] No binary packages are available for MacOs. Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
