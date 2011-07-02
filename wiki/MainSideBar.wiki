@@ -1,3 +1,6 @@
- * [GettingRaptor Get Raptor]
- * [BuildingRaptor How to build]
- * [Donate]
+ * Users
+   * [GettingRaptor Get Raptor]
+ * Developers
+   * [BuildingRaptor How to build]
+ * About
+   * [Donate]
