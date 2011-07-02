@@ -1,5 +1,6 @@
 #summary How to build raptor.
 #labels Featured,Phase-Implementation
+#sidebar MainSideBar
 
 = Prerequisites =
 

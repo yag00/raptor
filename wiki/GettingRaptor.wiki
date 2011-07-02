@@ -1,5 +1,7 @@
 #summary How to get raptor.
 #labels Featured,Phase-Deploy
+#sidebar MainSideBar
+
 =Windows=
 [http://raptor.googlecode.com/svn/wiki/images/windows.png] Download the windows installer, and follow the setup instructions.
 Go to the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
