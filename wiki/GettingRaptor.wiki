@@ -29,5 +29,5 @@ sudo apt-get install raptor
 
  No binary packages are available yet for your disribution. Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
  
-=MAC OS=
-[http://raptor.googlecode.com/svn/wiki/images/mac.png] No binary packages are available for MacOs. Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
+=Mac OS=
+[http://raptor.googlecode.com/svn/wiki/images/mac.png] No binary packages are available for Mac OS . Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
