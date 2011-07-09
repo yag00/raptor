@@ -37,6 +37,12 @@ CONFIG  += debug_and_release
 CONFIG  += warn_on
 CONFIG  += help
 
+# install
+raptor_bin.path	= $${PACKAGE_BIN}
+raptor_bin.files = $${PACKAGE_DESTDIR}/$${PACKAGE_NAME}
+raptor_bin.CONFIG *= no_check_exist					
+INSTALLS += raptor_bin	
+
 INCLUDE_PATH *= . $$PWD $$PWD/ui $$PWD/widget $$PWD/lexer $$PWD/settings $$PWD/astyle $$PWD/ctags $$PWD/about
 
 DEPENDPATH    *= $$PWD \

@@ -43,3 +43,9 @@ QMAKE_EXTRA_TARGETS += debug release make_default docs
 
 TARGET = docs
 
+# install docs
+raptor_doc.path	= $${PACKAGE_DATA}/doc
+raptor_doc.files = $$PACKAGE_DESTDIR/doc/*
+raptor_doc.CONFIG *= no_check_exist
+INSTALLS += raptor_doc
+

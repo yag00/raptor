@@ -18,12 +18,29 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
+message(*********************************************************)
+message(*                  QT ENVIRONEMENT                      *)
+message(*********************************************************)
+message(Qt version: $$[QT_VERSION])
+message(Qt is installed in $$[QT_INSTALL_PREFIX])
+message(Qt resources can be found in the following locations:)
+message(Documentation: $$[QT_INSTALL_DOCS])
+message(Header files: $$[QT_INSTALL_HEADERS])
+message(Libraries: $$[QT_INSTALL_LIBS])
+message(Binary files (executables): $$[QT_INSTALL_BINS])
+message(Plugins: $$[QT_INSTALL_PLUGINS])
+message(Data files: $$[QT_INSTALL_DATA])
+message(Translation files: $$[QT_INSTALL_TRANSLATIONS])
+message(Settings: $$[QT_INSTALL_SETTINGS])
+message(Examples: $$[QT_INSTALL_EXAMPLES])
+message(Demonstrations: $$[QT_INSTALL_DEMOS])
+
 # include install script
 include( install.pri )
 
 CONFIG += debug_and_release
 TEMPLATE	= subdirs
-SUBDIRS		= ext src doc
+SUBDIRS		= ext src doc 
 
 TMPDIRS = "build/"
 QMAKE_DISTCLEAN += -r $$TMPDIRS
