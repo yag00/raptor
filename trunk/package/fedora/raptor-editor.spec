@@ -8,7 +8,7 @@ URL		: http://code.google.com/p/raptor/
 Source		: %{name}-%{version}.tar.gz
 Packager	: Christophe Duvernois <christophe.duvernois@gmail.com>
 BuildRoot	: %{_tmppath}/%{name}-%{version}-%{release}-builtroot
-BuildRequires	: qt4-devel python-sphinx
+BuildRequires	: desktop-file-utils qt4-devel python-sphinx
 Requires	: qt4
 
 %description
@@ -25,33 +25,51 @@ rm -rf $RPM_BUILD_ROOT
 %setup
 
 %build
-qmake-qt4 -recursive prefix=%{buildroot}/usr
+%{_qt4_qmake} -recursive prefix=%{_prefix}
 make release
 
 %install
-make install
+%{_qt4_qmake} prefix=%{_prefix}
+make install INSTALL_ROOT=$RPM_BUILD_ROOT
+install -d %{buildroot}%{_datadir}/pixmaps/
+install -m 644 %{_builddir}/%{name}-%{version}/package/fedora/pixmaps/raptor.png %{buildroot}%{_datadir}/pixmaps/
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{_builddir}/%{name}-%{version}/package/fedora/applications/raptor.desktop
 
 %clean
 make distclean
+rm -rf $RPM_BUILD_ROOT
 
 %post
-# empty
+touch --no-create %{_datadir}/icons/hicolor
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+  %{_bindir}/gtk-update-icon-cache -q %{_datadir}/icons/hicolor;
+fi
+update-mime-database %{_datadir}/mime &> /dev/null || :
+update-desktop-database &> /dev/null || :
+
 
 %preun
 # empty
 
 %postun
-# empty
+touch --no-create %{_datadir}/icons/hicolor
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+  %{_bindir}/gtk-update-icon-cache -q %{_datadir}/icons/hicolor;
+fi
+update-mime-database %{_datadir}/mime &> /dev/null || :
+update-desktop-database &> /dev/null || :
+
 
 %files
 %defattr(-,root,root)
-#/usr/bin/*
 %{_bindir}/*
 %{_datadir}/raptor/doc/*
+%{_datadir}/applications/raptor.desktop
+%{_datadir}/pixmaps/raptor.png
+#/usr/bin/*
 #%doc copying
 #%doc ChangeLog.txt
 #%doc README.txt
-
 #%{instaldir_bin}/*
 
 %changelog
