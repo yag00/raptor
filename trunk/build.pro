@@ -40,8 +40,13 @@ include( install.pri )
 
 CONFIG += debug_and_release
 TEMPLATE	= subdirs
-SUBDIRS		= ext src doc 
+SUBDIRS		= ext src 
 
 TMPDIRS = "build/"
 QMAKE_DISTCLEAN += -r $$TMPDIRS
 
+#version check qt
+contains(QT_VERSION, ^4\\.[0-6]\\..*) {
+	message("Cannot build Raptor with Qt version $${QT_VERSION}.")
+	error("Use at least Qt 4.7.")
+}

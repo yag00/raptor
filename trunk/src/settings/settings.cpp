@@ -75,7 +75,7 @@ void Settings::apply(MainWindow& window_){
 	QList<QToolBar*> toolbars = window_.findChildren<QToolBar*>();
 	foreach(QToolBar* toolbar, toolbars){
 		toolbar->setIconSize(QSize(iconSize,iconSize));
-		toolbar->setVisible(getShowToolBar(toolbar->windowTitle()));
+		toolbar->setVisible(getShowToolBar(toolbar->windowTitle(), (toolbar->windowTitle() != "Symbol")));
 	}
 	window_._symbolDock->setVisible(getShowToolBar("DockSymbol", false));
 	

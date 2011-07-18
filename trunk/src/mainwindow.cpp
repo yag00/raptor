@@ -348,6 +348,8 @@ void MainWindow::createToolBar(){
 	QToolBar* toolbar = addToolBar("Symbol");
 	toolbar->setObjectName(QString::fromUtf8("toolBarSymbol"));
 	toolbar->addAction(_symbolManager->getSymbolBrowerAction());
+	//default is not visible
+	toolbar->setVisible(false);
 	connect(toolbar, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
 }
 
@@ -731,7 +733,8 @@ void MainWindow::shortcuts() {
 }
 
 void MainWindow::showDocumentation() {
-	_helpBrowser->showDocumentation("index.html");
+	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !! Will be available in the next release"));
+	//_helpBrowser->showDocumentation("index.html");
 }
 
 void MainWindow::about() {
