@@ -8,7 +8,7 @@ URL		: http://code.google.com/p/raptor/
 Source		: %{name}-%{version}.tar.gz
 Packager	: Christophe Duvernois <christophe.duvernois@gmail.com>
 BuildRoot	: %{_tmppath}/%{name}-%{version}-%{release}-builtroot
-BuildRequires	: desktop-file-utils qt4-devel python-sphinx
+BuildRequires	: desktop-file-utils qt4-devel
 Requires	: qt4
 
 %description
@@ -25,7 +25,7 @@ rm -rf $RPM_BUILD_ROOT
 %setup
 
 %build
-%{_qt4_qmake} -recursive prefix=%{_prefix}
+%{_qt4_qmake} prefix=%{_prefix}
 make release
 
 %install

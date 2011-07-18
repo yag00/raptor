@@ -256,7 +256,7 @@ void SettingsDialog::loadSettingsDialog(){
 	cbToolBarEdit->setChecked(_settings->getShowToolBar("Edit"));
 	cbToolBarView->setChecked(_settings->getShowToolBar("View"));
 	cbToolBarMacro->setChecked(_settings->getShowToolBar("Macro"));
-	cbToolBarSymbol->setChecked(_settings->getShowToolBar("Symbol"));
+	cbToolBarSymbol->setChecked(_settings->getShowToolBar("Symbol", false));
 	cbDockSymbol->setChecked(_settings->getShowToolBar("DockSymbol", false));
 	
 	// - Status Bar
