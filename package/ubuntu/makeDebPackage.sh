@@ -11,14 +11,14 @@ fi
 if [ $1 = "trunk" ]
 then
 	echo Checkout Raptor trunk
-	rm -rf raptor-0.0.0
-	svn checkout http://raptor.googlecode.com/svn/trunk/ raptor-0.0.0
-	cd raptor-0.0.0
+	rm -rf raptor-editor-0.3.0
+	svn checkout http://raptor.googlecode.com/svn/trunk/ raptor-editor-0.3.0
+	cd raptor-editor-0.3.0
 else
 	echo Checkout Raptor version $1
-	rm -rf raptor-$1
-	svn checkout http://raptor.googlecode.com/svn/tags/raptor-$1 raptor-$1
-	cd raptor-$1
+	rm -rf raptor-editor-$1
+	svn checkout http://raptor.googlecode.com/svn/tags/raptor-$1 raptor-editor-$1
+	cd raptor-editor-$1
 fi
 
 #clear svn file
