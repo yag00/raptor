@@ -63,7 +63,7 @@ update-desktop-database &> /dev/null || :
 %files
 %defattr(-,root,root)
 %{_bindir}/*
-%{_datadir}/raptor/doc/*
+#%{_datadir}/raptor/doc/*
 %{_datadir}/applications/raptor.desktop
 %{_datadir}/pixmaps/raptor.png
 #/usr/bin/*
@@ -73,5 +73,5 @@ update-desktop-database &> /dev/null || :
 #%{instaldir_bin}/*
 
 %changelog
-* Fri Apr 22 2011 Christophe Duvernois <christophe.duvernois@gmail.com> 0.2.0
-- Release 0.2.0
+* Mon Jul 18 2011 Christophe Duvernois <christophe.duvernois@gmail.com> 0.3.0
+- Release 0.3.0
