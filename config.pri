@@ -31,7 +31,7 @@ PACKAGE_NAME_CAPITALIZE	= Raptor
 PACKAGE_NAME_STRING	= "PACKAGE_NAME"
 PACKAGE_VERSION_STRING	= "$$PACKAGE_VERSION"
 
-QMAKE_CXXFLAGS += -Werror
+#QMAKE_CXXFLAGS += -Werror
 
 # define config mode paths
 CONFIG( debug, debug|release ) {
@@ -53,7 +53,7 @@ RCC_DIR	= $${PACKAGE_BUILD_PATH}/rcc
 # get package install paths
 unix:!mac {
 	# default prefix path
-	isEmpty( prefix ):prefix = /usr/local
+	isEmpty( prefix ):prefix = /usr
 
 	!isEmpty( prefix ) {
 		# libraries path
