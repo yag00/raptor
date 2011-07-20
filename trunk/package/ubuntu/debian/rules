@@ -5,12 +5,9 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/qmake.mk
 QMAKE=qmake-qt4
 
-install/raptor::
+install/raptor-editor::
 	rm -rf `find . -type d -name .svn`
 	dh_install /delivery/release/raptor /usr/bin/
-	dh_installdirs -A package/ubuntu/applications /usr/share/
-	dh_installdirs -A package/ubuntu/menu /usr/share/
-	dh_installdirs -A package/ubuntu/pixmaps /usr/share/
 	dh_install /package/ubuntu/applications/raptor.desktop /usr/share/applications
 	dh_install /package/ubuntu/menu/raptor /usr/share/menu
 	dh_install /package/ubuntu/pixmaps/raptor.png /usr/share/pixmaps
