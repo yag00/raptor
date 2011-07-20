@@ -8,7 +8,7 @@ Homepage: http://code.google.com/p/raptor/
 
 Package: raptor-editor
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libqt4
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Raptor A Portable Text editOR.
  raptor is a source code editor supporting several languages. 
  It is largely inspired by Notepad++ editor but has the advantage 
