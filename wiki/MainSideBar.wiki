@@ -3,4 +3,5 @@
  * Developers
    * [BuildingRaptor How to build]
  * About
+   * [Screenshot]
    * [Donate]
