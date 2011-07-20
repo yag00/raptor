@@ -21,7 +21,7 @@ deb http://ppa.launchpad.net/raptor-project/raptor/ubuntu natty main
  Then install raptor
 {{{
 sudo apt-get update
-sudo apt-get install raptor
+sudo apt-get install raptor-editor
 }}}
 
  The deb package for ubuntu are also available on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
@@ -32,6 +32,11 @@ sudo apt-get install raptor
     * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc14.x86_64.rpm fedora14 raptor-0.3.0 x86_64]
     * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc15.i386.rpm fedora15 raptor-0.3.0 i386]
     * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc15.x86_64.rpm fedora15 raptor-0.3.0 x86_64]
+
+ Then install raptor
+{{{
+sudo rpm -ivh raptor-editor-(your_version).rpm
+}}}
 
  =[http://raptor.googlecode.com/svn/wiki/images/linux.png] Others distributions =
 
