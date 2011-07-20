@@ -4,7 +4,7 @@
 
 =Windows=
 [http://raptor.googlecode.com/svn/wiki/images/windows.png] Download the windows installer, and follow the setup instructions.
-Go to the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
+Go to the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page] or directly [http://code.google.com/p/raptor/downloads/detail?name=raptor-0.3.0-setup.exe get the last release]
 
 =Linux=
  =[http://raptor.googlecode.com/svn/wiki/images/ubuntu.png] Ubuntu =
@@ -24,10 +24,21 @@ sudo apt-get update
 sudo apt-get install raptor
 }}}
 
+ The deb package for ubuntu are also available on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
+
+ =[http://raptor.googlecode.com/svn/wiki/images/fedora.png] Fedora =
+ raptor is not yet available via yum, but you can get the rpm for fedora on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page] or directly get the last release here :
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc14.i386.rpm fedora14 raptor-0.3.0 i386]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc14.x86_64.rpm fedora14 raptor-0.3.0 x86_64]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc15.i386.rpm fedora15 raptor-0.3.0 i386]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc15.x86_64.rpm fedora15 raptor-0.3.0 x86_64]
 
  =[http://raptor.googlecode.com/svn/wiki/images/linux.png] Others distributions =
 
- No binary packages are available yet for your disribution. Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
+ No binary packages are available yet for your distribution. _(contributions are welcomed)._
+
+ Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page.
  
 =Mac OS=
-[http://raptor.googlecode.com/svn/wiki/images/mac.png] No binary packages are available for Mac OS . Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page 
+[http://raptor.googlecode.com/svn/wiki/images/mac.png] No binary packages are available for Mac OS . _(contributions are welcomed)._
+ Get the source and compile it. See the [BuildingRaptor How to build raptor] wiki page.
