@@ -507,6 +507,10 @@ int ScintillaExt::getCurrentLine() const {
 	return SendScintilla(SCI_LINEFROMPOSITION, getCurrentPosition()); 
 }
 
+int ScintillaExt::getSelectedTextSize() const{
+	return (SendScintilla(SCI_GETSELECTIONEND) - SendScintilla(SCI_GETSELECTIONSTART));
+}
+
 QString ScintillaExt::getTextRange(int pos1_, int pos2_) {
 	TextRange tr;
 	tr.chrg.cpMin = pos1_;
@@ -560,14 +564,16 @@ void ScintillaExt::paintEvent(QPaintEvent *event_){
 }
 
 void ScintillaExt::selectedTextChanged(){
-	if (selectedText().size() > 1){
-		// apply quick markup
+	int selectionSize = getSelectedTextSize();		
+	if ((selectionSize > 1) && (selectionSize < length())){
+		// there is a selected text and it's not a select all
+		//apply quick markup
 		applyIndicator(selectedText(), INDICATOR_QUICK_SEARCH1, INDICATOR_QUICK_SEARCH2);
-	} else{
+	} else {
 		// remove quick markup
 		clearIndicators(INDICATOR_QUICK_SEARCH1, INDICATOR_QUICK_SEARCH2);
 	}
-	return;
+	
 
 	/*// save target locations for other search functions
 	int originalStartPos = SendScintilla(SCI_GETTARGETSTART);
@@ -692,6 +698,9 @@ void ScintillaExt::checkHighlight(){
 }
 
 void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
+	//text is to big, highlighting is useless
+	if (text_.size() >= 10000)
+		return;
 	if (text_.simplified().isEmpty())
 		return;
 
@@ -701,18 +710,13 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 		line1 = 0;
 	int line2 = line1 + linesVisible() + 2;
 
-	for (int i = line1; i <= line2; i++){
-		if (SendScintilla(SCI_GETLINEVISIBLE, i) == false)
-			line2++;
-	}
-
 	int pos1 = positionFromLineIndex(line1, 0);
 	if (pos1 < 0)
 		pos1 = 0;
 	int pos2 = positionFromLineIndex(line2, 0);
 	if (pos2 < 0)
 		pos2 = length();
-
+	
 	///@todo make it configurable
 	int flags = 0;//SCFIND_MATCHCASE | SCFIND_WHOLEWORD | SCFIND_WORDSTART;
 	TextToFind ttf;
@@ -720,7 +724,7 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	ttf.chrg.cpMax = pos2;
 
 	TextRange tr;
-	char buf[text_.length() * 2 + 2];
+	char* buf = new char[text_.length() + 1];
 
 	int res;
 	QByteArray ba = text_.toUtf8();
@@ -746,6 +750,8 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 		SendScintilla(SCI_INDICATORFILLRANGE, ttf.chrgText.cpMin, ttf.chrgText.cpMax-ttf.chrgText.cpMin);
 	} while (res >= 0);
 
+	delete []buf;
+	
 	// remove selection
 	pos1 = SendScintilla(SCI_GETSELECTIONSTART);
 	pos2 = SendScintilla(SCI_GETSELECTIONEND);
