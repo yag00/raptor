@@ -32,12 +32,11 @@ TabBar::~TabBar(){
 void TabBar::mousePressEvent(QMouseEvent* event_) {
 	QTabBar::mousePressEvent(event_);
 	_dragCurrentIndex = -1;
-	for(int i = 0; i < count(); i++){
-		if(tabRect(i).contains(event_->pos())){
-			_dragCurrentIndex = i;
-			emit tabClicked(i);
-			break;
-		}
+	
+	int tab = tabAt(event_->pos());
+	if(tab != -1){
+		_dragCurrentIndex = tab;
+		emit tabClicked(tab);
 	}
 		
 	if (event_->button() == Qt::LeftButton){
@@ -47,13 +46,24 @@ void TabBar::mousePressEvent(QMouseEvent* event_) {
 
 void TabBar::mouseDoubleClickEvent(QMouseEvent* event_){
 	QTabBar::mouseDoubleClickEvent(event_);
-	for(int i = 0; i < count(); i++){
-		if(tabRect(i).contains(event_->pos())){
-			return;
-		}
+	int tab = tabAt(event_->pos());
+	if(tab != -1){
+		return;
 	}
 	//click is not on a tab -> emit signal
-	emit tabBarDoubleClicked();
+	if(event_->button() != Qt::MiddleButton){
+		emit tabBarDoubleClicked();
+	}
+}
+
+void TabBar::mouseReleaseEvent(QMouseEvent* event_){
+	QTabBar::mouseReleaseEvent(event_);
+	if(event_->button() == Qt::MiddleButton){
+		int tab = tabAt(event_->pos());
+		if(tab != -1){
+			emit tabMiddleClicked(tab);
+		}
+	}
 }
 
 void TabBar::mouseMoveEvent(QMouseEvent* event_) {

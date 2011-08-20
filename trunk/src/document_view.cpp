@@ -35,6 +35,7 @@ DocumentView::DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * docume
 	//currentChanged signal is not needed anymore since tabClicked handle it
 	connect(tabBar(), SIGNAL(tabClicked(int)), this, SIGNAL(currentChanged(int)));
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(currentTabChanged(int)));
+	connect(tabBar(), SIGNAL(tabMiddleClicked(int)), this, SLOT(closeDocument(int)));
 	connect(tabBar(), SIGNAL(tabBarDoubleClicked()), this, SLOT(newDocument()));
 	
 	//create tabBar button
@@ -175,6 +176,7 @@ void DocumentView::documentfocusChanged(bool active_){
 
 void DocumentView::currentTabChanged(int tab_){
 	DocumentEditor* document = getDocument(tab_);
+	setCurrentIndex(tab_);
 	document->setFocus();
 	emit activeDocumentChanged(document);
 }

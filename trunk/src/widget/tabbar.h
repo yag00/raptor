@@ -31,6 +31,7 @@ class TabBar : public QTabBar {
 		
 	protected:
 		virtual void mousePressEvent(QMouseEvent* event_);
+		virtual void mouseReleaseEvent(QMouseEvent* event_);
 		virtual void mouseDoubleClickEvent(QMouseEvent* event_);
 		virtual void mouseMoveEvent(QMouseEvent* event_);
 		virtual void dragEnterEvent(QDragEnterEvent* event_);
@@ -47,6 +48,8 @@ class TabBar : public QTabBar {
 		void tabMoveRequested(QWidget* src_, int srcIndex_, QWidget* dest_, int destIndex_);
 		/** emit when a tab is clicked */
 		void tabClicked(int index_);
+		/** emit when a tab is middle clicked */
+		void tabMiddleClicked(int index_);
 		/** emit when the tabBar is double clicked */
 		void tabBarDoubleClicked();
 };
