@@ -434,9 +434,9 @@ int Search::doAllFilesSearch(bool replace_){
 	progressDialog.setCancelButtonText(tr("&Cancel"));
 	progressDialog.setRange(0, files.size());
 	if(replace_)
-		progressDialog.setWindowTitle(tr("Search In Files ..."));
-	else
 		progressDialog.setWindowTitle(tr("Replace In Files ..."));
+	else
+		progressDialog.setWindowTitle(tr("Search In Files ..."));
 	
 	for(int i = 0; i < files.count(); i++){
 		progressDialog.setValue(i);
