@@ -21,6 +21,7 @@
 #ifndef __SETTINGS_H__
 #define __SETTINGS_H__
 
+#include <QLocale>
 #include <QSettings>
 #include <Qsci/qsciscintilla.h>
 #include "../about/Version.h"
@@ -46,7 +47,7 @@ class Settings : public QSettings{
 		static QStringList availableLanguages();
 
 		/** @return list of available translation */
-		static QStringList availableTranslations();
+		static QList<QLocale::Language> availableTranslations();
 
 		/** apply all settings
 		* @param window_ reference on MainWindow */
@@ -84,6 +85,10 @@ class Settings : public QSettings{
 		void setAddNewLineOnSave(bool addNewLine_);
 		bool addNewLineOnSave();
 
+		/** get/set translation */
+		void setTranslation(const QLocale::Language& language_);
+		QLocale::Language getTranslation();
+		
 		// void setAutoSyntaxCheck( bool check );
 		// bool autoSyntaxCheck();
 		// void setConvertTabsUponOpen( bool convert );

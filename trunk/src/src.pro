@@ -139,6 +139,8 @@ FORMS *= mainwindow.ui \
 RESOURCES     *= ressources.qrc
 win32:RC_FILE += rc/ressources.rc
 
+TRANSLATIONS = translations/raptor_fr.ts
+
 LIBS *= -L$${PACKAGE_BUILD_PATH}/lib -lastyle -lqscintilla2 -lctags
 # -ldiff
 

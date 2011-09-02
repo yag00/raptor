@@ -19,10 +19,15 @@
  */
 
 #include <iostream>
+
+#include <QLibraryInfo>
+#include <QTranslator>
 #include <QApplication>
+
 #include <qtsingleapplication.h>
 #include <Qsci/qsciglobal.h>
 #include "settings/settings.h"
+#include "about/ApplicationPath.h"
 #include "mainwindow.h"
 
 namespace {
@@ -95,8 +100,6 @@ namespace {
 }
 
 int main(int argc, char *argv[]) {
-	Q_INIT_RESOURCE(ressources);
-	
 	QtSingleApplication app(argc, argv);
 	
 	QStringList args = QCoreApplication::arguments();
@@ -116,6 +119,19 @@ int main(int argc, char *argv[]) {
 	if (app.sendMessage(message))
 		return 0;
 
+	Settings settings;
+	QLocale::Language language = settings.getTranslation();
+	QString locale = QLocale(language).name();
+
+	QTranslator raptorTranslator;
+	if(raptorTranslator.load("raptor_" + locale, ApplicationPath::translationPath())){
+		app.installTranslator(&raptorTranslator);	
+		QTranslator qtTranslator;
+		if(qtTranslator.load("qt_" + locale,	QLibraryInfo::location(QLibraryInfo::TranslationsPath))){
+			app.installTranslator(&qtTranslator);
+		}
+	}
+	
 	MainWindow mainWin;
 	app.installEventFilter(&mainWin);
 
