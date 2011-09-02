@@ -46,12 +46,12 @@ QString ApplicationPath::libraryPath(){
 
 QString ApplicationPath::translationPath(){
 #ifdef Q_OS_WIN
-	return ApplicationPath::applicationPath() + QDir::separator() + "translation" + QDir::separator();
+	return ApplicationPath::applicationPath() + QDir::separator() + "translations" + QDir::separator();
 #else
 	if(ApplicationPath::isInstalled())
-		return QString(PACKAGE_DATA) + QDir::separator() + "translation" + QDir::separator();
+		return QString(PACKAGE_DATA) + QDir::separator() + "translations" + QDir::separator();
 	else
-		return ApplicationPath::applicationPath() + QDir::separator() + "translation" + QDir::separator();
+		return ApplicationPath::applicationPath() + QDir::separator() + "translations" + QDir::separator();
 #endif
 }
 

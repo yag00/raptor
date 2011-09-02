@@ -116,8 +116,16 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDial
 		_lexers[s] = LexerManager::lexerFactory(s);
 
 	// Translations
-	cbTranslation->addItems(Settings::availableTranslations());
-
+	QList<QLocale::Language> locales = Settings::availableTranslations();
+	foreach(QLocale::Language i, locales){
+		cbTranslation->addItem(QLocale::languageToString(i), QVariant(i));
+	}
+	// sort
+	cbTranslation->model()->sort(0);
+	
+	int index = cbTranslation->findText(QLocale::languageToString(_settings->getTranslation()));
+	cbTranslation->setCurrentIndex(index);
+	
 	// loads text codecs
 	cbDefaultCodec->addItems(Settings::availableTextCodecs());
 	_bgBomEncoding = new QButtonGroup(gbBomBehaviour);
@@ -279,7 +287,7 @@ void SettingsDialog::loadSettingsDialog(){
 	tbDocumentPaper->setColor(_settings->getDocumentPaper());
 	lDocumentFontName->setFont(_settings->getDocumentFont());
 	lDocumentFontName->setText(_settings->getDocumentFont().family());
-
+	
 	//  - Encoding
 	cbDefaultCodec->setCurrentIndex(cbDefaultCodec->findText(_settings->getDefaultCodec()));
 	if(_settings->getUnicodeBomUseMode() == 1){
@@ -470,6 +478,9 @@ void SettingsDialog::loadSettingsDialog(){
 
 void SettingsDialog::saveSettingsDialog(){
 	// General
+	QVariant locale = cbTranslation->itemData(cbTranslation->currentIndex());
+	_settings->setTranslation((QLocale::Language)locale.toInt());
+	
 	// Interface
 	{
 		//	- ToolBar

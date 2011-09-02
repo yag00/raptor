@@ -762,7 +762,7 @@ void MainWindow::readSettings() {
 	
 		QString detailedTxt;
 		detailedTxt += tr("Reset : Remove old settings file and create a new one\n");
-		detailedTxt += tr("Upgrade : keep&upgrade your old settings\n");
+		detailedTxt += tr("Upgrade : keep and upgrade your old settings\n");
 		msgBox.setDetailedText(detailedTxt);
 		QPushButton* resetSettings = msgBox.addButton(tr("Reset"), QMessageBox::AcceptRole);
 		resetSettings->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogResetButton));

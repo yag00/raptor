@@ -417,7 +417,7 @@ int Search::doOpenFilesSearch(bool replace_){
 int Search::doAllFilesSearch(bool replace_){
 	if(replace_){
 		int ret = QMessageBox::warning(this, tr("Search&Replace"),
-					tr("You are going to a replace operation on all files in %1.\n"
+					tr("You are going to do a replace operation on all files in %1.\n"
 					"This can not be undo. Do you want to continue?").arg(cbDirectory->currentText()),
 					QMessageBox::Yes,
 					QMessageBox::No,

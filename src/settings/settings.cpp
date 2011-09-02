@@ -23,13 +23,14 @@
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexer.h>
 
+#include "../about/ApplicationPath.h"
 #include "../astyle/AStyleIndenter.h"
 #include "../mainwindow.h"
 #include "../document_manager.h"
 #include "../document_editor.h"
 #include "settings.h"
 
-Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings", parent_){
+Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings-dev", parent_){
 
 }
 
@@ -58,13 +59,24 @@ QStringList Settings::availableLanguages(){
 	return languages;
 }
 
-QStringList Settings::availableTranslations(){
-	QStringList translations;
-
-	if (translations.isEmpty()){
-		translations = QStringList() << "English";
-		translations.sort();
+QList<QLocale::Language> Settings::availableTranslations(){
+	QList<QLocale::Language> translations;
+	translations << QLocale::English;
+	
+	QStringList filters;
+	filters << "*qm";
+	QDir translationDir(ApplicationPath::translationPath());
+	QFileInfoList translationFiles = translationDir.entryInfoList(filters, QDir::Files);
+	
+	foreach(QFileInfo file, translationFiles){
+		QString basename = file.baseName();
+		if(basename.startsWith("raptor_")){
+			QString localeStr = basename.remove(0, 7);
+			translations << QLocale(localeStr).language();
+		}
 	}
+	
+	translations = QSet<QLocale::Language>::fromList(translations).toList();
 	return translations;
 }
 
@@ -282,6 +294,13 @@ bool Settings::addNewLineOnSave(){
 // bool createBackupUponOpen();
 // void setAutoEolConversion( bool convert );
 // bool autoEolConversion();
+
+void Settings::setTranslation(const QLocale::Language& language_){
+	setValue("Language", language_);
+}
+QLocale::Language Settings::getTranslation(){
+	return (QLocale::Language)value("Language", QLocale::English).toInt();
+}
 
 void Settings::useSelectionForegroundColor(bool useForegroundColor_){
 	setValue("Editor/useForeGroundColor", useForegroundColor_);
