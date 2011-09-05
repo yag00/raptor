@@ -1759,14 +1759,8 @@
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>Predifined style will override</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>the brackets option.</string>
+                 <string>Predifined style will override
+the brackets option.</string>
                 </property>
                </widget>
               </item>
