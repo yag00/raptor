@@ -2,6 +2,7 @@
    * [GettingRaptor Get Raptor]
  * Developers
    * [BuildingRaptor How to build]
+   * [TranslateRaptor How to translate]
  * About
    * [Screenshot]
    * [Donate]
