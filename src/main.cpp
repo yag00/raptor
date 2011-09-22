@@ -100,7 +100,7 @@ namespace {
 }
 
 int main(int argc, char *argv[]) {
-	QtSingleApplication app(argc, argv);
+	QtSingleApplication app("ac0452da134c2a204d7b5a7f5bb516147d27ee84", argc, argv);	// sha1(raptor)
 	
 	QStringList args = QCoreApplication::arguments();
 	args.pop_front();
@@ -115,9 +115,14 @@ int main(int argc, char *argv[]) {
 			message += ";";
 		}
 	}
-
-	if (app.sendMessage(message))
+	
+	//check if raptor is already running
+	if (app.isRunning()){
+		//raptor is running, send full message
+		app.sendMessage(message);
+		//quit this instance of raptor
 		return 0;
+	}
 
 	Settings settings;
 	QLocale::Language language = settings.getTranslation();
