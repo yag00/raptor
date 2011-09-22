@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/goto.png</file>
     <file>images/switch.png</file>
     <file>images/settings_shortcuts.png</file>
     <file>images/save-question-mark.png</file>

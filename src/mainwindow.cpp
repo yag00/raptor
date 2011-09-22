@@ -133,6 +133,8 @@ void MainWindow::initMenuEdit() {
 	connect(actionMoveLineDown, SIGNAL(triggered()), _documentManager, SLOT(moveCurrentLineDown()));
 	connect(actionDeleteWord, SIGNAL(triggered()), _documentManager, SLOT(deleteCurrentWord()));
 
+	connect(actionGotoLine, SIGNAL(triggered()), this, SLOT(gotoLine()));
+
 	connect(actionReadOnly, SIGNAL(triggered(bool)), _documentManager, SLOT(setReadOnly(bool)));
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
@@ -562,6 +564,10 @@ void MainWindow::aboutToShowEditIndentationMenu(){
 	actionIndentationGuides->setChecked(document->indentationGuides());
 }
 
+void MainWindow::gotoLine(){
+	int line = QInputDialog::getInt(this, tr("Goto line ..."), tr("Enter the line you want to go :"), 1, 1);
+	_documentManager->gotoLine(line);
+}
 
 void MainWindow::showWhiteSpaceAndTab(bool b_) {
 	actionShowEndOfLine->setChecked(false);

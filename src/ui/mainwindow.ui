@@ -123,6 +123,7 @@
     <addaction name="menuIndentation"/>
     <addaction name="menuConvertCaseTo"/>
     <addaction name="menuLines"/>
+    <addaction name="actionGotoLine"/>
     <addaction name="actionTrimTrailingSpaces"/>
     <addaction name="actionToggleComment"/>
     <addaction name="actionToggleBlockComment"/>
@@ -1379,7 +1380,7 @@
     <string comment="statustip action cut current line">Cut the current line</string>
    </property>
    <property name="shortcut">
-    <string comment="shortcut action cut current line">Ctrl+L</string>
+    <string>Ctrl+Alt+Shift+L</string>
    </property>
   </action>
   <action name="actionCopyLine">
@@ -1462,6 +1463,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+H</string>
+   </property>
+  </action>
+  <action name="actionGotoLine">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/goto.png</normaloff>:/images/goto.png</iconset>
+   </property>
+   <property name="text">
+    <string>Goto Line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>
