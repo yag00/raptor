@@ -255,6 +255,8 @@ void ScintillaExt::deleteCurrentWord(){
 }
 
 void ScintillaExt::gotoLine(int line_, int pos_){
+	if (line_ > lines())
+		line_ = lines();
 	setCursorPosition(line_ - 1, pos_);
 	ensureLineVisible(line_ - 1);
 	ensureCursorVisible();
