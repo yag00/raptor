@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>140</height>
+    <height>160</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -84,6 +84,12 @@
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="label">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="text">
           <string comment="label find">Find:</string>
          </property>
@@ -97,10 +103,22 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item row="0" column="2">
         <widget class="QToolButton" name="tbFindPrev">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="toolTip">
           <string comment="toolTip button search back">Search back</string>
          </property>
@@ -115,6 +133,12 @@
        </item>
        <item row="0" column="3">
         <widget class="QToolButton" name="tbFindNext">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="toolTip">
           <string comment="toolTip button search forward">Search forward</string>
          </property>
@@ -138,7 +162,7 @@
          <property name="minimumSize">
           <size>
            <width>64</width>
-           <height>0</height>
+           <height>22</height>
           </size>
          </property>
          <property name="toolTip">
@@ -151,6 +175,12 @@
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="text">
           <string comment="label replace">Replace:</string>
          </property>
@@ -163,6 +193,12 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -177,7 +213,7 @@
          <property name="minimumSize">
           <size>
            <width>32</width>
-           <height>0</height>
+           <height>22</height>
           </size>
          </property>
          <property name="toolTip">
@@ -199,7 +235,7 @@
          <property name="minimumSize">
           <size>
            <width>64</width>
-           <height>0</height>
+           <height>22</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -235,6 +271,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="text">
           <string comment="label options">Options:</string>
          </property>
@@ -247,6 +289,12 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
          </property>
          <property name="toolTip">
           <string comment="tooltip button case sensitive search">Case sensitive search</string>
@@ -267,6 +315,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="toolTip">
           <string comment="tooltip button wrap search">Wrap search</string>
          </property>
@@ -285,6 +339,12 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
          </property>
          <property name="toolTip">
           <string comment="tooltip button search words only">Search for whole words only</string>
@@ -305,6 +365,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="toolTip">
           <string comment="tooltip button search regexps">Search with regular expressions</string>
          </property>
@@ -324,6 +390,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
          <property name="text">
           <string comment="label search domain">Domain:</string>
          </property>
@@ -340,7 +412,7 @@
          <property name="minimumSize">
           <size>
            <width>100</width>
-           <height>0</height>
+           <height>22</height>
           </size>
          </property>
          <property name="toolTip">
@@ -387,6 +459,12 @@
      </item>
      <item>
       <widget class="QToolButton" name="tbCollapseResult">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>22</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string comment="tooltip button fold/unfold search result">Fold/Unfold results</string>
        </property>
@@ -401,6 +479,12 @@
      </item>
      <item>
       <widget class="QToolButton" name="tbClearResult">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>22</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string comment="tooltip button clear search result">Clear all results</string>
        </property>
