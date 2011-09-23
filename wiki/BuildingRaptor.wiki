@@ -46,3 +46,14 @@ mingw32-make release
 }}}
 
 raptor executable is in delivery/release directory.
+
+= Building with QtCreator =
+
+Just import the build.pro (File -> Open File or Project ...)
+You will obtain something like the fallowing screenshot (depending on your qtcreator version)
+[http://raptor.googlecode.com/svn/wiki/images/qtcreator_step1.png]
+
+Click on finish. You can now select the target you want to build (debug or release). 
+You can build and execute raptor from QtCreator
+
+[http://raptor.googlecode.com/svn/wiki/images/qtcreator_step2.png]
