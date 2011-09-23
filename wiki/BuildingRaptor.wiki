@@ -55,6 +55,6 @@ You will obtain something like the following screenshot (depending on your qtcre
 [http://raptor.googlecode.com/svn/wiki/images/qtcreator_step1.png]
 
 Click on finish. You can now select the target you want to build (debug or release). 
-You can build and execute raptor from QtCreator
+You can build and execute raptor from QtCreator.
 
 [http://raptor.googlecode.com/svn/wiki/images/qtcreator_step2.png]
