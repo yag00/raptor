@@ -16,12 +16,7 @@ DEPENDPATH	*= $$QSCINTILLAVERSION/Qt4
 
 # overwrite some values to made no lib
 CONFIG	-= dll
-win32{
-	CONFIG 	-= release
-}else {
-	CONFIG 	+= debug_and_release
-}
-
+CONFIG 	+= debug_and_release
 CONFIG	+= staticlib
 
 # overrride install script of qscintilla
