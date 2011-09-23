@@ -5,7 +5,7 @@
 = Prerequisites =
 
   * [http://qt.nokia.com/products/ Qt 4.x]
-  * [http://www.python.org/ Python] & [http://sphinx.pocoo.org/ Sphinx]
+  * [http://www.python.org/ Python] & [http://sphinx.pocoo.org/ Sphinx] (use for generated the documentation)
 
 
 = Building raptor on linux =
@@ -18,7 +18,14 @@ raptor executable is in delivery/release directory.
 
 = Building raptor on window =
 
-You'll have to setup the Qt environnement, and add python and sphinx executable into your path.
+You can use the Qt Command prompt directly ant type
+
+{{{
+qmake
+mingw32-make release
+}}}
+
+Otherwise you'll have to setup the Qt environnement, (add python and sphinx executable into your path for the documentation generation).
 
 Define the environnement variables as the following exemple:
 
