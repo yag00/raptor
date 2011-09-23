@@ -30,7 +30,7 @@
 #include "../document_editor.h"
 #include "settings.h"
 
-Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings-dev", parent_){
+Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings", parent_){
 
 }
 
