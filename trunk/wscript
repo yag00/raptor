@@ -202,7 +202,8 @@ def build(bld):
 							'PACKAGE_BIN="%s/bin"' % bld.env['PREFIX'],
 							'PACKAGE_LIB="/usr/local/lib"',
 							'PACKAGE_DATA="/usr/local/share"'],
-		cxxflags        = ['-Wall', '-Werror'],							
+		cxxflags        = ['-Wall', '-Werror'],
+		linkflags       = get_raptor_ldflags(),
         install_path    = '${PREFIX}/bin')
 
 
@@ -278,6 +279,11 @@ def get_ctags_defines():
 	else:
 		return ['HAVE_REGCOMP', 'HAVE_STDLIB_H', 'HAVE_FGETPOS', 'HAVE_SYS_STAT_H', 'HAVE_FCNTL_H', 'HAVE_REGEX', 'HAVE_UNISTD_H', 'HAVE_STRSTR', 'HAVE_MKSTEMP']
 
+def get_raptor_ldflags():
+	if isWindows():
+		return ['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows']
+	else:
+		return ['-Wl,-O1']
 	
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 
