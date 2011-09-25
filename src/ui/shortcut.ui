@@ -133,7 +133,7 @@
   <customwidget>
    <class>KeySequenceInput</class>
    <extends>QLineEdit</extends>
-   <header location="global">../../../src/widget/KeySequenceInput.h</header>
+   <header location="global">widget/KeySequenceInput.h</header>
   </customwidget>
  </customwidgets>
  <resources>
