@@ -3904,18 +3904,18 @@ the brackets option.</string>
   <customwidget>
    <class>PathListEditor</class>
    <extends>QGroupBox</extends>
-   <header location="global">../../../src/widget/PathListEditor.h</header>
+   <header location="global">widget/PathListEditor.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>ColorPushButton</class>
    <extends>QPushButton</extends>
-   <header location="global">../../../src/widget/ColorPushButton.h</header>
+   <header location="global">widget/ColorPushButton.h</header>
   </customwidget>
   <customwidget>
    <class>ScintillaExt</class>
    <extends>QTextEdit</extends>
-   <header location="global">../../../src/widget/ScintillaExt.h</header>
+   <header location="global">widget/ScintillaExt.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
