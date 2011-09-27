@@ -28,7 +28,7 @@ import sys
 import os
 import platform
 from waflib import Build, Task, Options, Logs, Utils, Scripting
-from waflib.Build import BuildContext
+from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
 
 VERSION='0.3.0'
@@ -47,15 +47,22 @@ class release(BuildContext):
 	cmd = 'release'
 	variant = 'release'
 
+class install(InstallContext):
+	cmd = 'install'
+	variant = 'release'
+
+class uninstall(UninstallContext):
+	cmd = 'uninstall'
+	variant = 'release'
+
+
 def dist(ctx):
-	ctx.algo      = 'tar.gz'
+	ctx.algo      = 'tar.bz2'
 
 def install(ctx):
-	import waflib.Options
 	waflib.Options.commands = 'install_release'
 
 def uninstall(ctx):
-	import waflib.Options
 	waflib.Options.commands = 'uninstall_release'
 
 Scripting.default_cmd = "release"
@@ -201,7 +208,8 @@ def build(bld):
 							'PACKAGE_DESCRIPTION="%s"' % DESCRIPTION,
 							'PACKAGE_BIN="%s/bin"' % bld.env['PREFIX'],
 							'PACKAGE_LIB="/usr/local/lib"',
-							'PACKAGE_DATA="/usr/local/share"'],
+							'PACKAGE_DATA="/usr/local/share"',
+							'PACKAGE_OS="%s"' % getSystemOsString()],
 		cxxflags        = ['-Wall', '-Werror'],
 		linkflags       = get_raptor_ldflags(),
         install_path    = '${PREFIX}/bin')
@@ -252,6 +260,13 @@ def printOS():
 	else:
 		print(platform.system() + ' ' + platform.release())
 
+def getSystemOsString():
+	if isLinux():
+		(distname,version,id) =  platform.linux_distribution()
+		return (platform.system() + ' ' + distname + ' ' + version + ' ' + id)
+	else:
+		return (platform.system() + ' ' + platform.release())
+
 def get_debug_cflags():
 	return ['-c', '-g']
 
@@ -285,8 +300,6 @@ def get_raptor_ldflags():
 	else:
 		return ['-Wl,-O1']
 	
-from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
-
 for x in 'debug release'.split():
 	for y in (BuildContext, CleanContext, InstallContext, UninstallContext):
 		name = y.__name__.replace('Context','').lower()
