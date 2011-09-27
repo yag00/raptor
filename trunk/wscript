@@ -75,12 +75,23 @@ def configure(conf):
 	conf.check_waf_version(mini='1.6.8')
 
 	conf.setenv('debug')
+
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
 	if isWindows():
 		conf.check_tool('winres')
 
 	conf.load('qt4')
+	
+	#check qt version
+	QT_MIN_VERSION = '4.6.0'
+	qtversion = (conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_VERSION']).strip())
+	if(qtversion.split('.') < QT_MIN_VERSION.split('.')):
+		conf.msg("Checking for Qt version", "Qt should be at least in version " + QT_MIN_VERSION + " (" +qtversion + " found)", "RED")
+		conf.fatal("Upgrade Qt !")
+	else:
+		conf.msg("Checking for Qt version", "" + qtversion)
+
 	conf.load('slow_qt4')
 	#conf.find_program('assistant')
 	#conf.find_program('assistant-qt4')
@@ -313,7 +324,7 @@ def get_ctags_defines():
 
 def get_raptor_ldflags():
 	if isWindows():
-		return ['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows', '-static-libstdc++']#, '-static-libgcc']
+		return ['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows']
 	else:
 		return ['-Wl,-O1']
 
