@@ -52,6 +52,9 @@ namespace {
 	
 	inline void version(){
 		std::cout << PACKAGE_NAME << " - " << PACKAGE_VERSION << std::endl;
+#ifdef PACKAGE_OS
+		std::cout << "Build for " << PACKAGE_OS << std::endl;
+#endif
 	}
 	inline void qsciVersion(){
 		version();
