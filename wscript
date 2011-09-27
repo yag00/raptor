@@ -72,11 +72,14 @@ def options(opt):
 
 def configure(conf):
 	#min waf version
-	conf.check_waf_version(mini='1.6.5')
+	conf.check_waf_version(mini='1.6.8')
 
 	conf.setenv('debug')
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
+	if isWindows():
+		conf.check_tool('winres')
+
 	conf.load('qt4')
 	conf.load('slow_qt4')
 	#conf.find_program('assistant')
@@ -186,16 +189,23 @@ def build(bld):
 			'src/**/*.cpp',
 			'src/**/*.ui',
 			'src/**/*.qrc'],
+			#'src/**/*.rc'],
 		excl=['src/rc/*.cpp'])
 
+	if isWindows():
+		raptor_features = 'winrc qt4 cxx cxxprogram' 
+	else:
+		raptor_features = 'qt4 cxx cxxprogram'
+
 	bld.new_task_gen(
-        features        = 'qt4 cxx cxxprogram',
-		uselib			= 'QTCORE QTGUI QTNETWORK QTHELP',
-		use				= 'astyle qscintilla2 ctags',
-        source          = raptor_sources,
-        name            = 'raptor',
-        target          = 'raptor',
-        includes        = ['.',
+		features        = raptor_features,
+		uselib          = 'QTCORE QTGUI QTNETWORK QTHELP',
+		use             = 'astyle qscintilla2 ctags',
+		source          = raptor_sources,
+		lang            = bld.path.ant_glob('src/translations/*.ts'),
+		name            = 'raptor',
+		target          = 'raptor',
+		includes        = ['.',
 							'ext/AStyle/astyle-2.01/src',
 							'ext/ctags',
 							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4',
@@ -212,13 +222,17 @@ def build(bld):
 							'PACKAGE_OS="%s"' % getSystemOsString()],
 		cxxflags        = ['-Wall', '-Werror'],
 		linkflags       = get_raptor_ldflags(),
-        install_path    = '${PREFIX}/bin')
+		install_path    = getBinaryInstallationPath(bld.env['PREFIX']))
+	
+	#install translations file
+	bld.install_files(getTranslationInstallationPath(bld.env['PREFIX']), bld.bldnode.ant_glob('**/*.qm'))
 
 
-	#bld.install_files('${PREFIX}/bin', ['raptor'], chmod=Utils.O755)
-
-	#build doc
-	"""for lang in available_doc:
+	#########################################################
+	# build raptor documentation
+	#########################################################
+	"""
+	for lang in available_doc:
 		docBuildPath 	= os.path.join(out, "doctrees/%s" % lang)
 		docSrcPath		= os.path.join(top, "doc/src/%s/source" % lang)
 		docOut			= "raptorhelp/%s" % lang
@@ -240,6 +254,9 @@ def build(bld):
 		)
 	"""
 
+#########################################################
+# system & compilation utils function
+#########################################################
 
 def isWindows():
 	if platform.system() == "Windows":
@@ -296,10 +313,24 @@ def get_ctags_defines():
 
 def get_raptor_ldflags():
 	if isWindows():
-		return ['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows']
+		return ['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows', '-static-libstdc++']#, '-static-libgcc']
 	else:
 		return ['-Wl,-O1']
-	
+
+def getBinaryInstallationPath(prefix):
+	if isWindows():
+		return prefix
+	else:
+		return prefix + '/bin'
+		
+def getTranslationInstallationPath(prefix):
+	if isWindows():
+		return prefix + '/translations'
+	else:
+		return prefix + '/share/raptor/translations'
+
+
+# create debug and release target
 for x in 'debug release'.split():
 	for y in (BuildContext, CleanContext, InstallContext, UninstallContext):
 		name = y.__name__.replace('Context','').lower()
