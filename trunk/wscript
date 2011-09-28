@@ -200,16 +200,13 @@ def build(bld):
 			'src/**/*.cpp',
 			'src/**/*.ui',
 			'src/**/*.qrc'],
-			#'src/**/*.rc'],
 		excl=['src/rc/*.cpp'])
-
+		
 	if isWindows():
-		raptor_features = 'winrc qt4 cxx cxxprogram' 
-	else:
-		raptor_features = 'qt4 cxx cxxprogram'
-
+		raptor_sources += bld.path.ant_glob('src/**/*.rc')
+	
 	bld.new_task_gen(
-		features        = raptor_features,
+		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows() else ''),
 		uselib          = 'QTCORE QTGUI QTNETWORK QTHELP',
 		use             = 'astyle qscintilla2 ctags',
 		source          = raptor_sources,
@@ -232,11 +229,17 @@ def build(bld):
 							'PACKAGE_DATA="/usr/local/share"',
 							'PACKAGE_OS="%s"' % getSystemOsString()],
 		cxxflags        = ['-Wall', '-Werror'],
-		linkflags       = get_raptor_ldflags(),
+		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows() else ['-Wl,-O1']),
 		install_path    = getBinaryInstallationPath(bld.env['PREFIX']))
 	
 	#install translations file
 	bld.install_files(getTranslationInstallationPath(bld.env['PREFIX']), bld.bldnode.ant_glob('**/*.qm'))
+
+	if isWindows():
+		#install qt dll
+		qtbin = (bld.cmd_and_log([bld.env.QMAKE, '-query', 'QT_INSTALL_BINS'], quiet=True).strip())
+		qtdlls = bld.root.find_node(qtbin).ant_glob(['QtCore4.dll', 'QtGui4.dll', 'QtNetwork4.dll', 'QtHelp4.dll', 'mingwm10.dll', 'libgcc_s_dw2-1.dll'])
+		bld.install_files(bld.env['PREFIX'], qtdlls)
 
 
 	#########################################################
@@ -321,12 +324,6 @@ def get_ctags_defines():
 		return ['UNICODE', 'HAVE_REGCOMP', 'WIN32', 'REGEX_MALLOC', 'STDC_HEADERS=1', '__USE_GNU', 'HAVE_STDBOOL_H']
 	else:
 		return ['HAVE_REGCOMP', 'HAVE_STDLIB_H', 'HAVE_FGETPOS', 'HAVE_SYS_STAT_H', 'HAVE_FCNTL_H', 'HAVE_REGEX', 'HAVE_UNISTD_H', 'HAVE_STRSTR', 'HAVE_MKSTEMP']
-
-def get_raptor_ldflags():
-	if isWindows():
-		return ['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows']
-	else:
-		return ['-Wl,-O1']
 
 def getBinaryInstallationPath(prefix):
 	if isWindows():
