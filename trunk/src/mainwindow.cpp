@@ -565,8 +565,10 @@ void MainWindow::aboutToShowEditIndentationMenu(){
 }
 
 void MainWindow::gotoLine(){
-	int line = QInputDialog::getInt(this, tr("Goto line ..."), tr("Enter the line you want to go :"), 1, 1);
-	_documentManager->gotoLine(line);
+	bool ok = false;
+	int line = QInputDialog::getInt(this, tr("Goto line ..."), tr("Enter the line you want to go :"), 1, 1, 2147483647, 1, &ok);
+	if(ok)
+		_documentManager->gotoLine(line);
 }
 
 void MainWindow::showWhiteSpaceAndTab(bool b_) {
