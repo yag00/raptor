@@ -55,9 +55,15 @@ class uninstall(UninstallContext):
 	cmd = 'uninstall'
 	variant = 'release'
 
-
+class package(BuildContext):
+	cmd = 'package'
+	fun = 'package'
+		
 def dist(ctx):
-	ctx.algo      = 'tar.bz2'
+	if isWindows():
+		ctx.algo      = 'zip'
+	else:
+		ctx.algo      = 'tar.bz2'
 
 def install(ctx):
 	waflib.Options.commands = 'install_release'
@@ -73,15 +79,23 @@ def options(opt):
 def configure(conf):
 	#min waf version
 	conf.check_waf_version(mini='1.6.8')
-
-	conf.setenv('debug')
-
+	
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
 	if isWindows():
 		conf.check_tool('winres')
+		try:
+			conf.find_program("ISCC", var="ISCC")
+		except conf.errors.ConfigurationError:
+			pass
+
+	"""try:
+		conf.find_program("sphinx-build", var="SPHINX_BUILD")
+	except conf.errors.ConfigurationError:
+		conf.fatal("Can't find Sphinx! Try 'easy_install -U Sphinx' or check http://sphinx.pocoo.org/")"""
 
 	conf.load('qt4')
+	conf.load('slow_qt4')
 	
 	#check qt version
 	QT_MIN_VERSION = '4.6.0'
@@ -92,21 +106,13 @@ def configure(conf):
 	else:
 		conf.msg("Checking for Qt version", "" + qtversion)
 
-	conf.load('slow_qt4')
-	#conf.find_program('assistant')
-	#conf.find_program('assistant-qt4')
-	#conf.find_program('qcollectiongenerator')
+	conf.setenv('debug', env=conf.env.derive())
 	conf.env.CFLAGS = get_debug_cflags()
 	conf.env.CXXFLAGS = get_debug_cxxflags()
 
 	conf.setenv('release', env=conf.env.derive())
 	conf.env.CFLAGS = get_release_cflags()
 	conf.env.CXXFLAGS = get_release_cxxflags()
-
-	"""try:
-		conf.find_program("sphinx-build", var="SPHINX_BUILD")
-	except conf.errors.ConfigurationError:
-		conf.fatal("Can't find Sphinx! Try 'easy_install -U Sphinx' or check http://sphinx.pocoo.org/")"""
 
 	# summary
 	Logs.pprint('BLUE', 'Summary:')
@@ -267,6 +273,21 @@ def build(bld):
 			install_path = '${PREFIX}/doc'
 		)
 	"""
+
+def package(ctx):
+	if isWindows():
+		if ctx.env.ISCC != []:
+			if Options.commands != []:
+				#TODO build the setup package
+				ctx.to_log("Build setup.exe\n")
+			else:
+				ctx.env.PREFIX = ctx.env.PREFIX + "2"
+				#need a command after package to avoid infinite recursion so we called uninstall
+				Options.commands = ['clean', 'release', 'install', 'package', 'uninstall'] + Options.commands
+		else:
+			ctx.fatal("InnoSetup compiler is not available. Setup your path correctly")
+	else:
+		ctx.fatal("no packaging available")
 
 #########################################################
 # system & compilation utils function
