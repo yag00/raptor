@@ -1,12 +1,14 @@
 ; ----------------------------------------------------------------------
 ; Edit the define value before compiling the script
 ; ----------------------------------------------------------------------
-#define MyAppSrcDir "C:\raptor"
-#define MyAppName "Raptor"
-#define MyAppVersion "0.2.0"
-#define MyAppPublisher "Raptor"
-#define MyAppURL "http://code.google.com/p/raptor/"
-#define MyAppExeName "raptor.exe"
+#define AppName "Raptor"
+#define AppPublisher "Raptor"
+#define AppURL "http://code.google.com/p/raptor/"
+
+; #define arguments :
+; - AppVersion : raptor version
+; - AppSrcDir  : raptor root directory
+; - AppInstallDir : raptor installation directory
 
 ; ----------------------------------------------------------------------
 
@@ -15,25 +17,27 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{BCC0D579-D0B8-4DE3-9DDE-F3FE9481E2A7}
-AppName={#MyAppName}
-AppVersion={#MyAppVersion}
-AppVerName={#MyAppName}-{#MyAppVersion}
-AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
-DefaultGroupName={#MyAppName}
+AppName={#AppName}
+AppVersion={#AppVersion}
+AppVerName={#AppName}-{#AppVersion}
+AppPublisher={#AppPublisher}
+AppPublisherURL={#AppURL}
+AppSupportURL={#AppURL}
+AppUpdatesURL={#AppURL}
+DefaultDirName={pf}\{#AppName}
+DefaultGroupName={#AppName}
 AllowNoIcons=yes
-SourceDir={#MyAppSrcDir}
+SourceDir={#AppSrcDir}
 LicenseFile=LICENSE.GPL3
 ;InfoBeforeFile=
 ;InfoAfterFile=
 OutputDir=package/windows
-OutputBaseFilename=setup
+OutputBaseFilename=raptor-{#AppVersion}-setup
 SetupIconFile=src/images/raptor.ico
 Compression=lzma
 SolidCompression=yes
+WizardImageFile=package/windows/WizModernImage-IS.bmp
+WizardSmallImageFile=package/windows/WizModernSmallImage-IS.bmp
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -44,12 +48,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "delivery\release\raptor.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "delivery\release\libgcc_s_dw2-1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "delivery\release\mingwm10.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "delivery\release\QtCore4.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "delivery\release\QtGui4.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "delivery\release\QtNetwork4.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppInstallDir}\*.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppInstallDir}\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppInstallDir}\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion
 Source: "LICENSE.GPL3"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -68,7 +69,7 @@ Filename: "{app}\raptor.exe"; Description: "{cm:LaunchProgram,Raptor}"; Flags: n
 ; Raptor registry parameters
 Root: HKCU; Subkey: "Software\Raptor"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\Raptor"; ValueType: string; ValueName: "InstallDir"; ValueData: "{app}"
-Root: HKCU; Subkey: "Software\Raptor"; ValueType: string; ValueName: "Version"; ValueData: "{#MyAppVersion}"
+Root: HKCU; Subkey: "Software\Raptor"; ValueType: string; ValueName: "Version"; ValueData: "{#AppVersion}"
 
 ; Paths
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\raptor.exe; ValueType: string; ValueData: {app}\raptor.exe; Flags: uninsdeletekey;
