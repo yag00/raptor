@@ -58,7 +58,7 @@ class uninstall(UninstallContext):
 class package(BuildContext):
 	cmd = 'package'
 	fun = 'package'
-		
+
 def dist(ctx):
 	if isWindows():
 		ctx.algo      = 'zip'
@@ -79,7 +79,7 @@ def options(opt):
 def configure(conf):
 	#min waf version
 	conf.check_waf_version(mini='1.6.8')
-	
+
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
 	if isWindows():
@@ -96,7 +96,7 @@ def configure(conf):
 
 	conf.load('qt4')
 	conf.load('slow_qt4')
-	
+
 	#check qt version
 	QT_MIN_VERSION = '4.6.0'
 	qtversion = (conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_VERSION']).strip())
@@ -188,9 +188,9 @@ def build(bld):
 		source          = qscintilla_sources,
 		name            = 'qscintilla2',
 		target          = 'qscintilla2',
-		includes        = ['ext/QScintilla/QScintilla-gpl-2.5.1/include', 
-							'ext/QScintilla/QScintilla-gpl-2.5.1/lexlib', 
-							'ext/QScintilla/QScintilla-gpl-2.5.1/src', 
+		includes        = ['ext/QScintilla/QScintilla-gpl-2.5.1/include',
+							'ext/QScintilla/QScintilla-gpl-2.5.1/lexlib',
+							'ext/QScintilla/QScintilla-gpl-2.5.1/src',
 							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4'],
 		defines         = ['QSCINTILLA_MAKE_DLL', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG', 'QT_GUI_LIB', 'QT_CORE_LIB'],
 		cxxflags        = [],	# todo build with -Wall -Werror
@@ -207,10 +207,10 @@ def build(bld):
 			'src/**/*.ui',
 			'src/**/*.qrc'],
 		excl=['src/rc/*.cpp'])
-		
+
 	if isWindows():
 		raptor_sources += bld.path.ant_glob('src/**/*.rc')
-	
+
 	bld.new_task_gen(
 		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows() else ''),
 		uselib          = 'QTCORE QTGUI QTNETWORK QTHELP',
@@ -225,19 +225,19 @@ def build(bld):
 							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4',
 							'ext/qt-solutions/qtsingleapplication/src',
 							'src'],
-		defines         = [	'UNICODE', 'HAVE_FGETPOS', 
+		defines         = [	'UNICODE', 'HAVE_FGETPOS',
 							'QT_DLL', 'QT_NO_DEBUG', 'QT_SQL_LIB', 'QT_XML_LIB', 'QT_GUI_LIB', 'QT_NETWORK_LIB', 'QT_CORE_LIB', 'QT_THREAD_SUPPORT',
 							'PACKAGE_NAME="%s"' % APPNAME.capitalize(),
 							'PACKAGE_VERSION="%s"' % VERSION,
 							'PACKAGE_DESCRIPTION="%s"' % DESCRIPTION,
 							'PACKAGE_BIN="%s/bin"' % bld.env['PREFIX'],
-							'PACKAGE_LIB="/usr/local/lib"',
-							'PACKAGE_DATA="/usr/local/share"',
+							'PACKAGE_LIB="%s/lib"' % bld.env['PREFIX'],
+							'PACKAGE_DATA="%s/share"' % bld.env['PREFIX'],
 							'PACKAGE_OS="%s"' % getSystemOsString()],
 		cxxflags        = ['-Wall', '-Werror'],
 		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows() else ['-Wl,-O1']),
 		install_path    = getBinaryInstallationPath(bld.env['PREFIX']))
-	
+
 	#install translations file
 	bld.install_files(getTranslationInstallationPath(bld.env['PREFIX']), bld.bldnode.ant_glob('**/*.qm'))
 
@@ -278,14 +278,18 @@ def package(ctx):
 	if isWindows():
 		if ctx.env.ISCC != []:
 			if Options.commands != []:
-				#TODO build the setup package
-				ctx.to_log("Build setup.exe\n")
+				command = '"' + ctx.env.ISCC + '"'
+				command += ' "/dAppVersion=' + VERSION + '"'
+				command += ' "/dAppSrcDir=' + ctx.path.abspath() + '"'
+				command += ' "/dAppInstallDir=' + ctx.env.PREFIX + '"'
+				command += ' package/windows/package.iss'
+				ctx.exec_command(command)
 			else:
-				ctx.env.PREFIX = ctx.env.PREFIX + "2"
 				#need a command after package to avoid infinite recursion so we called uninstall
-				Options.commands = ['clean', 'release', 'install', 'package', 'uninstall'] + Options.commands
+				#TODO : install in a temporay directory
+				Options.commands = ['clean', 'release','install', 'package', 'uninstall'] + Options.commands
 		else:
-			ctx.fatal("InnoSetup compiler is not available. Setup your path correctly")
+			ctx.fatal("InnoSetup compiler is not available. Run configure")
 	else:
 		ctx.fatal("no packaging available")
 
@@ -351,7 +355,7 @@ def getBinaryInstallationPath(prefix):
 		return prefix
 	else:
 		return prefix + '/bin'
-		
+
 def getTranslationInstallationPath(prefix):
 	if isWindows():
 		return prefix + '/translations'
