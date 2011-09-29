@@ -192,7 +192,7 @@ def build(bld):
 							'ext/QScintilla/QScintilla-gpl-2.5.1/lexlib',
 							'ext/QScintilla/QScintilla-gpl-2.5.1/src',
 							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4'],
-		defines         = ['QSCINTILLA_MAKE_DLL', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG', 'QT_GUI_LIB', 'QT_CORE_LIB'],
+		defines         = ['QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
 		cxxflags        = [],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
 
@@ -225,8 +225,7 @@ def build(bld):
 							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4',
 							'ext/qt-solutions/qtsingleapplication/src',
 							'src'],
-		defines         = [	'UNICODE', 'HAVE_FGETPOS',
-							'QT_DLL', 'QT_NO_DEBUG', 'QT_SQL_LIB', 'QT_XML_LIB', 'QT_GUI_LIB', 'QT_NETWORK_LIB', 'QT_CORE_LIB', 'QT_THREAD_SUPPORT',
+		defines         = [	'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
 							'PACKAGE_NAME="%s"' % APPNAME.capitalize(),
 							'PACKAGE_VERSION="%s"' % VERSION,
 							'PACKAGE_DESCRIPTION="%s"' % DESCRIPTION,
