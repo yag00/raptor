@@ -36,6 +36,7 @@ OutputBaseFilename=raptor-{#AppVersion}-setup
 SetupIconFile=src/images/raptor.ico
 Compression=lzma
 SolidCompression=yes
+PrivilegesRequired=none
 WizardImageFile=package/windows/WizModernImage-IS.bmp
 WizardSmallImageFile=package/windows/WizModernSmallImage-IS.bmp
 
