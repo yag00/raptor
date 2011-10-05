@@ -9,7 +9,7 @@
 ; - AppVersion : raptor version
 ; - AppSrcDir  : raptor root directory
 ; - AppInstallDir : raptor installation directory
-
+; - OutputDir  : innosetup output directory
 ; ----------------------------------------------------------------------
 
 [Setup]
@@ -31,7 +31,7 @@ SourceDir={#AppSrcDir}
 LicenseFile=LICENSE.GPL3
 ;InfoBeforeFile=
 ;InfoAfterFile=
-OutputDir=package/windows
+OutputDir={#OutputDir}
 OutputBaseFilename=raptor-{#AppVersion}-setup
 SetupIconFile=src/images/raptor.ico
 Compression=lzma
