@@ -23,6 +23,7 @@
 #include <QLibraryInfo>
 #include <QTranslator>
 #include <QApplication>
+#include <QDir>
 
 #include <qtsingleapplication.h>
 #include <Qsci/qsciglobal.h>
@@ -114,7 +115,8 @@ int main(int argc, char *argv[]) {
 			parseOption(arg);
 			return 0;
 		}else{
-			message += arg;
+			QDir dir(arg);
+			message += dir.absolutePath();
 			message += ";";
 		}
 	}
