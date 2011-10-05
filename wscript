@@ -24,7 +24,7 @@
 # python waf-light --make-waf --tools=slow_qt4,compat15
 #
 
-import sys, os, platform, shutil
+import sys, os, platform, shutil, tarfile
 from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
@@ -79,7 +79,7 @@ def configure(conf):
 
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
-	
+
 	if isWindows():
 		conf.check_tool('winres')
 
@@ -121,7 +121,16 @@ def configurePackage(conf):
 			pass
 	else:
 		(distname,version,id) =  platform.linux_distribution()
-		if distname == "Fedora":
+		if distname == "Ubuntu":
+			try:
+				conf.find_program("debuild", var="DEBUILD")
+			except conf.errors.ConfigurationError:
+				pass
+			try:
+				conf.find_program("dpkg-buildpackage", var="DPKG_BUILDPACKAGE")
+			except conf.errors.ConfigurationError:
+				pass
+		elif distname == "Fedora":
 			try:
 				conf.find_program("rpmbuild", var="RPMBUILD")
 			except conf.errors.ConfigurationError:
@@ -293,6 +302,9 @@ class package(BuildContext):
 class packageWindows(BuildContext):
 	cmd = 'packageWindows'
 	fun = 'packageWindows'
+class packageUbuntu(BuildContext):
+	cmd = 'packageUbuntu'
+	fun = 'packageUbuntu'
 class packageFedora(BuildContext):
 	cmd = 'packageFedora'
 	fun = 'packageFedora'
@@ -303,7 +315,9 @@ def package(ctx):
 		Options.commands = ['clean', 'release','install', 'packageWindows', 'uninstall'] + Options.commands
 	else:
 		(distname,version,id) =  platform.linux_distribution()
-		if distname == "Fedora":
+		if distname == "Ubuntu":
+			Options.commands = ['clean', 'dist', 'packageUbuntu'] + Options.commands
+		elif distname == "Fedora":
 			Options.commands = ['clean', 'dist', 'packageFedora'] + Options.commands
 		else:
 			ctx.fatal("no packaging available")
@@ -321,6 +335,43 @@ def packageWindows(ctx):
 	else:
 		ctx.fatal("InnoSetup compiler is not available. Run configure")
 
+def packageUbuntu(ctx):
+	if (ctx.env.DEBUILD != []) and (ctx.env.DPKG_BUILDPACKAGE != []):
+		#setup deb build root tree
+		try:
+			os.mkdir(os.path.abspath("debbuild"))
+		except:
+			pass
+		#extract tar
+		tar = tarfile.open("raptor-editor-" + VERSION + ".tar.gz")
+		tar.extractall()
+		tar.close()
+		os.remove(os.path.abspath("raptor-editor-" + VERSION + ".tar.gz"))
+		shutil.move(os.path.abspath("raptor-editor-" + VERSION), os.path.abspath("debbuild/"));
+		#copy debian directory
+		print os.path.abspath("package/ubuntu/debian")
+		print os.path.abspath("debbuild/raptor-editor-" + VERSION + "/")
+		shutil.copytree(os.path.abspath("package/ubuntu/debian"), os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian"))
+		
+		#command
+		os.chdir("debbuild/raptor-editor-" + VERSION)
+		command = ctx.env.DEBUILD + ' '
+		command += "-S -sa"
+		ctx.exec_command(command)
+
+		
+		command = ctx.env.DPKG_BUILDPACKAGE + ' '
+		command += "-rfakeroot"
+		ctx.exec_command(command)
+
+		os.chdir("../../")
+		
+		#get deb/src-deb
+		os.rename("debbuild", "package.ubuntu")
+		
+	else:
+		ctx.fatal("debbuild/dpkg-buildpackage are not available.\nYou can install it with 'sudo apt-get install devscripts'.\nThen run configure.")
+
 def packageFedora(ctx):
 	if ctx.env.RPMBUILD != []:
 		#setup rpm build root tree
@@ -333,7 +384,7 @@ def packageFedora(ctx):
 		except:
 			pass
 		shutil.move(os.path.abspath("raptor-editor-" + VERSION + ".tar.gz"), os.path.abspath("rpmbuild/SOURCES/"))
-		
+
 		#command
 		command = ctx.env.RPMBUILD + ' '
 		command += "--define '_topdir "
@@ -350,7 +401,7 @@ def packageFedora(ctx):
 		rpmCleanupTree()
 
 	else:
-		ctx.fatal("rpmbuild is not available. Run configure")
+		ctx.fatal("rpmbuild is not available.\nYou can install it with 'yum install rpmdevtools'.\nThen run configure.")
 
 def rpmSetupTree():
 	#setup rpm build root tree
