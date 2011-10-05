@@ -24,9 +24,7 @@
 # python waf-light --make-waf --tools=slow_qt4,compat15
 #
 
-import sys
-import os
-import platform
+import sys, os, platform, shutil
 from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
@@ -55,15 +53,14 @@ class uninstall(UninstallContext):
 	cmd = 'uninstall'
 	variant = 'release'
 
-class package(BuildContext):
-	cmd = 'package'
-	fun = 'package'
-
 def dist(ctx):
+	"makes a tarball for redistributing the sources"
+	ctx.excl = '**/build **/*~ **/wbuild* **/delivery* **/.*'
 	if isWindows():
 		ctx.algo      = 'zip'
 	else:
-		ctx.algo      = 'tar.bz2'
+		ctx.base_name = 'raptor-editor-' + VERSION
+		ctx.algo      = 'tar.gz'
 
 def install(ctx):
 	waflib.Options.commands = 'install_release'
@@ -82,13 +79,11 @@ def configure(conf):
 
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
+	
 	if isWindows():
 		conf.check_tool('winres')
-		try:
-			conf.find_program("ISCC", var="ISCC")
-		except conf.errors.ConfigurationError:
-			pass
 
+	configurePackage(conf)
 	"""try:
 		conf.find_program("sphinx-build", var="SPHINX_BUILD")
 	except conf.errors.ConfigurationError:
@@ -117,6 +112,20 @@ def configure(conf):
 	# summary
 	Logs.pprint('BLUE', 'Summary:')
 	conf.msg('Install Raptor ' + VERSION + ' in', conf.env['PREFIX'])
+
+def configurePackage(conf):
+	if isWindows():
+		try:
+			conf.find_program("ISCC", var="ISCC")
+		except conf.errors.ConfigurationError:
+			pass
+	else:
+		(distname,version,id) =  platform.linux_distribution()
+		if distname == "Fedora":
+			try:
+				conf.find_program("rpmbuild", var="RPMBUILD")
+			except conf.errors.ConfigurationError:
+				pass
 
 def prebuild(ctx):
 	print('before the build is complete')
@@ -273,24 +282,94 @@ def build(bld):
 		)
 	"""
 
+
+#########################################################
+# Packaging
+#########################################################
+
+class package(BuildContext):
+	cmd = 'package'
+	fun = 'package'
+class packageWindows(BuildContext):
+	cmd = 'packageWindows'
+	fun = 'packageWindows'
+class packageFedora(BuildContext):
+	cmd = 'packageFedora'
+	fun = 'packageFedora'
+
 def package(ctx):
+	"create package for your system"
 	if isWindows():
-		if ctx.env.ISCC != []:
-			if Options.commands != []:
-				command = '"' + ctx.env.ISCC + '"'
-				command += ' "/dAppVersion=' + VERSION + '"'
-				command += ' "/dAppSrcDir=' + ctx.path.abspath() + '"'
-				command += ' "/dAppInstallDir=' + ctx.env.PREFIX + '"'
-				command += ' package/windows/package.iss'
-				ctx.exec_command(command)
-			else:
-				#need a command after package to avoid infinite recursion so we called uninstall
-				#TODO : install in a temporay directory
-				Options.commands = ['clean', 'release','install', 'package', 'uninstall'] + Options.commands
-		else:
-			ctx.fatal("InnoSetup compiler is not available. Run configure")
+		Options.commands = ['clean', 'release','install', 'packageWindows', 'uninstall'] + Options.commands
 	else:
-		ctx.fatal("no packaging available")
+		(distname,version,id) =  platform.linux_distribution()
+		if distname == "Fedora":
+			Options.commands = ['clean', 'dist', 'packageFedora'] + Options.commands
+		else:
+			ctx.fatal("no packaging available")
+
+def packageWindows(ctx):
+	if ctx.env.ISCC != []:
+		command = '"' + ctx.env.ISCC + '"'
+		command += ' "/dAppVersion=' + VERSION + '"'
+		command += ' "/dAppSrcDir=' + ctx.path.abspath() + '"'
+		command += ' "/dAppInstallDir=' + ctx.env.PREFIX + '"'
+		command += ' "/dOutputDir=' + os.path.abspath("package.windows") + '"'
+		command += ' package/windows/package.iss'
+		print command
+		ctx.exec_command(command)
+	else:
+		ctx.fatal("InnoSetup compiler is not available. Run configure")
+
+def packageFedora(ctx):
+	if ctx.env.RPMBUILD != []:
+		#setup rpm build root tree
+		rpmSetupTree()
+		#copy spec file
+		shutil.copy(os.path.abspath("package/fedora/raptor-editor.spec"), os.path.abspath("rpmbuild/SPECS"))
+		#copy source archive
+		try:
+			os.remove(os.path.abspath("rpmbuild/SOURCES/raptor-editor-" + VERSION + ".tar.gz"))
+		except:
+			pass
+		shutil.move(os.path.abspath("raptor-editor-" + VERSION + ".tar.gz"), os.path.abspath("rpmbuild/SOURCES/"))
+		
+		#command
+		command = ctx.env.RPMBUILD + ' '
+		command += "--define '_topdir "
+		command += os.path.abspath("rpmbuild") + "' "
+		command += '-ba '
+		command += ' ' + os.path.abspath("rpmbuild/SPECS/raptor-editor.spec")
+		ctx.exec_command(command)
+
+		#get rpms/srpms
+		shutil.move(os.path.abspath("rpmbuild/RPMS"), os.path.abspath("package.fedora"))
+		shutil.move(os.path.abspath("rpmbuild/SRPMS"), os.path.abspath("package.fedora"))
+
+		#clean rpmbuild directory
+		rpmCleanupTree()
+
+	else:
+		ctx.fatal("rpmbuild is not available. Run configure")
+
+def rpmSetupTree():
+	#setup rpm build root tree
+	try:
+		os.mkdir(os.path.abspath("rpmbuild"))
+		os.mkdir(os.path.abspath("rpmbuild/BUILD"))
+		os.mkdir(os.path.abspath("rpmbuild/RPMS"))
+		os.mkdir(os.path.abspath("rpmbuild/SOURCES"))
+		os.mkdir(os.path.abspath("rpmbuild/SPECS"))
+		os.mkdir(os.path.abspath("rpmbuild/SRPMS"))
+	except:
+		pass
+
+def rpmCleanupTree():
+	#clea rpm build root tree
+	try:
+		shutil.rmtree(os.path.abspath("rpmbuild"))
+	except:
+		pass
 
 #########################################################
 # system & compilation utils function
