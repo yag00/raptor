@@ -38,13 +38,8 @@ namespace {
 		QString comment;
 	};
 
-	const QString mInformations =
-		"<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:small;\">"
-		"	<tr>"
-		"		<td align=\"center\"><br /><img src=\":/about/images/about.png\" width=\"32\" height=\"32\"></td>"
-		"		<td><strong>%1<strong> version %2<br />%3<br /><br /><a href=\"%4\">Home page</a></td>"
-		"	</tr>"
-		"</table>";
+	const QString mInformations = "<strong>%1 version %2</strong><br/>(Build for %3)<br/><a href=\"%4\">Raptor's Home page</a>";
+	//<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
 
 	const QString mDatasMask =
 		"<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-size:small;\">"
@@ -87,8 +82,11 @@ AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
 
 	// show informations table
 	lInformations->setTextInteractionFlags( Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard );
-	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( RaptorVersion.getVersion() ).arg( PACKAGE_DESCRIPTION ).arg("http://code.google.com/p/raptor/"));
-
+#ifdef PACKAGE_OS
+	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( RaptorVersion.getVersion() ).arg(PACKAGE_OS).arg("http://code.google.com/p/raptor/"));
+#else
+	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( RaptorVersion.getVersion() ).arg("Unknown OS").arg("http://code.google.com/p/raptor/"));
+#endif
 	// team
 	foreach ( Datas i, mTeamates )
 		tbTeam->append( mDatasMask.arg( i.comment ).arg( i.name +" -" ).arg( i.login +"<br />" ).arg( i.country ).arg( QString( "mailto:" ).append( i.email ) ).arg( i.email ) );
