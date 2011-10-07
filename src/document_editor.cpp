@@ -382,10 +382,22 @@ bool DocumentEditor::load(const QString &fileName_) {
 	}
 
 	///@todo better charset detection
-	char bom[4];
-	file.read(bom, 4);
+	char bom[6];
+	file.read(bom, 6);
 	file.reset();
 	detectBOM(bom);
+	
+	QString shebang;
+	for(uint8_t i = 0; i < 5; i++){
+		if(bom[i] == '#'){
+			if(bom[i+1] == '!'){
+				char line[80];
+				file.readLine(line, 80);
+				file.reset();
+				shebang = line;
+			}
+		}
+	}
 
 	QTextCodec* codec = QTextCodec::codecForName(_codec.toUtf8());
 	if(codec == 0) {
@@ -417,7 +429,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 		delete l;
 		l = 0;
 	}
-	setLexer(LexerManager::getInstance().getAutoLexer(this));
+	setLexer(LexerManager::getInstance().getAutoLexer(this, shebang));
 
 	//reload settings for lexer
 	Settings settings;

@@ -417,12 +417,34 @@ void LexerManager::update(QsciLexer* lexer_){
 	}
 }
 
-QsciLexer* LexerManager::getAutoLexer(DocumentEditor* document_){
+QsciLexer* LexerManager::getAutoLexer(DocumentEditor* document_, const QString& shebang_){
+	if(!shebang_.isEmpty()){
+		QsciLexer* lexer = getLexerFromShebang(shebang_, document_);
+		//if we found a lexer return it else try with the file extension
+		if(lexer != 0)
+			return lexer;
+	}
 	QString filename = document_->getName();
 	foreach(QString k, _associations.keys()){
 		if(QDir::match(_associations.value(k), filename)){
 			return lexerFactory(k, document_);
 		}
 	}
+	return 0;				
+}
+
+QsciLexer* LexerManager::getLexerFromShebang(const QString& shebang_, DocumentEditor* parent_){
+	//#!/bin/sh -x or	#!/bin/bash -> bash
+	//#!/usr/bin/perl				-> perl
+	//#!/usr/bin/tcl				-> tcl
+	//#!/usr/bin/env python			-> python
+	if(shebang_.contains("python"))
+		return lexerFactory("Python", parent_);
+	if(shebang_.contains("bash"))
+		return lexerFactory("Bash", parent_);
+	if(shebang_.contains("perl"))
+		return lexerFactory("Perl", parent_);
+	if(shebang_.contains("tcl"))
+		return lexerFactory("TCL", parent_);	
 	return 0;
 }

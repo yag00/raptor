@@ -44,8 +44,11 @@ class LexerManager : public  Singleton<LexerManager>
 		 * @param method_ slot */
 		void connectTo(const QObject * receiver_, const char * method_);
 
-		/** @return auto lexer from extension file association defined in settings */
-		QsciLexer* getAutoLexer(DocumentEditor* document_);
+		/** @return auto lexer from extension file association defined in settings 
+		 * or the shebang if it is available 
+		 * @param document_ the document 
+		 * @param shebang_ the shebang */
+		QsciLexer* getAutoLexer(DocumentEditor* document_, const QString& shebang_ = "");
 
 		/** @return a sorted list of all available lexer */
 		QStringList getAvailableLexer() const;
@@ -76,6 +79,9 @@ class LexerManager : public  Singleton<LexerManager>
 		 * @param name_ Name of lexer to instanciate
 		 * @return new lexer */
 		static QsciLexer* lexerFactory(const QString& name_, DocumentEditor* parent_ = 0);
+
+	protected:
+		QsciLexer* getLexerFromShebang(const QString& shebang_, DocumentEditor* parent_ = 0);
 
 	private:
 		friend class Singleton<LexerManager>;
