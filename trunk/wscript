@@ -330,7 +330,7 @@ def packageWindows(ctx):
 		command += ' "/dAppInstallDir=' + ctx.env.PREFIX + '"'
 		command += ' "/dOutputDir=' + os.path.abspath("package.windows") + '"'
 		command += ' package/windows/package.iss'
-		print command
+		print(command)
 		ctx.exec_command(command)
 	else:
 		ctx.fatal("InnoSetup compiler is not available. Run configure")
@@ -349,8 +349,8 @@ def packageUbuntu(ctx):
 		os.remove(os.path.abspath("raptor-editor-" + VERSION + ".tar.gz"))
 		shutil.move(os.path.abspath("raptor-editor-" + VERSION), os.path.abspath("debbuild/"));
 		#copy debian directory
-		print os.path.abspath("package/ubuntu/debian")
-		print os.path.abspath("debbuild/raptor-editor-" + VERSION + "/")
+		print(os.path.abspath("package/ubuntu/debian"))
+		print(os.path.abspath("debbuild/raptor-editor-" + VERSION + "/"))
 		shutil.copytree(os.path.abspath("package/ubuntu/debian"), os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian"))
 		
 		#command
