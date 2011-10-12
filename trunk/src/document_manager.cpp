@@ -108,6 +108,33 @@ QList<DocumentEditor*> DocumentManager::getDocuments(){
 	}
 	return list;
 }
+QList<DocumentEditor*> DocumentManager::getDocuments(int view_){
+	if(view_ >= (int)_viewList.size()){
+		QList<DocumentEditor*> empty;
+		return empty;
+	}
+	return _viewList[view_]->getDocuments();
+}
+QStringList DocumentManager::getDocumentsNameList(){
+	QStringList list;
+	//for each view
+	std::vector<DocumentView*>::iterator it;
+	for(it = _viewList.begin(); it < _viewList.end(); ++it){
+		//fill the list
+		list.append((*it)->getDocumentNameList());
+	}
+	return list;
+}
+QStringList DocumentManager::getDocumentsNameList(int view_){
+	if(view_ >= (int)_viewList.size()){
+		QStringList empty;
+		return empty;
+	}
+	return _viewList[view_]->getDocumentNameList();	
+}
+int DocumentManager::getViewNumber() const{
+	return _viewList.size();
+}
 
 void DocumentManager::setActiveDocument(DocumentEditor* document_){
 	std::vector<DocumentView*>::iterator it;
@@ -148,37 +175,6 @@ void DocumentManager::updateView(){
 	view->setParent(0);
 	//add view to splitter
 	addWidget(view);
-}
-
-void DocumentManager::destroyView(DocumentView* view_){
-	//we need at least one view
-	if(_viewList.size() == 1)
-		return;
-
-	if(view_ == 0){
-		//get pointer on the view which send the signal
-		view_ = qobject_cast<DocumentView*>(sender());
-		if(view_ == 0){
-			qCritical() << "destroyView NULL pointer";
-			return;
-		}
-	}
-
-	std::vector<DocumentView*>::iterator it;
-	for(it = _viewList.begin(); it < _viewList.end(); ++it){
-		if(*it == view_){
-			//update active view
-			if(view_ == _activeView)
-				_activeView = 0;
-			//remove view from the list	
-			_viewList.erase(it);
-			//delete view
-			view_->deleteLater(); //delete provoques a crash
-		}
-	}
-	
-	_activeView = _viewList[0];
-	//_activeView->currentDocument()->setFocus();
 }
 
 bool DocumentManager::documentExists(const QString& name_){
@@ -227,6 +223,31 @@ void DocumentManager::open(QStringList& files_){
 	getActiveView()->openDocument(files_);
 }
 
+void DocumentManager::open(QStringList& files_, int view_){
+	int i = 0;
+	while(i != files_.size()){
+		QString fileName = files_[i];
+		
+		bool fileRemoved = false;
+		if(documentExists(fileName)){
+			setActiveDocument(fileName);
+			files_.removeAt(i);
+			fileRemoved = true;
+		}
+		if(!fileRemoved)
+			i++;
+	}
+	
+	if(view_ >= (int)_viewList.size()){
+		DocumentView* view = createDocumentView();
+		view->openDocument(files_);	
+		view->setVisible(true);
+	}else{
+		_viewList[view_]->openDocument(files_);	
+		_viewList[view_]->setVisible(true);
+	}
+}
+
 void DocumentManager::save(){
 	getActiveView()->save();
 }
@@ -272,6 +293,15 @@ bool DocumentManager::closeAllExceptCurrentDocument(){
 	return true;
 }
 
+bool DocumentManager::closeAllIfPossible(){
+	QList<DocumentEditor*> list = getDocuments();
+	foreach(DocumentEditor* doc, list){
+		if(doc->isModified())
+			return false;
+	}
+	return closeAll();
+}
+
 void DocumentManager::reload(){
 	if(getActiveDocument()->reload()) {
 		getActiveView()->updateAllDocuments();
@@ -282,37 +312,6 @@ void DocumentManager::reload(){
 void DocumentManager::print(){
 	getActiveView()->print();
 }
-
-void DocumentManager::saveSession(){
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
-}
-
-void DocumentManager::restoreSession(){
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
-}
-
-void DocumentManager::saveCurrentSession(QSettings& settings_){
-	settings_.setValue("View/number", (int)_viewList.size());
-	for(unsigned int i = 0; i < _viewList.size(); i++){
-		settings_.setValue(QString("View/View%1/files").arg(i), _viewList[i]->getDocumentNameList());
-	}
-}
-
-void DocumentManager::restoreLastSession(QSettings& settings_){
-	int nbView = settings_.value("View/number", 0).toInt();
-	for(int i = 0; i < nbView; i++){
-		QStringList list  = settings_.value(QString("View/View%1/files").arg(i)).toStringList();
-		foreach(QString fileName, list){
-			if(fileName.isEmpty())
-				continue;
-			open(fileName);
-			if(i == 1){
-				moveDocument();
-			}
-		}
-	}
-}
-
 //==================== edition slots ====================//
 
 void DocumentManager::cut(){

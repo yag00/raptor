@@ -100,8 +100,6 @@ class DocumentView : public QTabWidget {
 		 * NOTE: view has to have at least one tab so when the last document is closed/moved the view 
 		 * will automatically create a new document and emit the empty signal */
 		void empty();
-		/** emit when the last document is closed */
-		//void destroyViewRequested();
 		/** emit when a drag&drop drop event occurs */
 		void documentMoveRequested(QWidget* src_, int srcIndex_, QWidget* dest_, int destIndex_);
 
