@@ -24,10 +24,11 @@
 #include <QDialog>
 
 #include "ui_settings.h"
-#include "settings.h"
 
 class QButtonGroup;
 class QScintilla;
+class MainWindow;
+class Settings;
 
 class SettingsDialog : public QDialog, private Ui::UISettings{
 	

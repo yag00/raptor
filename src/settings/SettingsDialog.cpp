@@ -27,8 +27,8 @@
 #include "../astyle/AStyleIndenter.h"
 #include "../lexer/RLexerCpp.h"
 #include "../widget/ScintillaExt.h"
-#include "settings.h"
-#include "settings_dialog.h"
+#include "Settings.h"
+#include "SettingsDialog.h"
 
 SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDialog(parent), _mainWindow(mainWindow_) {
 	_settings = new Settings(this);

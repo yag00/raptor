@@ -27,7 +27,7 @@
 
 #include <qtsingleapplication.h>
 #include <Qsci/qsciglobal.h>
-#include "settings/settings.h"
+#include "settings/Settings.h"
 #include "about/ApplicationPath.h"
 #include "mainwindow.h"
 

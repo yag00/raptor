@@ -28,7 +28,7 @@
 #include "../mainwindow.h"
 #include "../document_manager.h"
 #include "../document_editor.h"
-#include "settings.h"
+#include "Settings.h"
 
 Settings::Settings(QObject * parent_) : QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "settings", parent_){
 
