@@ -145,7 +145,8 @@ DocumentEditor::~DocumentEditor() {
 		_clone->detachClone();
 		_clone = 0;
 	} else {
-		_watcher.removePath(getFullPath());
+		if(!getFullPath().isEmpty())
+			_watcher.removePath(getFullPath());
 	}
 }
 
