@@ -27,7 +27,7 @@
 #include <Qsci/qscilexercpp.h>
 
 #include "lexer/lexer_manager.h"
-#include "settings/settings.h"
+#include "settings/Settings.h"
 #include "document_editor.h"
 
 

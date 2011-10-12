@@ -61,7 +61,7 @@
 #include "RLexerMatlab.h"
 #include "RLexerOctave.h"
 
-#include "../settings/settings_dialog.h"
+#include "../settings/Settings.h"
 #include "../document_editor.h"
 #include "lexer_manager.h"
 

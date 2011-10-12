@@ -21,7 +21,7 @@
 #include <QtGui>
 #include <Qsci/qscimacro.h>
 
-#include "settings/settings.h"
+#include "settings/Settings.h"
 #include "Diff.h"
 #include "document_editor.h"
 #include "document_view.h"
