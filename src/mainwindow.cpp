@@ -21,8 +21,6 @@
 #include <QtGui>
 #include <Qsci/qsciscintilla.h>
 
-#include <assert.h>
-
 #include "ui_macro.h"
 #include "about/About.h"
 #include "about/Version.h"
@@ -30,6 +28,7 @@
 #include "settings/settings_dialog.h"
 #include "settings/ShortcutEditor.h"
 #include "settings/ShortcutSettings.h"
+#include "settings/SessionManager.h"
 #include "search.h"
 #include "document_editor.h"
 #include "document_view.h"
@@ -90,11 +89,17 @@ void MainWindow::initMenuFile() {
 	connect(actionClose, SIGNAL(triggered()), _documentManager, SLOT(close()));
 	connect(actionCloseAll, SIGNAL(triggered()), _documentManager, SLOT(closeAll()));
 	connect(actionCloseAllExceptCurrentDocument, SIGNAL(triggered()), _documentManager, SLOT(closeAllExceptCurrentDocument()));
-	connect(actionSessionSave, SIGNAL(triggered()), _documentManager, SLOT(saveSession()));
-	connect(actionSessionRestore, SIGNAL(triggered()), _documentManager, SLOT(restoreSession()));
 	connect(actionReload, SIGNAL(triggered()), _documentManager, SLOT(reload()));
 	connect(actionPrint, SIGNAL(triggered()), _documentManager, SLOT(print()));
 	connect(actionExit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+	
+	connect(actionNewSession, SIGNAL(triggered()), _sessionManager, SLOT(newSession()));
+	connect(actionOpenSession, SIGNAL(triggered()), _sessionManager, SLOT(openSession()));
+	connect(actionSwitchSession, SIGNAL(triggered()), _sessionManager, SLOT(switchSession()));
+	connect(actionSaveSession, SIGNAL(triggered()), _sessionManager, SLOT(saveSession()));
+	connect(actionSaveSessionAs, SIGNAL(triggered()), _sessionManager, SLOT(saveSessionAs()));
+	connect(actionManageSessions, SIGNAL(triggered()), _sessionManager, SLOT(manageSessions()));
+	
 	//recent file actions
 	connect(actionEmptyRecentFilesList, SIGNAL(triggered()), this, SLOT(clearRecentFile()));
 	connect(actionOpenAllRecentFiles, SIGNAL(triggered()), this, SLOT(openAllRecentFile()));
@@ -300,11 +305,11 @@ void MainWindow::initMenuHelp() {
 
 void MainWindow::createManager() {
 	_documentManager = new DocumentManager(this);
-	setCentralWidget(_documentManager);
-	
+	_sessionManager = new SessionManager(*_documentManager, this);
 	_symbolManager = new SymbolManager(this);
-	
 	_helpBrowser = new HelpBrowser(this);
+	
+	setCentralWidget(_documentManager);
 	
 	//connection
 	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
@@ -753,7 +758,7 @@ void MainWindow::about() {
 void MainWindow::writeSettings() {
 	Settings settings;
 	settings.setVersion(RaptorVersion);
-	_documentManager->saveCurrentSession(settings);
+	_sessionManager->saveStartSession();
 }
 
 void MainWindow::readSettings() {
@@ -826,7 +831,7 @@ void MainWindow::readSettings() {
 
 	
 	//Restore last session
-	_documentManager->restoreLastSession(settings);
+	_sessionManager->openStartSession();
 	settings.apply(*this);
 }
 

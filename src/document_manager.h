@@ -24,7 +24,6 @@
 #include <vector>
 #include "widget/splitter.h"
 
-class QSettings;
 class QFileSystemWatcher;
 
 class DocumentEditor;
@@ -40,38 +39,46 @@ class DocumentManager : public Splitter{
 		DocumentManager(QWidget * parent_ = 0);
 		/** destructor */
 		~DocumentManager();
-		
+
 		/** @return the file watcher */
 		QFileSystemWatcher& getFileSystemWatcher();
-	
+
 		/** @return active view */
 		DocumentView* getActiveView() const;
 		/** @return active document */
 		DocumentEditor* getActiveDocument() const;
-		
+
 		/** set the active document (do nothing if document doesn't exist
 		 * @param document_ the document to be active */
 		void setActiveDocument(DocumentEditor* document_);
 		/** set the active document (do nothing if document doesn't exist
 		 * @param name_ of the document to be active */
 		void setActiveDocument(const QString& name_);
-		
+
 		/** get a document
 		 * @param name_ path + filename of the document
 		 * @return the document or null if doesn't exist */
 		DocumentEditor* getDocument(const QString& name_);
-		
+
 		/** check if the document physically exists
 		 * @param name_ file to check
 		 * @return true if exists */
 		bool documentExists(const QString& name_);
-		
+
 		/** @return list of document */
 		QList<DocumentEditor*> getDocuments();
-		
+		/** @return list of document by view */
+		QList<DocumentEditor*> getDocuments(int view_);
+		/** @return list of document (fullpath)*/
+		QStringList getDocumentsNameList();
+		/** @return list of document (fullpath) by view */
+		QStringList getDocumentsNameList(int view_);
+		/** @return number of view */
+		int getViewNumber() const;
+
 	public slots:
 		/** @{ */
-		
+
 		/** create a new document */
 		void newDocument();
 		/** open a document */
@@ -82,11 +89,15 @@ class DocumentManager : public Splitter{
 		/** open many documents
 		 * @param files_ list of documents to open */
 		void open(QStringList& files_);
-		/** save the current document */		
+		/** open many documents in the specified view
+		 * @param files_ list of documents to open
+		 * @param view_ the view */
+		void open(QStringList& files_, int view_);
+		/** save the current document */
 		void save();
-		/** save the current document as */		
+		/** save the current document as */
 		void saveAs();
-		/** save a copy of the current document as */		
+		/** save a copy of the current document as */
 		void saveACopyAs();
 		/** save all documents */
 		void saveAll();
@@ -96,27 +107,19 @@ class DocumentManager : public Splitter{
 		bool closeAll();
 		/** close all except active document */
 		bool closeAllExceptCurrentDocument();
+		/** close all documents if it is possible else nothing is done */
+		bool closeAllIfPossible();
 		/** reload current document */
 		void reload();
-		
+
 		/** print current document */
 		void print();
-	
-		/** save session */
-		void saveSession();
-		/** restore session */
-		void restoreSession();
 
-		/** save current session */
-		void saveCurrentSession(QSettings& settings_);
-		/** restore last session */
-		void restoreLastSession(QSettings& settings_);
-		
 		/** @} */
-		
-		
+
+
 		/** @{ */
-		
+
 		/** cut the current document selection */
 		void cut();
 		/** copy the current document selection */
@@ -139,7 +142,7 @@ class DocumentManager : public Splitter{
 		void showIndentationGuides(bool b_);
 		/** remove extra space at the end of lines on the current document */
 		void doTrimTrailing();
-		
+
 		/** convert selection to upper case for the current document */
 		void convertSelectedTextToUpperCase();
 		/** convert selection to lower case for the current document */
@@ -162,25 +165,25 @@ class DocumentManager : public Splitter{
 		void setReadOnly(bool b_);
 		/** go to \a line_ */
 		void gotoLine(int line_);
-		
+
 		/** astyle reindent current document */
 		void reindentDocument();
 		/** astyle reindent all open documents */
 		void reindentOpenDocuments();
-		
+
 		/** toggle comment */
 		void toggleComment();
 		/** toggle block comment */
 		void toggleBlockComment();
-		
+
 		/** switch to the source file associated to the current document
 		 * select or open the file if exists, do nothing if no association */
 		void switchDocumentSrc();
-		
+
 		/** @} */
-		
+
 		/** @{ */
-		
+
 		/** zoom in on current document */
 		void zoomIn();
 		/** zoom out on current document */
@@ -193,18 +196,18 @@ class DocumentManager : public Splitter{
 		void showEndOfLine(bool b_);
 		/** show all(white space,tab and end of line) for the current document */
 		void showAll(bool b_);
-		
+
 		/** fold/unfold all */
 		void foldUnfoldAll();
 		/** fold level x */
 		void foldLevel(int level_);
 		/** unfold level x */
 		void unfoldLevel(int level_);
-		
+
 		/** @} */
-		
+
 		/** @{ */
-		
+
 		/** convert current document to to window eol */
 		void convertToWindowFormat();
 		/** convert current document to to unix eol */
@@ -217,11 +220,11 @@ class DocumentManager : public Splitter{
 		void saveWithCharset(const QString& codec_);
 		/** save current document as with charset */
 		void saveWithCharsetAs(const QString& codec_);
-		
+
 		/** @} */
-		
+
 		/** @{ */
-		
+
 		/** set bookmark on current line */
 		void toggleBookmark();
 		/** remove all bookmarks */
@@ -230,18 +233,18 @@ class DocumentManager : public Splitter{
 		void nextBookmark();
 		/** go to previous bookmarks */
 		void prevBookmark();
-		
+
 		/** @} */
-		
+
 		/** @{ */
-		
+
 		/** set/change the language for the current document */
 		void changeLanguage(const QString& language_);
-		
+
 		/** @} */
-		
+
 		/** @{ */
-		
+
 		/** start recording a macro */
 		void startRecordingMacro();
 		/** stop recording a macro */
@@ -254,20 +257,20 @@ class DocumentManager : public Splitter{
 		QString getCurrentMacro() const;
 		//void loadMacro();
 		//void saveMacro();
-		
+
 		/** @} */
-		
+
 		void diff();
-		
+
 		/** send notification */
 		void notify();
-		
+
 	private slots:
 		/** move current document to the next view */
 		void moveDocument();
-		/** move a document to the next view 
+		/** move a document to the next view
 		 * @param src_ source widget (QTabBar)
-		 * @param srcIndex_ destination index in the src_ tab bar 
+		 * @param srcIndex_ destination index in the src_ tab bar
 		 * @param dest_ destination widget (QTabBar)
 		 * @param destIndex_ destination index in the dest_ tab bar */
 		void moveDocument(QWidget* src_, int srcIndex_, QWidget* dest_, int destIndex_);
@@ -277,12 +280,10 @@ class DocumentManager : public Splitter{
 		/** update view */
 		void updateView();
 		void activeViewChanged(bool active_= true);
-		/** destroy a view */
-		void destroyView(DocumentView* view_ = 0);
-		
+
 		/** use when watched file are externally modified */
 		void watchedFileChanged(const QString& path_);
-		
+
 	signals:
 		/**emit when documents have been successfully opened */
 		void opened(QStringList);
@@ -296,9 +297,9 @@ class DocumentManager : public Splitter{
 		void cursorPositionChanged(DocumentEditor*, int, int);
 		/** emit on a new a status message */
 		void statusMessage(QString);
-		
+
 	protected:
-		/** create a new view 
+		/** create a new view
 		 * @param document_ initialize the view with the document */
 		DocumentView* createDocumentView(DocumentEditor* document_ = 0);
 
@@ -307,10 +308,10 @@ class DocumentManager : public Splitter{
 		std::vector<DocumentView*> _viewList;
 		/** active view */
 		DocumentView* _activeView;
-		
+
 		/** Current Macro */
 		QString _macro;
-		
+
 		/** file watcher */
 		QFileSystemWatcher* _watcher;
 		/** file watcher notification list */

@@ -33,6 +33,7 @@ class MenuLabel;
 class DocumentEditor;
 class DocumentManager;
 class SymbolManager;
+class SessionManager;
 class HelpBrowser;
 
 class MainWindow : public QMainWindow, private Ui::MainWindow{
@@ -154,6 +155,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 	private:
 		/** document manager */
 		DocumentManager* _documentManager;
+		/** session manager */
+		SessionManager* _sessionManager;
 		/** symbol manager */
 		SymbolManager* _symbolManager;
 

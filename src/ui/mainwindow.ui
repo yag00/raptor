@@ -50,8 +50,14 @@
       <iconset resource="../ressources.qrc">
        <normaloff>:/images/session.png</normaloff>:/images/session.png</iconset>
      </property>
-     <addaction name="actionSessionSave"/>
-     <addaction name="actionSessionRestore"/>
+     <addaction name="actionNewSession"/>
+     <addaction name="actionOpenSession"/>
+     <addaction name="actionSwitchSession"/>
+     <addaction name="separator"/>
+     <addaction name="actionSaveSession"/>
+     <addaction name="actionSaveSessionAs"/>
+     <addaction name="separator"/>
+     <addaction name="actionManageSessions"/>
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -990,10 +996,10 @@
     <string comment="statustip action settings">Settings window</string>
    </property>
   </action>
-  <action name="actionSessionSave">
+  <action name="actionSaveSession">
    <property name="icon">
     <iconset resource="../ressources.qrc">
-     <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
+     <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
    </property>
    <property name="text">
     <string comment="action session save">Save</string>
@@ -1001,17 +1007,11 @@
    <property name="statusTip">
     <string comment="statustip action session save">Save session</string>
    </property>
-  </action>
-  <action name="actionSessionRestore">
-   <property name="icon">
-    <iconset resource="../ressources.qrc">
-     <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
+   <property name="whatsThis">
+    <string>Save the session</string>
    </property>
-   <property name="text">
-    <string comment="action session restore">Restore</string>
-   </property>
-   <property name="statusTip">
-    <string comment="statustip action session restore">Restore session</string>
+   <property name="shortcut">
+    <string>F7</string>
    </property>
   </action>
   <action name="actionToggleBookmark">
@@ -1475,6 +1475,69 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionNewSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Session</string>
+   </property>
+   <property name="statusTip">
+    <string>Create a new session</string>
+   </property>
+  </action>
+  <action name="actionOpenSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Session</string>
+   </property>
+   <property name="statusTip">
+    <string>Open an existing session</string>
+   </property>
+  </action>
+  <action name="actionSwitchSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch with last session</string>
+   </property>
+   <property name="statusTip">
+    <string>Save this session and open the last one</string>
+   </property>
+  </action>
+  <action name="actionSaveSessionAs">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Session As...</string>
+   </property>
+   <property name="statusTip">
+    <string>Save the session as ...</string>
+   </property>
+  </action>
+  <action name="actionManageSessions">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/session-mgr.png</normaloff>:/images/session-mgr.png</iconset>
+   </property>
+   <property name="text">
+    <string>Manage Sessions...</string>
+   </property>
+   <property name="statusTip">
+    <string>Open the session manager</string>
+   </property>
+   <property name="shortcut">
+    <string>F8</string>
    </property>
   </action>
  </widget>
