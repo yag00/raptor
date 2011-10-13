@@ -40,6 +40,7 @@ class SessionDialog : public QDialog, private Ui::UISessions{
 		void renameSession();
 		void deleteSession();
 	
+		void enableButton();
 	private:
 		void load();
 	
