@@ -20,19 +20,19 @@
 
 #include <QLineEdit>
 #include <QInputDialog>
-#include <QDebug>
+#include <QDialogButtonBox>
+#include "SessionManager.h"
 #include "SessionSettings.h"
 #include "SessionDialog.h"
 
 SessionDialog::SessionDialog(QWidget* parent_) : QDialog(parent_) {
 	//init ui
 	setupUi(this);
-	
+	buttonBox->button(QDialogButtonBox::Open)->setEnabled(false);
 	connect(renameButton, SIGNAL(clicked()), this, SLOT(renameSession()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteSession()));
-	
+	connect(sessionsTree, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(enableButton()));
 	_sessions = new SessionSettings(this);
-	
 	load();
 }
 
@@ -40,11 +40,24 @@ SessionDialog::~SessionDialog() {
 
 }
 
+void SessionDialog::enableButton(){
+	if(sessionsTree->currentItem() == 0){
+		renameButton->setEnabled(false);
+		deleteButton->setEnabled(false);
+		buttonBox->button(QDialogButtonBox::Open)->setEnabled(false);
+	}else{
+		renameButton->setEnabled(true);
+		deleteButton->setEnabled(true);
+		buttonBox->button(QDialogButtonBox::Open)->setEnabled(true);
+	}
+}
+
 void SessionDialog::load(){
 	//clear tree
 	sessionsTree->clear();
 	//load sessions
 	QStringList sessions = _sessions->childGroups();
+	sessions.removeAll(SessionManager::startSessionId);
 	foreach(QString s, sessions){
 		QTreeWidgetItem* item = new QTreeWidgetItem(sessionsTree);
 		item->setText(0, s);
@@ -54,6 +67,8 @@ void SessionDialog::load(){
 
 void SessionDialog::renameSession(){
 	QTreeWidgetItem* item =	sessionsTree->currentItem();
+	if(item == 0)
+		return;
 	bool ok = false;
 	QString	name = QInputDialog::getText(this, tr("Session Name"), tr("Session name"), QLineEdit::Normal, item->text(0), &ok);
 	if(ok){
@@ -72,6 +87,8 @@ void SessionDialog::renameSession(){
 
 void SessionDialog::deleteSession(){
 	QTreeWidgetItem* item =	sessionsTree->currentItem();
+	if(item == 0)
+		return;
 	QString session = item->text(0);
 	delete item;
 	//delete session

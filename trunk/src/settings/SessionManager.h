@@ -32,6 +32,8 @@ class SessionManager : public QObject {
 		SessionManager(DocumentManager& docMgr_, QObject* parent_ = 0);
 		~SessionManager();
 
+		static const QString startSessionId;
+
 	public slots:
 		void newSession();
 		void openSession();
@@ -55,8 +57,6 @@ class SessionManager : public QObject {
 		QString _currentSession;
 		/** last session name */
 		QString _lastSession;
-		
-		static const QString startSessionId;
 };
 
 #endif // __SESSION_MANAGER_H__
