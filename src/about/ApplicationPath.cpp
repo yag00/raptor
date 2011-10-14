@@ -49,9 +49,9 @@ QString ApplicationPath::translationPath(){
 	return ApplicationPath::applicationPath() + QDir::separator() + "translations" + QDir::separator();
 #else
 	if(ApplicationPath::isInstalled())
-		return QString(PACKAGE_DATA) + QDir::separator() + "translations" + QDir::separator();
+		return QString(PACKAGE_DATA) + QDir::separator() + "raptor" + QDir::separator() + "translations" + QDir::separator();
 	else
-		return ApplicationPath::applicationPath() + QDir::separator() + "translations" + QDir::separator();
+		return ApplicationPath::applicationPath() + QDir::separator() + "raptor" + QDir::separator() + "translations" + QDir::separator();
 #endif
 }
 
@@ -60,9 +60,9 @@ QString ApplicationPath::documentationPath(){
 	return ApplicationPath::applicationPath() + QDir::separator() + "doc" + QDir::separator();
 #else
 	if(ApplicationPath::isInstalled())
-		return QString(PACKAGE_DATA) + QDir::separator() + "doc" + QDir::separator();
+		return QString(PACKAGE_DATA) + QDir::separator() + "raptor" + QDir::separator() + "doc" + QDir::separator();
 	else
-		return ApplicationPath::applicationPath() + QDir::separator() + "doc" + QDir::separator();
+		return ApplicationPath::applicationPath() + QDir::separator() + "raptor" + QDir::separator() + "doc" + QDir::separator();
 #endif
 }
 
