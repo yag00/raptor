@@ -55,9 +55,12 @@ DEPENDPATH    *= $$PWD \
 				 $$PWD/about
 
 HEADERS       *= mainwindow.h \
-				settings_dialog.h \
+				SettingsDialog.h \
+				SessionSettings.h \
+				SessionManager.h \
+				SessionDialog.h \				
 				search.h \
-				settings.h \
+				Settings.h \
 				ShortcutEditor.h \
 				ShortcutSettings.h \
 				splitter.h \
@@ -94,9 +97,12 @@ HEADERS       *= mainwindow.h \
 				
 SOURCES       *= main.cpp \
 				mainwindow.cpp \
-				settings_dialog.cpp \
+				SettingsDialog.cpp \
+				SessionSettings.cpp \
+				SessionManager.cpp \
+				SessionDialog.cpp \
 				search.cpp \
-				settings.cpp \
+				Settings.cpp \
 				ShortcutEditor.cpp \
 				ShortcutSettings.cpp \
 				splitter.cpp \
@@ -132,6 +138,7 @@ SOURCES       *= main.cpp \
 FORMS *= mainwindow.ui \
 		 settings.ui \
 		 shortcut.ui \
+		 sessions.ui \
 		 search.ui \
 		 macro.ui \
 		 about.ui
