@@ -83,7 +83,7 @@ unix:!mac {
 unix:!mac {
 	PACKAGE_BIN		= $$quote($$prefix/bin)
 	PACKAGE_LIB		= $$quote($$libraries/$$PACKAGE_NAME)
-	PACKAGE_DATA	= $$quote($$datas/$$PACKAGE_NAME)
+	PACKAGE_DATA	= $$quote($$datas)
 } else:mac {
 	PACKAGE_BIN		= $$quote($$prefix/MacOS)
 	PACKAGE_LIB		= $$quote($$libraries)
