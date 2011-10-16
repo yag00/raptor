@@ -7,6 +7,8 @@ QMAKE=qmake-qt4
 
 install/raptor-editor::
 	rm -rf `find . -type d -name .svn`
+	lrelease src/src.pro
+	dh_install /src/translations/*.qm /usr/share/raptor/translations
 	dh_install /delivery/release/raptor /usr/bin/
 	dh_install /package/ubuntu/applications/raptor.desktop /usr/share/applications
 	dh_install /package/ubuntu/menu/raptor /usr/share/menu

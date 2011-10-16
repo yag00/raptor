@@ -73,6 +73,13 @@ Scripting.default_cmd = "release"
 def options(opt):
 	opt.load('compiler_c compiler_cxx qt4 slow_qt4')
 
+def distclean(ctx):
+	Scripting.distclean(ctx)
+	lst = os.listdir('.')
+	for f in lst:
+		if f.startswith('package.') and not Options.commands:
+			shutil.rmtree(f, ignore_errors=True)
+	
 def configure(conf):
 	#min waf version
 	conf.check_waf_version(mini='1.6.8')
