@@ -4,7 +4,7 @@
 
 =Windows=
 [http://raptor.googlecode.com/svn/wiki/images/windows.png] Download the windows installer, and follow the setup instructions.
-Go to the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page] or directly [http://code.google.com/p/raptor/downloads/detail?name=raptor-0.3.0-setup.exe get the last release]
+Go to the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page] or directly [http://code.google.com/p/raptor/downloads/detail?name=raptor-0.4.0-setup.exe get the last release]
 
 =Linux=
  =[http://raptor.googlecode.com/svn/wiki/images/ubuntu.png] Ubuntu =
@@ -16,7 +16,7 @@ sudo add-apt-repository ppa:raptor-project/raptor
   * Or just edit your _sources.list_ file and import the key.
 {{{
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B87FA0A 
-deb http://ppa.launchpad.net/raptor-project/raptor/ubuntu natty main
+deb http://ppa.launchpad.net/raptor-project/raptor/ubuntu oneiric main
 }}}
  Then install raptor
 {{{
@@ -28,10 +28,10 @@ sudo apt-get install raptor-editor
 
  =[http://raptor.googlecode.com/svn/wiki/images/fedora.png] Fedora =
  raptor is not yet available via yum, but you can get the rpm for fedora on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page] or directly get the last release here :
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc14.i386.rpm fedora14 raptor-0.3.0 i386]
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc14.x86_64.rpm fedora14 raptor-0.3.0 x86_64]
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc15.i386.rpm fedora15 raptor-0.3.0 i386]
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.3.0-1.fc15.x86_64.rpm fedora15 raptor-0.3.0 x86_64]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc14.i386.rpm fedora14 raptor-0.4.0 i386]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc14.x86_64.rpm fedora14 raptor-0.4.0 x86_64]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc15.i386.rpm fedora15 raptor-0.4.0 i386]
+    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc15.x86_64.rpm fedora15 raptor-0.4.0 x86_64]
 
  Then install raptor
 {{{
