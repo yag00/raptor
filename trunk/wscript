@@ -44,7 +44,7 @@ class debug(BuildContext):
 class release(BuildContext):
 	cmd = 'release'
 	variant = 'release'
-
+	
 class install(InstallContext):
 	cmd = 'install'
 	variant = 'release'
@@ -150,6 +150,10 @@ def postbuild(ctx):
 	print('after the build is complete')
 
 def build(bld):
+	if ((not bld.variant) and (bld.cmd == 'build')): 
+		Options.commands = ['release'] + Options.commands
+		return
+
 	bld.add_pre_fun(prebuild)
 	bld.add_post_fun(postbuild)
 
