@@ -5,10 +5,19 @@
 = Prerequisites =
 
   * [http://qt.nokia.com/products/ Qt 4.x]
-  * [http://www.python.org/ Python] & [http://sphinx.pocoo.org/ Sphinx] (use for generated the documentation)
+  * [http://www.python.org/ Python]
+  * [http://sphinx.pocoo.org/ Sphinx] (use for generate the documentation)
 
+= Building raptor with waf =
+To get more information on [http://code.google.com/p/waf/ waf build system]
 
-= Building raptor on linux =
+Just type these command from raptor root path:
+{{{
+./waf configure
+./waf release
+}}}
+
+= Building raptor on linux with qmake =
 {{{
 qmake
 make
@@ -16,7 +25,7 @@ make
 
 raptor executable is in delivery/release directory.
 
-= Building raptor on window =
+= Building raptor on window with qmake =
 
 You can use the Qt Command prompt directly ant type
 
