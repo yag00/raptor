@@ -2,14 +2,10 @@
 # debian/rules file - for raptor
 
 include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/qmake.mk
-QMAKE=qmake-qt4
+include /usr/share/cdbs/1/class/waf.mk
 
 install/raptor-editor::
 	rm -rf `find . -type d -name .svn`
-	lrelease src/src.pro
-	dh_install /src/translations/*.qm /usr/share/raptor/translations
-	dh_install /delivery/release/raptor /usr/bin/
 	dh_install /package/ubuntu/applications/raptor.desktop /usr/share/applications
 	dh_install /package/ubuntu/menu/raptor /usr/share/menu
 	dh_install /package/ubuntu/pixmaps/raptor.png /usr/share/pixmaps
