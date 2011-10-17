@@ -5,7 +5,7 @@
 = Prerequisites =
 
   * [http://qt.nokia.com/products/ Qt 4.x]
-  * [http://www.python.org/ Python]
+  * [http://www.python.org/ Python] (use by waf and sphinx)
   * [http://sphinx.pocoo.org/ Sphinx] (use for generate the documentation)
 
 = Building raptor with waf =
