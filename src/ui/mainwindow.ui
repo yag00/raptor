@@ -874,7 +874,7 @@
   <action name="actionConvertToWindowsFormat">
    <property name="icon">
     <iconset resource="../ressources.qrc">
-     <normaloff>:/images/windows.png</normaloff>:/images/windows.png</iconset>
+     <normaloff>:/os/windows.png</normaloff>:/os/windows.png</iconset>
    </property>
    <property name="text">
     <string comment="action convert to window EOL">Convert To Windows Format</string>
@@ -889,7 +889,7 @@
   <action name="actionConvertToUnixFormat">
    <property name="icon">
     <iconset resource="../ressources.qrc">
-     <normaloff>:/images/linux.png</normaloff>:/images/linux.png</iconset>
+     <normaloff>:/os/linux.png</normaloff>:/os/linux.png</iconset>
    </property>
    <property name="text">
     <string comment="action convert to unix EOL">Convert To Unix Format</string>
@@ -904,7 +904,7 @@
   <action name="actionConvertToMacFormat">
    <property name="icon">
     <iconset resource="../ressources.qrc">
-     <normaloff>:/images/mac.png</normaloff>:/images/mac.png</iconset>
+     <normaloff>:/os/mac.png</normaloff>:/os/mac.png</iconset>
    </property>
    <property name="text">
     <string comment="action convert to mac EOL">Convert To Mac Format</string>
@@ -1293,7 +1293,7 @@
   <action name="actionReindentFile">
    <property name="icon">
     <iconset resource="../ressources.qrc">
-     <normaloff>:/astyle/images/astyle/astyle.png</normaloff>:/astyle/images/astyle/astyle.png</iconset>
+     <normaloff>:/astyle/astyle.png</normaloff>:/astyle/astyle.png</iconset>
    </property>
    <property name="text">
     <string comment="action reindent file">Reindent File</string>
@@ -1308,7 +1308,7 @@
   <action name="actionReindentOpenFiles">
    <property name="icon">
     <iconset resource="../ressources.qrc">
-     <normaloff>:/astyle/images/astyle/astyle.png</normaloff>:/astyle/images/astyle/astyle.png</iconset>
+     <normaloff>:/astyle/astyle.png</normaloff>:/astyle/astyle.png</iconset>
    </property>
    <property name="text">
     <string comment="action reindent open files">Reindent Open Files</string>

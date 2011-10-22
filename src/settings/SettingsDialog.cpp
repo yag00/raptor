@@ -36,7 +36,7 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDial
 	setupUi(this);
 
 	//init astyle intentation page
-	QFile file(":/astyle/rc/indent-sample.cpp");
+	QFile file(":/astyle/indent-sample.cpp");
 	file.open(QFile::ReadOnly);
 	tePreview->setText(QString::fromUtf8(file.readAll()));
 	tePreview->setLexer(new RLexerCPP(tePreview));

@@ -297,13 +297,13 @@ QPixmap ScintillaExt::getFormatPixmap() const{
 	QPixmap pixmap;
 	switch (eolMode()){
 		case EolUnix:
-			pixmap.load(":/images/linux.png");
+			pixmap.load(":/os/linux.png");
 			break;
 		case EolWindows:
-			pixmap.load(":/images/windows.png");
+			pixmap.load(":/os/windows.png");
 			break;
 		case EolMac:
-			pixmap.load(":/images/mac.png");
+			pixmap.load(":/os/mac.png");
 			break;
 	}
 	return pixmap;
