@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../ressources.qrc">
-    <normaloff>:/about/images/about.png</normaloff>:/about/images/about.png</iconset>
+    <normaloff>:/about/about.png</normaloff>:/about/about.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -32,7 +32,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../ressources.qrc">:/about/images/about.png</pixmap>
+        <pixmap>:/about/images/about.png</pixmap>
        </property>
       </widget>
      </item>
@@ -69,10 +69,10 @@
      <widget class="QLabel" name="lLogo">
       <property name="text">
        <string>&lt;p align=&quot;center&quot;&gt;&lt;strong&gt;Raptor A Portable Text editOR&lt;/strong&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/images/raptor.png&quot; /&gt;&lt;/p&gt;</string>
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/about/raptor.png&quot; /&gt;&lt;/p&gt;</string>
       </property>
       <property name="pixmap">
-       <pixmap resource="../ressources.qrc">:/images/raptor.png</pixmap>
+       <pixmap resource="../ressources.qrc">:/about/raptor.png</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -174,8 +174,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../ressources.qrc"/>
-  <include location="../ressources.qrc"/>
   <include location="../ressources.qrc"/>
  </resources>
  <connections>

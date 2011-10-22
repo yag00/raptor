@@ -94,7 +94,7 @@ AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
 
 
 	// license
-	QFile file(":/about/rc/LICENSE.GPL3");
+	QFile file(":/about/LICENSE.GPL3");
 	file.open( QFile::ReadOnly );
 	tbLicense->setPlainText( QString::fromUtf8( file.readAll() ) );
 	file.close();

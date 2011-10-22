@@ -28,7 +28,7 @@
 FileListEditor::FileListEditor(QWidget* parent, const QString& title, const QString& path, const QString& filter )
 	: StringListEditor(title, parent), _path( path ), _filter( filter )
 { 
-	findChild<QToolBar*>()->actions().last()->setIcon(QIcon( ":/listeditor/images/listeditor/file.png" )); 
+	findChild<QToolBar*>()->actions().last()->setIcon(QIcon( ":/listeditor/file.png" )); 
 }
 
 void FileListEditor::onAddItem() {

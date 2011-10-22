@@ -1,12 +1,12 @@
 <RCC>
   <qresource>
+    <file>images/remove.png</file>
     <file>images/session-mgr.png</file>
     <file>images/goto.png</file>
     <file>images/switch.png</file>
     <file>images/settings_shortcuts.png</file>
     <file>images/save-question-mark.png</file>
     <file>images/charset.png</file>
-    <file>images/raptor.png</file>
     <file>images/diff.png</file>
     <file>images/collapse.png</file>
     <file>images/search.png</file>
@@ -55,15 +55,17 @@
     <file>images/saved.png</file>
     <file>images/restore.png</file>
     <file>images/settings.png</file>
-    <file>images/windows.png</file>
-    <file>images/mac.png</file>
-    <file>images/linux.png</file>
     <file>images/ledblue.png</file>
     <file>images/session.png</file>
   </qresource>
+  <qresource prefix="os">
+    <file alias="windows.png">images/os/windows.png</file>
+    <file alias="mac.png">images/os/mac.png</file>
+    <file alias="linux.png">images/os/linux.png</file>
+  </qresource>
   <qresource prefix="astyle">
-    <file>rc/indent-sample.cpp</file>
-    <file>images/astyle/astyle.png</file>
+    <file alias="indent-sample.cpp">rc/indent-sample.cpp</file>
+    <file alias="astyle.png">images/astyle/astyle.png</file>
   </qresource>
   <qresource prefix="ctags">
     <file alias="class.png">images/ctags/class.png</file>
@@ -86,22 +88,18 @@
     <file alias="typedef.png">images/ctags/typedef.png</file>
   </qresource>
   <qresource prefix="/listeditor">
-    <file>images/listeditor/add.png</file>
-    <file>images/listeditor/clear.png</file>
-    <file>images/listeditor/down.png</file>
-    <file>images/listeditor/edit.png</file>
-    <file>images/listeditor/file.png</file>
-    <file>images/listeditor/folder.png</file>
-    <file>images/listeditor/remove.png</file>
-    <file>images/listeditor/up.png</file>
-  </qresource>
-  <qresource prefix="/translation">
-    <file>images/translation/folder.png</file>
-    <file>images/translation/translation.png</file>
-    <file>images/translation/update.png</file>
+    <file alias="add.png">images/listeditor/add.png</file>
+    <file alias="clear.png">images/listeditor/clear.png</file>
+    <file alias="down.png">images/listeditor/down.png</file>
+    <file alias="edit.png">images/listeditor/edit.png</file>
+    <file alias="file.png">images/listeditor/file.png</file>
+    <file alias="folder.png">images/listeditor/folder.png</file>
+    <file alias="remove.png">images/listeditor/remove.png</file>
+    <file alias="up.png">images/listeditor/up.png</file>
   </qresource>
   <qresource prefix="/about">
-    <file>rc/LICENSE.GPL3</file>
-    <file>images/about.png</file>
+    <file alias="LICENSE.GPL3">rc/LICENSE.GPL3</file>
+    <file alias="about.png">images/about/about.png</file>
+    <file alias="raptor.png">images/about/raptor.png</file>
   </qresource>
 </RCC>

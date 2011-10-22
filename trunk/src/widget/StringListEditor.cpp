@@ -45,12 +45,12 @@ StringListEditor::StringListEditor(const QString& title, QWidget* parent) : QGro
 	_hLayout->addWidget(_list);
 	
 	// create actions
-	QAction* addAction = new QAction( QIcon( ":/listeditor/images/listeditor/add.png" ), tr("Add Item"), tb);
-	QAction* removeAction = new QAction( QIcon( ":/listeditor/images/listeditor/remove.png" ), tr("Remove Item"), tb);
-	QAction* clearAction = new QAction( QIcon( ":/listeditor/images/listeditor/clear.png" ), tr("Clear Items"), tb);
-	QAction* upAction = new QAction( QIcon( ":/listeditor/images/listeditor/up.png" ), tr("Move Item Up"), tb);
-	QAction* downAction = new QAction( QIcon( ":/listeditor/images/listeditor/down.png" ), tr("Move Item Down"), tb);
-	QAction* editAction = new QAction( QIcon( ":/listeditor/images/listeditor/edit.png" ), tr("Edit Item"), tb);
+	QAction* addAction = new QAction( QIcon( ":/listeditor/add.png" ), tr("Add Item"), tb);
+	QAction* removeAction = new QAction( QIcon( ":/listeditor/remove.png" ), tr("Remove Item"), tb);
+	QAction* clearAction = new QAction( QIcon( ":/listeditor/clear.png" ), tr("Clear Items"), tb);
+	QAction* upAction = new QAction( QIcon( ":/listeditor/up.png" ), tr("Move Item Up"), tb);
+	QAction* downAction = new QAction( QIcon( ":/listeditor/down.png" ), tr("Move Item Down"), tb);
+	QAction* editAction = new QAction( QIcon( ":/listeditor/edit.png" ), tr("Edit Item"), tb);
 	
 	// add actions to toolbar
 	tb->addAction(addAction);
