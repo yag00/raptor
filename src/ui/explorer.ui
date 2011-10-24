@@ -293,7 +293,7 @@ border: 1px solid rgb(200,200,200);
     <string>Copy path</string>
    </property>
    <property name="toolTip">
-    <string>Copy current item's path to clipboard</string>
+    <string>Copy current file's path to clipboard</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
@@ -307,7 +307,7 @@ border: 1px solid rgb(200,200,200);
     <string>Copy name</string>
    </property>
    <property name="toolTip">
-    <string>Copy current item's name to clipboard</string>
+    <string>Copy current file's name to clipboard</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+C</string>
@@ -321,10 +321,7 @@ border: 1px solid rgb(200,200,200);
     <string>Open</string>
    </property>
    <property name="toolTip">
-    <string>Open current item</string>
-   </property>
-   <property name="shortcut">
-    <string>Return</string>
+    <string>Open current file</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::WidgetShortcut</enum>
