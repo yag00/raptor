@@ -50,3 +50,4 @@ QString AStyleIndenter::format(const QString& text_){
 	}
 	return QString(out.str().c_str());
 }
+

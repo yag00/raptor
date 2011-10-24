@@ -44,3 +44,4 @@ class AStyleIndenter {
 };
 
 #endif // __ASTYLE_INDENTER_H__
+

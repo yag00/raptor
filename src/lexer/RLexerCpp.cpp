@@ -251,3 +251,4 @@ QFont RLexerCPP::defaultFont(int style) const {
 
     return f;
 }
+

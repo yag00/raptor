@@ -759,3 +759,4 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	pos2 = SendScintilla(SCI_GETSELECTIONEND);
 	SendScintilla(SCI_INDICATORCLEARRANGE, pos1, pos2-pos1);
 }
+

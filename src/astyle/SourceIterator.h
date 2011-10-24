@@ -65,3 +65,4 @@ class SStreamIterator : public astyle::ASSourceIterator
 #include "SourceIterator.tpp"
 
 #endif // __SOURCE_ITERATOR_H__
+
