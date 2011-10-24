@@ -90,6 +90,7 @@ void Settings::apply(MainWindow& window_){
 		toolbar->setVisible(getShowToolBar(toolbar->windowTitle(), (toolbar->windowTitle() != "Symbol")));
 	}
 	window_._symbolDock->setVisible(getShowToolBar("DockSymbol", false));
+	window_._explorerDock->setVisible(getShowToolBar("DockExplorer", false));
 	
 	// StatusBar
 	window_.statusbar->setVisible(getShowStatusBar());

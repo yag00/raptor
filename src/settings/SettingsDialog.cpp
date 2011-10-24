@@ -266,6 +266,7 @@ void SettingsDialog::loadSettingsDialog(){
 	cbToolBarMacro->setChecked(_settings->getShowToolBar("Macro"));
 	cbToolBarSymbol->setChecked(_settings->getShowToolBar("Symbol", false));
 	cbDockSymbol->setChecked(_settings->getShowToolBar("DockSymbol", false));
+	cbDockExplorer->setChecked(_settings->getShowToolBar("DockExplorer", false));
 	
 	// - Status Bar
 	if(_settings->getShowStatusBar())
@@ -491,6 +492,7 @@ void SettingsDialog::saveSettingsDialog(){
 		_settings->setShowToolBar("Macro", cbToolBarMacro->checkState());
 		_settings->setShowToolBar("Symbol", cbToolBarSymbol->checkState());
 		_settings->setShowToolBar("DockSymbol", cbDockSymbol->checkState());
+		_settings->setShowToolBar("DockExplorer", cbDockExplorer->checkState());
 		// - Status Bar
 		_settings->setShowStatusBar(cbStatusBar->checkState());
 	}
