@@ -422,6 +422,13 @@
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="QCheckBox" name="cbDockExplorer">
+            <property name="text">
+             <string>Show File Explorer Dock</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
