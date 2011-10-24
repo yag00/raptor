@@ -79,3 +79,4 @@ void ColorPushButton::setState(int state_){
 	else
 		setEnabled(true);
 }
+

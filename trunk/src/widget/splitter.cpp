@@ -53,3 +53,4 @@ void Splitter::swap(){
 	QWidget* w = widget(count() - 1);
 	insertWidget(0, w);
 }
+
