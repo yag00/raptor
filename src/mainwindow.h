@@ -122,6 +122,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void openAllRecentFile();
 
 		void visibilityChanged(bool visible_);
+		void synchronizeExplorerWithCurrentDocument();
 
 	private:
 		/** create window docks */
@@ -167,6 +168,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		QDockWidget* _searchDock;
 		/** symbol dock */
 		QDockWidget* _symbolDock;
+		/** explorer */
+		QDockWidget* _explorerDock;
 
 		/** status bar widget */
 		MenuLabel* _encodingLabel;
