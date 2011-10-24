@@ -86,6 +86,14 @@
     <file alias="structure.png">images/ctags/struct.png</file>
     <file alias="typedef.png">images/ctags/typedef.png</file>
   </qresource>
+  <qresource prefix="/explorer">
+    <file alias="browse-root.png">images/explorer/browse-root.png</file>
+    <file alias="browse-up.png">images/explorer/browse-up.png</file>
+    <file alias="folder.png">images/explorer/folder.png</file>
+    <file alias="synchronize.png">images/explorer/synchronize.png</file>
+    <file alias="view-tree.png">images/explorer/view-tree.png</file>
+    <file alias="remove.png">images/remove.png</file>
+  </qresource>  
   <qresource prefix="/listeditor">
     <file alias="add.png">images/listeditor/add.png</file>
     <file alias="clear.png">images/listeditor/clear.png</file>

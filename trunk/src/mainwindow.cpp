@@ -31,6 +31,7 @@
 #include "settings/ShortcutSettings.h"
 #include "settings/SessionManager.h"
 #include "search.h"
+#include "explorer.h"
 #include "document_editor.h"
 #include "document_view.h"
 #include "document_manager.h"
@@ -315,7 +316,6 @@ void MainWindow::createManager() {
 	//connection
 	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
 	connect(_documentManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(activeDocumentChanged(DocumentEditor*)));
-	connect(_documentManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(update(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(selectionChanged(DocumentEditor*)), this, SLOT(updateStatusBar(DocumentEditor*)));
 	connect(_documentManager, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SLOT(updateStatusBar(DocumentEditor*, int, int)));
 	connect(_documentManager, SIGNAL(opened(QStringList)), this, SLOT(updateRecentFile(QStringList)));
@@ -379,8 +379,19 @@ void MainWindow::createDocks() {
 	_symbolDock->setWidget(_symbolManager->getSymbolBrowerTreeView());
 	_symbolDock->setObjectName(QString::fromUtf8("dockSymbol"));
 	addDockWidget(Qt::RightDockWidgetArea, _symbolDock);
-	connect(_symbolDock, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
 	//connect the Symbol Dock
+	connect(_symbolDock, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
+	_symbolDock->hide();
+	
+	//create the Explorer Dock
+	_explorerDock = new QDockWidget(tr("File Explorer"), this);
+	Explorer* explorer = new Explorer(_explorerDock);
+	_explorerDock->setWidget(explorer);
+	_explorerDock->setObjectName(QString::fromUtf8("dockExplorer"));
+	addDockWidget(Qt::LeftDockWidgetArea, _explorerDock);	
+	connect(explorer, SIGNAL(fileClicked(const QString&)), _documentManager, SLOT(open(const QString&)));
+	connect(explorer, SIGNAL(synchFileRequest()), this, SLOT(synchronizeExplorerWithCurrentDocument()));
+	_explorerDock->hide();
 }
 
 DocumentManager& MainWindow::getDocumentManager() {
@@ -403,6 +414,10 @@ void MainWindow::activeDocumentChanged(DocumentEditor* document_){
 	QToolBar* toolbar = (findChildren<QToolBar*>("toolBarSymbol"))[0];
 	if(_symbolDock->isVisible() || toolbar->isVisible()){
 		_symbolManager->tagFile(document_->getFullPath());
+	}
+	//file explorer synchronization
+	if(_explorerDock->isVisible()){
+		static_cast<Explorer*>(_explorerDock->widget())->synchronize(document_->getFullPath());
 	}
 }
 
@@ -468,6 +483,10 @@ void MainWindow::visibilityChanged(bool visible_){
 			_symbolManager->tagFile(_documentManager->getActiveDocument()->getFullPath());
 		}
 	}
+}
+
+void MainWindow::synchronizeExplorerWithCurrentDocument(){
+	static_cast<Explorer*>(_explorerDock->widget())->forceSynchronize(_documentManager->getActiveDocument()->getFullPath());
 }
 
 void MainWindow::closeEvent(QCloseEvent *event_) {
