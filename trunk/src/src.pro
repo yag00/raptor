@@ -60,6 +60,7 @@ HEADERS       *= mainwindow.h \
 				SessionManager.h \
 				SessionDialog.h \				
 				search.h \
+				explorer.h \
 				Settings.h \
 				ShortcutEditor.h \
 				ShortcutSettings.h \
@@ -102,6 +103,7 @@ SOURCES       *= main.cpp \
 				SessionManager.cpp \
 				SessionDialog.cpp \
 				search.cpp \
+				explorer.cpp \
 				Settings.cpp \
 				ShortcutEditor.cpp \
 				ShortcutSettings.cpp \
@@ -140,6 +142,7 @@ FORMS *= mainwindow.ui \
 		 shortcut.ui \
 		 sessions.ui \
 		 search.ui \
+		 explorer.ui \
 		 macro.ui \
 		 about.ui
 	
