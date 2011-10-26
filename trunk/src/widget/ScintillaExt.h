@@ -107,11 +107,15 @@ class ScintillaExt : public QsciScintilla {
 		/** reindent the text (using astyle) */
 		void reindent();
 		
+		/** convert tabs to spaces using the current tab witdh value */
+		void tabsToSpaces();
+		/** convert spaces to tabs using the current tab witdh value */
+		void spacesToTabs();
 		/** remove all whitespaces at the end of each line */
-		void doTrimTrailing();
+		void trimTrailingSpaces();
 		/** remove all whitespaces at the start and the end of each line
 		 * and each sequence of internal whitespace are replaced with a single space*/
-		void doSimplified();
+		void compressSpaces();
 
 		/** convert selected text to upper case */
 		void convertSelectedTextToUpperCase();

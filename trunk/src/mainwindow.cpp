@@ -129,7 +129,11 @@ void MainWindow::initMenuEdit() {
 	connect(actionAutoIndentation, SIGNAL(toggled(bool)), _documentManager, SLOT(setAutoIndentation(bool)));
 	connect(actionIndentationGuides, SIGNAL(toggled(bool)), _documentManager, SLOT(showIndentationGuides(bool)));
 
-	connect(actionTrimTrailingSpaces, SIGNAL(triggered()), _documentManager, SLOT(doTrimTrailing()));
+	connect(actionTabsToSpaces, SIGNAL(triggered()), _documentManager, SLOT(tabsToSpaces()));
+	connect(actionSpacesToTabs, SIGNAL(triggered()), _documentManager, SLOT(spacesToTabs()));
+	connect(actionTrimTrailingSpaces, SIGNAL(triggered()), _documentManager, SLOT(trimTrailingSpaces()));
+	connect(actionCompressSpaces, SIGNAL(triggered()), _documentManager, SLOT(compressSpaces()));
+
 	connect(actionUpperCase, SIGNAL(triggered()), _documentManager, SLOT(convertSelectedTextToUpperCase()));
 	connect(actionLowerCase, SIGNAL(triggered()), _documentManager, SLOT(convertSelectedTextToLowerCase()));
 	connect(actionDuplicateLine, SIGNAL(triggered()), _documentManager, SLOT(duplicateCurrentLine()));

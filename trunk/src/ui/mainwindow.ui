@@ -14,7 +14,7 @@
    <string notr="true">Raptor</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../ressources.qrc">
+   <iconset>
     <normaloff>:/images/raptor.png</normaloff>:/images/raptor.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -118,6 +118,15 @@
      <addaction name="separator"/>
      <addaction name="actionDeleteWord"/>
     </widget>
+    <widget class="QMenu" name="menuTabs_Spaces">
+     <property name="title">
+      <string>Tabs/Spaces</string>
+     </property>
+     <addaction name="actionTabsToSpaces"/>
+     <addaction name="actionSpacesToTabs"/>
+     <addaction name="actionTrimTrailingSpaces"/>
+     <addaction name="actionCompressSpaces"/>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
@@ -129,8 +138,8 @@
     <addaction name="menuIndentation"/>
     <addaction name="menuConvertCaseTo"/>
     <addaction name="menuLines"/>
+    <addaction name="menuTabs_Spaces"/>
     <addaction name="actionGotoLine"/>
-    <addaction name="actionTrimTrailingSpaces"/>
     <addaction name="actionToggleComment"/>
     <addaction name="actionToggleBlockComment"/>
     <addaction name="separator"/>
@@ -824,7 +833,7 @@
     <string comment="action trim trailing spaces">Trim Trailing Spaces</string>
    </property>
    <property name="statusTip">
-    <string comment="statustip action trim trailing spaces">Trim trailing spaces</string>
+    <string comment="statustip action trim trailing spaces">Remove all the trailing spaces of line</string>
    </property>
   </action>
   <action name="actionUpperCase">
@@ -1473,6 +1482,9 @@
    <property name="text">
     <string>Goto Line</string>
    </property>
+   <property name="statusTip">
+    <string>Goto Line</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
    </property>
@@ -1538,6 +1550,30 @@
    </property>
    <property name="shortcut">
     <string>F8</string>
+   </property>
+  </action>
+  <action name="actionTabsToSpaces">
+   <property name="text">
+    <string>Tabs to Spaces</string>
+   </property>
+   <property name="statusTip">
+    <string>Convert tabs to spaces using current tab width value</string>
+   </property>
+  </action>
+  <action name="actionSpacesToTabs">
+   <property name="text">
+    <string>Spaces to Tabs</string>
+   </property>
+   <property name="statusTip">
+    <string>Convert spaces to tabs using current tab width value</string>
+   </property>
+  </action>
+  <action name="actionCompressSpaces">
+   <property name="text">
+    <string>Compress Spaces</string>
+   </property>
+   <property name="statusTip">
+    <string>Remove all extra spaces between words</string>
    </property>
   </action>
  </widget>

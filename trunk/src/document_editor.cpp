@@ -293,7 +293,7 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 
 	// check if strip spaces
 	if(_trimOnSave == true)
-		doTrimTrailing();
+		trimTrailingSpaces();
 
 	// check if add new line to the end
 	if (_addNewLineOnSave == true) {
@@ -342,7 +342,7 @@ bool DocumentEditor::saveCopy(const QString &fileName_) {
 
 	// check if strip spaces
 	if(_trimOnSave == true)
-		doTrimTrailing();
+		trimTrailingSpaces();
 
 	// check if add new line to the end
 	if (_addNewLineOnSave == true) {

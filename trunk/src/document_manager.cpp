@@ -27,12 +27,12 @@
 #include "document_view.h"
 #include "document_manager.h"
 
-DocumentManager::DocumentManager(QWidget * parent_) : Splitter(Qt::Horizontal, parent_) {		
+DocumentManager::DocumentManager(QWidget * parent_) : Splitter(Qt::Horizontal, parent_) {
 	_macro.clear();
 	//create file watcher
 	_watcher = new QFileSystemWatcher(this);
 	connect(_watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(watchedFileChanged(const QString&)));
-	
+
 	//create view
 	_activeView = createDocumentView();
 }
@@ -77,7 +77,7 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 
 	//add view to splitter
 	addWidget(view);
-	
+
 	//add view to the list
 	_viewList.push_back(view);
 	return view;
@@ -130,7 +130,7 @@ QStringList DocumentManager::getDocumentsNameList(int view_){
 		QStringList empty;
 		return empty;
 	}
-	return _viewList[view_]->getDocumentNameList();	
+	return _viewList[view_]->getDocumentNameList();
 }
 int DocumentManager::getViewNumber() const{
 	return _viewList.size();
@@ -160,7 +160,7 @@ void DocumentManager::activeViewChanged(bool active_){
 void DocumentManager::updateView(){
 	if(_viewList.size() == 1)
 		return;
-	
+
 	DocumentView* view = qobject_cast<DocumentView*>(sender());
 	std::vector<DocumentView*>::iterator it;
 	for(it = _viewList.begin(); it < _viewList.end(); ++it){
@@ -210,7 +210,7 @@ void DocumentManager::open(QStringList& files_){
 	int i = 0;
 	while(i != files_.size()){
 		QString fileName = files_[i];
-		
+
 		bool fileRemoved = false;
 		if(documentExists(fileName)){
 			setActiveDocument(fileName);
@@ -227,7 +227,7 @@ void DocumentManager::open(QStringList& files_, int view_){
 	int i = 0;
 	while(i != files_.size()){
 		QString fileName = files_[i];
-		
+
 		bool fileRemoved = false;
 		if(documentExists(fileName)){
 			setActiveDocument(fileName);
@@ -237,13 +237,13 @@ void DocumentManager::open(QStringList& files_, int view_){
 		if(!fileRemoved)
 			i++;
 	}
-	
+
 	if(view_ >= (int)_viewList.size()){
 		DocumentView* view = createDocumentView();
-		view->openDocument(files_);	
+		view->openDocument(files_);
 		view->setVisible(true);
 	}else{
-		_viewList[view_]->openDocument(files_);	
+		_viewList[view_]->openDocument(files_);
 		_viewList[view_]->setVisible(true);
 	}
 }
@@ -288,7 +288,7 @@ bool DocumentManager::closeAllExceptCurrentDocument(){
 		if((*it)->closeAll() == false)
 			return false;
 	}
-	
+
 	_activeView->closeAllDocumentsExceptCurrent();
 	return true;
 }
@@ -354,8 +354,20 @@ void DocumentManager::showIndentationGuides(bool b_){
 	getActiveDocument()->setIndentationGuides(b_);
 }
 
-void DocumentManager::doTrimTrailing(){
-	getActiveDocument()->doTrimTrailing();
+void DocumentManager::tabsToSpaces(){
+	getActiveDocument()->tabsToSpaces();
+}
+
+void DocumentManager::spacesToTabs(){
+	getActiveDocument()->spacesToTabs();
+}
+
+void DocumentManager::trimTrailingSpaces(){
+	getActiveDocument()->trimTrailingSpaces();
+}
+
+void DocumentManager::compressSpaces(){
+	getActiveDocument()->compressSpaces();
 }
 
 void DocumentManager::convertSelectedTextToUpperCase(){
@@ -419,16 +431,16 @@ void DocumentManager::gotoLine(int line_){
 void DocumentManager::switchDocumentSrc(){
 	Settings settings;
 	QMap<QString, QStringList> switcher = settings.getSwitcherValues();
-	
+
 	DocumentEditor* doc = getActiveDocument();
 	QString name = doc->getName();
-	
+
 	QList<QString> keys = switcher.keys();
 	foreach(QString k, keys){
 		if(QDir::match(k, name)){
 			QString path = doc->getPath();
 			QString basename = doc->getBaseName();
-			
+
 			QStringList tryList;
 			foreach(QString suffix, switcher[k]){
 				QString switchPath = path + QDir::separator() + suffix.replace(0,1, basename);
@@ -438,7 +450,7 @@ void DocumentManager::switchDocumentSrc(){
 					open(switchPath);
 					return;
 				}
-			}			
+			}
 			//no file matches, notify and return
 			if(settings.getSwitcherNotification()){
 				int ret = QMessageBox::question(this, tr("Switcher : Fail !"), tr("Can't find files according to switching rules!\nDo you want to create the file?"), QMessageBox::Yes | QMessageBox::No);
@@ -620,7 +632,7 @@ void DocumentManager::runMacroUntilEOF(){
 			return;
 		}
 	}
-	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));	
+	QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot run the macro! Maybe Record one\n"));
 }
 
 QString DocumentManager::getCurrentMacro() const{
@@ -647,7 +659,7 @@ void DocumentManager::moveDocument(){
 void DocumentManager::moveDocument(QWidget* src_, int srcIndex_, QWidget* dest_, int destIndex_){
 	DocumentView* srcView = (DocumentView*)src_->parent();
 	DocumentView* destView = (DocumentView*)dest_->parent();
-	
+
 	DocumentEditor* doc = srcView->removeDocumentAt(srcIndex_);
 	if(destIndex_ < 0){
 		destView->addDocument(doc);
@@ -666,16 +678,16 @@ void DocumentManager::cloneDocument(){
 				docView->cloneDocument(document);
 				//remove document created with the view
 				docView->closeDocument(0);
-			}else{				
+			}else{
 				int nb = (i+1)%nbView;
 				_viewList[nb]->cloneDocument(document);
-				
+
 				if(_viewList[nb]->count() == 2){
 					DocumentEditor* d = _viewList[nb]->getDocument(0);
 					if(d->isNew() && !d->isModified())
 						_viewList[nb]->closeDocument(0);
 				}
-				
+
 				_viewList[nb]->setVisible(true);
 			}
 			return;
@@ -694,7 +706,7 @@ void DocumentManager::diff(){
 	DocumentView* view2 = _viewList[1];
 	DocumentEditor* doc1 = view1->currentDocument();
 	DocumentEditor* doc2 = view2->currentDocument();
-	
+
 	Compare c(doc1, doc2);
 	c.diff();*/
 }
@@ -711,11 +723,11 @@ void DocumentManager::notify(){
 
 	//FileSystemWatcher notification
 	_watcherNotification.removeDuplicates();
-	
+
 	QStringList list = _watcherNotification;
 	//clear notification list
 	_watcherNotification.clear();
-	
+
 	foreach(QString file, list){
 		int ret;
 		if (QFile(file).exists()) {
@@ -753,7 +765,7 @@ void DocumentManager::notify(){
 					(*it)->closeDocument(file);
 				}
 			}
-		}		
+		}
 	}
 
 	//update all views
