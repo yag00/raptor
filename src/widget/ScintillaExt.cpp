@@ -105,7 +105,39 @@ void ScintillaExt::replaceAllText(const QString& text_){
 	setCursorPosition(cline, cindex);
 }
 
-void ScintillaExt::doTrimTrailing(){
+void ScintillaExt::tabsToSpaces(){
+	QString spaces;
+	spaces.fill(' ', tabWidth());
+	
+	QString buffer;
+
+	int nbLines = lines();
+	for (int line = 0; line < nbLines; line++){
+		QString str = text(line);
+		str.replace('\t', spaces);
+		buffer.append(str);
+	}
+
+	replaceAllText(buffer);
+}
+
+void ScintillaExt::spacesToTabs(){
+	QString spaces;
+	spaces.fill(' ', tabWidth());
+	
+	QString buffer;
+
+	int nbLines = lines();
+	for (int line = 0; line < nbLines; line++){
+		QString str = text(line);
+		str.replace(spaces, QString('\t'));
+		buffer.append(str);
+	}
+
+	replaceAllText(buffer);
+}
+
+void ScintillaExt::trimTrailingSpaces(){
 	QString eol = getEol();
 	QString buffer;
 
@@ -128,7 +160,7 @@ void ScintillaExt::doTrimTrailing(){
 	replaceAllText(buffer);
 }
 
-void ScintillaExt::doSimplified(){
+void ScintillaExt::compressSpaces(){
 	QString eol = getEol();
 	QString buffer;
 

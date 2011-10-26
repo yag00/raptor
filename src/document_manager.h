@@ -140,8 +140,15 @@ class DocumentManager : public Splitter{
 		void setAutoIndentation(bool b_);
 		/** show autoindentation guide for current document */
 		void showIndentationGuides(bool b_);
+
+		/** convert tabs to spaces using the current tab witdh value */
+		void tabsToSpaces();
+		/** convert spaces to tabs using the current tab witdh value */
+		void spacesToTabs();
 		/** remove extra space at the end of lines on the current document */
-		void doTrimTrailing();
+		void trimTrailingSpaces();
+		/** Remove all extra spaces between words */
+		void compressSpaces();
 
 		/** convert selection to upper case for the current document */
 		void convertSelectedTextToUpperCase();
