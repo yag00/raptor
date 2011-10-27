@@ -108,69 +108,69 @@ et perdre les modifications?</translation>
         <translation>&amp;Cloner dans l&apos;autre vue</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="197"/>
+        <location filename="../document_manager.cpp" line="202"/>
         <source>Select one or more files to open</source>
         <translation>Selectionner un fichier ou plus à ouvrir</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="308"/>
+        <location filename="../document_manager.cpp" line="313"/>
         <source>File reloaded</source>
         <translation>Fichier rechargé</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="418"/>
-        <location filename="../document_manager.cpp" line="703"/>
+        <location filename="../document_manager.cpp" line="423"/>
+        <location filename="../document_manager.cpp" line="708"/>
         <source>Not implemented yet !!</source>
         <translation>Pas encore implementé !!</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="456"/>
+        <location filename="../document_manager.cpp" line="461"/>
         <source>Switcher : Fail !</source>
         <translation>Switcher : Echec !</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="456"/>
+        <location filename="../document_manager.cpp" line="461"/>
         <source>Can&apos;t find files according to switching rules!
 Do you want to create the file?</source>
         <translation>Impossible de trouver les fichiers suivant les règles du switcher!
 Voulez vous créer le fichier?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="459"/>
+        <location filename="../document_manager.cpp" line="464"/>
         <source>Switcher : Create new File</source>
         <translation>Switcher : Créer un nouveau fichier</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="459"/>
+        <location filename="../document_manager.cpp" line="464"/>
         <source>Select or type the new file to create :</source>
         <translation>Selectionner ou rentrer le nouveau fichier à céer :</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="543"/>
+        <location filename="../document_manager.cpp" line="548"/>
         <source>File reloaded with charset %1</source>
         <translation>Fichier rechargé avec le charset %1</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="549"/>
-        <location filename="../document_manager.cpp" line="556"/>
+        <location filename="../document_manager.cpp" line="554"/>
+        <location filename="../document_manager.cpp" line="561"/>
         <source>File save with charset %1</source>
         <translation>Fichier enregistrer avec le charset %1</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="612"/>
-        <location filename="../document_manager.cpp" line="635"/>
+        <location filename="../document_manager.cpp" line="617"/>
+        <location filename="../document_manager.cpp" line="640"/>
         <source>Cannot run the macro! Maybe Record one
 </source>
         <translation>Impossible d&apos;executer la macro! Enregistrer en une</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="742"/>
-        <location filename="../document_manager.cpp" line="748"/>
+        <location filename="../document_manager.cpp" line="747"/>
+        <location filename="../document_manager.cpp" line="753"/>
         <source>Reload ?</source>
         <translation>Recharger ?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="743"/>
+        <location filename="../document_manager.cpp" line="748"/>
         <source>%1
 This file has been modified by another program.
 Do you want to reload it?</source>
@@ -179,7 +179,7 @@ Ce fichier a été modifié par un autre programme.
 Voulez vous le recharger?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="749"/>
+        <location filename="../document_manager.cpp" line="754"/>
         <source>%1
 This file has been modified by another program.
 Do you want to reload it and lose all the changes made?</source>
@@ -188,12 +188,12 @@ Ce fichier a été modifié par un autre programme.
 Voulez vous le recharger et perdre les modifications?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="760"/>
+        <location filename="../document_manager.cpp" line="765"/>
         <source>Keep non existing file ?</source>
         <translation>Garder un fichier non existent ?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="761"/>
+        <location filename="../document_manager.cpp" line="766"/>
         <source>%1
 doesn&apos;t exist anymore.
 Keep this file in editor?</source>
@@ -215,10 +215,10 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation>Fermer la page courante</translation>
     </message>
     <message>
-        <location filename="../document_view.cpp" line="235"/>
-        <location filename="../document_view.cpp" line="246"/>
-        <location filename="../document_view.cpp" line="265"/>
-        <location filename="../document_view.cpp" line="281"/>
+        <location filename="../document_view.cpp" line="238"/>
+        <location filename="../document_view.cpp" line="249"/>
+        <location filename="../document_view.cpp" line="268"/>
+        <location filename="../document_view.cpp" line="284"/>
         <source>new %1</source>
         <translation>nouveau %1</translation>
     </message>
@@ -1964,99 +1964,99 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="370"/>
+        <location filename="../mainwindow.cpp" line="372"/>
         <source>Search/Replace</source>
         <translation>Cherche/Remplace</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="382"/>
+        <location filename="../mainwindow.cpp" line="384"/>
         <source>Symbol Browser</source>
         <translation>Explorateur de Symboles</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="391"/>
+        <location filename="../mainwindow.cpp" line="393"/>
         <source>File Explorer</source>
         <translation>Explorateur de Fichier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="442"/>
+        <location filename="../mainwindow.cpp" line="444"/>
         <source>[*]%1 - %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="456"/>
+        <location filename="../mainwindow.cpp" line="458"/>
         <source>Line : %1  Col : %2  Sel : %3     </source>
         <translation>Ligne : %1  Col : %2  Sel : %3     </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="457"/>
+        <location filename="../mainwindow.cpp" line="459"/>
         <source>%1 chars  %2 lines     </source>
         <translation>%1 chars  %2 lignes     </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="513"/>
         <source>&amp;%1 %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="598"/>
+        <location filename="../mainwindow.cpp" line="600"/>
         <source>Goto line ...</source>
         <translation>Aller à la ligne ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="598"/>
+        <location filename="../mainwindow.cpp" line="600"/>
         <source>Enter the line you want to go :</source>
         <translation>Entrer la ligne ou vous voulez aller :</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="773"/>
+        <location filename="../mainwindow.cpp" line="775"/>
         <source>Not implemented yet !! Will be available in the next release</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="796"/>
+        <location filename="../mainwindow.cpp" line="798"/>
         <source>Old Settings!</source>
         <translation>Ancien Paramêtres!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="797"/>
+        <location filename="../mainwindow.cpp" line="799"/>
         <source>Found settings file for raptor version </source>
         <translation>Fichier de paramêtres trouvé pour une ancienne version</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="797"/>
+        <location filename="../mainwindow.cpp" line="799"/>
         <source>. Current version is </source>
         <translation>. La version courante est </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="798"/>
+        <location filename="../mainwindow.cpp" line="800"/>
         <source>What do you want to do?</source>
         <translation>Que voulez vous faire?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="801"/>
+        <location filename="../mainwindow.cpp" line="803"/>
         <source>Reset : Remove old settings file and create a new one
 </source>
         <translation>Reset : Supprime les anciens paramêtres</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="802"/>
+        <location filename="../mainwindow.cpp" line="804"/>
         <source>Upgrade : keep and upgrade your old settings
 </source>
         <translation>Mise à jour : Garde les anciens paramêtres et les met à jour</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="804"/>
+        <location filename="../mainwindow.cpp" line="806"/>
         <source>Reset</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="806"/>
+        <location filename="../mainwindow.cpp" line="808"/>
         <source>Upgrade</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="815"/>
+        <location filename="../mainwindow.cpp" line="817"/>
         <source>Settings upgrade is not implemented yet!
 Current settings file is kept but some settings can now be inconsistent! A settings reset is recommanded!</source>
         <translation></translation>
@@ -2786,12 +2786,30 @@ Cette opération ne peut pas être annuler. Voulez vous continuer?</translation>
         <translation>Impossible de changer de session. Tous les documents ne sont pas sauvegardés!</translation>
     </message>
     <message>
+        <location filename="../settings/SessionManager.cpp" line="48"/>
+        <source>New session</source>
+        <translation>Nouvelle Session</translation>
+    </message>
+    <message>
+        <location filename="../settings/SessionManager.cpp" line="59"/>
+        <location filename="../settings/SessionManager.cpp" line="69"/>
         <location filename="../settings/SessionManager.cpp" line="111"/>
+        <source>Open session </source>
+        <translation>Session ouverte </translation>
+    </message>
+    <message>
+        <location filename="../settings/SessionManager.cpp" line="120"/>
+        <location filename="../settings/SessionManager.cpp" line="141"/>
+        <source>Save session </source>
+        <translation>Session sauvegardé </translation>
+    </message>
+    <message>
+        <location filename="../settings/SessionManager.cpp" line="137"/>
         <source>Save Session</source>
         <translation>Sauvegarder la session</translation>
     </message>
     <message>
-        <location filename="../settings/SessionManager.cpp" line="111"/>
+        <location filename="../settings/SessionManager.cpp" line="137"/>
         <source>Session name</source>
         <translation>Nom de la session</translation>
     </message>

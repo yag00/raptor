@@ -73,7 +73,7 @@ class DocumentManager : public Splitter{
 		QStringList getDocumentsNameList();
 		/** @return list of document (fullpath) by view */
 		QStringList getDocumentsNameList(int view_);
-		/** @return number of view */
+		/** @return number of active view */
 		int getViewNumber() const;
 
 	public slots:

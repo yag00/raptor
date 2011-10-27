@@ -41,15 +41,19 @@ class SessionManager : public QObject {
 		void saveSession();
 		void saveSessionAs();
 		void manageSessions();
-	
+
 		void openStartSession();
 		void saveStartSession();
-	
+
+	signals:
+		/** emit on a new a status message */
+		void statusMessage(QString);
+
 	private:
-		void open(const QString& name_);
+		bool open(const QString& name_);
 		void save();
 		void error();
-	
+
 	private:
 		/** reference on document manager */
 		DocumentManager& _docMgr;
