@@ -37,7 +37,7 @@ DocumentView::DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * docume
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(currentTabChanged(int)));
 	connect(tabBar(), SIGNAL(tabMiddleClicked(int)), this, SLOT(closeDocument(int)));
 	connect(tabBar(), SIGNAL(tabBarDoubleClicked()), this, SLOT(newDocument()));
-	
+
 	//create tabBar button
 	QToolButton *newTabButton = new QToolButton(this);
 	newTabButton->setAutoRaise(true);
@@ -128,8 +128,11 @@ QList<DocumentEditor*> DocumentView::getDocuments(){
 }
 QStringList DocumentView::getDocumentNameList(){
 	QStringList list;
-	for(int i = 0; i < count(); i++)
-		list.push_back(getDocument(i)->getFullPath());
+	for(int i = 0; i < count(); i++){
+		QString path = getDocument(i)->getFullPath();
+		if(!path.isEmpty())
+			list.push_back(path);
+	}
 	return list;
 }
 
@@ -168,8 +171,8 @@ void DocumentView::documentfocusChanged(bool active_){
 		activeDocumentChanged(qobject_cast<DocumentEditor*>(sender()));
 	}else{
 		_isActive = false;
-	}       
-	
+	}
+
 	updateAllDocuments();
 	emit activeStatusChanged(_isActive);
 }
@@ -188,7 +191,7 @@ void DocumentView::documentChanged(){
 	if(document->isModified() || (document->stillExist() == false))
 		setTabIcon(index, QIcon(":/images/unsaved.png"));
 	else
-		setTabIcon(index, QIcon(":/images/saved.png"));	
+		setTabIcon(index, QIcon(":/images/saved.png"));
 	//update tab text
 	if(!document->getName().isEmpty())
 		setTabText(index, document->getName());
@@ -244,7 +247,7 @@ void DocumentView::addDocument(DocumentEditor* document_){
 	QString docName = document_->getName();
 	if(docName.isEmpty())
 		docName = tr("new %1").arg(_docCounter++);
-	
+
 	if(document_->isModified())
 		addTab(document_, QIcon(":/images/unsaved.png"), docName);
 	else
@@ -295,7 +298,7 @@ void DocumentView::openDocument(const QString& file_){
 	DocumentEditor* document = new DocumentEditor(_watcher, this);
 	connectDocument(document);
 
-	if(document->load(file_)){		
+	if(document->load(file_)){
 		addTab(document, QIcon(":/images/saved.png"), document->getName());
 		removeFirstNewDocument();
 		setCurrentDocument(document);

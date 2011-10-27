@@ -133,7 +133,12 @@ QStringList DocumentManager::getDocumentsNameList(int view_){
 	return _viewList[view_]->getDocumentNameList();
 }
 int DocumentManager::getViewNumber() const{
-	return _viewList.size();
+	int i = 0;
+	for(std::vector<DocumentView*>::const_iterator it = _viewList.begin(); it != _viewList.end(); ++it){
+		if((*it)->isVisible())
+			i++;
+	}
+	return i;
 }
 
 void DocumentManager::setActiveDocument(DocumentEditor* document_){

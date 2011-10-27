@@ -23,10 +23,10 @@
 
 SessionSettings::SessionSettings(QObject* parent_)
 	: QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "session", parent_){
-		
+
 }
 SessionSettings::~SessionSettings(){
-	
+
 }
 
 void SessionSettings::save(const QString& session_, const QList<QStringList>& view_){
@@ -65,6 +65,19 @@ void SessionSettings::load(const QString& session_, QList<QStringList>& view_){
 	endGroup();
 }
 
+QString SessionSettings::loadStartSessionName(const QString& id_){
+	beginGroup(id_);
+	QString session = value("name", "").toString();
+	endGroup();
+	return session;
+}
+
+void SessionSettings::saveStartSessionName(const QString& id_, const QString& session_){
+	beginGroup(id_);
+	setValue("name", session_);
+	endGroup();
+}
+
 int SessionSettings::getDocumentNumber(const QString& session_){
 	int cpt = 0;
 	beginGroup(session_);
@@ -72,6 +85,6 @@ int SessionSettings::getDocumentNumber(const QString& session_){
 		cpt += beginReadArray(QString("view%1").arg(i+1));
 		endArray();
 	}
-	endGroup();	
+	endGroup();
 	return cpt;
 }

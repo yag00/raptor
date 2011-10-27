@@ -45,6 +45,7 @@ void SessionManager::newSession() {
 	if(_docMgr.closeAllIfPossible()){
 		_lastSession = _currentSession;
 		_currentSession = "";
+		emit statusMessage(tr("New session"));
 	}else{
 		error();
 	}
@@ -54,7 +55,8 @@ void SessionManager::manageSessions() {
 	SessionDialog dlg;
 	if(dlg.exec() == QDialog::Accepted){
 		_lastSession = _currentSession;
-		open(dlg.getSelectedSession());
+		if(open(dlg.getSelectedSession()))
+			emit statusMessage(tr("Open session ") + _currentSession);
 	}
 }
 
@@ -63,32 +65,51 @@ void SessionManager::openSession() {
 	dlg.disableEditMode();
 	if(dlg.exec() == QDialog::Accepted){
 		_lastSession = _currentSession;
-		open(dlg.getSelectedSession());
+		if(open(dlg.getSelectedSession()))
+			emit statusMessage(tr("Open session ") + _currentSession);
 	}
 }
 
-void SessionManager::open(const QString& name_){
+bool SessionManager::open(const QString& name_){
 	if(_docMgr.closeAllIfPossible()){
 		_currentSession = name_;
 		SessionSettings s;
 		QList<QStringList> views;
 		s.load(_currentSession, views);
-		for(int i = 0; i < views.size(); i++){
-			_docMgr.open(views[i], i);
+		if(views.size() == 1){
+			//open in the active view
+			//to be sure another won't be activated for nothing
+			_docMgr.open(views[0]);
+		}else{
+			for(int i = 0; i < views.size(); i++){
+				_docMgr.open(views[i], i);
+			}
 		}
+		return true;
 	}else{
 		error();
-	}	
+		return false;
+	}
 }
 
 void SessionManager::openStartSession(){
-	open(startSessionId);
+	SessionSettings s;
+	_currentSession = s.loadStartSessionName(startSessionId);
+	if(_currentSession.isEmpty()){
+		open(startSessionId);
+		_currentSession = "";
+	}else{
+		open(_currentSession);
+	}
 }
 
 void SessionManager::switchSession() {
+	saveSession();
 	QString session = _currentSession;
-	open(_lastSession);
-	_lastSession = session;
+	if(open(_lastSession)){
+		_lastSession = session;
+		emit statusMessage(tr("Open session ") + _currentSession);
+	}
 }
 
 void SessionManager::saveSession() {
@@ -96,14 +117,19 @@ void SessionManager::saveSession() {
 		saveSessionAs();
 	}else{
 		save();
+		emit statusMessage(tr("Save session ") + _currentSession);
 	}
 }
 
 void SessionManager::saveStartSession(){
+	SessionSettings s;
 	QString tmp = _currentSession;
 	_currentSession = startSessionId;
 	save();
 	_currentSession = tmp;
+	s.saveStartSessionName(startSessionId, _currentSession);
+	if(!_currentSession.isEmpty())
+		save();
 }
 
 void SessionManager::saveSessionAs() {
@@ -112,14 +138,21 @@ void SessionManager::saveSessionAs() {
 	if(ok){
 		_currentSession = name;
 		save();
+		emit statusMessage(tr("Save session ") + _currentSession);
 	}
 }
 
 void SessionManager::save(){
 	SessionSettings s;
 	QList<QStringList> views;
-	for(int i = 0; i < _docMgr.getViewNumber(); i++){
-		views << _docMgr.getDocumentsNameList(i);
+
+	if(_docMgr.getViewNumber() == 1){
+		//get list in the active view
+		views << _docMgr.getDocumentsNameList();
+	}else{
+		for(int i = 0; i < _docMgr.getViewNumber(); i++){
+			views << _docMgr.getDocumentsNameList(i);
+		}
 	}
 	s.save(_currentSession, views);
 }

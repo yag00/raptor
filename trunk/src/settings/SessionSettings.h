@@ -36,7 +36,10 @@ class SessionSettings : public QSettings{
 
 		void save(const QString& session_, const QList<QStringList>& view_);
 		void load(const QString& session_, QList<QStringList>& view_);
-	
+
+		QString loadStartSessionName(const QString& id_);
+		void saveStartSessionName(const QString& id_, const QString& session_);
+
 		/** @return the number of documents in the session */
 		int getDocumentNumber(const QString& session_);
 

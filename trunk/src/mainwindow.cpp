@@ -57,7 +57,7 @@ MainWindow::MainWindow() {
 	createToolBar();
 	//create docks
 	createDocks();
-	
+
 	//read Settings
 	readSettings();
 }
@@ -94,14 +94,14 @@ void MainWindow::initMenuFile() {
 	connect(actionReload, SIGNAL(triggered()), _documentManager, SLOT(reload()));
 	connect(actionPrint, SIGNAL(triggered()), _documentManager, SLOT(print()));
 	connect(actionExit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
-	
+
 	connect(actionNewSession, SIGNAL(triggered()), _sessionManager, SLOT(newSession()));
 	connect(actionOpenSession, SIGNAL(triggered()), _sessionManager, SLOT(openSession()));
 	connect(actionSwitchSession, SIGNAL(triggered()), _sessionManager, SLOT(switchSession()));
 	connect(actionSaveSession, SIGNAL(triggered()), _sessionManager, SLOT(saveSession()));
 	connect(actionSaveSessionAs, SIGNAL(triggered()), _sessionManager, SLOT(saveSessionAs()));
 	connect(actionManageSessions, SIGNAL(triggered()), _sessionManager, SLOT(manageSessions()));
-	
+
 	//recent file actions
 	connect(actionEmptyRecentFilesList, SIGNAL(triggered()), this, SLOT(clearRecentFile()));
 	connect(actionOpenAllRecentFiles, SIGNAL(triggered()), this, SLOT(openAllRecentFile()));
@@ -149,7 +149,7 @@ void MainWindow::initMenuEdit() {
 	connect(actionReadOnly, SIGNAL(triggered(bool)), _documentManager, SLOT(setReadOnly(bool)));
 	connect(actionReindentFile, SIGNAL(triggered()), _documentManager, SLOT(reindentDocument()));
 	connect(actionReindentOpenFiles, SIGNAL(triggered()), _documentManager, SLOT(reindentOpenDocuments()));
-	
+
 	connect(actionToggleComment, SIGNAL(triggered()), _documentManager, SLOT(toggleComment()));
 	connect(actionToggleBlockComment, SIGNAL(triggered()), _documentManager, SLOT(toggleBlockComment()));
 
@@ -191,7 +191,7 @@ void MainWindow::initMenuView() {
 
 void MainWindow::initMenuSearch() {
 	//connect memu "Search" Action
-	//nothing to do here 
+	//nothing to do here
 	//connection is done during the dock creation
 }
 
@@ -314,9 +314,9 @@ void MainWindow::createManager() {
 	_sessionManager = new SessionManager(*_documentManager, this);
 	_symbolManager = new SymbolManager(this);
 	_helpBrowser = new HelpBrowser(this);
-	
+
 	setCentralWidget(_documentManager);
-	
+
 	//connection
 	connect(_documentManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
 	connect(_documentManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(activeDocumentChanged(DocumentEditor*)));
@@ -324,8 +324,10 @@ void MainWindow::createManager() {
 	connect(_documentManager, SIGNAL(cursorPositionChanged(DocumentEditor*, int, int)), this, SLOT(updateStatusBar(DocumentEditor*, int, int)));
 	connect(_documentManager, SIGNAL(opened(QStringList)), this, SLOT(updateRecentFile(QStringList)));
 	connect(_documentManager, SIGNAL(saved(QStringList)), this, SLOT(updateRecentFile(QStringList)));
-	
+
 	connect(_symbolManager, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
+
+	connect(_sessionManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
 }
 
 void MainWindow::createStatusBar() {
@@ -344,7 +346,7 @@ void MainWindow::createStatusBar() {
 	_formatLabel->getMenu()->addAction(actionConvertToWindowsFormat);
 	_formatLabel->getMenu()->addAction(actionConvertToUnixFormat);
 	_formatLabel->getMenu()->addAction(actionConvertToMacFormat);
-	
+
 	_editInfoLabel = new QLabel(this);
 	_fileInfoLabel = new QLabel(this);
 	_fileTypeLabel = new QLabel(this);
@@ -377,7 +379,7 @@ void MainWindow::createDocks() {
 	connect(actionFindNext, SIGNAL(triggered()), search, SLOT(next()));
 	connect(actionFindPrevious, SIGNAL(triggered()), search, SLOT(prev()));
 	_searchDock->hide();
-	
+
 	//create the Symbol Dock
 	_symbolDock = new QDockWidget(tr("Symbol Browser"), this);
 	_symbolDock->setWidget(_symbolManager->getSymbolBrowerTreeView());
@@ -386,13 +388,13 @@ void MainWindow::createDocks() {
 	//connect the Symbol Dock
 	connect(_symbolDock, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
 	_symbolDock->hide();
-	
+
 	//create the Explorer Dock
 	_explorerDock = new QDockWidget(tr("File Explorer"), this);
 	Explorer* explorer = new Explorer(_explorerDock);
 	_explorerDock->setWidget(explorer);
 	_explorerDock->setObjectName(QString::fromUtf8("dockExplorer"));
-	addDockWidget(Qt::LeftDockWidgetArea, _explorerDock);	
+	addDockWidget(Qt::LeftDockWidgetArea, _explorerDock);
 	connect(explorer, SIGNAL(fileClicked(const QString&)), _documentManager, SLOT(open(const QString&)));
 	connect(explorer, SIGNAL(synchFileRequest()), this, SLOT(synchronizeExplorerWithCurrentDocument()));
 	_explorerDock->hide();
@@ -788,7 +790,7 @@ void MainWindow::writeSettings() {
 void MainWindow::readSettings() {
 	Settings settings;
 	ShortcutSettings shortcuts;
-	
+
 	//check version
 	Version settingsVersion = settings.getVersion();
 	if(settingsVersion != RaptorVersion){
@@ -796,7 +798,7 @@ void MainWindow::readSettings() {
 		msgBox.setWindowTitle(tr("Old Settings!"));
 		msgBox.setText(tr("Found settings file for raptor version ") + settingsVersion.getVersion() + tr(". Current version is ") + RaptorVersion.getVersion());
 		msgBox.setInformativeText(tr("What do you want to do?"));
-	
+
 		QString detailedTxt;
 		detailedTxt += tr("Reset : Remove old settings file and create a new one\n");
 		detailedTxt += tr("Upgrade : keep and upgrade your old settings\n");
@@ -815,7 +817,7 @@ void MainWindow::readSettings() {
 			QMessageBox::information(this, PACKAGE_NAME, tr("Settings upgrade is not implemented yet!\nCurrent settings file is kept but some settings can now be inconsistent! A settings reset is recommanded!"));
 		}
 	}
-	
+
 	//read shortcut settings
 	bool hasDefaultShortcut = shortcuts.hasDefaultShortcut();
 	QList<QMenu*> menus = findChildren<QMenu*>();
@@ -833,7 +835,7 @@ void MainWindow::readSettings() {
 			continue;
 		if(menu->objectName() == "menuForceSaveWithCharsetAs")
 			continue;
-		
+
 		QList<QAction*> actions = menu->actions();
 		foreach(QAction *action, actions) {
 			//discard unwanted action
@@ -843,7 +845,7 @@ void MainWindow::readSettings() {
 				continue;
 			if (action->objectName().isEmpty())
 				continue;
-			
+
 			//if there is no default shortcuts save them
 			if(!hasDefaultShortcut){
 				shortcuts.saveDefaultShortcut(action);
@@ -853,7 +855,7 @@ void MainWindow::readSettings() {
 		}
 	}
 
-	
+
 	//Restore last session
 	_sessionManager->openStartSession();
 	settings.apply(*this);
