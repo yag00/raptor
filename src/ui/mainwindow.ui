@@ -14,8 +14,8 @@
    <string notr="true">Raptor</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/raptor.png</normaloff>:/images/raptor.png</iconset>
+   <iconset resource="../ressources.qrc">
+    <normaloff>:/about/raptor.png</normaloff>:/about/raptor.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
