@@ -205,10 +205,10 @@ def build(bld):
 	# build qscintilla
 	#########################################################
 	qscintilla_sources = bld.path.ant_glob(
-		[	'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4/*.cpp',
-			'ext/QScintilla/QScintilla-gpl-2.5.1/lexers/*.cpp',
-			'ext/QScintilla/QScintilla-gpl-2.5.1/lexlib/*.cpp',
-			'ext/QScintilla/QScintilla-gpl-2.5.1/src/*.cpp'],
+		[	'ext/QScintilla/QScintilla-gpl-2.6/Qt4/*.cpp',
+			'ext/QScintilla/QScintilla-gpl-2.6/lexers/*.cpp',
+			'ext/QScintilla/QScintilla-gpl-2.6/lexlib/*.cpp',
+			'ext/QScintilla/QScintilla-gpl-2.6/src/*.cpp'],
 		excl=[''])
 
 	bld.new_task_gen(
@@ -217,10 +217,10 @@ def build(bld):
 		source          = qscintilla_sources,
 		name            = 'qscintilla2',
 		target          = 'qscintilla2',
-		includes        = ['ext/QScintilla/QScintilla-gpl-2.5.1/include',
-							'ext/QScintilla/QScintilla-gpl-2.5.1/lexlib',
-							'ext/QScintilla/QScintilla-gpl-2.5.1/src',
-							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4'],
+		includes        = ['ext/QScintilla/QScintilla-gpl-2.6/include',
+							'ext/QScintilla/QScintilla-gpl-2.6/lexlib',
+							'ext/QScintilla/QScintilla-gpl-2.6/src',
+							'ext/QScintilla/QScintilla-gpl-2.6/Qt4'],
 		defines         = ['QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
 		cxxflags        = [],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
@@ -251,7 +251,7 @@ def build(bld):
 		includes        = ['.',
 							'ext/AStyle/astyle-2.01/src',
 							'ext/ctags',
-							'ext/QScintilla/QScintilla-gpl-2.5.1/Qt4',
+							'ext/QScintilla/QScintilla-gpl-2.6/Qt4',
 							'ext/qt-solutions/qtsingleapplication/src',
 							'src'],
 		defines         = [	'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
