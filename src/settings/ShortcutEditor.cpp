@@ -160,7 +160,7 @@ void ShortcutEditor::on_setShortcutButton_clicked() {
 		QTreeWidgetItem* item = actionTreeWidget->topLevelItem(i);
 		for(int j = 0; j < item->childCount(); j++){
 			QTreeWidgetItem* child = item->child(j);
-			if(child->text(1) == shortcut){
+			if((child->text(1) == shortcut) && (!shortcut.isEmpty())){
 				QMessageBox::warning(this, PACKAGE_NAME,
 					tr("Conflicting shortcut %1!\nShortcut already used by action %2!").arg(shortcut).arg(child->text(0)));
 				return;
