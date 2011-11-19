@@ -63,7 +63,7 @@ class DocumentView : public QTabWidget {
 		 * @param name_ of the document to be active
 		 * @return true if the document_ exists and has been set to active */
 		bool setActiveDocument(const QString& name_);
-		
+
 		/** set a context menu to each tab of the view
 		 * @param menu_ context menu */
 		void setContextMenu(QMenu* menu_);
@@ -83,6 +83,9 @@ class DocumentView : public QTabWidget {
 		QList<DocumentEditor*> getDocuments();
 		QStringList getDocumentNameList();
 
+		/** update the document tab (icon&text) */
+		void updateDocumentTab(DocumentEditor* document_, bool modified_);
+
 	signals:
 		/**emit when documents have been successfully opened */
 		void opened(QStringList);
@@ -93,11 +96,11 @@ class DocumentView : public QTabWidget {
 		/**emit when a document selection changed */
 		void selectionChanged(DocumentEditor*);
 		/**emit when a document cursor position changed */
-		void cursorPositionChanged(DocumentEditor*, int, int);	
+		void cursorPositionChanged(DocumentEditor*, int, int);
 		/** emit when the active status of the view changed */
 		void activeStatusChanged(bool);
 		/** emit when the view has no more document
-		 * NOTE: view has to have at least one tab so when the last document is closed/moved the view 
+		 * NOTE: view has to have at least one tab so when the last document is closed/moved the view
 		 * will automatically create a new document and emit the empty signal */
 		void empty();
 		/** emit when a drag&drop drop event occurs */
@@ -123,7 +126,7 @@ class DocumentView : public QTabWidget {
 		 * @param index_
 		 * @param document_ */
 		void insertDocument(int index_, DocumentEditor* document_);
-		
+
 		/** clone a document to this view
 		 * @param document_ */
 		void cloneDocument(DocumentEditor* document_);
@@ -147,7 +150,7 @@ class DocumentView : public QTabWidget {
 		/** remove and disconnect the current document but do not destroy it
 		 * @return removed document */
 		DocumentEditor* removeCurrentDocument();
-		
+
 		/** close all document
 		 * @return true if all documents have been closed */
 		bool closeAll();
@@ -165,20 +168,20 @@ class DocumentView : public QTabWidget {
 	private slots:
 		/** show a context menu for a tab */
 		void showTabBarContextMenu(const QPoint &point_);
-		
+
 		/** use when the current tab(document) changed */
 		void currentTabChanged(int);
 
-		/** use when a document changed */
-		void documentChanged();
+		/** use when the modification state of the text changes. m is true if the text has been modified. */
+		void modificationChanged(bool modified_);
 		/** use when a document selection changed */
 		void selectionChanged();
 		/** use when a document cursor position changed */
 		void cursorPositionChanged(int, int);
-		
-		/** active/desactive the view */	
+
+		/** active/desactive the view */
 		void documentfocusChanged(bool active_);
-		
+
 	private:
 		/** connect document's signal to the view */
 		void connectDocument(DocumentEditor* document_);
@@ -187,11 +190,11 @@ class DocumentView : public QTabWidget {
 		void removeFirstNewDocument();
 		/** set current document */
 		void setCurrentDocument(DocumentEditor* document_);
-		
+
 	private:
 		/** Reference on FileWatcher */
 		QFileSystemWatcher& _watcher;
-		
+
 		/** context menu */
 		QMenu* _documentContextMenu;
 		/** count the new document created */

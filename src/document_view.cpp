@@ -76,7 +76,7 @@ DocumentView::~DocumentView(){
 }
 
 void DocumentView::connectDocument(DocumentEditor* document_){
-	connect(document_, SIGNAL(textChanged()), this, SLOT(documentChanged()));
+	connect(document_, SIGNAL(modificationChanged(bool)), this, SLOT(modificationChanged(bool)));
 	connect(document_, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
 	connect(document_, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(cursorPositionChanged(int, int)));
 	connect(document_, SIGNAL(focusChanged(bool)), this, SLOT(documentfocusChanged(bool)));
@@ -184,22 +184,30 @@ void DocumentView::currentTabChanged(int tab_){
 	emit activeDocumentChanged(document);
 }
 
-void DocumentView::documentChanged(){
-	DocumentEditor* document = currentDocument();
-	int index = currentIndex();
+void DocumentView::modificationChanged(bool modified_){
+	DocumentEditor* document = qobject_cast<DocumentEditor*>(sender());
+	updateDocumentTab(document, modified_);
+	emit activeDocumentChanged(document);
+}
+
+void DocumentView::updateDocumentTab(DocumentEditor* document_, bool modified_){
 	//update tab icon
-	if(document->isModified() || (document->stillExist() == false))
+	int index = getDocumentIndex(document_);
+	if(modified_ || (document_->stillExist() == false))
 		setTabIcon(index, QIcon(":/images/unsaved.png"));
 	else
 		setTabIcon(index, QIcon(":/images/saved.png"));
+
 	//update tab text
-	if(!document->getName().isEmpty())
-		setTabText(index, document->getName());
-	emit activeDocumentChanged(currentDocument());
+	if(!document_->getName().isEmpty()){
+		setTabText(index, document_->getName());
+	}
 }
+
 void DocumentView::selectionChanged(){
 	emit selectionChanged(currentDocument());
 }
+
 void DocumentView::cursorPositionChanged(int line, int col){
 	emit cursorPositionChanged(currentDocument(), line, col);
 }
@@ -237,7 +245,6 @@ void DocumentView::newDocument(){
 	connectDocument(document);
 	addTab(document, QIcon(":/images/saved.png"), tr("new %1").arg(_docCounter++));
 	setCurrentDocument(document);
-	documentChanged();
 }
 
 void DocumentView::addDocument(DocumentEditor* document_){
@@ -256,7 +263,6 @@ void DocumentView::addDocument(DocumentEditor* document_){
 	connectDocument(document_);
 	removeFirstNewDocument();
 	setCurrentDocument(document_);
-	documentChanged();
 }
 
 void DocumentView::insertDocument(int index_, DocumentEditor* document_){
@@ -274,7 +280,6 @@ void DocumentView::insertDocument(int index_, DocumentEditor* document_){
 	connectDocument(document_);
 	removeFirstNewDocument();
 	setCurrentDocument(document_);
-	documentChanged();
 }
 
 void DocumentView::cloneDocument(DocumentEditor* document_){
@@ -291,7 +296,6 @@ void DocumentView::cloneDocument(DocumentEditor* document_){
 	connectDocument(doc);
 
 	setCurrentDocument(doc);
-	documentChanged();
 }
 
 void DocumentView::openDocument(const QString& file_){
@@ -305,7 +309,6 @@ void DocumentView::openDocument(const QString& file_){
 		QStringList openedFiles;
 		openedFiles << file_;
 		emit opened(openedFiles);
-		documentChanged();
 	}else{
 		delete document;
 	}
@@ -326,7 +329,6 @@ void DocumentView::openDocument(const QStringList& files_){
 		}
 	}
 	emit opened(openedFiles);
-	documentChanged();
 }
 
 bool DocumentView::closeCurrentDocument(){
@@ -404,12 +406,10 @@ DocumentEditor* DocumentView::removeCurrentDocument(){
 void DocumentView::save(){
 	currentDocument()->save();
 	emit saved((QStringList() << currentDocument()->getFullPath()));
-	documentChanged();
 }
 void DocumentView::saveAs(){
 	currentDocument()->saveAs();
 	emit saved((QStringList() << currentDocument()->getFullPath()));
-	documentChanged();
 }
 void DocumentView::saveACopyAs(){
 	currentDocument()->saveACopyAs();
