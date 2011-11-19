@@ -724,8 +724,6 @@ void DocumentManager::watchedFileChanged(const QString& path_){
 }
 
 void DocumentManager::notify(){
-	///@todo update tab save color icon when file is not reloaded
-
 	//FileSystemWatcher notification
 	_watcherNotification.removeDuplicates();
 
@@ -736,9 +734,8 @@ void DocumentManager::notify(){
 	foreach(QString file, list){
 		int ret;
 		if (QFile(file).exists()) {
-			DocumentEditor* document = 0;
 			for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
-				document = (*it)->getDocument(file);
+				DocumentEditor* document = (*it)->getDocument(file);
 				if(document == 0)
 					continue;
 
@@ -765,16 +762,16 @@ void DocumentManager::notify(){
 						tr("Keep non existing file ?"),
 						tr("%1\ndoesn't exist anymore.\nKeep this file in editor?").arg(file),
 						QMessageBox::Yes | QMessageBox::No);
-			if (ret == QMessageBox::No){
-				for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
+			for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
+				if (ret == QMessageBox::No){
 					(*it)->closeDocument(file);
+				}else{
+					DocumentEditor* document = (*it)->getDocument(file);
+					if(document == 0)
+						continue;
+					(*it)->updateDocumentTab(document, true);
 				}
 			}
 		}
-	}
-
-	//update all views
-	for(std::vector<DocumentView*>::iterator it = _viewList.begin(); it < _viewList.end(); ++it){
-		(*it)->updateAllDocuments();
 	}
 }
