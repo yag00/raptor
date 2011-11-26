@@ -1,23 +1,5 @@
-raptor-editor (0.4.0.ubuntu0) oneiric; urgency=low
+raptor-editor (${RAPTOR_VERSION_DEB}~ubuntu.${DEB_DIST}) ${DEB_DIST}; urgency=low
 
-  * Release 0.4.0
+  * Version ${RAPTOR_VERSION_DISPLAY}
 
- -- Christophe Duvernois <christophe.duvernois@gmail.com>  Mon, 17 Oct 2011 22:31:29 +0200
-
-raptor-editor (0.3.0.ubuntu3) natty; urgency=low
-
-  * Release 0.3.0 
-
- -- Christophe Duvernois <christophe.duvernois@gmail.com>  Mon, 18 Jul 2011 19:54:55 +0200
-
-raptor-editor (0.2.0) natty; urgency=low
-
-  * Release 0.2.0
-
- -- Christophe Duvernois <christophe.duvernois@gmail.com>  Mon, 18 Jul 2011 19:54:17 +0200
-
-raptor-editor (0.1.0) unstable; urgency=low
-
-  * Initial Release.
-
- -- Christophe Duvernois <christophe.duvernois@gmail.com>  Sun, 26 Jun 2011 13:38:43 +0200
+ -- Christophe Duvernois <christophe.duvernois@gmail.com>  ${DEB_DATE}
