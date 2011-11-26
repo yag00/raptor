@@ -24,7 +24,8 @@
 # python waf-light --make-waf --tools=slow_qt4,compat15
 #
 
-import sys, os, platform, shutil, tarfile
+import sys, os, platform, shutil, tarfile, re
+from email.Utils import formatdate
 from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
@@ -44,7 +45,7 @@ class debug(BuildContext):
 class release(BuildContext):
 	cmd = 'release'
 	variant = 'release'
-	
+
 class install(InstallContext):
 	cmd = 'install'
 	variant = 'release'
@@ -79,7 +80,7 @@ def distclean(ctx):
 	for f in lst:
 		if f.startswith('package.') and not Options.commands:
 			shutil.rmtree(f, ignore_errors=True)
-	
+
 def configure(conf):
 	#min waf version
 	conf.check_waf_version(mini='1.6.8')
@@ -150,7 +151,7 @@ def postbuild(ctx):
 	print('after the build is complete')
 
 def build(bld):
-	if ((not bld.variant) and (bld.cmd == 'build')): 
+	if ((not bld.variant) and (bld.cmd == 'build')):
 		Options.commands = ['release'] + Options.commands
 		return
 
@@ -360,26 +361,44 @@ def packageUbuntu(ctx):
 		os.remove(os.path.abspath("raptor-editor-" + VERSION + ".tar.gz"))
 		shutil.move(os.path.abspath("raptor-editor-" + VERSION), os.path.abspath("debbuild/"));
 		#copy debian directory
-		print(os.path.abspath("package/ubuntu/debian"))
-		print(os.path.abspath("debbuild/raptor-editor-" + VERSION + "/"))
 		shutil.copytree(os.path.abspath("package/ubuntu/debian"), os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian"))
-		
+
+		#update changelog
+		fchangelog = open(os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian/changelog"), "r")
+		changelog = fchangelog.read()
+		fchangelog.close()
+
+		# the dictionary has target_word:replacement_word pairs
+		(distname,version,id) =  platform.linux_distribution()
+		word_dic = {
+			'${RAPTOR_VERSION_DEB}': VERSION,
+			'${DEB_DIST}': id,
+			'${RAPTOR_VERSION_DISPLAY}': VERSION,
+			'${DEB_DATE}': formatdate(localtime=True),
+		}
+
+		changelog = replace_words(changelog, word_dic)
+		# write updated changelog
+		fchangelog = open(os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian/changelog"), "w")
+		fchangelog.write(changelog)
+		fchangelog.close()
+
 		#command
 		os.chdir("debbuild/raptor-editor-" + VERSION)
 		command = ctx.env.DEBUILD + ' '
 		command += "-S -sa"
 		ctx.exec_command(command)
 
-		
+
 		command = ctx.env.DPKG_BUILDPACKAGE + ' '
 		command += "-rfakeroot"
 		ctx.exec_command(command)
 
 		os.chdir("../../")
-		
+
 		#get deb/src-deb
 		os.rename("debbuild", "package.ubuntu")
-		
+
 	else:
 		ctx.fatal("debbuild/dpkg-buildpackage are not available.\nYou can install it with 'sudo apt-get install devscripts'.\nThen run configure.")
 
@@ -502,6 +521,16 @@ def getTranslationInstallationPath(prefix):
 	else:
 		return prefix + '/share/raptor/translations'
 
+
+def replace_words(text, word_dic):
+	"""
+	take a text and replace words that match a key in a dictionary with
+	the associated value, return the changed text
+	"""
+	rc = re.compile('|'.join(map(re.escape, word_dic)))
+	def translate(match):
+		return word_dic[match.group(0)]
+	return rc.sub(translate, text)
 
 # create debug and release target
 for x in 'debug release'.split():
