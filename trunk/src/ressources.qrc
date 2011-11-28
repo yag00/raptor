@@ -1,6 +1,7 @@
 <RCC>
   <qresource>
     <file>images/session-mgr.png</file>
+    <file>images/readonly.png</file>
     <file>images/goto.png</file>
     <file>images/switch.png</file>
     <file>images/settings_shortcuts.png</file>
@@ -93,7 +94,7 @@
     <file alias="synchronize.png">images/explorer/synchronize.png</file>
     <file alias="view-tree.png">images/explorer/view-tree.png</file>
     <file alias="remove.png">images/remove.png</file>
-  </qresource>  
+  </qresource>
   <qresource prefix="/listeditor">
     <file alias="add.png">images/listeditor/add.png</file>
     <file alias="clear.png">images/listeditor/clear.png</file>

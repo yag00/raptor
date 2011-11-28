@@ -417,6 +417,7 @@ void DocumentManager::deleteCurrentWord(){
 
 void DocumentManager::setReadOnly(bool b_){
 	getActiveDocument()->setReadOnly(b_);
+	getActiveView()->updateAllDocuments();
 }
 
 void DocumentManager::reindentDocument(){

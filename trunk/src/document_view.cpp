@@ -195,6 +195,8 @@ void DocumentView::updateDocumentTab(DocumentEditor* document_, bool modified_){
 	int index = getDocumentIndex(document_);
 	if(modified_ || (document_->stillExist() == false))
 		setTabIcon(index, QIcon(":/images/unsaved.png"));
+	else if(document_->isReadOnly())
+		setTabIcon(index, QIcon(":/images/readonly.png"));
 	else
 		setTabIcon(index, QIcon(":/images/saved.png"));
 
@@ -218,6 +220,8 @@ void DocumentView::updateAllDocuments(){
 		if(i == currentIndex()){
 			if(document->isModified() || (document->stillExist() == false))
 				setTabIcon(i, QIcon(":/images/unsaved.png"));
+			else if(document->isReadOnly())
+				setTabIcon(i, QIcon(":/images/readonly.png"));
 			else
 				setTabIcon(i, QIcon(":/images/saved.png"));
 
