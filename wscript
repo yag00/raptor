@@ -25,7 +25,6 @@
 #
 
 import sys, os, platform, shutil, tarfile, re
-from email.Utils import formatdate
 from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
@@ -369,6 +368,7 @@ def packageUbuntu(ctx):
 		fchangelog.close()
 
 		# the dictionary has target_word:replacement_word pairs
+		from email.Utils import formatdate
 		(distname,version,id) =  platform.linux_distribution()
 		word_dic = {
 			'${RAPTOR_VERSION_DEB}': VERSION,
