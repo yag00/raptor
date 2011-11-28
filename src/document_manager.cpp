@@ -407,6 +407,10 @@ void DocumentManager::moveCurrentLineDown(){
 	getActiveDocument()->moveCurrentLineDown();
 }
 
+void DocumentManager::transposeLine(){
+	getActiveDocument()->transposeLine();
+}
+
 void DocumentManager::deleteCurrentWord(){
 	getActiveDocument()->deleteCurrentWord();
 }

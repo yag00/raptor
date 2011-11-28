@@ -24,6 +24,7 @@
 #include <QSettings>
 
 class QAction;
+class DocumentEditor;
 
 /** handle all shortcut settings of the application */
 class ShortcutSettings : public QSettings{
@@ -36,15 +37,20 @@ class ShortcutSettings : public QSettings{
 
 		bool hasDefaultShortcut();
 		void restoreDefaultShortcut(QAction* action_ = 0);
-	
+
 		void saveDefaultShortcut(QAction* action_);
 		void saveUserShortcut(QAction* action_);
-	
-		QKeySequence getDefaultShortcut(QAction* action_); 
+
+		QKeySequence getDefaultShortcut(QAction* action_);
 		QKeySequence getUserShortcut(QAction* action_);
-	
+
 		void updateActionWithDefaultShortcut(QAction* action_);
 		void updateActionWithUserShortcut(QAction* action_);
+
+		void update(DocumentEditor* document_);
+
+	private:
+		void updateQsciCommand(QAction* action_);
 
 };
 

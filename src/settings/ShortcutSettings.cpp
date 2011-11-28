@@ -18,15 +18,22 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <stdint.h>
 #include <QAction>
+
+#include <Qsci/qsciscintilla.h>
+#include <Qsci/qscicommand.h>
+#include <Qsci/qscicommandset.h>
+
+#include "../document_editor.h"
 #include "ShortcutSettings.h"
 
 ShortcutSettings::ShortcutSettings(QObject* parent_)
 	: QSettings (QSettings::IniFormat, QSettings::UserScope, "raptor", "shortcut", parent_){
-		
+
 }
 ShortcutSettings::~ShortcutSettings(){
-	
+
 }
 
 bool ShortcutSettings::hasDefaultShortcut(){
@@ -40,10 +47,12 @@ void ShortcutSettings::restoreDefaultShortcut(QAction* action_){
 
 void ShortcutSettings::saveDefaultShortcut(QAction* action_){
 	setValue("DefaultShortcut/" + action_->objectName(), action_->shortcut());
+	updateQsciCommand(action_);
 }
 
 void ShortcutSettings::saveUserShortcut(QAction* action_){
 	setValue("Shortcut/" + action_->objectName(), action_->shortcut());
+	updateQsciCommand(action_);
 }
 
 QKeySequence ShortcutSettings::getDefaultShortcut(QAction* action_){
@@ -57,6 +66,7 @@ QKeySequence ShortcutSettings::getUserShortcut(QAction* action_){
 void ShortcutSettings::updateActionWithDefaultShortcut(QAction* action_){
 	if(contains("DefaultShortcut/" + action_->objectName())){
 		action_->setShortcut(getDefaultShortcut(action_));
+		updateQsciCommand(action_);
 	}
 }
 
@@ -64,4 +74,28 @@ void ShortcutSettings::updateActionWithUserShortcut(QAction* action_){
 	if(contains("Shortcut/" + action_->objectName())){
 		action_->setShortcut(getUserShortcut(action_));
 	}
+}
+
+void ShortcutSettings::updateQsciCommand(QAction* action_){
+	QsciCommand::Command cmd = (QsciCommand::Command)action_->data().toInt();
+	if(cmd){
+		//todo qsci -> update
+		QKeySequence keys = action_->shortcut();
+		uint32_t key = 0;
+		for(uint32_t i = 0; i < keys.count(); i++){
+			key |= keys[i];
+		}
+		QsciScintilla qsci;
+		QsciCommandSet* commandset = qsci.standardCommands();
+		QsciCommand* command = commandset->find(cmd);
+		if(command){
+			command->setKey(key);
+		}
+		commandset->writeSettings(*this);
+	}
+}
+
+void ShortcutSettings::update(DocumentEditor* document_){
+	QsciCommandSet* commandset = document_->standardCommands();
+	commandset->readSettings(*this);
 }

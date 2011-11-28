@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -110,6 +110,7 @@
       <string comment="menu Lines/Words">Lines/Words</string>
      </property>
      <addaction name="actionDuplicateLine"/>
+     <addaction name="actionTransposeLine"/>
      <addaction name="actionCutLine"/>
      <addaction name="actionCopyLine"/>
      <addaction name="actionDeleteLine"/>
@@ -499,7 +500,7 @@
     <string comment="statustip action close">Close file</string>
    </property>
    <property name="shortcut">
-    <string comment="shortcut action close">Ctrl+W</string>
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionCloseAll">
@@ -1389,7 +1390,7 @@
     <string comment="statustip action cut current line">Cut the current line</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+Shift+L</string>
+    <string>Ctrl+L</string>
    </property>
   </action>
   <action name="actionCopyLine">
@@ -1460,7 +1461,7 @@
     <string>Toggle comment (single comment prefered )</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+G</string>
+    <string>Ctrl+J</string>
    </property>
   </action>
   <action name="actionToggleBlockComment">
@@ -1486,7 +1487,7 @@
     <string>Goto Line</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+L</string>
+    <string>Ctrl+G</string>
    </property>
   </action>
   <action name="actionNewSession">
@@ -1574,6 +1575,17 @@
    </property>
    <property name="statusTip">
     <string>Remove all extra spaces between words</string>
+   </property>
+  </action>
+  <action name="actionTransposeLine">
+   <property name="text">
+    <string>Transpose Line</string>
+   </property>
+   <property name="toolTip">
+    <string>Transpose current and previous lines</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
  </widget>

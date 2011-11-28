@@ -40,7 +40,7 @@
 class ScintillaExt : public QsciScintilla {
     Q_OBJECT
 	public:
-	    //! This enum defines the different styles for the folding margin. overload QsciScintilla::FoldStyle 
+	    //! This enum defines the different styles for the folding margin. overload QsciScintilla::FoldStyle
 		enum FoldStyleExt {
 			//! Folding is disabled.
 			NoFoldStyle,
@@ -61,8 +61,8 @@ class ScintillaExt : public QsciScintilla {
 			//! Arrow tree style using a flattened tree with arrow symbols and right-angled corners.
 			ArrowTreeFoldStyle
 		};
-		
-		
+
+
 		/** default constructor
 		 * @param parent_ */
 		ScintillaExt(QWidget *parent_ = 0);
@@ -75,7 +75,7 @@ class ScintillaExt : public QsciScintilla {
 		QString getFormat() const;
 		/** @return format pixmap */
 		QPixmap getFormatPixmap() const;
-		
+
 		/** common line/position functions */
 		inline int linesVisible() const { return SendScintilla(SCI_LINESONSCREEN); }
 		/** @return current position */
@@ -84,15 +84,15 @@ class ScintillaExt : public QsciScintilla {
 		int getCurrentLine() const;
 		/** @return the size of the selected text */
 		int getSelectedTextSize() const;
-		/** This collects the text between the positions pos1_ and pos2_ 
+		/** This collects the text between the positions pos1_ and pos2_
 		 * If pos2_ is -1, text is returned to the end of the document */
 		QString getTextRange(int pos1_, int pos2_);
-		
+
 		//highlighting slots
 		void applyIndicator(int start_, int end_, int id_);
 		void applyIndicator(const QString &text_, int id1_, int id2_ = -1);
-		void clearIndicators(int id1_, int id2_ = -1);	
-		
+		void clearIndicators(int id1_, int id2_ = -1);
+
 	public slots:
 		/** Set no selection foreground color */
 		void setNoSelectionForegroundColor();
@@ -106,7 +106,7 @@ class ScintillaExt : public QsciScintilla {
 		void decreaseIndentation();
 		/** reindent the text (using astyle) */
 		void reindent();
-		
+
 		/** convert tabs to spaces using the current tab witdh value */
 		void tabsToSpaces();
 		/** convert spaces to tabs using the current tab witdh value */
@@ -137,51 +137,53 @@ class ScintillaExt : public QsciScintilla {
 		void moveCurrentLineUp();
 		/** move current line down */
 		void moveCurrentLineDown();
+		/** transpose current and previous lines */
+		void transposeLine();
 		/** delete current word */
 		void deleteCurrentWord();
 		/** go to the specified line */
 		void gotoLine(int line_, int pos_ = 0);
 
-		/** define folding style 
+		/** define folding style
 		 * @param folding_ folding style
 		 * @param foreground_ foreground color
-		 * @param background_ background color 
+		 * @param background_ background color
 		 * @param margin_ margin */
 		void setFolding(FoldStyleExt folding_, const QColor& foreground_, const QColor& background_, int margin_ = 2);
-	
+
 		/** fold all block for the given level
 		 * @param level_ the fold level */
 		void foldLevel(int level_);
 		/** unfold all block for the given level
 		 * @param level_ the unfold level */
 		void unfoldLevel(int level_);
-		
+
 		/** do the same as setText() but do not clear the cancel action list and
 		 * set the editor view same as before */
 		void replaceAllText(const QString& text_);
-		
+
 	protected slots:
 		/** update margin width */
 		void updateLineNumberWidth();
 		/** update margin width */
 		void setLineNumbersMarginWidth(int i);
-		
+
 		/** selected text changed */
 		void selectedTextChanged();
-		
-		// highlighting function 
-		void checkHighlight();		
-		
+
+		// highlighting function
+		void checkHighlight();
+
 	protected:
 		/** reimplement wheelEvent */
 		virtual void wheelEvent(QWheelEvent *event_);
 		/** reimplement paintEvent */
 		virtual void paintEvent(QPaintEvent *event_);
-	
-	protected:	
+
+	protected:
 		void setFoldMarker(int marknr, int mark, const QColor& foreground_, const QColor& background_);
 
-		// highlighting function 
+		// highlighting function
 		void createIndicator(int id_, int type_, const QColor &color_, bool under_ = true);
 		void highlightVisible(const QString &text_, int id1_, int id2_);
 
@@ -190,7 +192,7 @@ class ScintillaExt : public QsciScintilla {
 		/** @return true if the string is a qualified word (letter or number sequence of char) */
 		bool isQualifiedWord(const QString& str_) const;
 		bool isWordChar(char ch) const;
-		
+
 	private:
 		/** highlight marker */
 		int _HLID1, _HLID2;

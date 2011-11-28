@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <QDebug>
 #include <QMessageBox>
 #include <QTreeWidget>
 #include <QHeaderView>
@@ -152,10 +153,12 @@ void ShortcutEditor::on_setShortcutButton_clicked() {
 	QTreeWidgetItem* item = actionTreeWidget->selectedItems().value(0);
 	if(item == 0)
 		return;
+	QString shortcut = shortcutLineEdit->text();
+	if(shortcut == item->text(1))
+		return;
 	// get action
 	QAction* action = (QAction*)item->data(0, Qt::UserRole).value<void*>();
 	// set shortcut
-	QString shortcut = shortcutLineEdit->text();
 	for(int i = 0; i < actionTreeWidget->topLevelItemCount(); i++) {
 		QTreeWidgetItem* item = actionTreeWidget->topLevelItem(i);
 		for(int j = 0; j < item->childCount(); j++){

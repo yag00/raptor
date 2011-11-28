@@ -52,7 +52,7 @@ ScintillaExt::ScintillaExt(QWidget* parent_) : QsciScintilla(parent_){
 #ifdef Q_WS_WIN
 	/** the "courier new font" (default font for cpp lexer ... ) with the default
 	 * value (SC_EFF_QUALITY_DEFAULT) is kind of blurred
-	 * this was not usefull for previous version of qscintilla (<2.5) ?? 
+	 * this was not usefull for previous version of qscintilla (<2.5) ??
 	 * version 2.5.1 fix the regression */
 	//SendScintilla(SCI_SETFONTQUALITY, SC_EFF_QUALITY_NON_ANTIALIASED);
 #endif
@@ -108,7 +108,7 @@ void ScintillaExt::replaceAllText(const QString& text_){
 void ScintillaExt::tabsToSpaces(){
 	QString spaces;
 	spaces.fill(' ', tabWidth());
-	
+
 	QString buffer;
 
 	int nbLines = lines();
@@ -124,7 +124,7 @@ void ScintillaExt::tabsToSpaces(){
 void ScintillaExt::spacesToTabs(){
 	QString spaces;
 	spaces.fill(' ', tabWidth());
-	
+
 	QString buffer;
 
 	int nbLines = lines();
@@ -279,6 +279,10 @@ void ScintillaExt::moveCurrentLineDown(){
 	setCursorPosition(line+1, index);
 	SendScintilla(SCI_LINETRANSPOSE);
 }
+void ScintillaExt::transposeLine(){
+	SendScintilla(SCI_LINETRANSPOSE);
+}
+
 void ScintillaExt::deleteCurrentWord(){
 	beginUndoAction();
 	SendScintilla(SCI_DELWORDLEFT);
@@ -538,7 +542,7 @@ int ScintillaExt::getCurrentPosition() const {
 }
 
 int ScintillaExt::getCurrentLine() const {
-	return SendScintilla(SCI_LINEFROMPOSITION, getCurrentPosition()); 
+	return SendScintilla(SCI_LINEFROMPOSITION, getCurrentPosition());
 }
 
 int ScintillaExt::getSelectedTextSize() const{
@@ -598,7 +602,7 @@ void ScintillaExt::paintEvent(QPaintEvent *event_){
 }
 
 void ScintillaExt::selectedTextChanged(){
-	int selectionSize = getSelectedTextSize();		
+	int selectionSize = getSelectedTextSize();
 	if ((selectionSize > 1) && (selectionSize < length())){
 		// there is a selected text and it's not a select all
 		//apply quick markup
@@ -607,7 +611,7 @@ void ScintillaExt::selectedTextChanged(){
 		// remove quick markup
 		clearIndicators(INDICATOR_QUICK_SEARCH1, INDICATOR_QUICK_SEARCH2);
 	}
-	
+
 
 	/*// save target locations for other search functions
 	int originalStartPos = SendScintilla(SCI_GETTARGETSTART);
@@ -750,7 +754,7 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	int pos2 = positionFromLineIndex(line2, 0);
 	if (pos2 < 0)
 		pos2 = length();
-	
+
 	///@todo make it configurable
 	int flags = 0;//SCFIND_MATCHCASE | SCFIND_WHOLEWORD | SCFIND_WORDSTART;
 	TextToFind ttf;
@@ -785,7 +789,7 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	} while (res >= 0);
 
 	delete []buf;
-	
+
 	// remove selection
 	pos1 = SendScintilla(SCI_GETSELECTIONSTART);
 	pos2 = SendScintilla(SCI_GETSELECTIONEND);
