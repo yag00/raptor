@@ -166,6 +166,8 @@ class DocumentManager : public Splitter{
 		void moveCurrentLineUp();
 		/** move down the current selection for the current document */
 		void moveCurrentLineDown();
+		/** transpose current and previous lines */
+		void transposeLine();
 		/** delete the current word for the current document */
 		void deleteCurrentWord();
 		/** set current document in read only mode */

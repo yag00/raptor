@@ -57,6 +57,8 @@ MainWindow::MainWindow() {
 	createToolBar();
 	//create docks
 	createDocks();
+	//create action
+	createActions();
 
 	//read Settings
 	readSettings();
@@ -398,6 +400,36 @@ void MainWindow::createDocks() {
 	connect(explorer, SIGNAL(fileClicked(const QString&)), _documentManager, SLOT(open(const QString&)));
 	connect(explorer, SIGNAL(synchFileRequest()), this, SLOT(synchronizeExplorerWithCurrentDocument()));
 	_explorerDock->hide();
+}
+
+void MainWindow::createActions(){
+	//set the corresponding qscicommand to corresponding actions
+	actionUndo->setData(QVariant(QsciCommand::Undo));
+	actionRedo->setData(QVariant(QsciCommand::Redo));
+
+	//@todo other delete word
+	actionDeleteWord->setData(QVariant(QsciCommand::DeleteWordRight));
+
+	actionCutLine->setData(QVariant(QsciCommand::LineCut));
+	actionCopyLine->setData(QVariant(QsciCommand::LineCopy));
+	actionDeleteLine->setData(QVariant(QsciCommand::LineDelete));
+	//@todo maybe use MoveSelectedLinesUp - MoveSelectedLinesDown instead of doing it with LineTranspose
+	actionTransposeLine->setData(QVariant(QsciCommand::LineTranspose));
+
+	//QsciCommand = LineDuplicate and SelectionDuplicate -> use SelectionDuplicate
+	actionDuplicateLine->setData(QVariant(QsciCommand::SelectionDuplicate));
+
+	actionSelectAll->setData(QVariant(QsciCommand::SelectAll));
+	actionLowerCase->setData(QVariant(QsciCommand::SelectionLowerCase));
+	actionUpperCase->setData(QVariant(QsciCommand::SelectionUpperCase));
+	actionCut->setData(QVariant(QsciCommand::SelectionCut));
+	actionCopy->setData(QVariant(QsciCommand::SelectionCopy));
+	actionPaste->setData(QVariant(QsciCommand::Paste));
+	actionIndent->setData(QVariant(QsciCommand::Tab));
+	actionUnindent->setData(QVariant(QsciCommand::Backtab));
+
+	actionZoomIn->setData(QVariant(QsciCommand::ZoomIn));
+	actionZoomOut->setData(QVariant(QsciCommand::ZoomOut));
 }
 
 DocumentManager& MainWindow::getDocumentManager() {
@@ -769,6 +801,12 @@ void MainWindow::shortcuts() {
 	QList<QMenu*> menus = findChildren<QMenu*>();
 	ShortcutEditor dlg(menus);
 	dlg.exec();
+	//update open document
+	ShortcutSettings settings;
+	QList<DocumentEditor*>list = _documentManager->getDocuments();
+	foreach(DocumentEditor* d, list){
+		settings.update(d);
+	}
 }
 
 void MainWindow::showDocumentation() {

@@ -99,12 +99,12 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 
 		void about();
 		void showDocumentation();
-		
+
 		/** update all */
 		void update(DocumentEditor*);
 
 		void activeDocumentChanged(DocumentEditor*);
-		
+
 		/** update the main window information */
 		void updateMainWindowTitle(DocumentEditor*);
 		/** update the status bar information */
@@ -131,13 +131,14 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void createStatusBar();
 		/** create the extra toolbar */
 		void createToolBar();
-		
+
 		void readSettings();
 		void writeSettings();
 
 		/** create the all manager */
 		void createManager();
-		
+		/** create & update actions */
+		void createActions();
 
 		/** intialize and connect menu */
 		void initMenu();
@@ -163,7 +164,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 
 		/** help browser */
 		HelpBrowser* _helpBrowser;
-		
+
 		/** search dock */
 		QDockWidget* _searchDock;
 		/** symbol dock */
