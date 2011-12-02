@@ -331,7 +331,7 @@ def package(ctx):
 		elif distname == "Fedora":
 			Options.commands = ['clean', 'dist', 'packageFedora'] + Options.commands
 		else:
-			ctx.fatal("no packaging available")
+			ctx.fatal('no packaging available for ' + distname + ' ' + version + ' ' + id)
 
 def packageWindows(ctx):
 	if ctx.env.ISCC != []:
