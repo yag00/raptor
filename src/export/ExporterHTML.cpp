@@ -38,7 +38,6 @@ ExporterHTML::~ExporterHTML(){
 void ExporterHTML::write(const DocumentEditor& document_, const QString& file_){
 	QFile file(file_);
 	if(!file.open(QIODevice::WriteOnly)){
-		qDebug()<< "error";
 		return;
 	}
 	QTextStream stream(&file);

@@ -52,6 +52,7 @@ DEPENDPATH    *= $$PWD \
 				 $$PWD/widget \
 				 $$PWD/lexer \
 				 $$PWD/settings \
+				 $$PWD/export \
 				 $$PWD/about
 
 HEADERS       *= mainwindow.h \
@@ -88,6 +89,8 @@ HEADERS       *= mainwindow.h \
 				AStyleIndenter.h \
 				SourceIterator.h \
 				Diff.h \
+				Exporter.h \
+				ExporterHTML.h \
 				SymbolManager.h \
 				SymbolTreeComboBox.h \
 				SymbolComboBoxAction.h \
@@ -129,6 +132,7 @@ SOURCES       *= main.cpp \
 				StringListEditor.cpp \
 				AStyleIndenter.cpp \
 				Diff.cpp \
+				ExporterHTML.cpp \
 				SymbolManager.cpp \
 				SymbolTreeComboBox.cpp \
 				SymbolComboBoxAction.cpp \
