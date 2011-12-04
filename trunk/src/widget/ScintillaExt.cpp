@@ -796,3 +796,10 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	SendScintilla(SCI_INDICATORCLEARRANGE, pos1, pos2-pos1);
 }
 
+int ScintillaExt::getStyleAt(int position_) const {
+	return SendScintilla(SCI_GETSTYLEAT, position_);
+}
+
+char ScintillaExt::getCharAt(int position_)  const {
+	return SendScintilla(SCI_GETCHARAT, position_);
+}

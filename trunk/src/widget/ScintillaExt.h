@@ -93,6 +93,11 @@ class ScintillaExt : public QsciScintilla {
 		void applyIndicator(const QString &text_, int id1_, int id2_ = -1);
 		void clearIndicators(int id1_, int id2_ = -1);
 
+		/** @return the style corresponding to the position */
+		int getStyleAt(int position_) const;
+		/** @return the char at the position */
+		char getCharAt(int position_) const;
+		
 	public slots:
 		/** Set no selection foreground color */
 		void setNoSelectionForegroundColor();
