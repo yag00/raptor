@@ -38,6 +38,8 @@
 #include "lexer/lexer_manager.h"
 #include "ctags/SymbolManager.h"
 #include "widget/MenuLabel.h"
+#include "export/Exporter.h"
+#include "export/ExporterHTML.h"
 
 #include "mainwindow.h"
 
@@ -97,6 +99,8 @@ void MainWindow::initMenuFile() {
 	connect(actionPrint, SIGNAL(triggered()), _documentManager, SLOT(print()));
 	connect(actionExit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
+	connect(actionExportAsHTML, SIGNAL(triggered()), this, SLOT(exportDocument()));
+	
 	connect(actionNewSession, SIGNAL(triggered()), _sessionManager, SLOT(newSession()));
 	connect(actionOpenSession, SIGNAL(triggered()), _sessionManager, SLOT(openSession()));
 	connect(actionSwitchSession, SIGNAL(triggered()), _sessionManager, SLOT(switchSession()));
@@ -602,6 +606,27 @@ void MainWindow::openAllRecentFile() {
 	}
 	_documentManager->open(files);
 }
+
+void MainWindow::exportDocument(){
+	DocumentEditor* doc = _documentManager->getActiveDocument();
+	QString docName = doc->getBaseName();
+	
+	Exporter* exporter;
+	QString type;
+	QAction* action = qobject_cast<QAction*>(sender());
+	if(action->objectName() == "actionExportAsHTML"){
+		exporter = new ExporterHTML();
+		type = "HTML";
+	}else{
+		return;
+	}
+	QString file = QFileDialog::getSaveFileName(this, tr("Export File as ") + type, doc->getFullPath() + "." + type.toLower());
+	if (!file.isEmpty()){
+		exporter->write(*doc, file);
+		updateStatusBarMessage(tr("%1 exported to %2").arg(doc->getName()).arg(file));
+	}
+	delete exporter;
+}	
 
 void MainWindow::increaseIndentation() {
 	if(!_searchDock->focusWidget()->hasFocus()) {

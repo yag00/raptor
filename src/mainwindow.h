@@ -55,6 +55,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void handleMessage(const QString& message_);
 
 	private slots:
+		/** File Menu */
+		void exportDocument();
+	
 		/** Edit Menu */
 		void increaseIndentation();
 		void decreaseIndentation();

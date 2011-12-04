@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/export.png</file>
     <file>images/session-mgr.png</file>
     <file>images/readonly.png</file>
     <file>images/goto.png</file>
