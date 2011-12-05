@@ -111,6 +111,8 @@ class DocumentManager : public Splitter{
 		bool closeAllIfPossible();
 		/** reload current document */
 		void reload();
+		/** rename current document */
+		void rename();
 
 		/** print current document */
 		void print();

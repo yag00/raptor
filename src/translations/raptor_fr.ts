@@ -59,12 +59,42 @@ Recharger le fichier entrainera la perte de ces modifications.
 Voulez-vous continuer?</translation>
     </message>
     <message>
-        <location filename="../document_editor.cpp" line="670"/>
+        <location filename="../document_editor.cpp" line="463"/>
+        <location filename="../document_editor.cpp" line="480"/>
+        <source>Rename file</source>
+        <translation>Renommer le fichier</translation>
+    </message>
+    <message>
+        <location filename="../document_editor.cpp" line="463"/>
+        <source>File %1 has unsaved modifications.
+Save it before rename it.
+</source>
+        <translation>Le fichier %1 a été modifié.
+Enregistrer le avant de le renommer.</translation>
+    </message>
+    <message>
+        <location filename="../document_editor.cpp" line="468"/>
+        <source>Rename</source>
+        <translation>Renommer</translation>
+    </message>
+    <message>
+        <location filename="../document_editor.cpp" line="468"/>
+        <source>Rename %1 to</source>
+        <translation>Renommer %1 en</translation>
+    </message>
+    <message>
+        <location filename="../document_editor.cpp" line="480"/>
+        <source>Can&apos;t rename file %1.
+</source>
+        <translation>Impossible de renommer le fichier %1.</translation>
+    </message>
+    <message>
+        <location filename="../document_editor.cpp" line="694"/>
         <source>Reload ?</source>
         <translation>Recharger ?</translation>
     </message>
     <message>
-        <location filename="../document_editor.cpp" line="671"/>
+        <location filename="../document_editor.cpp" line="695"/>
         <source>%1
 This file has been modified.
 Do you want to reload it with %2 charset
@@ -99,78 +129,93 @@ et perdre les modifications?</translation>
     </message>
     <message>
         <location filename="../document_manager.cpp" line="72"/>
+        <source>Rename</source>
+        <translation>Renommer</translation>
+    </message>
+    <message>
+        <location filename="../document_manager.cpp" line="74"/>
+        <source>Reload</source>
+        <translation>Recharger</translation>
+    </message>
+    <message>
+        <location filename="../document_manager.cpp" line="77"/>
         <source>&amp;Move to other view</source>
         <translation>&amp;Déplacer vers l&apos;autre vue</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="74"/>
+        <location filename="../document_manager.cpp" line="79"/>
         <source>&amp;Clone to other view</source>
         <translation>&amp;Cloner dans l&apos;autre vue</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="202"/>
+        <location filename="../document_manager.cpp" line="207"/>
         <source>Select one or more files to open</source>
         <translation>Selectionner un fichier ou plus à ouvrir</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="313"/>
+        <location filename="../document_manager.cpp" line="318"/>
         <source>File reloaded</source>
         <translation>Fichier rechargé</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="428"/>
-        <location filename="../document_manager.cpp" line="713"/>
+        <location filename="../document_manager.cpp" line="324"/>
+        <source>File renamed</source>
+        <translation>Fichier renommé</translation>
+    </message>
+    <message>
+        <location filename="../document_manager.cpp" line="439"/>
+        <location filename="../document_manager.cpp" line="724"/>
         <source>Not implemented yet !!</source>
         <translation>Pas encore implementé !!</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="466"/>
+        <location filename="../document_manager.cpp" line="477"/>
         <source>Switcher : Fail !</source>
         <translation>Switcher : Echec !</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="466"/>
+        <location filename="../document_manager.cpp" line="477"/>
         <source>Can&apos;t find files according to switching rules!
 Do you want to create the file?</source>
         <translation>Impossible de trouver les fichiers suivant les règles du switcher!
 Voulez vous créer le fichier?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="469"/>
+        <location filename="../document_manager.cpp" line="480"/>
         <source>Switcher : Create new File</source>
         <translation>Switcher : Créer un nouveau fichier</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="469"/>
+        <location filename="../document_manager.cpp" line="480"/>
         <source>Select or type the new file to create :</source>
         <translation>Selectionner ou rentrer le nouveau fichier à céer :</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="553"/>
+        <location filename="../document_manager.cpp" line="564"/>
         <source>File reloaded with charset %1</source>
         <translation>Fichier rechargé avec le charset %1</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="559"/>
-        <location filename="../document_manager.cpp" line="566"/>
+        <location filename="../document_manager.cpp" line="570"/>
+        <location filename="../document_manager.cpp" line="577"/>
         <source>File save with charset %1</source>
         <translation>Fichier enregistrer avec le charset %1</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="622"/>
-        <location filename="../document_manager.cpp" line="645"/>
+        <location filename="../document_manager.cpp" line="633"/>
+        <location filename="../document_manager.cpp" line="656"/>
         <source>Cannot run the macro! Maybe Record one
 </source>
         <translation>Impossible d&apos;executer la macro! Enregistrer en une</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="749"/>
-        <location filename="../document_manager.cpp" line="755"/>
+        <location filename="../document_manager.cpp" line="760"/>
+        <location filename="../document_manager.cpp" line="766"/>
         <source>Reload ?</source>
         <translation>Recharger ?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="750"/>
+        <location filename="../document_manager.cpp" line="761"/>
         <source>%1
 This file has been modified by another program.
 Do you want to reload it?</source>
@@ -179,7 +224,7 @@ Ce fichier a été modifié par un autre programme.
 Voulez vous le recharger?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="756"/>
+        <location filename="../document_manager.cpp" line="767"/>
         <source>%1
 This file has been modified by another program.
 Do you want to reload it and lose all the changes made?</source>
@@ -188,12 +233,12 @@ Ce fichier a été modifié par un autre programme.
 Voulez vous le recharger et perdre les modifications?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="767"/>
+        <location filename="../document_manager.cpp" line="778"/>
         <source>Keep non existing file ?</source>
         <translation>Garder un fichier non existent ?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="768"/>
+        <location filename="../document_manager.cpp" line="779"/>
         <source>%1
 doesn&apos;t exist anymore.
 Keep this file in editor?</source>
