@@ -387,7 +387,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 	file.read(bom, 6);
 	file.reset();
 	detectBOM(bom);
-	
+
 	QString shebang;
 	for(uint8_t i = 0; i < 5; i++){
 		if(bom[i] == '#'){
@@ -456,6 +456,30 @@ bool DocumentEditor::reload() {
 			return false;
 	}
 	return load(getFullPath());
+}
+
+bool DocumentEditor::rename(){
+	if(isModified()) {
+		QMessageBox::warning(this, tr("Rename file"), tr("File %1 has unsaved modifications.\nSave it before rename it.\n").arg(getName()),	QMessageBox::Ok);
+		return false;
+	}
+	QString oldFileName = getName();
+	bool ok;
+	QString file = QInputDialog::getText(this, tr("Rename"), tr("Rename %1 to").arg(oldFileName), QLineEdit::Normal, oldFileName, &ok);
+	if(!ok)
+		return false;
+	QFile oldfile(getFullPath());
+	QString newfile = getPath() + QDir::separator() + file;
+	_watcher.removePath(_fullPath);
+	if(oldfile.rename(newfile)){
+		_fullPath = newfile;
+		load(_fullPath);
+		return true;
+	}else{
+		_watcher.removePath(getFullPath());
+		QMessageBox::warning(this, tr("Rename file"), tr("Can't rename file %1.\n").arg(oldFileName), QMessageBox::Ok);
+		return false;
+	}
 }
 
 void DocumentEditor::undo() {
@@ -778,12 +802,12 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 		return;
 	QString comment = l->commentLine();
 	QStringList commentBlock = l->commentBlock();
-	
+
 	if(comment.isEmpty() && commentBlock.isEmpty()){
 		qDebug() << "Toggle comment is not supported for " << l->language();
 		return;
 	}
-	
+
 	if (!hasSelectedText()) {
 		//if line is empty, skip it
 		int line = getCurrentLine();
@@ -791,12 +815,12 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 			return;
 
 		QString selText = text(line);
-		selText.remove("\n"); 
+		selText.remove("\n");
 		selText.remove("\r");
 		QString selTextTrimmed = selText.trimmed();
 		int pos_start = SendScintilla(SCI_POSITIONFROMLINE, line);
 		int pos_end = SendScintilla(SCI_GETLINEENDPOSITION, line);
-	
+
 		// check for block comments on a line
 		if(commentBlock.size() >= 2){
 			QString blockStart = commentBlock.first();
@@ -817,7 +841,7 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 				return;
 			}
 		}
-		
+
 		// check for single comments
 		if (!comment.isEmpty()) {
 			if (selTextTrimmed.startsWith(comment)) {
@@ -834,7 +858,7 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 			SendScintilla(SCI_REPLACETARGET, -1, selText.toUtf8().data());
 			return;
 		}
-		
+
 	}else{
 		// comment out the selection
 		QString selText = selectedText();
@@ -888,10 +912,10 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 				beginUndoAction();
 
 				// corrections
-				if (indexTo == 0) 
+				if (indexTo == 0)
 					lineTo--;
 				if (isLineEmpty(lineFrom)) {
-					lineFrom++; indexFrom = 0; 
+					lineFrom++; indexFrom = 0;
 				}
 				// a workaround: move cursor to the next line to replace EOL as well
 				setSelection(lineFrom, 0, lineTo+1, 0);
@@ -940,7 +964,7 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 				setSelection(lineFrom, indexFrom, lineTo, indexTo + blockStart.size() + blockEnd.size());
 			else
 				setSelection(lineFrom, indexFrom, lineTo, indexTo + blockEnd.size());
-			
+
 			endUndoAction();
 			return;
 		}

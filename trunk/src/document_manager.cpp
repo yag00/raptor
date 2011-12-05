@@ -69,6 +69,11 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	QAction* saveAs = menu->addAction(QIcon(":/images/saveas.png"), tr("&Save As..."));
 	connect(saveAs, SIGNAL(triggered()), view, SLOT(saveAs()));
 	menu->addSeparator();
+	QAction* rename = menu->addAction(QIcon(":/listeditor/edit.png"), tr("Rename"));
+	connect(rename, SIGNAL(triggered()), this, SLOT(rename()));
+	QAction* reload = menu->addAction(QIcon(":/images/restore.png"), tr("Reload"));
+	connect(reload, SIGNAL(triggered()), this, SLOT(reload()));
+	menu->addSeparator();
 	QAction* moveTo = menu->addAction(QIcon(":/images/moveto.png"), tr("&Move to other view"));
 	connect(moveTo, SIGNAL(triggered()), this, SLOT(moveDocument()));
 	QAction* cloneTo = menu->addAction(QIcon(":/images/cloneto.png"), tr("&Clone to other view"));
@@ -311,6 +316,12 @@ void DocumentManager::reload(){
 	if(getActiveDocument()->reload()) {
 		getActiveView()->updateAllDocuments();
 		emit statusMessage(tr("File reloaded"));
+	}
+}
+
+void DocumentManager::rename(){
+	if(getActiveDocument()->rename()) {
+		emit statusMessage(tr("File renamed"));
 	}
 }
 

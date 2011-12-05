@@ -64,64 +64,64 @@ class DocumentEditor : public ScintillaExt {
 		bool isNew() const;
 		/** @return true if the document is cloned */
 		bool isCloned() const;
-		
 
-		/** enable/disable auto detection of eol 
+
+		/** enable/disable auto detection of eol
 		 * @param enable_ enable/disable*/
 		void setAutoDetectEol(bool enable_);
-		/** enable/disable auto detection of indentation 
+		/** enable/disable auto detection of indentation
 		 * @param enable_ enable/disable*/
-		void setAutoDetectIndent(bool enable_);		
-		
+		void setAutoDetectIndent(bool enable_);
+
 		const QList<int>& bookmarks() const { return _bookmarks; }
 		QStringList bookmarkedLinesToStringList();
 		void setBookmarks(const QStringList& lines);
-	
+
 		QsciMacro* getMacro() const;
-		
+
 		/** detach the clone */
 		void detachClone();
-		
-		
+
+
 		/** @return the codec used by the document */
 		QString getCodec() const;
-		/** set the codec to used for the document 
+		/** set the codec to used for the document
 		 * NOTE : changing the codec will relaod the document and reset the undo list
 		 * @param codec_ codec name
 		 * @return true if document was reloaded */
 		bool setCodec(const QString& codec_);
-		/** set the codec to used by default for the document 
-		 * do nothing if a codec as already be set 
+		/** set the codec to used by default for the document
+		 * do nothing if a codec as already be set
 		 * @param codec_ codec name */
 		void setDefaultCodec(const QString& codec_);
-		
+
 		//! This enum defines the different bom behaviour in case of unicode charset.
-		enum UnicodeBomUseMode { 
+		enum UnicodeBomUseMode {
 			//! leave the bom as is (ie do not add or remove the bom on the file)
 			//! do not add a bom on new file
-			BomLeaveAsIs, 
+			BomLeaveAsIs,
 			//! leave the bom as is (ie do not add or remove the bom on the file)
-			//! add a bom on new file			
-			BomLeaveAsIsAddToNewFile, 
+			//! add a bom on new file
+			BomLeaveAsIsAddToNewFile,
 			//! always add a bom on the file
-			BomAlwaysAdd, 
+			BomAlwaysAdd,
 			//! always remove the bom on the file
-			BomAlwaysRemove 
+			BomAlwaysRemove
 		};
-		/** set the unicode bom use mode 
+		/** set the unicode bom use mode
 		 * @param bomMode_ bom mode */
 		void setUnicodeBomUseMode(UnicodeBomUseMode bomMode_);
 		/** enable/disable the charset auto detection
 		 * @param autoDetect_ if true enable charset auto detection */
 		void setCharsetAutoDetection(bool autoDetect_);
-		
+
 		/** enable/disable add new line on save
 		 * @param addNewLine_ if true a new line will be added on save */
 		void setAddNewLineOnSave(bool addNewLine_);
 		/** enable/disable trim extra spaces on save
 		 * @param trim_ if true trim extra spaces on save */
 		void setTrimOnSave(bool trim_);
-		
+
 	protected:
 		/** reimplement focusInEvent */
 		virtual void focusInEvent(QFocusEvent *event_);
@@ -129,7 +129,7 @@ class DocumentEditor : public ScintillaExt {
 		virtual void focusOutEvent(QFocusEvent *event_);
 
 	signals:
-		/** emitted when focus changed with true if the document has the focus 
+		/** emitted when focus changed with true if the document has the focus
 		 * or false if the document lost it*/
 		void focusChanged(bool);
 
@@ -138,10 +138,10 @@ class DocumentEditor : public ScintillaExt {
 		virtual void undo();
 		/** overload redo */
 		virtual void redo();
-		
+
 		/** set language */
 		void setLanguage(const QString &language_);
-		
+
 		/** toggle bookmark */
 	    void toggleBookmark();
 		/** remove all bookmarks */
@@ -153,9 +153,9 @@ class DocumentEditor : public ScintillaExt {
 		void nextBookmark();
 		/** go to the previous bookmark */
 		void prevBookmark();
-		
-	
-		
+
+
+
 		/** load a file
 		 * @param fileName file name
 		 * @return true if ok */
@@ -163,7 +163,10 @@ class DocumentEditor : public ScintillaExt {
 		/** reload a file from disk
 		 * @return true if ok */
 		bool reload();
-		
+		/** rename file on the disk
+		 * @return true if ok */
+		bool rename();
+
 		/** save file
 		 * @return true if saved */
 		bool save();
@@ -179,7 +182,7 @@ class DocumentEditor : public ScintillaExt {
 		/** save&convert the file as ...  with the given charset
 		 * @return true if saved */
 		bool saveWithCharsetAs(const QString& codec_);
-		
+
 		/** check if document is modified and ask if we need to save it
 		 * @return true if we need to save it */
 		bool maybeSave();
@@ -188,65 +191,65 @@ class DocumentEditor : public ScintillaExt {
 		void print(bool quick_ = false);
 		/** quick print */
 		void quickPrint();
-		
+
 		/** toggle comment
 		 * @param lineCommentPrefered_ if true will try to comment a block using single comment line */
 		void toggleComment(bool lineCommentPrefered_ = true);
-		
+
 	protected slots:
-	
+
 		void toggleBookmark(int margin_, int line_,	Qt::KeyboardModifiers state_);
-				
+
 	private:
 		bool saveFile(const QString &fileName_);
 		bool saveCopy(const QString &fileName_);
-		
+
 		/** @return true if document need a bom */
 		bool needBOM();
-		/** bom detection, update codec if successfull detection 
+		/** bom detection, update codec if successfull detection
 		 *@param bom_ char array containing the first 4 bytes of the file
 		 *@return true if successfull detection */
 		bool detectBOM(const char* bom_);
-		
+
 		/** auto detect eol */
 		void autoDetectEol();
 		/** auto detect indentation */
 		void autoDetectIndent();
-		
+
 		/** document path + fileName */
 		QString _fullPath;
 
 		/** hold if document is new */
 		bool _isNew;
 
-	
+
 		/** bookmarks list */
 		QList<int> _bookmarks;
-		
-		
+
+
 		/** hold auto detect eol property */
 		bool _autoDetectEol;
 		/** hold auto detect indent property */
 		bool _autoDetectIndent;
-		
+
 		/** Macro */
 		QsciMacro* _macro;
-	
+
 		/** hold if document is cloned */
 		bool _isCloned;
 		/** clone */
 		DocumentEditor* _clone;
-		
+
 		/** codec */
 		QString _codec;
 		UnicodeBomUseMode _bomMode;
 		bool _hasBom;
 		bool _charsetAutoDetect;
-		
+
 		/** storing options */
 		bool _addNewLineOnSave;
 		bool _trimOnSave;
-		
+
 		/** Reference on FileWatcher */
 		QFileSystemWatcher& _watcher;
 };
