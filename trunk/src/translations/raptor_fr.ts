@@ -9,6 +9,16 @@
         <translation>Aucune imprimante par défaut, installer en une avant d&apos;utiliser l&apos;impression rapide</translation>
     </message>
     <message>
+        <location filename="../document_editor.cpp" line="234"/>
+        <source>Save As</source>
+        <translation>Sauvegarder sous</translation>
+    </message>
+    <message>
+        <location filename="../document_editor.cpp" line="241"/>
+        <source>Save A Copy As</source>
+        <translation>Sauvegarder une copie sous</translation>
+    </message>
+    <message>
         <location filename="../document_editor.cpp" line="250"/>
         <source>The document %1 has been modified.
 Do you want to save your changes?</source>
@@ -655,7 +665,7 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <location filename="../ui/mainwindow.ui" line="485"/>
         <source>Save As ...</source>
         <comment>action save as</comment>
-        <translation>Sauvegarder fichier ...</translation>
+        <translation>Sauvegarder sous ...</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="488"/>

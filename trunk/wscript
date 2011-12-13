@@ -143,19 +143,10 @@ def configurePackage(conf):
 			except conf.errors.ConfigurationError:
 				pass
 
-def prebuild(ctx):
-	print('before the build is complete')
-
-def postbuild(ctx):
-	print('after the build is complete')
-
 def build(bld):
 	if ((not bld.variant) and (bld.cmd == 'build')):
 		Options.commands = ['release'] + Options.commands
 		return
-
-	bld.add_pre_fun(prebuild)
-	bld.add_post_fun(postbuild)
 
 	#########################################################
 	# build astyle
