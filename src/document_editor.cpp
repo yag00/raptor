@@ -231,14 +231,14 @@ bool DocumentEditor::save() {
 	}
 }
 bool DocumentEditor::saveAs() {
-	QString fileName = QFileDialog::getSaveFileName(this);
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save As"), getPath());
 	if (fileName.isEmpty())
 		return false;
 
 	return saveFile(fileName);
 }
 bool DocumentEditor::saveACopyAs() {
-	QString fileName = QFileDialog::getSaveFileName(this);
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save A Copy As"), getPath());
 	if (fileName.isEmpty())
 		return false;
 
