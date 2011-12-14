@@ -762,7 +762,13 @@ void ScintillaExt::highlightVisible(const QString &text_, int id1_, int id2_){
 	ttf.chrg.cpMax = pos2;
 
 	TextRange tr;
-	char* buf = new char[text_.length() + 1];
+	
+	if((pos2 - pos1) <= 0)
+		return;
+	if((pos2 - pos1) > 10000)
+		return;
+	
+	char* buf = new char[(pos2 - pos1) + 1];
 
 	int res;
 	QByteArray ba = text_.toUtf8();
