@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
 <context>
+    <name>CompareDialog</name>
+    <message>
+        <location filename="../diff/CompareDialog.cpp" line="76"/>
+        <source>Choose source file 1:</source>
+        <translation>Choisissez le fichier source 1:</translation>
+    </message>
+    <message>
+        <location filename="../diff/CompareDialog.cpp" line="83"/>
+        <source>Choose source file 2:</source>
+        <translation>Choisissez le fichier source 2:</translation>
+    </message>
+</context>
+<context>
     <name>DocumentEditor</name>
     <message>
         <location filename="../document_editor.cpp" line="199"/>
@@ -118,114 +131,124 @@ et perdre les modifications?</translation>
 <context>
     <name>DocumentManager</name>
     <message>
-        <location filename="../document_manager.cpp" line="63"/>
+        <location filename="../document_manager.cpp" line="65"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="65"/>
+        <location filename="../document_manager.cpp" line="67"/>
         <source>Close All Except Me</source>
         <translation>Fermer tout sauf moi</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="67"/>
+        <location filename="../document_manager.cpp" line="69"/>
         <source>&amp;Save</source>
         <translation>&amp;Sauvergarder</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="69"/>
+        <location filename="../document_manager.cpp" line="71"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Sauvegarder as ...</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="72"/>
+        <location filename="../document_manager.cpp" line="74"/>
         <source>Rename</source>
         <translation>Renommer</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="74"/>
+        <location filename="../document_manager.cpp" line="76"/>
         <source>Reload</source>
         <translation>Recharger</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="77"/>
+        <location filename="../document_manager.cpp" line="79"/>
         <source>&amp;Move to other view</source>
         <translation>&amp;Déplacer vers l&apos;autre vue</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="79"/>
+        <location filename="../document_manager.cpp" line="81"/>
         <source>&amp;Clone to other view</source>
         <translation>&amp;Cloner dans l&apos;autre vue</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="207"/>
+        <location filename="../document_manager.cpp" line="209"/>
         <source>Select one or more files to open</source>
         <translation>Selectionner un fichier ou plus à ouvrir</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="318"/>
+        <location filename="../document_manager.cpp" line="320"/>
         <source>File reloaded</source>
         <translation>Fichier rechargé</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="324"/>
+        <location filename="../document_manager.cpp" line="326"/>
         <source>File renamed</source>
         <translation>Fichier renommé</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="439"/>
-        <location filename="../document_manager.cpp" line="724"/>
+        <location filename="../document_manager.cpp" line="441"/>
         <source>Not implemented yet !!</source>
         <translation>Pas encore implementé !!</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="477"/>
+        <location filename="../document_manager.cpp" line="479"/>
         <source>Switcher : Fail !</source>
         <translation>Switcher : Echec !</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="477"/>
+        <location filename="../document_manager.cpp" line="479"/>
         <source>Can&apos;t find files according to switching rules!
 Do you want to create the file?</source>
         <translation>Impossible de trouver les fichiers suivant les règles du switcher!
 Voulez vous créer le fichier?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="480"/>
+        <location filename="../document_manager.cpp" line="482"/>
         <source>Switcher : Create new File</source>
         <translation>Switcher : Créer un nouveau fichier</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="480"/>
+        <location filename="../document_manager.cpp" line="482"/>
         <source>Select or type the new file to create :</source>
         <translation>Selectionner ou rentrer le nouveau fichier à céer :</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="564"/>
+        <location filename="../document_manager.cpp" line="566"/>
         <source>File reloaded with charset %1</source>
         <translation>Fichier rechargé avec le charset %1</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="570"/>
-        <location filename="../document_manager.cpp" line="577"/>
+        <location filename="../document_manager.cpp" line="572"/>
+        <location filename="../document_manager.cpp" line="579"/>
         <source>File save with charset %1</source>
         <translation>Fichier enregistrer avec le charset %1</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="633"/>
-        <location filename="../document_manager.cpp" line="656"/>
+        <location filename="../document_manager.cpp" line="635"/>
+        <location filename="../document_manager.cpp" line="658"/>
         <source>Cannot run the macro! Maybe Record one
 </source>
         <translation>Impossible d&apos;executer la macro! Enregistrer en une</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="760"/>
-        <location filename="../document_manager.cpp" line="766"/>
+        <location filename="../document_manager.cpp" line="751"/>
+        <source>Save Diff</source>
+        <translation>Enregistre le Diff</translation>
+    </message>
+    <message>
+        <location filename="../document_manager.cpp" line="755"/>
+        <source>Cannot save file %1:
+%2.</source>
+        <translation>Impossible d&apos;enregistrer le fichier %1 : %2.</translation>
+    </message>
+    <message>
+        <location filename="../document_manager.cpp" line="791"/>
+        <location filename="../document_manager.cpp" line="797"/>
         <source>Reload ?</source>
         <translation>Recharger ?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="761"/>
+        <location filename="../document_manager.cpp" line="792"/>
         <source>%1
 This file has been modified by another program.
 Do you want to reload it?</source>
@@ -234,7 +257,7 @@ Ce fichier a été modifié par un autre programme.
 Voulez vous le recharger?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="767"/>
+        <location filename="../document_manager.cpp" line="798"/>
         <source>%1
 This file has been modified by another program.
 Do you want to reload it and lose all the changes made?</source>
@@ -243,12 +266,12 @@ Ce fichier a été modifié par un autre programme.
 Voulez vous le recharger et perdre les modifications?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="778"/>
+        <location filename="../document_manager.cpp" line="809"/>
         <source>Keep non existing file ?</source>
         <translation>Garder un fichier non existent ?</translation>
     </message>
     <message>
-        <location filename="../document_manager.cpp" line="779"/>
+        <location filename="../document_manager.cpp" line="810"/>
         <source>%1
 doesn&apos;t exist anymore.
 Keep this file in editor?</source>
@@ -1076,49 +1099,65 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation>Enlever les blancs en fin de ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1475"/>
+        <location filename="../ui/mainwindow.ui" line="1424"/>
+        <source>UniDiff</source>
+        <translation>UniDiff</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1620"/>
+        <location filename="../ui/mainwindow.ui" line="1623"/>
+        <source>Display unified diff of the two current files</source>
+        <translation>Afficher le diff unifié des deux fichiers courrant</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1476"/>
         <source>Ctrl+J</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1569"/>
+        <location filename="../ui/mainwindow.ui" line="1570"/>
         <source>Tabs to Spaces</source>
         <translation>Tabulations vers Espaces</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1572"/>
+        <location filename="../ui/mainwindow.ui" line="1573"/>
         <source>Convert tabs to spaces using current tab width value</source>
         <translation>Convertit les tabulations en espaces utilisant la valeur courrante de la tabulation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1577"/>
+        <location filename="../ui/mainwindow.ui" line="1578"/>
         <source>Spaces to Tabs</source>
         <translation>Espaces vers Tabulations</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1580"/>
+        <location filename="../ui/mainwindow.ui" line="1581"/>
         <source>Convert spaces to tabs using current tab width value</source>
         <translation>Convertit les espaces en tabulations utilisant la valeur courrante de la tabulation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1585"/>
+        <location filename="../ui/mainwindow.ui" line="1586"/>
         <source>Compress Spaces</source>
         <translation>Espaces compression</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1588"/>
+        <location filename="../ui/mainwindow.ui" line="1589"/>
         <source>Remove all extra spaces between words</source>
         <translation>Supprime tout les espaces supplémentaires entre les mots</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1604"/>
+        <location filename="../ui/mainwindow.ui" line="1605"/>
         <source>As HTML...</source>
         <translation>vers HTML...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1607"/>
+        <location filename="../ui/mainwindow.ui" line="1608"/>
         <source>Export As HTML</source>
         <translation>Exporte vers HTML</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1617"/>
+        <source>Quick UniDiff</source>
+        <translation>Quick UniDiff</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="857"/>
@@ -1325,57 +1364,57 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation>Sauvegarder la session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1510"/>
+        <location filename="../ui/mainwindow.ui" line="1511"/>
         <source>New Session</source>
         <translation>Nouvelle Session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1513"/>
+        <location filename="../ui/mainwindow.ui" line="1514"/>
         <source>Create a new session</source>
         <translation>Créer une nouvelle session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1522"/>
+        <location filename="../ui/mainwindow.ui" line="1523"/>
         <source>Open Session</source>
         <translation>Ouvrir une session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1525"/>
+        <location filename="../ui/mainwindow.ui" line="1526"/>
         <source>Open an existing session</source>
         <translation>Ouvrir une session existante</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1534"/>
+        <location filename="../ui/mainwindow.ui" line="1535"/>
         <source>Switch with last session</source>
         <translation>Switch vers la dernière session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1537"/>
+        <location filename="../ui/mainwindow.ui" line="1538"/>
         <source>Save this session and open the last one</source>
         <translation>Sauvegarde cette session et ouvre la dernière</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1546"/>
+        <location filename="../ui/mainwindow.ui" line="1547"/>
         <source>Save Session As...</source>
         <translation>Enregistre la sessions sous...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1549"/>
+        <location filename="../ui/mainwindow.ui" line="1550"/>
         <source>Save the session as ...</source>
         <translation>Sauvegarder la session sous ...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1558"/>
+        <location filename="../ui/mainwindow.ui" line="1559"/>
         <source>Manage Sessions...</source>
         <translation>Gérer les sessions...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1561"/>
+        <location filename="../ui/mainwindow.ui" line="1562"/>
         <source>Open the session manager</source>
         <translation>Ouvre le gestionnaire de session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1564"/>
+        <location filename="../ui/mainwindow.ui" line="1565"/>
         <source>F8</source>
         <translation></translation>
     </message>
@@ -1919,23 +1958,29 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation>Coupe la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1593"/>
+        <location filename="../ui/mainwindow.ui" line="1427"/>
+        <location filename="../ui/mainwindow.ui" line="1430"/>
+        <source>Display unified diff of two files</source>
+        <translation>Afficher le diff unifié des deux fichiers</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1594"/>
         <source>Transpose Line</source>
         <translation>Transpose Ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1596"/>
+        <location filename="../ui/mainwindow.ui" line="1597"/>
         <source>Transpose current and previous lines</source>
         <translation>Transpose la ligne courante et précédente</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1599"/>
+        <location filename="../ui/mainwindow.ui" line="1600"/>
         <source>Ctrl+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1495"/>
-        <location filename="../ui/mainwindow.ui" line="1498"/>
+        <location filename="../ui/mainwindow.ui" line="1496"/>
+        <location filename="../ui/mainwindow.ui" line="1499"/>
         <source>Goto Line</source>
         <translation>Aller à la ligne</translation>
     </message>
@@ -1973,184 +2018,172 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1424"/>
-        <source>Diff</source>
-        <comment>action diff</comment>
-        <translation>Diff</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="1429"/>
-        <source>Clear Result</source>
-        <comment>action clear diff result</comment>
-        <translation>Effacer les résultats</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="1438"/>
+        <location filename="../ui/mainwindow.ui" line="1439"/>
         <source>Shortcuts</source>
         <comment>action shortcut edit</comment>
         <translation>Raccourcis</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1441"/>
+        <location filename="../ui/mainwindow.ui" line="1442"/>
         <source>Edit shortcuts</source>
         <comment>statustip action shortcut edit</comment>
         <translation>Editer les raccourcis</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1450"/>
+        <location filename="../ui/mainwindow.ui" line="1451"/>
         <source>Switch Source</source>
         <translation>Switch Source</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1453"/>
+        <location filename="../ui/mainwindow.ui" line="1454"/>
         <source>F10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1458"/>
-        <location filename="../ui/mainwindow.ui" line="1461"/>
+        <location filename="../ui/mainwindow.ui" line="1459"/>
+        <location filename="../ui/mainwindow.ui" line="1462"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1464"/>
+        <location filename="../ui/mainwindow.ui" line="1465"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1469"/>
+        <location filename="../ui/mainwindow.ui" line="1470"/>
         <source>Toggle Comment</source>
         <translation>Commenter/Décommenter</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1472"/>
+        <location filename="../ui/mainwindow.ui" line="1473"/>
         <source>Toggle comment (single comment prefered )</source>
         <translation>Commenter/Décommenter (commentaire sur 1 ligne préferé)</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1501"/>
+        <location filename="../ui/mainwindow.ui" line="1502"/>
         <source>Ctrl+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1480"/>
+        <location filename="../ui/mainwindow.ui" line="1481"/>
         <source>Toggle Block Comment</source>
         <translation>Commenter/Décommenter Block</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1483"/>
+        <location filename="../ui/mainwindow.ui" line="1484"/>
         <source>Toggle block comment</source>
         <translation>Commenter/Décommenter Block</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1486"/>
+        <location filename="../ui/mainwindow.ui" line="1487"/>
         <source>Ctrl+H</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="378"/>
+        <location filename="../mainwindow.cpp" line="379"/>
         <source>Search/Replace</source>
         <translation>Cherche/Remplace</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="390"/>
+        <location filename="../mainwindow.cpp" line="391"/>
         <source>Symbol Browser</source>
         <translation>Explorateur de Symboles</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="399"/>
+        <location filename="../mainwindow.cpp" line="400"/>
         <source>File Explorer</source>
         <translation>Explorateur de Fichier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="480"/>
+        <location filename="../mainwindow.cpp" line="481"/>
         <source>[*]%1 - %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="494"/>
+        <location filename="../mainwindow.cpp" line="495"/>
         <source>Line : %1  Col : %2  Sel : %3     </source>
         <translation>Ligne : %1  Col : %2  Sel : %3     </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="495"/>
+        <location filename="../mainwindow.cpp" line="496"/>
         <source>%1 chars  %2 lines     </source>
         <translation>%1 chars  %2 lignes     </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="549"/>
+        <location filename="../mainwindow.cpp" line="550"/>
         <source>&amp;%1 %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="623"/>
+        <location filename="../mainwindow.cpp" line="624"/>
         <source>Export File as </source>
         <translation>Exporte le fichier vers </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="626"/>
+        <location filename="../mainwindow.cpp" line="627"/>
         <source>%1 exported to %2</source>
         <translation>%1 exporté vers %2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="657"/>
+        <location filename="../mainwindow.cpp" line="658"/>
         <source>Goto line ...</source>
         <translation>Aller à la ligne ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="657"/>
+        <location filename="../mainwindow.cpp" line="658"/>
         <source>Enter the line you want to go :</source>
         <translation>Entrer la ligne ou vous voulez aller :</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="838"/>
+        <location filename="../mainwindow.cpp" line="839"/>
         <source>Not implemented yet !! Will be available in the next release</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="861"/>
+        <location filename="../mainwindow.cpp" line="862"/>
         <source>Old Settings!</source>
         <translation>Ancien Paramêtres!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="862"/>
+        <location filename="../mainwindow.cpp" line="863"/>
         <source>Found settings file for raptor version </source>
         <translation>Fichier de paramêtres trouvé pour une ancienne version</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="862"/>
+        <location filename="../mainwindow.cpp" line="863"/>
         <source>. Current version is </source>
         <translation>. La version courante est </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="863"/>
+        <location filename="../mainwindow.cpp" line="864"/>
         <source>What do you want to do?</source>
         <translation>Que voulez vous faire?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="866"/>
+        <location filename="../mainwindow.cpp" line="867"/>
         <source>Reset : Remove old settings file and create a new one
 </source>
         <translation>Reset : Supprime les anciens paramêtres</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="867"/>
+        <location filename="../mainwindow.cpp" line="868"/>
         <source>Upgrade : keep and upgrade your old settings
 </source>
         <translation>Mise à jour : Garde les anciens paramêtres et les met à jour</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="869"/>
+        <location filename="../mainwindow.cpp" line="870"/>
         <source>Reset</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="871"/>
+        <location filename="../mainwindow.cpp" line="872"/>
         <source>Upgrade</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="880"/>
+        <location filename="../mainwindow.cpp" line="881"/>
         <source>Settings upgrade is not implemented yet!
 Current settings file is kept but some settings can now be inconsistent! A settings reset is recommanded!</source>
         <translation></translation>
@@ -2178,31 +2211,37 @@ Current settings file is kept but some settings can now be inconsistent! A setti
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../about/About.cpp" line="59"/>
+        <location filename="../about/About.cpp" line="60"/>
         <location filename="../about/About.cpp" line="61"/>
         <location filename="../about/About.cpp" line="62"/>
         <location filename="../about/About.cpp" line="63"/>
-        <location filename="../about/About.cpp" line="64"/>
         <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about/About.cpp" line="61"/>
+        <location filename="../about/About.cpp" line="59"/>
         <source>Raptor&apos;s homepage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about/About.cpp" line="62"/>
+        <location filename="../about/About.cpp" line="60"/>
         <source>Scintilla&apos;s homepage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about/About.cpp" line="63"/>
+        <location filename="../about/About.cpp" line="61"/>
         <source>QScintilla&apos;s homepage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about/About.cpp" line="64"/>
+        <location filename="../about/About.cpp" line="62"/>
         <source>Artistic Style&apos;s homepage.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about/About.cpp" line="63"/>
+        <source>dtl&apos;s homepage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3046,21 +3085,68 @@ Raccouri déjà utilisé par l&apos;action %2!</translation>
     </message>
     <message>
         <location filename="../ui/about.ui" line="126"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000; background-color:#ffffff;&quot;&gt;If you like Raptor and you want to help make it even more awesome : As you know, time is priceless and if you have some to spare then there is no better way to help an open source project than to get involved at one level or another. Contributions are appreciated and needed in any of the following ways:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Help diagnose and report problems&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Suggest fixes by sending in patches&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Improve the code&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Implement new features&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Publish an article on your blog (send the link) or elsewhere (e.g., community sites) to tell the world about Raptor&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Help with missing documentation.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;etc...&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:&apos;arial,sans-serif&apos;; color:#000000; background-color:#ffffff;&quot;&gt;However, if you haven&apos;t got enough time but you still want to contribute, you can support Raptor development by making a donation :&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;a href=&quot;http://code.google.com/p/raptor/wiki/Donate&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; text-decoration: underline; color:#0057ae;&quot;&gt;Go to Raptor Donation Page&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/about.ui" line="142"/>
         <source>Donations</source>
         <comment>tab donations</comment>
         <translation>Donations</translation>
     </message>
     <message>
-        <location filename="../ui/about.ui" line="134"/>
+        <location filename="../ui/about.ui" line="150"/>
         <source>Links</source>
         <comment>tab links</comment>
         <translation>Liens</translation>
     </message>
     <message>
-        <location filename="../ui/about.ui" line="163"/>
+        <location filename="../ui/about.ui" line="179"/>
         <source>OK</source>
         <comment>button OK</comment>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>UICompare</name>
+    <message>
+        <location filename="../ui/compare.ui" line="14"/>
+        <source>Compare files</source>
+        <translation>Comparer les fichiers</translation>
+    </message>
+    <message>
+        <location filename="../ui/compare.ui" line="30"/>
+        <source>Enter the files to compare:</source>
+        <translation>Entrer les fichiers à comparer:</translation>
+    </message>
+    <message>
+        <location filename="../ui/compare.ui" line="43"/>
+        <source>Source 1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/compare.ui" line="57"/>
+        <location filename="../ui/compare.ui" line="99"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="../ui/compare.ui" line="88"/>
+        <source>Source 2</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -4469,6 +4555,14 @@ les options de parenthèses.</translation>
         <source>Close</source>
         <comment>button close</comment>
         <translation>Fermer</translation>
+    </message>
+</context>
+<context>
+    <name>UIUniDiff</name>
+    <message>
+        <location filename="../ui/unidiff.ui" line="14"/>
+        <source>UniDiff</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

@@ -26,8 +26,7 @@ include( ../ext/QScintilla/QScintilla.pri )
 include( ../ext/AStyle/AStyle.pri )
 include( ../ext/qt-solutions/qtsingleapplication/src/qtsingleapplication.pri )
 include( ../ext/ctags/ctags.pri )
-#include( ../ext/GoogleDiffMatchPatch/GoogleDiffMatchPatch.pri )
-#include( ../ext/dtl/dtl.pri )
+include( ../ext/dtl/dtl.pri )
 
 TEMPLATE	= app
 TARGET		= $$PACKAGE_NAME
@@ -52,6 +51,7 @@ DEPENDPATH    *= $$PWD \
 				 $$PWD/widget \
 				 $$PWD/lexer \
 				 $$PWD/settings \
+				 $$PWD/diff \
 				 $$PWD/export \
 				 $$PWD/about
 
@@ -88,13 +88,15 @@ HEADERS       *= mainwindow.h \
 				StringListEditor.h \
 				AStyleIndenter.h \
 				SourceIterator.h \
-				Diff.h \
 				Exporter.h \
 				ExporterHTML.h \
 				SymbolManager.h \
 				SymbolTreeComboBox.h \
 				SymbolComboBoxAction.h \
 				HelpBrowser.h \
+				UnidiffDialog.h \
+				Unidiff.h \
+				CompareDialog.h \
 				Version.h \
 				ApplicationPath.h \
 				About.h
@@ -131,12 +133,14 @@ SOURCES       *= main.cpp \
 				FileListEditor.cpp \
 				StringListEditor.cpp \
 				AStyleIndenter.cpp \
-				Diff.cpp \
 				ExporterHTML.cpp \
 				SymbolManager.cpp \
 				SymbolTreeComboBox.cpp \
 				SymbolComboBoxAction.cpp \
 				HelpBrowser.cpp \
+				UnidiffDialog.cpp \
+				Unidiff.cpp \
+				CompareDialog.cpp \				
 				Version.cpp \
 				ApplicationPath.cpp \
 				About.cpp
@@ -148,6 +152,8 @@ FORMS *= mainwindow.ui \
 		 search.ui \
 		 explorer.ui \
 		 macro.ui \
+		 compare.ui \
+		 unidiff.ui \
 		 about.ui
 	
 RESOURCES     *= ressources.qrc
