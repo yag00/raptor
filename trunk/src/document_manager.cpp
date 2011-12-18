@@ -22,7 +22,9 @@
 #include <Qsci/qscimacro.h>
 
 #include "settings/Settings.h"
-#include "Diff.h"
+#include "diff/Unidiff.h"
+#include "diff/UnidiffDialog.h"
+#include "diff/CompareDialog.h"
 #include "document_editor.h"
 #include "document_view.h"
 #include "document_manager.h"
@@ -716,20 +718,49 @@ void DocumentManager::cloneDocument(){
 	}
 }
 
+void DocumentManager::quickUnidiff(){
+	if(getViewNumber() == 2){
+		DocumentView* view1 = _viewList[0];
+		DocumentView* view2 = _viewList[1];
+		DocumentEditor* doc1 = view1->currentDocument();
+		DocumentEditor* doc2 = view2->currentDocument();
+		Unidiff udiff;
+		showUnidiff(udiff.diff(*doc1, *doc2));
+	}else{
+		unidiff();
+	}
+}
 
+void DocumentManager::unidiff(){
+	CompareDialog dlg(this);
+	if(dlg.exec() == QDialog::Accepted) {
+		Unidiff udiff;
+		showUnidiff(udiff.diff(dlg.getSrcFile1(), dlg.getSrcFile2()));
+	}
+}
 
-
-
-void DocumentManager::diff(){
-	QMessageBox::information(this, PACKAGE_NAME, tr("Not implemented yet !!"));
-	/*
-	DocumentView* view1 = _viewList[0];
-	DocumentView* view2 = _viewList[1];
-	DocumentEditor* doc1 = view1->currentDocument();
-	DocumentEditor* doc2 = view2->currentDocument();
-
-	Compare c(doc1, doc2);
-	c.diff();*/
+void DocumentManager::showUnidiff(const QString& diff_){
+	UnidiffDialog dlg(diff_, this);
+	int ret = dlg.exec();
+	if(ret == UnidiffDialog::Open){
+		newDocument();
+		DocumentEditor* doc = getActiveDocument();
+		doc->setText(diff_);
+		doc->setLanguage("Diff");
+	}else if(ret == UnidiffDialog::Save){
+		QString fileName = QFileDialog::getSaveFileName(this, tr("Save Diff"), getActiveDocument()->getPath());
+		if (!fileName.isEmpty()){
+			QFile file(fileName);
+			if (!file.open(QFile::WriteOnly)) {
+				QMessageBox::warning(this, PACKAGE_NAME, tr("Cannot save file %1:\n%2.").arg(fileName).arg(file.errorString()));
+			}
+			QApplication::setOverrideCursor(Qt::WaitCursor);
+			QTextStream out(&file);
+			out << diff_;
+			out.flush();	
+			QApplication::restoreOverrideCursor();
+		}
+	}
 }
 
 void DocumentManager::watchedFileChanged(const QString& path_){

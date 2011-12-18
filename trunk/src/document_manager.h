@@ -271,7 +271,9 @@ class DocumentManager : public Splitter{
 
 		/** @} */
 
-		void diff();
+		void unidiff();
+		void quickUnidiff();
+		void showUnidiff(const QString& diff_);
 
 		/** send notification */
 		void notify();

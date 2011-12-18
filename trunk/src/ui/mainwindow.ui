@@ -268,8 +268,8 @@
     <property name="title">
      <string comment="menu Diff">Diff</string>
     </property>
-    <addaction name="actionDiff"/>
-    <addaction name="actionDiffClearResult"/>
+    <addaction name="actionQuickUnidiff"/>
+    <addaction name="actionUnidiff"/>
    </widget>
    <widget class="QMenu" name="menuEncoding">
     <property name="title">
@@ -1415,18 +1415,19 @@
     <string comment="shortcut action copy current line">Ctrl+Alt+L</string>
    </property>
   </action>
-  <action name="actionDiff">
+  <action name="actionUnidiff">
    <property name="icon">
     <iconset resource="../ressources.qrc">
      <normaloff>:/images/diff.png</normaloff>:/images/diff.png</iconset>
    </property>
    <property name="text">
-    <string comment="action diff">Diff</string>
+    <string>UniDiff</string>
    </property>
-  </action>
-  <action name="actionDiffClearResult">
-   <property name="text">
-    <string comment="action clear diff result">Clear Result</string>
+   <property name="toolTip">
+    <string>Display unidiff of two file</string>
+   </property>
+   <property name="statusTip">
+    <string>Display unidiff of two file</string>
    </property>
   </action>
   <action name="actionShortcuts">
@@ -1605,6 +1606,21 @@
    </property>
    <property name="toolTip">
     <string>Export As HTML</string>
+   </property>
+  </action>
+  <action name="actionQuickUnidiff">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/diff.png</normaloff>:/images/diff.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quick UniDiff</string>
+   </property>
+   <property name="toolTip">
+    <string>Display unidiff of the two current file</string>
+   </property>
+   <property name="statusTip">
+    <string>Display unidiff of the two current file</string>
    </property>
   </action>
  </widget>
