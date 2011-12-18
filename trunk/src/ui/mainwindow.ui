@@ -1424,10 +1424,10 @@
     <string>UniDiff</string>
    </property>
    <property name="toolTip">
-    <string>Display unidiff of two file</string>
+    <string>Display unified diff of two files</string>
    </property>
    <property name="statusTip">
-    <string>Display unidiff of two file</string>
+    <string>Display unified diff of two files</string>
    </property>
   </action>
   <action name="actionShortcuts">
@@ -1617,10 +1617,10 @@
     <string>Quick UniDiff</string>
    </property>
    <property name="toolTip">
-    <string>Display unidiff of the two current file</string>
+    <string>Display unified diff of the two current files</string>
    </property>
    <property name="statusTip">
-    <string>Display unidiff of the two current file</string>
+    <string>Display unified diff of the two current files</string>
    </property>
   </action>
  </widget>
