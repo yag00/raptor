@@ -1,5 +1,7 @@
 <RCC>
   <qresource>
+    <file>images/tick.png</file>
+    <file>images/stop.png</file>
     <file>images/export.png</file>
     <file>images/session-mgr.png</file>
     <file>images/readonly.png</file>

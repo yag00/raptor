@@ -188,7 +188,7 @@ def build(bld):
 		target          = 'ctags',
 		includes        = ['ext/ctags/ctags-5.8', 'ext/ctags/ctags-5.8/gnu_regex'],
 		defines         = get_ctags_defines(),
-		cflags          = [],	# todo build with -Wall -Werror
+		cflags          = ['-Wformat=0'],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
 
 
@@ -244,6 +244,7 @@ def build(bld):
 							'ext/ctags',
 							'ext/QScintilla/QScintilla-gpl-2.6/Qt4',
 							'ext/qt-solutions/qtsingleapplication/src',
+							'ext/dtl/dtl-1.15',
 							'src'],
 		defines         = [	'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
 							'PACKAGE_NAME="%s"' % APPNAME.capitalize(),

@@ -61,7 +61,8 @@ namespace {
 		<< Datas( "", "", QObject::tr( "Location" ), "http://code.google.com/p/raptor/", QObject::tr("Raptor's homepage."))
 		<< Datas( "Scintilla is a free source code editing component.", "<br>", QObject::tr( "Location" ), "http://www.scintilla.org/", QObject::tr("Scintilla's homepage."))
 		<< Datas( "QScintilla is a port to Qt of Scintilla C++ editor control. ", "<br>", QObject::tr( "Location" ), "http://www.riverbankcomputing.co.uk/software/qscintilla/intro", QObject::tr("QScintilla's homepage."))
-		<< Datas( "A Free, Fast and Small Automatic Formatter for C, C++, C#, and Java Source Code", "<br>", QObject::tr( "Location" ), "http://astyle.sourceforge.net/", QObject::tr("Artistic Style's homepage."));
+		<< Datas( "A Free, Fast and Small Automatic Formatter for C, C++, C#, and Java Source Code", "<br>", QObject::tr( "Location" ), "http://astyle.sourceforge.net/", QObject::tr("Artistic Style's homepage."))
+		<< Datas( "Diff Template Libray", "<br>", QObject::tr( "Location" ), "http://code.google.com/p/dtl-cpp/", QObject::tr("dtl's homepage."));
 
 };
 

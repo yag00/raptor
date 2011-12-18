@@ -100,7 +100,7 @@ void MainWindow::initMenuFile() {
 	connect(actionExit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
 	connect(actionExportAsHTML, SIGNAL(triggered()), this, SLOT(exportDocument()));
-	
+
 	connect(actionNewSession, SIGNAL(triggered()), _sessionManager, SLOT(newSession()));
 	connect(actionOpenSession, SIGNAL(triggered()), _sessionManager, SLOT(openSession()));
 	connect(actionSwitchSession, SIGNAL(triggered()), _sessionManager, SLOT(switchSession()));
@@ -290,7 +290,8 @@ void MainWindow::initMenuLanguage() {
 
 void MainWindow::initMenuDiff() {
 	//connect menu "Diff" Action
-	connect(actionDiff, SIGNAL(triggered()), _documentManager, SLOT(diff()));
+	connect(actionQuickUnidiff, SIGNAL(triggered()), _documentManager, SLOT(quickUnidiff()));
+	connect(actionUnidiff, SIGNAL(triggered()), _documentManager, SLOT(unidiff()));
 }
 
 void MainWindow::initMenuMacro() {
@@ -610,7 +611,7 @@ void MainWindow::openAllRecentFile() {
 void MainWindow::exportDocument(){
 	DocumentEditor* doc = _documentManager->getActiveDocument();
 	QString docName = doc->getBaseName();
-	
+
 	Exporter* exporter;
 	QString type;
 	QAction* action = qobject_cast<QAction*>(sender());
@@ -626,7 +627,7 @@ void MainWindow::exportDocument(){
 		updateStatusBarMessage(tr("%1 exported to %2").arg(doc->getName()).arg(file));
 	}
 	delete exporter;
-}	
+}
 
 void MainWindow::increaseIndentation() {
 	if(!_searchDock->focusWidget()->hasFocus()) {
