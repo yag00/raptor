@@ -68,8 +68,7 @@
      </property>
      <widget class="QLabel" name="lLogo">
       <property name="text">
-       <string>&lt;p align=&quot;center&quot;&gt;&lt;strong&gt;Raptor A Portable Text editOR&lt;/strong&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/about/raptor.png&quot; /&gt;&lt;/p&gt;</string>
+       <string/>
       </property>
       <property name="pixmap">
        <pixmap resource="../ressources.qrc">:/about/raptor.png</pixmap>
@@ -121,6 +120,22 @@
      <widget class="QTextBrowser" name="tbDonations">
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'arial,sans-serif'; color:#000000; background-color:#ffffff;&quot;&gt;If you like Raptor and you want to help make it even more awesome : As you know, time is priceless and if you have some to spare then there is no better way to help an open source project than to get involved at one level or another. Contributions are appreciated and needed in any of the following ways:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Help diagnose and report problems&lt;/li&gt;
+&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Suggest fixes by sending in patches&lt;/li&gt;
+&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Improve the code&lt;/li&gt;
+&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Implement new features&lt;/li&gt;
+&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Publish an article on your blog (send the link) or elsewhere (e.g., community sites) to tell the world about Raptor&lt;/li&gt;
+&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Help with missing documentation.&lt;/li&gt;
+&lt;li style=&quot; font-family:'arial,sans-serif'; color:#000000;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;etc...&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'arial,sans-serif'; color:#000000; background-color:#ffffff;&quot;&gt;However, if you haven't got enough time but you still want to contribute, you can support Raptor development by making a donation :&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;a href=&quot;http://code.google.com/p/raptor/wiki/Donate&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; text-decoration: underline; color:#0057ae;&quot;&gt;Go to Raptor Donation Page&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <attribute name="title">
        <string comment="tab donations">Donations</string>
