@@ -55,8 +55,6 @@ namespace {
 	const QList<Datas> mTeamates = QList<Datas>()
 		<< Datas( "Christophe Duvernois", "", QObject::tr( "France" ), "christophe.duvernois@gmail.com", QObject::tr( "Creator & Principal Developer" ) );
 
-	const QList<Datas> mDonors = QList<Datas>();
-
 	const QList<Datas> mLinks = QList<Datas>()
 		<< Datas( "", "", QObject::tr( "Location" ), "http://code.google.com/p/raptor/", QObject::tr("Raptor's homepage."))
 		<< Datas( "Scintilla is a free source code editing component.", "<br>", QObject::tr( "Location" ), "http://www.scintilla.org/", QObject::tr("Scintilla's homepage."))
@@ -100,12 +98,7 @@ AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
 	tbLicense->setPlainText( QString::fromUtf8( file.readAll() ) );
 	file.close();
 	tbLicense->moveCursor( QTextCursor::Start );
-
-	// donors
-	foreach ( Datas i, mDonors )
-		tbDonations->append( mDatasMask.arg( i.comment ).arg( i.name +" -" ).arg( i.login +"<br />" ).arg( i.country ).arg( QString( "mailto:" ).append( i.email ) ).arg( i.email ) );
-	tbDonations->moveCursor( QTextCursor::Start );
-
+	
 	// links
 	foreach ( Datas i, mLinks )
 		tbLinks->append( mDatasMask.arg( i.comment ).arg( i.name ).arg( i.login ).arg( i.country ).arg( i.email ).arg( i.email ) );
