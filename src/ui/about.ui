@@ -68,7 +68,8 @@
      </property>
      <widget class="QLabel" name="lLogo">
       <property name="text">
-       <string/>
+       <string>&lt;p align=&quot;center&quot;&gt;&lt;strong&gt;Raptor A Portable Text editOR&lt;/strong&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/about/raptor.png&quot; /&gt;&lt;/p&gt;</string>
       </property>
       <property name="pixmap">
        <pixmap resource="../ressources.qrc">:/about/raptor.png</pixmap>
