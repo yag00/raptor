@@ -25,6 +25,7 @@
 #include "UnidiffDialog.h"
 
 UnidiffDialog::UnidiffDialog(const QString& diff_, QWidget* parent_) : QDialog(parent_) {
+	setWindowFlags(Qt::Window);
 	//init ui
 	setupUi(this);
 	diffEditor->setUtf8(true);
