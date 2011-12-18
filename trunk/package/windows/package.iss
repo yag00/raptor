@@ -77,8 +77,8 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\raptor.e
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\raptor.exe; ValueType: string; ValueName: Path; ValueData: {app};
 
 ; Contextual Menu & Native Associations
-Root: HKCR; SubKey: Raptor; ValueType: string; ValueData: Universal Extractor Archive; Flags: uninsdeletekey;
-;Root: HKCR; SubKey: Raptor\DefaultIcon; ValueType: string; ValueData: {app}\raptor.ico;
+Root: HKCR; SubKey: Raptor; ValueType: string; ValueData: "Raptor A Portable Text editOR"; Flags: uninsdeletekey;
+Root: HKCR; SubKey: Raptor\DefaultIcon; ValueType: string; ValueData: "{app}\raptor.exe,0";
 Root: HKCR; SubKey: Raptor\shell\raptor; ValueType: string; ValueData: "Edit with Raptor";
 Root: HKCR; SubKey: Raptor\shell\raptor\command; ValueType: string; ValueData: """{app}\raptor.exe"" ""%1""";
 Root: HKCR; SubKey: *\shell\raptor; ValueType: string; ValueData: "Edit with Raptor"; Flags: uninsdeletekey;
