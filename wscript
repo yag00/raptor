@@ -91,11 +91,8 @@ def configure(conf):
 		conf.check_tool('winres')
 
 	configurePackage(conf)
-	"""try:
-		conf.find_program("sphinx-build", var="SPHINX_BUILD")
-	except conf.errors.ConfigurationError:
-		conf.fatal("Can't find Sphinx! Try 'easy_install -U Sphinx' or check http://sphinx.pocoo.org/")"""
-
+	configureDoc(conf);
+		
 	conf.load('qt4')
 	conf.load('slow_qt4')
 
@@ -119,6 +116,19 @@ def configure(conf):
 	# summary
 	Logs.pprint('BLUE', 'Summary:')
 	conf.msg('Install Raptor ' + VERSION + ' in', conf.env['PREFIX'])
+
+
+def configureDoc(conf):
+	try:
+		conf.find_program("sphinx-build", var="SPHINX_BUILD")
+	except conf.errors.ConfigurationError:
+		Logs.pprint('YELLOW', "WARNING : Can't find Sphinx! Documentation generation is disabled!")
+		Logs.pprint('YELLOW', "WARNING : To install sphinx, try 'easy_install -U Sphinx' or check http://sphinx.pocoo.org/")
+	try:
+		conf.find_program("qcollectiongenerator", var="QCOLLECTIONGENERATOR")
+	except conf.errors.ConfigurationError:
+		Logs.pprint('YELLOW', "WARNING : Can't find qcollectiongenerator! Documentation generation is disabled!")
+		Logs.pprint('YELLOW', "WARNING : Check your qt installation!")
 
 def configurePackage(conf):
 	if isWindows():
@@ -271,28 +281,38 @@ def build(bld):
 	#########################################################
 	# build raptor documentation
 	#########################################################
-	"""
-	for lang in available_doc:
-		docBuildPath 	= os.path.join(out, "doctrees/%s" % lang)
-		docSrcPath		= os.path.join(top, "doc/src/%s/source" % lang)
-		docOut			= "raptorhelp/%s" % lang
-		docOutPath		= os.path.join(out, docOut)
-		bld(
-			name	= 'doc_%s' % lang,
-			color	='PINK',
-			rule	= "${SPHINX_BUILD} -b raptorhelp -d %s %s %s" % (docBuildPath, docSrcPath, docOutPath),
-			cwd		= bld.path.abspath()
-		)
-		bld(
-			name	= 'qtdoc_%s' % lang,
-			color	= 'PINK',
-			rule	= "qcollectiongenerator %s -o %s" % (os.path.join(docOutPath, "Raptor.%s.qhcp" % lang), os.path.join(docOutPath, "Raptor.%s.qhc" % lang)),
-			cwd		= bld.path.abspath(),
-			after	= 'doc_%s' % lang,
-			target	= [docOut + '/Raptor.%s.qhc' % lang, docOut + '/Raptor.%s.qch' % lang],
-			install_path = '${PREFIX}/doc'
-		)
-	"""
+	if (bld.env.SPHINX_BUILD != []) and (bld.env.QCOLLECTIONGENERATOR != []):
+		for lang in available_doc:
+			sphinxlog		= os.path.join(bld.bldnode.abspath(), "sphinx_%s.log" % lang)
+			qcglog			= os.path.join(bld.bldnode.abspath(), "qcglog_%s.log" % lang)
+			docBuildPath 	= os.path.join(bld.bldnode.abspath(), "doctrees/%s" % lang)
+			docOutPath		= os.path.join(bld.bldnode.abspath(), "raptorhelp/%s" % lang)
+			docSrcPath		= os.path.join(bld.srcnode.abspath(), "doc/src/%s/source" % lang)
+			
+			rstsource = bld.path.ant_glob(['doc/config/**/*.py', 'doc/src/%s/**/*.rst' % lang, 'doc/src/%s/source/conf.py' % lang])
+			
+			qhcpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhcp' % (lang, lang)) 
+			qhpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhp' % (lang, lang))
+			qchNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qch' % (lang, lang))
+			qhcNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhc' % (lang, lang))
+			
+			bld(
+				name	= 'doc_%s' % lang,
+				color	='PINK',
+				rule	= "${SPHINX_BUILD} -b raptorhelp -d %s %s %s > %s" % (docBuildPath, docSrcPath, docOutPath, sphinxlog),
+				source	= rstsource,
+				target	= [qhcpNode, qhpNode],
+			)
+			bld(
+				name	= 'qtdoc_%s' % lang,
+				color	= 'PINK',
+				rule	= "${QCOLLECTIONGENERATOR} %s -o %s > %s" % (qhcpNode.abspath(), qhcNode.abspath(), qcglog),
+				cwd		= bld.path.abspath(),
+				after	= 'doc_%s' % lang,
+				source	= [qhcpNode, qhpNode],
+				target	= [qchNode, qhcNode],
+				install_path = '${PREFIX}/doc',
+			)
 
 
 #########################################################
