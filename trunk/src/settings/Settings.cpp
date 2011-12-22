@@ -816,6 +816,10 @@ QMap<QString, QStringList> Settings::getDefaultLexerAssociations(){
 	filePatternList.clear();
 	filePatternList << "Makefile*" << "*makefile" << "*.mak";
 	lexerAssociation.insert("Makefile", filePatternList);
+	//CMake
+	filePatternList.clear();
+	filePatternList << "CMakeLists.txt";
+	lexerAssociation.insert("CMake", filePatternList);
 	//Matlab / Octave
 	filePatternList.clear();
 	filePatternList << "*.m";
