@@ -601,6 +601,23 @@ void ScintillaExt::paintEvent(QPaintEvent *event_){
 	QsciScintilla::paintEvent(event_);
 }
 
+void ScintillaExt::dropEvent(QDropEvent* event_){
+	const QMimeData* mimeData = event_->mimeData();
+	// check for our needed mime type, here a file or a list of files
+	if (mimeData->hasUrls()) {
+		QStringList pathList;
+		QList<QUrl> urlList = mimeData->urls();
+ 
+		// extract the local paths of the files
+		for (int i = 0; i < urlList.size() && i < 32; ++i) {
+			pathList.append(urlList.at(i).toLocalFile());
+		}
+ 
+		// emit signal
+		emit fileDropped(pathList);
+	}
+}
+
 void ScintillaExt::selectedTextChanged(){
 	int selectionSize = getSelectedTextSize();
 	if ((selectionSize > 1) && (selectionSize < length())){

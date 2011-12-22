@@ -80,6 +80,7 @@ void DocumentView::connectDocument(DocumentEditor* document_){
 	connect(document_, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
 	connect(document_, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(cursorPositionChanged(int, int)));
 	connect(document_, SIGNAL(focusChanged(bool)), this, SLOT(documentfocusChanged(bool)));
+	connect(document_, SIGNAL(fileDropped(QStringList)), this, SLOT(openDocument(QStringList)));
 }
 
 DocumentEditor* DocumentView::currentDocument(){

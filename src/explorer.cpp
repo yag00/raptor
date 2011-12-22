@@ -1,8 +1,3 @@
-#include <QFileDialog>
-#include <QFileSystemModel>
-#include <QKeyEvent>
-#include <QLineEdit>
-#include <QCompleter>
 /**
  * This file is part of the raptor project.
  *
@@ -23,6 +18,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <QFileDialog>
+#include <QFileSystemModel>
+#include <QKeyEvent>
+#include <QLineEdit>
+#include <QCompleter>
 #include <QClipboard>
 #include "explorer.h"
 
