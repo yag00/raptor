@@ -182,6 +182,10 @@ class DocumentView : public QTabWidget {
 		/** active/desactive the view */
 		void documentfocusChanged(bool active_);
 
+	protected:
+		virtual void dragEnterEvent(QDragEnterEvent *event_);
+		virtual void dropEvent(QDropEvent *event_);
+		
 	private:
 		/** connect document's signal to the view */
 		void connectDocument(DocumentEditor* document_);

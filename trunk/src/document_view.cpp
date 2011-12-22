@@ -26,6 +26,7 @@
 #include "document_view.h"
 
 DocumentView::DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * document_, QWidget * parent_) : QTabWidget(parent_), _watcher(watcher_){
+	setAcceptDrops(true);
 	//create tabBar
 	TabBar* tabbar = new TabBar(this);
 	setTabBar(tabbar);
@@ -463,5 +464,26 @@ void DocumentView::showTabBarContextMenu(const QPoint &point_){
 			if(_documentContextMenu != 0)
 				_documentContextMenu->exec(QCursor::pos());
 		}
+	}
+}
+
+void DocumentView::dragEnterEvent(QDragEnterEvent *event_){
+	event_->acceptProposedAction();
+}
+
+void DocumentView::dropEvent(QDropEvent *event_){
+	const QMimeData* mimeData = event_->mimeData();
+	// check for our needed mime type, here a file or a list of files
+	if (mimeData->hasUrls()) {
+		QStringList pathList;
+		QList<QUrl> urlList = mimeData->urls();
+ 
+		// extract the local paths of the files
+		for (int i = 0; i < urlList.size() && i < 32; ++i) {
+			pathList.append(urlList.at(i).toLocalFile());
+		}
+ 
+		openDocument(pathList);
+		event_->acceptProposedAction();  
 	}
 }

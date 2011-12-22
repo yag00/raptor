@@ -184,9 +184,12 @@ class ScintillaExt : public QsciScintilla {
 		virtual void wheelEvent(QWheelEvent *event_);
 		/** reimplement paintEvent */
 		virtual void paintEvent(QPaintEvent *event_);
-		/** reimplement dropEvent */
+		/** reimplement drag&drop Event */
 		virtual void dropEvent(QDropEvent* event_);
-
+		virtual void dragEnterEvent(QDragEnterEvent *event_);
+		virtual void dragMoveEvent(QDragMoveEvent* event);
+		virtual void dragLeaveEvent(QDragLeaveEvent* event);
+		
 	signals:
 		/** emited if the document catch dropEvent (to open dropped file) */
 		void fileDropped(QStringList);

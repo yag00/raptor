@@ -56,7 +56,7 @@ ScintillaExt::ScintillaExt(QWidget* parent_) : QsciScintilla(parent_){
 	 * version 2.5.1 fix the regression */
 	//SendScintilla(SCI_SETFONTQUALITY, SC_EFF_QUALITY_NON_ANTIALIASED);
 #endif
-
+	setAcceptDrops(true);
 	_HLID1 = -1;
 	_HLID2 = -1;
 
@@ -601,6 +601,19 @@ void ScintillaExt::paintEvent(QPaintEvent *event_){
 	QsciScintilla::paintEvent(event_);
 }
 
+void ScintillaExt::dragEnterEvent(QDragEnterEvent *event_){
+	event_->acceptProposedAction();
+}
+
+void ScintillaExt::dragMoveEvent(QDragMoveEvent* event){
+	// if some actions should not be usable, like move, this code must be adopted
+	event->acceptProposedAction();
+}
+
+void ScintillaExt::dragLeaveEvent(QDragLeaveEvent* event){
+	event->accept();
+}
+
 void ScintillaExt::dropEvent(QDropEvent* event_){
 	const QMimeData* mimeData = event_->mimeData();
 	// check for our needed mime type, here a file or a list of files
@@ -615,6 +628,7 @@ void ScintillaExt::dropEvent(QDropEvent* event_){
  
 		// emit signal
 		emit fileDropped(pathList);
+		event_->acceptProposedAction();
 	}
 }
 
