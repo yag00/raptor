@@ -45,7 +45,6 @@
 #include "widget/MenuLabel.h"
 #include "export/Exporter.h"
 #include "export/ExporterHTML.h"
-#include "pyconsole/PyConsole.h"
 #include "pyplugins/PluginEngine.h"
 
 #include "mainwindow.h"
