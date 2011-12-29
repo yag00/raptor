@@ -1,0 +1,17 @@
+Source: raptor-editor
+Section: devel
+Priority: extra
+Maintainer: Christophe Duvernois <christophe.duvernois@gmail.com>
+Build-Depends: cdbs (>= 0.4.90), debhelper (>= 7), libqt4-dev (>= 4.7.0), qt4-qmake (>= 4.7.0), python (>=2.4)
+Standards-Version: 3.7.3
+Homepage: http://code.google.com/p/raptor/
+
+Package: raptor-editor
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Raptor A Portable Text editOR.
+ raptor is a source code editor supporting several languages. 
+ It is largely inspired by Notepad++ editor but has the advantage 
+ of being portable, running on windows,linux and mac os.
+ More information on Raptor's Homepage: http://code.google.com/p/raptor
+ 

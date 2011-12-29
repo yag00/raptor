@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FileExplorer</class>
+ <widget class="QWidget" name="FileExplorer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>294</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>File Explorer</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QComboBox" name="cbFilter">
+       <property name="statusTip">
+        <string>List of filters to apply to the files (separated by ; without spaces)</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::InsertAlphabetically</enum>
+       </property>
+       <property name="text" stdset="0">
+        <string>*.*</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbClearFilter">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Clear filter</string>
+       </property>
+       <property name="statusTip">
+        <string>Disable filters and show all the files</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: none;
+}
+
+QToolButton:hover, QToolButton:on  {
+border: 1px solid rgb(200,200,200);
+}</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/explorer/remove.png</normaloff>:/explorer/remove.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>13</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbSynchReq">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Jump to current file</string>
+       </property>
+       <property name="statusTip">
+        <string>Jump to the current file</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: none;
+}
+
+QToolButton:hover, QToolButton:on  {
+border: 1px solid rgb(200,200,200);
+}</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/explorer/view-tree.png</normaloff>:/explorer/view-tree.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbSynch">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Synchronize with tabs</string>
+       </property>
+       <property name="statusTip">
+        <string>Automatically change the path when current tab has been changed</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: none;
+}
+
+QToolButton:hover, QToolButton:on  {
+border: 1px solid rgb(128,128,128);
+}</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/explorer/synchronize.png</normaloff>:/explorer/synchronize.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QComboBox" name="cbDir">
+       <property name="statusTip">
+        <string>Open directory</string>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::InsertAlphabetically</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbRoot">
+       <property name="toolTip">
+        <string>Go root</string>
+       </property>
+       <property name="statusTip">
+        <string>Go to the root directory (Ctrl+Home)</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: none;
+}
+
+QToolButton:hover, QToolButton:on  {
+border: 1px solid rgb(200,200,200);
+}</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/explorer/browse-root.png</normaloff>:/explorer/browse-root.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbUp">
+       <property name="toolTip">
+        <string>Go up</string>
+       </property>
+       <property name="statusTip">
+        <string>Navigate one directory up (Backspace)</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: none;
+}
+
+QToolButton:hover, QToolButton:on  {
+border: 1px solid rgb(200,200,200);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/explorer/browse-up.png</normaloff>:/explorer/browse-up.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbOpenDir">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Open directory</string>
+       </property>
+       <property name="statusTip">
+        <string>Choose a directory to go to</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: none;
+}
+
+QToolButton:hover, QToolButton:on  {
+border: 1px solid rgb(200,200,200);
+}</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/explorer/folder.png</normaloff>:/explorer/folder.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QListView" name="lvDirs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::ActionsContextMenu</enum>
+     </property>
+     <property name="autoScroll">
+      <bool>true</bool>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::DoubleClicked</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="textElideMode">
+      <enum>Qt::ElideMiddle</enum>
+     </property>
+     <property name="rootIsDecorated" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="uniformRowHeights" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="allColumnsShowFocus" stdset="0">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionCopyPath">
+   <property name="text">
+    <string>Copy path</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy current file's path to clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetShortcut</enum>
+   </property>
+  </action>
+  <action name="actionCopyName">
+   <property name="text">
+    <string>Copy name</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy current file's name to clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetShortcut</enum>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="toolTip">
+    <string>Open current file</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetShortcut</enum>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../ressources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>tbClearFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>cbFilter</receiver>
+   <slot>clearEditText()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>106</x>
+     <y>19</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

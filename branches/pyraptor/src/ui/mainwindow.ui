@@ -1,0 +1,1631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Raptor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../ressources.qrc">
+    <normaloff>:/about/raptor.png</normaloff>:/about/raptor.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string comment="menu File">File</string>
+    </property>
+    <widget class="QMenu" name="menuRecentFiles">
+     <property name="title">
+      <string comment="menu Recent Files">Recent Files</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/favorite.png</normaloff>:/images/favorite.png</iconset>
+     </property>
+     <addaction name="actionEmptyRecentFilesList"/>
+     <addaction name="actionOpenAllRecentFiles"/>
+    </widget>
+    <widget class="QMenu" name="menuSessions">
+     <property name="title">
+      <string comment="menu Sessions">Sessions</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/session.png</normaloff>:/images/session.png</iconset>
+     </property>
+     <addaction name="actionNewSession"/>
+     <addaction name="actionOpenSession"/>
+     <addaction name="actionSwitchSession"/>
+     <addaction name="separator"/>
+     <addaction name="actionSaveSession"/>
+     <addaction name="actionSaveSessionAs"/>
+     <addaction name="separator"/>
+     <addaction name="actionManageSessions"/>
+    </widget>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
+     </property>
+     <addaction name="actionExportAsHTML"/>
+    </widget>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAll"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="actionSaveACopyAs"/>
+    <addaction name="menuExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionReload"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrint"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
+    <addaction name="actionCloseAll"/>
+    <addaction name="actionCloseAllExceptCurrentDocument"/>
+    <addaction name="separator"/>
+    <addaction name="menuSessions"/>
+    <addaction name="separator"/>
+    <addaction name="menuRecentFiles"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string comment="menu Edit">Edit</string>
+    </property>
+    <widget class="QMenu" name="menuIndentation">
+     <property name="title">
+      <string comment="menu Indentation">Indentation</string>
+     </property>
+     <addaction name="actionIndent"/>
+     <addaction name="actionUnindent"/>
+     <addaction name="separator"/>
+     <addaction name="actionAutoIndentation"/>
+     <addaction name="actionIndentationGuides"/>
+     <addaction name="separator"/>
+     <addaction name="actionReindentFile"/>
+     <addaction name="actionReindentOpenFiles"/>
+    </widget>
+    <widget class="QMenu" name="menuConvertCaseTo">
+     <property name="title">
+      <string comment="menu Convert Case To">Convert Case To</string>
+     </property>
+     <addaction name="actionUpperCase"/>
+     <addaction name="actionLowerCase"/>
+    </widget>
+    <widget class="QMenu" name="menuLines">
+     <property name="title">
+      <string comment="menu Lines/Words">Lines/Words</string>
+     </property>
+     <addaction name="actionDuplicateLine"/>
+     <addaction name="actionTransposeLine"/>
+     <addaction name="actionCutLine"/>
+     <addaction name="actionCopyLine"/>
+     <addaction name="actionDeleteLine"/>
+     <addaction name="actionMoveLineUp"/>
+     <addaction name="actionMoveLineDown"/>
+     <addaction name="separator"/>
+     <addaction name="actionDeleteWord"/>
+    </widget>
+    <widget class="QMenu" name="menuTabs_Spaces">
+     <property name="title">
+      <string>Tabs/Spaces</string>
+     </property>
+     <addaction name="actionTabsToSpaces"/>
+     <addaction name="actionSpacesToTabs"/>
+     <addaction name="actionTrimTrailingSpaces"/>
+     <addaction name="actionCompressSpaces"/>
+    </widget>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="actionSelectAll"/>
+    <addaction name="separator"/>
+    <addaction name="menuIndentation"/>
+    <addaction name="menuConvertCaseTo"/>
+    <addaction name="menuLines"/>
+    <addaction name="menuTabs_Spaces"/>
+    <addaction name="actionGotoLine"/>
+    <addaction name="actionToggleComment"/>
+    <addaction name="actionToggleBlockComment"/>
+    <addaction name="separator"/>
+    <addaction name="actionSwitchSrc"/>
+    <addaction name="separator"/>
+    <addaction name="actionReadOnly"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string comment="menu View">View</string>
+    </property>
+    <widget class="QMenu" name="menuZoom">
+     <property name="title">
+      <string comment="menu Zoom">Zoom</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/zoom.png</normaloff>:/images/zoom.png</iconset>
+     </property>
+     <addaction name="actionZoomIn"/>
+     <addaction name="actionZoomOut"/>
+     <addaction name="separator"/>
+     <addaction name="actionRestoreDefaultZoom"/>
+    </widget>
+    <widget class="QMenu" name="menuInvisibleSymbol">
+     <property name="title">
+      <string comment="menu Invisible Symbol">Invisible Symbol</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/paragraph.png</normaloff>:/images/paragraph.png</iconset>
+     </property>
+     <addaction name="actionShowWhitespaceAndTab"/>
+     <addaction name="actionShowEndOfLine"/>
+     <addaction name="actionShowAll"/>
+     <addaction name="separator"/>
+     <addaction name="actionIndentationGuides"/>
+    </widget>
+    <widget class="QMenu" name="menuFold_level">
+     <property name="title">
+      <string comment="menu Fold Level">Fold level</string>
+     </property>
+     <addaction name="actionFoldLevel_1"/>
+     <addaction name="actionFoldLevel_2"/>
+     <addaction name="actionFoldLevel_3"/>
+     <addaction name="actionFoldLevel_4"/>
+     <addaction name="actionFoldLevel_5"/>
+     <addaction name="actionFoldLevel_6"/>
+     <addaction name="actionFoldLevel_7"/>
+     <addaction name="actionFoldLevel_8"/>
+    </widget>
+    <widget class="QMenu" name="menuUnfold_level">
+     <property name="title">
+      <string comment="menu Unfold level">Unfold level</string>
+     </property>
+     <addaction name="actionUnfoldLevel_1"/>
+     <addaction name="actionUnfoldLevel_2"/>
+     <addaction name="actionUnfoldLevel_3"/>
+     <addaction name="actionUnfoldLevel_4"/>
+     <addaction name="actionUnfoldLevel_5"/>
+     <addaction name="actionUnfoldLevel_6"/>
+     <addaction name="actionUnfoldLevel_7"/>
+     <addaction name="actionUnfoldLevel_8"/>
+    </widget>
+    <addaction name="menuZoom"/>
+    <addaction name="menuInvisibleSymbol"/>
+    <addaction name="separator"/>
+    <addaction name="actionFoldAll"/>
+    <addaction name="menuFold_level"/>
+    <addaction name="menuUnfold_level"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string comment="menu Help">Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string comment="menu Language">Language</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuMacro">
+    <property name="title">
+     <string comment="menu Macro">Macro</string>
+    </property>
+    <addaction name="actionStartRecording"/>
+    <addaction name="actionStopRecording"/>
+    <addaction name="actionRunMacro"/>
+    <addaction name="actionRunMacroMultipleTimes"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveMacro"/>
+   </widget>
+   <widget class="QMenu" name="menuBookmarks">
+    <property name="title">
+     <string comment="menu Bookmarks">Bookmarks</string>
+    </property>
+    <addaction name="actionToggleBookmark"/>
+    <addaction name="actionRemoveAllBookmarks"/>
+    <addaction name="separator"/>
+    <addaction name="actionNextBookmark"/>
+    <addaction name="actionPreviousBookmark"/>
+   </widget>
+   <widget class="QMenu" name="menuSearch">
+    <property name="title">
+     <string comment="menu Search">Search</string>
+    </property>
+    <addaction name="actionSearch"/>
+    <addaction name="actionFindNext"/>
+    <addaction name="actionFindPrevious"/>
+   </widget>
+   <widget class="QMenu" name="menuDiff">
+    <property name="title">
+     <string comment="menu Diff">Diff</string>
+    </property>
+    <addaction name="actionQuickUnidiff"/>
+    <addaction name="actionUnidiff"/>
+   </widget>
+   <widget class="QMenu" name="menuEncoding">
+    <property name="title">
+     <string comment="menu Encoding">Encoding</string>
+    </property>
+    <widget class="QMenu" name="menuUseCharset">
+     <property name="title">
+      <string comment="menu Use Charset">Use Charset</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/charset.png</normaloff>:/images/charset.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuSaveWithCharset">
+     <property name="title">
+      <string comment="menu Convert and Save with charset">Convert and Save with Charset</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuSaveWithCharsetAs">
+     <property name="title">
+      <string comment="menu Convert and Save with Charset As">Convert and Save with Charset As</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuForceSaveWithCharsetAs">
+     <property name="title">
+      <string comment="menu Force Conversion and Save As">Force Conversion and Save As</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../ressources.qrc">
+       <normaloff>:/images/save-question-mark.png</normaloff>:/images/save-question-mark.png</iconset>
+     </property>
+    </widget>
+    <addaction name="actionConvertToWindowsFormat"/>
+    <addaction name="actionConvertToUnixFormat"/>
+    <addaction name="actionConvertToMacFormat"/>
+    <addaction name="separator"/>
+    <addaction name="menuUseCharset"/>
+    <addaction name="menuSaveWithCharset"/>
+    <addaction name="menuSaveWithCharsetAs"/>
+    <addaction name="menuForceSaveWithCharsetAs"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string comment="menu Settings">Settings</string>
+    </property>
+    <addaction name="actionSettings"/>
+    <addaction name="actionShortcuts"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuSearch"/>
+   <addaction name="menuEncoding"/>
+   <addaction name="menuBookmarks"/>
+   <addaction name="menuLanguage"/>
+   <addaction name="menuDiff"/>
+   <addaction name="menuMacro"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBarFile">
+   <property name="windowTitle">
+    <string comment="toolbar File">File</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>22</width>
+     <height>22</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionSaveAll"/>
+   <addaction name="actionClose"/>
+   <addaction name="actionCloseAll"/>
+   <addaction name="actionCloseAllExceptCurrentDocument"/>
+   <addaction name="actionPrint"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QToolBar" name="toolBarEdit">
+   <property name="windowTitle">
+    <string comment="toolbar Edit">Edit</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>22</width>
+     <height>22</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCut"/>
+   <addaction name="actionCopy"/>
+   <addaction name="actionPaste"/>
+   <addaction name="separator"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+  </widget>
+  <widget class="QToolBar" name="toolBarView">
+   <property name="windowTitle">
+    <string comment="toolbar View">View</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>22</width>
+     <height>22</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionZoomIn"/>
+   <addaction name="actionZoomOut"/>
+   <addaction name="separator"/>
+   <addaction name="actionShowAll"/>
+  </widget>
+  <widget class="QToolBar" name="toolBarMacro">
+   <property name="windowTitle">
+    <string comment="toolbar Macro">Macro</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>22</width>
+     <height>22</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStartRecording"/>
+   <addaction name="actionStopRecording"/>
+   <addaction name="actionRunMacro"/>
+   <addaction name="actionRunMacroMultipleTimes"/>
+  </widget>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action new">New</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action new">Create new file</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action new">Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action open">Open</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action open">Open file</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action open">Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action save">Save</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action save">Save file</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action save">Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action save as">Save As ...</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action save as">Save file as ...</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action save as">Ctrl+Alt+S</string>
+   </property>
+  </action>
+  <action name="actionSaveACopyAs">
+   <property name="text">
+    <string comment="action save a copy as">Save a Copy As ...</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip save a copy as">Save a copy of this file as ...</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/closepage.png</normaloff>:/images/closepage.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action close">Close</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action close">Close file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionCloseAll">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/closeallpage.png</normaloff>:/images/closeallpage.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action close all">Close All</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action close all">Close all files</string>
+   </property>
+  </action>
+  <action name="actionCloseAllExceptCurrentDocument">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/forbiddenpage.png</normaloff>:/images/forbiddenpage.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action close all except current document">Close All Except Current Document</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action close all except current document">Close all files except the current one</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action exit">Exit</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action exit">Exit</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action exit">Alt+F4</string>
+   </property>
+  </action>
+  <action name="actionSaveAll">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/saveall.png</normaloff>:/images/saveall.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action save all">Save All</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action save all">Save all files</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action save all">Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/print.png</normaloff>:/images/print.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action print">Print</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action print">Print file</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action print">Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/undo.png</normaloff>:/images/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action undo">Undo</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action undo">Undo</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action undo">Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/redo.png</normaloff>:/images/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action redo">Redo</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action redo">Redo</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action redo">Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/cut.png</normaloff>:/images/cut.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action cut">Cut</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action cut">Cut</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action cut">Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action copy">Copy</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action copy">Copy</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action copy">Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/paste.png</normaloff>:/images/paste.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action paste">Paste</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action paste">Paste</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action paste">Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionSelectAll">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/selectall.png</normaloff>:/images/selectall.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action select all">Select All</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action select all">Select All</string>
+   </property>
+   <property name="whatsThis">
+    <string comment="whatsThis action select all">Select All</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action select all">Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionOpenAllRecentFiles">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action open all recent files">Open All Recent Files</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action open all recent files">Open all recent files</string>
+   </property>
+  </action>
+  <action name="actionEmptyRecentFilesList">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/trashcan_empty.png</normaloff>:/images/trashcan_empty.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action clear recent files list">Empty Recent Files List</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip clear the recent files list">Clear the &quot;recent files&quot; list</string>
+   </property>
+  </action>
+  <action name="actionIndent">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/increase_indent.png</normaloff>:/images/increase_indent.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action indent text">Increase Line Indent</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action indent text">Indent text</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action indent text">Tab</string>
+   </property>
+  </action>
+  <action name="actionUnindent">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/decrease_indent.png</normaloff>:/images/decrease_indent.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action unindent text">Decrease Line Indent</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unindent text">Unindent text</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action unindent text">Shift+Tab</string>
+   </property>
+  </action>
+  <action name="actionAutoIndentation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string comment="action auto indentation">Auto Indentation</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action auto indentation">Enable/Disable auto indentation</string>
+   </property>
+  </action>
+  <action name="actionIndentationGuides">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string comment="action indentation guides">Indentation Guides</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action indentation guides">Show indentation guides</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/zoomin.png</normaloff>:/images/zoomin.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action zoom in">Zoom In</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action zoom in">Zoom In</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action zoom in">Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/zoomout.png</normaloff>:/images/zoomout.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action zoom out">Zoom Out</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action zoom out">Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action zoom out">Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionRestoreDefaultZoom">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/zoom.png</normaloff>:/images/zoom.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action restore default zoom">Restore Default Zoom</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action restore default zoom">Restore default zoom</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action restore default zoom">Ctrl+/</string>
+   </property>
+  </action>
+  <action name="actionShowWhitespaceAndTab">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string comment="action show whitespaces and tabs">Show Whitespaces and Tabs</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action show whitespaces and tabs">Show whitespaces and tabs</string>
+   </property>
+  </action>
+  <action name="actionShowEndOfLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string comment="action show end of line">Show End Of Line</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action show end of line">Show end of line</string>
+   </property>
+  </action>
+  <action name="actionShowAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/paragraph.png</normaloff>:/images/paragraph.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action show all">Show All</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip show all">Show whitespaces, tabs and end of line</string>
+   </property>
+  </action>
+  <action name="actionTrimTrailingSpaces">
+   <property name="text">
+    <string comment="action trim trailing spaces">Trim Trailing Spaces</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action trim trailing spaces">Remove all the trailing spaces of line</string>
+   </property>
+  </action>
+  <action name="actionUpperCase">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/uppercase.png</normaloff>:/images/uppercase.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action uppercase">UPPER CASE</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action uppercase">Convert selected text to upper case</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action uppercase">Ctrl+Shift+U</string>
+   </property>
+  </action>
+  <action name="actionLowerCase">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/lowercase.png</normaloff>:/images/lowercase.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action lowercase">lower case</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action lowercase">Convert selected text to lower case</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action lowercase">Ctrl+U</string>
+   </property>
+  </action>
+  <action name="actionReadOnly">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string comment="action read-only">Read-Only</string>
+   </property>
+   <property name="toolTip">
+    <string comment="tooltip action read-only">Read-Only</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action read-only">Set/Unset document in read-only</string>
+   </property>
+  </action>
+  <action name="actionConvertToWindowsFormat">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/os/windows.png</normaloff>:/os/windows.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action convert to window EOL">Convert To Windows Format</string>
+   </property>
+   <property name="toolTip">
+    <string comment="tooltip action convert to window EOL">Convert To Windows Format</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action convert to window EOL">Set end of line to a carriage return/line feed as used on Windows systems. (&quot;\r\n&quot;)</string>
+   </property>
+  </action>
+  <action name="actionConvertToUnixFormat">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/os/linux.png</normaloff>:/os/linux.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action convert to unix EOL">Convert To Unix Format</string>
+   </property>
+   <property name="toolTip">
+    <string comment="tooltip action convert to unix EOL">Convert To Unix Format</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action convert to unix EOL">Set end of line to a line feed as used on Unix systems. (&quot;\n&quot;)</string>
+   </property>
+  </action>
+  <action name="actionConvertToMacFormat">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/os/mac.png</normaloff>:/os/mac.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action convert to mac EOL">Convert To Mac Format</string>
+   </property>
+   <property name="toolTip">
+    <string comment="tooltip action convert to mac EOL">Convert To Mac Format</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action convert to mac EOL">Set end of line to a carriage return as used on Mac systems. (&quot;\r&quot;)</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string comment="action about">About</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action about">About...</string>
+   </property>
+  </action>
+  <action name="actionStartRecording">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/record.png</normaloff>:/images/record.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action start recording macro">Start Recording</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action start recording macro">Start recording macro</string>
+   </property>
+  </action>
+  <action name="actionStopRecording">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/player_stop.png</normaloff>:/images/player_stop.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action stop recording macro">Stop Recording</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action stop recording macro">Stop recording macro</string>
+   </property>
+  </action>
+  <action name="actionRunMacro">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action run macro">Run Macro</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action run macro">Run macro</string>
+   </property>
+  </action>
+  <action name="actionRunMacroMultipleTimes">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/play_forward.png</normaloff>:/images/play_forward.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action run macro multiple times">Run Macro Multiple Times ...</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action run macro multiple times">Run macro multiple times</string>
+   </property>
+  </action>
+  <action name="actionSaveMacro">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action save macro">Save Macro</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action save macro">Save macro</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action settings">Settings</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action settings">Settings window</string>
+   </property>
+  </action>
+  <action name="actionSaveSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/save.png</normaloff>:/images/save.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action session save">Save</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action session save">Save session</string>
+   </property>
+   <property name="whatsThis">
+    <string>Save the session</string>
+   </property>
+   <property name="shortcut">
+    <string>F7</string>
+   </property>
+  </action>
+  <action name="actionToggleBookmark">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/ledblue.png</normaloff>:/images/ledblue.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action toggle bookmark">Toggle bookmark</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action toggle bookmark">Toggle bookmark</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action toggle bookmark">Ctrl+F2</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllBookmarks">
+   <property name="text">
+    <string comment="action remove all bookmarks">Remove All bookmarks</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action remove all bookmarks">Remove all bookmarks</string>
+   </property>
+  </action>
+  <action name="actionNextBookmark">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/bookmark-next.png</normaloff>:/images/bookmark-next.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action next bookmark">Next bookmark</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action next bookmark">Go to the next bookmark</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action next bookmark">F2</string>
+   </property>
+  </action>
+  <action name="actionPreviousBookmark">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/bookmark-prev.png</normaloff>:/images/bookmark-prev.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action previous bookmark">Previous bookmark</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action previous bookmark">Go to the previous bookmark</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action previous bookmark">Shift+F2</string>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action search">Search...</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action search">Search...</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action search">Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionFindNext">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action find next">Find next</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action find next">Find next occurence</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action find next">F3</string>
+   </property>
+  </action>
+  <action name="actionFindPrevious">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/backward.png</normaloff>:/images/backward.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action find previous">Find previous</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action find previous">Find previous occurence</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action find previous">Shift+F3</string>
+   </property>
+  </action>
+  <action name="actionReload">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action reload">Reload</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action reload">Reload file from disk</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action reload">F5</string>
+   </property>
+  </action>
+  <action name="actionFoldAll">
+   <property name="text">
+    <string comment="action fold/unfold all">Fold/Unfold All</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold/unfold all">Fold/Unfold all</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold/unfold all">Alt+²</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_1">
+   <property name="text">
+    <string comment="action fold level 1">Level 1</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 1">Fold level 1</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 1">Alt+1</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_2">
+   <property name="text">
+    <string comment="action fold level 2">Level 2</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 2">Fold level 2</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 2">Alt+2</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_3">
+   <property name="text">
+    <string comment="action fold level 3">Level 3</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 3">Fold level 3</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 3">Alt+3</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_4">
+   <property name="text">
+    <string comment="action fold level 4">Level 4</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 4">Fold level 4</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 4">Alt+4</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_5">
+   <property name="text">
+    <string comment="action fold level 5">Level 5</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 5">Fold level 5</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 5">Alt+5</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_6">
+   <property name="text">
+    <string comment="action fold level 6">Level 6</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 6">Fold level 6</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 6">Alt+6</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_7">
+   <property name="text">
+    <string comment="action fold level 7">Level 7</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 7">Fold level 7</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 7">Alt+7</string>
+   </property>
+  </action>
+  <action name="actionFoldLevel_8">
+   <property name="text">
+    <string comment="action fold level 8">Level 8</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action fold level 8">Fold level 8</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action fold level 8">Alt+8</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_1">
+   <property name="text">
+    <string comment="action unfold level 1">Level 1</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 1">Unfold level 1</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_2">
+   <property name="text">
+    <string comment="action unfold level 2">Level 2</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 2">Unfold level 2</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_3">
+   <property name="text">
+    <string comment="action unfold level 3">Level 3</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 3">Unfold level 3</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_4">
+   <property name="text">
+    <string comment="action unfold level 4">Level 4</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 4">Unfold level 4</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_5">
+   <property name="text">
+    <string comment="action unfold level 5">Level 5</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 5">Unfold level 5</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_6">
+   <property name="text">
+    <string comment="action unfold level 6">Level 6</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 6">Unfold level 6</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_7">
+   <property name="text">
+    <string comment="action unfold level 7">Level 7</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 7">Unfold level 7</string>
+   </property>
+  </action>
+  <action name="actionUnfoldLevel_8">
+   <property name="text">
+    <string comment="action unfold level 8">Level 8</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action unfold level 8">Unfold level 8</string>
+   </property>
+  </action>
+  <action name="actionReindentFile">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/astyle/astyle.png</normaloff>:/astyle/astyle.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action reindent file">Reindent File</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action reindent file">Reindent the file with astyle</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action reindent file">Ctrl+Alt+I</string>
+   </property>
+  </action>
+  <action name="actionReindentOpenFiles">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/astyle/astyle.png</normaloff>:/astyle/astyle.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action reindent open files">Reindent Open Files</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action reindent open files">Reindent open files with astyle</string>
+   </property>
+  </action>
+  <action name="actionDuplicateLine">
+   <property name="text">
+    <string comment="action duplicate current line">Duplicate Current Line</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action duplicate current line">Duplicate the current line</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action duplicate current line">Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionMoveLineUp">
+   <property name="text">
+    <string comment="action move line up">Move Current Line Up</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action move line up">Move the current line up</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action move line up">Ctrl+Shift+Up</string>
+   </property>
+  </action>
+  <action name="actionMoveLineDown">
+   <property name="text">
+    <string comment="action move line down">Move Current Line Down</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action move line down">Move the current line down</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action move line down">Ctrl+Shift+Down</string>
+   </property>
+  </action>
+  <action name="actionDeleteLine">
+   <property name="text">
+    <string comment="action delete line">Delete Current Line</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action delete line">Delete the current line</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action delete line">Ctrl+Shift+L</string>
+   </property>
+  </action>
+  <action name="actionDeleteWord">
+   <property name="text">
+    <string comment="action delete current word">Delete Current Word</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action delete current word">Delete the current word</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action delete current word">Ctrl+Del</string>
+   </property>
+  </action>
+  <action name="actionCutLine">
+   <property name="text">
+    <string comment="action cut current line">Cut Current Line</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action cut current line">Cut the current line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionCopyLine">
+   <property name="text">
+    <string comment="action copy current line">Copy Current Line</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action copy current line">Copy the current line</string>
+   </property>
+   <property name="shortcut">
+    <string comment="shortcut action copy current line">Ctrl+Alt+L</string>
+   </property>
+  </action>
+  <action name="actionUnidiff">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/diff.png</normaloff>:/images/diff.png</iconset>
+   </property>
+   <property name="text">
+    <string>UniDiff</string>
+   </property>
+   <property name="toolTip">
+    <string>Display unified diff of two files</string>
+   </property>
+   <property name="statusTip">
+    <string>Display unified diff of two files</string>
+   </property>
+  </action>
+  <action name="actionShortcuts">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/settings_shortcuts.png</normaloff>:/images/settings_shortcuts.png</iconset>
+   </property>
+   <property name="text">
+    <string comment="action shortcut edit">Shortcuts</string>
+   </property>
+   <property name="statusTip">
+    <string comment="statustip action shortcut edit">Edit shortcuts</string>
+   </property>
+  </action>
+  <action name="actionSwitchSrc">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/switch.png</normaloff>:/images/switch.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch Source</string>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+   <property name="toolTip">
+    <string>Help</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="actionToggleComment">
+   <property name="text">
+    <string>Toggle Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle comment (single comment prefered )</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+J</string>
+   </property>
+  </action>
+  <action name="actionToggleBlockComment">
+   <property name="text">
+    <string>Toggle Block Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle block comment</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
+  <action name="actionGotoLine">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/goto.png</normaloff>:/images/goto.png</iconset>
+   </property>
+   <property name="text">
+    <string>Goto Line</string>
+   </property>
+   <property name="statusTip">
+    <string>Goto Line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionNewSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Session</string>
+   </property>
+   <property name="statusTip">
+    <string>Create a new session</string>
+   </property>
+  </action>
+  <action name="actionOpenSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Session</string>
+   </property>
+   <property name="statusTip">
+    <string>Open an existing session</string>
+   </property>
+  </action>
+  <action name="actionSwitchSession">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch with last session</string>
+   </property>
+   <property name="statusTip">
+    <string>Save this session and open the last one</string>
+   </property>
+  </action>
+  <action name="actionSaveSessionAs">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/saveas.png</normaloff>:/images/saveas.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Session As...</string>
+   </property>
+   <property name="statusTip">
+    <string>Save the session as ...</string>
+   </property>
+  </action>
+  <action name="actionManageSessions">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/session-mgr.png</normaloff>:/images/session-mgr.png</iconset>
+   </property>
+   <property name="text">
+    <string>Manage Sessions...</string>
+   </property>
+   <property name="statusTip">
+    <string>Open the session manager</string>
+   </property>
+   <property name="shortcut">
+    <string>F8</string>
+   </property>
+  </action>
+  <action name="actionTabsToSpaces">
+   <property name="text">
+    <string>Tabs to Spaces</string>
+   </property>
+   <property name="statusTip">
+    <string>Convert tabs to spaces using current tab width value</string>
+   </property>
+  </action>
+  <action name="actionSpacesToTabs">
+   <property name="text">
+    <string>Spaces to Tabs</string>
+   </property>
+   <property name="statusTip">
+    <string>Convert spaces to tabs using current tab width value</string>
+   </property>
+  </action>
+  <action name="actionCompressSpaces">
+   <property name="text">
+    <string>Compress Spaces</string>
+   </property>
+   <property name="statusTip">
+    <string>Remove all extra spaces between words</string>
+   </property>
+  </action>
+  <action name="actionTransposeLine">
+   <property name="text">
+    <string>Transpose Line</string>
+   </property>
+   <property name="toolTip">
+    <string>Transpose current and previous lines</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionExportAsHTML">
+   <property name="text">
+    <string>As HTML...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export As HTML</string>
+   </property>
+  </action>
+  <action name="actionQuickUnidiff">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/diff.png</normaloff>:/images/diff.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quick UniDiff</string>
+   </property>
+   <property name="toolTip">
+    <string>Display unified diff of the two current files</string>
+   </property>
+   <property name="statusTip">
+    <string>Display unified diff of the two current files</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../ressources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
