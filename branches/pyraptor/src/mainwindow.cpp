@@ -413,29 +413,15 @@ void MainWindow::createDocks() {
 	connect(explorer, SIGNAL(synchFileRequest()), this, SLOT(synchronizeExplorerWithCurrentDocument()));
 	_explorerDock->hide();
 
-//#ifdef PYTHON_SUPPORT
-	//create the Explorer Dock
-	QDockWidget* dockconsole = new QDockWidget(tr("PyConsole"), this);
+	//create the python console Dock
+	_pyConsoleDock = new QDockWidget(tr("PyConsole"), this);
 	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
-	PythonQtScriptingConsole* pyconsole = new PythonQtScriptingConsole(dockconsole, mainModule);
-	dockconsole->setWidget(pyconsole);
-	dockconsole->setObjectName(QString::fromUtf8("PyConsole"));
-	addDockWidget(Qt::BottomDockWidgetArea, dockconsole);
-	
-	/*QGroupBox *box = new QGroupBox;
-    QTextBrowser *browser = new QTextBrowser(box);
-    QLineEdit *edit = new QLineEdit(box);
-    QPushButton *button = new QPushButton(box);
-	
-	mainModule.addObject("box", box);
-	mainModule.addObject("mgr", _documentManager);
-	mainModule.addObject("window", this);
-	mainModule.addObject("menuFile", menuFile);
-	mainModule.addObject("about", actionAbout);
-	
-	mainModule.evalScript("sys.path.append('.')\n");
-	mainModule.evalScript("import raptor\n");*/
-//#endif
+	PythonQtScriptingConsole* pyconsole = new PythonQtScriptingConsole(_pyConsoleDock, mainModule);
+	_pyConsoleDock->setWidget(pyconsole);
+	_pyConsoleDock->setObjectName(QString::fromUtf8("PyConsole"));
+	addDockWidget(Qt::BottomDockWidgetArea, _pyConsoleDock);
+	connect(actionPyConsole, SIGNAL(triggered()), _pyConsoleDock->toggleViewAction(), SLOT(trigger()));
+	_pyConsoleDock->hide();
 }
 
 void MainWindow::createActions(){

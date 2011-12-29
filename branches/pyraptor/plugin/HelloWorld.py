@@ -14,7 +14,7 @@ class SimpleHelloWorld(BasePlugin.BasePlugin):
     def actions(self):
         print os.path.abspath("python.png")
         path = '/home/chris/Dev/raptorpy/python.png'
-        return [("Toto2", path, None, None, None)]
+        return [("SimpleHelloWorld", path, None, None, None)]
 
     def run(self, action):
         print self.name() + " -> " + action

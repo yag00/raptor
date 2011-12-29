@@ -49,10 +49,10 @@ PluginEngine::~PluginEngine(){
 	_plugins.clear();
 }
 
-void PluginEngine::loadPlugins(){			
+void PluginEngine::loadPlugins(){
 	//@todo get plugin path
 	QStringList pluginPaths;
-	pluginPaths << "/home/chris/Dev/raptorpy";
+	pluginPaths << "/home/chris/Dev/pyraptor/plugin";
 	
 	//load plugin
 	QVariant ret = _loader.call("load", QVariantList() << pluginPaths);
@@ -79,7 +79,7 @@ void PluginEngine::loadPlugins(){
 			QMap<QString, QVariant>::iterator found = pluginMap.find(plugin);
 			if(found != pluginMap.end()){
 				qDebug() << "Already load a plugin named " << plugin << " !";
-				continue;				
+				continue;
 			}
 			
 			PyPlugin* p = new PyPlugin(pyPluginObj, _pluginMenu, this);

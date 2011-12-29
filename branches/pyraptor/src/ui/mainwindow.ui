@@ -332,6 +332,9 @@
      <string>Plugins</string>
     </property>
     <addaction name="actionPluginsManager"/>
+    <addaction name="actionReloadPlugins"/>
+    <addaction name="separator"/>
+    <addaction name="actionPyConsole"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1631,8 +1634,33 @@
    </property>
   </action>
   <action name="actionPluginsManager">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/pyplugin/plugins.png</normaloff>:/pyplugin/plugins.png</iconset>
+   </property>
    <property name="text">
     <string>Plugins Manager</string>
+   </property>
+  </action>
+  <action name="actionReloadPlugins">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/restore.png</normaloff>:/images/restore.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reload Plugins</string>
+   </property>
+  </action>
+  <action name="actionPyConsole">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/pyplugin/console.png</normaloff>:/pyplugin/console.png</iconset>
+   </property>
+   <property name="text">
+    <string>PyConsole</string>
+   </property>
+   <property name="shortcut">
+    <string>F12</string>
    </property>
   </action>
  </widget>
