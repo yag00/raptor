@@ -177,7 +177,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		QDockWidget* _symbolDock;
 		/** explorer */
 		QDockWidget* _explorerDock;
-
+		/** python console */
+		QDockWidget* _pyConsoleDock;
+		
 		/** status bar widget */
 		MenuLabel* _encodingLabel;
 		MenuLabel* _formatLabel;
