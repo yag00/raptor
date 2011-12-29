@@ -21,6 +21,11 @@
 #include <QtGui>
 #include <Qsci/qsciscintilla.h>
 
+#ifdef PYTHON_SUPPORT
+#include <PythonQt.h>
+#include <gui/PythonQtScriptingConsole.h>
+#endif
+
 #include "ui_macro.h"
 #include "about/About.h"
 #include "about/Version.h"
@@ -40,6 +45,8 @@
 #include "widget/MenuLabel.h"
 #include "export/Exporter.h"
 #include "export/ExporterHTML.h"
+#include "pyconsole/PyConsole.h"
+#include "pyplugins/PluginEngine.h"
 
 #include "mainwindow.h"
 
@@ -321,7 +328,8 @@ void MainWindow::createManager() {
 	_sessionManager = new SessionManager(*_documentManager, this);
 	_symbolManager = new SymbolManager(this);
 	_helpBrowser = new HelpBrowser(this);
-
+	_pluginManager = new PluginEngine(*menuPlugins, this);
+	
 	setCentralWidget(_documentManager);
 
 	//connection
@@ -405,6 +413,30 @@ void MainWindow::createDocks() {
 	connect(explorer, SIGNAL(fileClicked(const QString&)), _documentManager, SLOT(open(const QString&)));
 	connect(explorer, SIGNAL(synchFileRequest()), this, SLOT(synchronizeExplorerWithCurrentDocument()));
 	_explorerDock->hide();
+
+//#ifdef PYTHON_SUPPORT
+	//create the Explorer Dock
+	QDockWidget* dockconsole = new QDockWidget(tr("PyConsole"), this);
+	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
+	PythonQtScriptingConsole* pyconsole = new PythonQtScriptingConsole(dockconsole, mainModule);
+	dockconsole->setWidget(pyconsole);
+	dockconsole->setObjectName(QString::fromUtf8("PyConsole"));
+	addDockWidget(Qt::BottomDockWidgetArea, dockconsole);
+	
+	/*QGroupBox *box = new QGroupBox;
+    QTextBrowser *browser = new QTextBrowser(box);
+    QLineEdit *edit = new QLineEdit(box);
+    QPushButton *button = new QPushButton(box);
+	
+	mainModule.addObject("box", box);
+	mainModule.addObject("mgr", _documentManager);
+	mainModule.addObject("window", this);
+	mainModule.addObject("menuFile", menuFile);
+	mainModule.addObject("about", actionAbout);
+	
+	mainModule.evalScript("sys.path.append('.')\n");
+	mainModule.evalScript("import raptor\n");*/
+//#endif
 }
 
 void MainWindow::createActions(){

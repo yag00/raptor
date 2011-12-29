@@ -26,6 +26,7 @@
 
 import sys, os, platform, shutil, tarfile, re
 from waflib import Build, Task, Options, Logs, Utils, Scripting
+from waflib.TaskGen import feature, before, after, before_method
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
 
@@ -35,7 +36,11 @@ DESCRIPTION="Raptor A Portable Text editOR"
 
 top = '.'
 out = 'wbuild'
+
+Scripting.default_cmd = "release"
+
 available_doc = ['en', 'fr']
+
 
 class debug(BuildContext):
 	cmd = 'debug'
@@ -57,27 +62,22 @@ def dist(ctx):
 	"makes a tarball for redistributing the sources"
 	ctx.excl = '**/build **/*~ **/wbuild* **/delivery* **/.*'
 	if isWindows():
-		ctx.algo      = 'zip'
+		ctx.algo	  = 'zip'
 	else:
 		ctx.base_name = 'raptor-editor-' + VERSION
-		ctx.algo      = 'tar.gz'
-
-def install(ctx):
-	waflib.Options.commands = 'install_release'
-
-def uninstall(ctx):
-	waflib.Options.commands = 'uninstall_release'
-
-Scripting.default_cmd = "release"
+		ctx.algo	  = 'tar.gz'
 
 def options(opt):
 	opt.load('compiler_c compiler_cxx qt4 slow_qt4')
+	opt.add_option('--disable-python-support', action='store_true', default=False, help = 'build raptor without python support', dest = 'disablePySupport')
 
 def distclean(ctx):
 	Scripting.distclean(ctx)
 	lst = os.listdir('.')
 	for f in lst:
 		if f.startswith('package.') and not Options.commands:
+			shutil.rmtree(f, ignore_errors=True)
+		if f.startswith('bindings') and not Options.commands:
 			shutil.rmtree(f, ignore_errors=True)
 
 def configure(conf):
@@ -87,18 +87,26 @@ def configure(conf):
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
 
+	conf.env['PYTHON_SUPPORT'] = not conf.options.disablePySupport
+	if conf.env['PYTHON_SUPPORT']:
+		conf.load('python')
+		conf.check_python_version((2,6,0))
+		conf.check_python_headers()
+
 	if isWindows():
 		conf.check_tool('winres')
 
 	configurePackage(conf)
 	configureDoc(conf);
-		
+
 	conf.load('qt4')
 	conf.load('slow_qt4')
 
 	#check qt version
 	QT_MIN_VERSION = '4.6.0'
-	qtversion = (conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_VERSION']).strip())
+	qtversion = conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_VERSION']).strip()
+	conf.env['QT_VERSION'] = qtversion
+	conf.env['QT_HEADER_PATH'] = conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_INSTALL_HEADERS']).strip()
 	if(qtversion.split('.') < QT_MIN_VERSION.split('.')):
 		conf.msg("Checking for Qt version", "Qt should be at least in version " + QT_MIN_VERSION + " (" +qtversion + " found)", "RED")
 		conf.fatal("Upgrade Qt !")
@@ -153,10 +161,75 @@ def configurePackage(conf):
 			except conf.errors.ConfigurationError:
 				pass
 
+
+#########################################################
+# Build
+#########################################################
+
 def build(bld):
 	if ((not bld.variant) and (bld.cmd == 'build')):
 		Options.commands = ['release'] + Options.commands
 		return
+
+	#########################################################
+	# build pythonQt
+	#########################################################
+	if bld.env['PYTHON_SUPPORT']:
+		if (bld.path.find_node('bindings') == None):
+			Options.commands = ['generateQtBinding', bld.variant] + Options.commands
+			return
+
+		pythonQt_sources = bld.path.ant_glob(['ext/PythonQt2.0.1/src/**/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_core_builtin/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_gui_builtin/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_core/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_gui/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_svg/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_sql/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_network/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_opengl/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_webkit/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_xml/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_uitools/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_xmlpatterns/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_phonon/*.cpp',
+		])
+
+		bld.stlib(
+			features		= 'qt4 pyembed',
+			uselib			= 'QTCORE QTGUI QTXML',
+			defines			= 'PYTHONQT_EXPORTS',
+			source		 	= pythonQt_sources,
+			name			= 'pyraptor',
+			target			= 'pyraptor',
+			includes		= '.',
+			cxxflags		= ['-Wall'],
+			install_path	= None)
+
+		"""pythonQtAll_sources = bld.path.ant_glob(['ext/PythonQt2.0.1/src/**/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_core/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_gui/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_svg/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_sql/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_network/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_opengl/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_webkit/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_xml/*.cpp',
+			'bindings/generated_cpp/com_trolltech_qt_uitools/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_xmlpatterns/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_phonon/*.cpp',
+			])
+
+		bld.shlib(
+			features		= 'qt4 pyembed',
+			uselib			= 'QTCORE QTGUI QTXML',
+			defines			= 'PYTHONQT_EXPORTS',
+			source		 	= pythonQtAll_sources,
+			name			= 'pyqtallraptor',
+			target			= 'pyqtallraptor',
+			includes		= '.',
+			cxxflags		= ['-Wall'],
+			install_path	= None)"""
 
 	#########################################################
 	# build astyle
@@ -166,13 +239,13 @@ def build(bld):
 		excl=['ext/AStyle/astyle-2.01/src/astyle_main.cpp'])
 
 	bld.new_task_gen(
-		features        = 'cxx cxxstlib',
-		source          = astyle_sources,
-		name            = 'astyle',
-		target          = 'astyle',
-		includes        = '.',
-		cxxflags        = ['-Wall', '-Werror'],
-		install_path    = None) # do not install this library
+		features		= 'cxx cxxstlib',
+		source		  = astyle_sources,
+		name			= 'astyle',
+		target		  = 'astyle',
+		includes		= '.',
+		cxxflags		= ['-Wall', '-Werror'],
+		install_path	= None) # do not install this library
 
 
 	#########################################################
@@ -192,14 +265,14 @@ def build(bld):
 				)
 
 	bld.new_task_gen(
-		features        = 'c cstlib',
-		source          = ctags_sources,
-		name            = 'ctags',
-		target          = 'ctags',
-		includes        = ['ext/ctags/ctags-5.8', 'ext/ctags/ctags-5.8/gnu_regex'],
-		defines         = get_ctags_defines(),
-		cflags          = ['-Wformat=0'],	# todo build with -Wall -Werror
-		install_path    = None) # do not install this library
+		features		= 'c cstlib',
+		source		  = ctags_sources,
+		name			= 'ctags',
+		target		  = 'ctags',
+		includes		= ['ext/ctags/ctags-5.8', 'ext/ctags/ctags-5.8/gnu_regex'],
+		defines		 = get_ctags_defines(),
+		cflags		  = ['-Wformat=0'],	# todo build with -Wall -Werror
+		install_path	= None) # do not install this library
 
 
 	#########################################################
@@ -213,18 +286,18 @@ def build(bld):
 		excl=[''])
 
 	bld.new_task_gen(
-		features        = 'qt4 cxx cxxstlib',
-		uselib          = 'QTCORE QTGUI',
-		source          = qscintilla_sources,
-		name            = 'qscintilla2',
-		target          = 'qscintilla2',
-		includes        = ['ext/QScintilla/QScintilla-gpl-2.6/include',
+		features		= 'qt4 cxx cxxstlib',
+		uselib		  = 'QTCORE QTGUI',
+		source		  = qscintilla_sources,
+		name			= 'qscintilla2',
+		target		  = 'qscintilla2',
+		includes		= ['ext/QScintilla/QScintilla-gpl-2.6/include',
 							'ext/QScintilla/QScintilla-gpl-2.6/lexlib',
 							'ext/QScintilla/QScintilla-gpl-2.6/src',
 							'ext/QScintilla/QScintilla-gpl-2.6/Qt4'],
-		defines         = ['QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
-		cxxflags        = [],	# todo build with -Wall -Werror
-		install_path    = None) # do not install this library
+		defines		 = ['QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
+		cxxflags		= [],	# todo build with -Wall -Werror
+		install_path	= None) # do not install this library
 
 
 	#########################################################
@@ -238,35 +311,47 @@ def build(bld):
 			'src/**/*.qrc'],
 		excl=['src/rc/*.cpp'])
 
+	raptor_features = 'qt4 cxx cxxprogram'
 	if isWindows():
-		raptor_sources += bld.path.ant_glob('src/**/*.rc')
+		raptor_sources	+= bld.path.ant_glob('src/**/*.rc')
+		raptor_features	+= ' winrc'
+
+	raptor_libs = 'astyle qscintilla2 ctags';
+	raptor_includes = ['.',
+						'ext/AStyle/astyle-2.01/src',
+						'ext/ctags',
+						'ext/QScintilla/QScintilla-gpl-2.6/Qt4',
+						'ext/qt-solutions/qtsingleapplication/src',
+						'ext/dtl/dtl-1.15',
+						'src']
+	raptor_defines = []
+	if bld.env['PYTHON_SUPPORT']:
+		raptor_features	+= ' pyembed'
+		raptor_libs 	+= ' pyraptor'
+		raptor_includes	+= ['ext/PythonQt2.0.1/src/']
+		raptor_defines += ['PYTHON_SUPPORT']
+
 
 	bld.new_task_gen(
-		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows() else ''),
-		uselib          = 'QTCORE QTGUI QTNETWORK QTHELP',
-		use             = 'astyle qscintilla2 ctags',
-		source          = raptor_sources,
-		lang            = bld.path.ant_glob('src/translations/*.ts'),
-		name            = 'raptor',
-		target          = 'raptor',
-		includes        = ['.',
-							'ext/AStyle/astyle-2.01/src',
-							'ext/ctags',
-							'ext/QScintilla/QScintilla-gpl-2.6/Qt4',
-							'ext/qt-solutions/qtsingleapplication/src',
-							'ext/dtl/dtl-1.15',
-							'src'],
-		defines         = [	'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
+		features		=  raptor_features,
+		uselib			= 'QTCORE QTGUI QTNETWORK QTHELP',
+		use				= raptor_libs,
+		source			= raptor_sources,
+		lang			= bld.path.ant_glob('src/translations/*.ts'),
+		name			= 'raptor',
+		target			= 'raptor',
+		includes		= raptor_includes,
+		defines			= [	'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
 							'PACKAGE_NAME="%s"' % APPNAME.capitalize(),
 							'PACKAGE_VERSION="%s"' % VERSION,
 							'PACKAGE_DESCRIPTION="%s"' % DESCRIPTION,
 							'PACKAGE_BIN="%s/bin"' % bld.env['PREFIX'],
 							'PACKAGE_LIB="%s/lib"' % bld.env['PREFIX'],
 							'PACKAGE_DATA="%s/share"' % bld.env['PREFIX'],
-							'PACKAGE_OS="%s"' % getSystemOsString()],
-		cxxflags        = ['-Wall', '-Werror'],
-		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows() else ['-Wl,-O1']),
-		install_path    = getBinaryInstallationPath(bld.env['PREFIX']))
+							'PACKAGE_OS="%s"' % getSystemOsString()] + raptor_defines,
+		cxxflags		= ['-Wall'], #, '-Werror'
+		linkflags		= (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows() else ['-Wl,-O1']),
+		install_path	= getBinaryInstallationPath(bld.env['PREFIX']))
 
 	#install translations file
 	bld.install_files(getTranslationInstallationPath(bld.env['PREFIX']), bld.bldnode.ant_glob('**/*.qm'))
@@ -285,17 +370,17 @@ def build(bld):
 		for lang in available_doc:
 			sphinxlog		= os.path.join(bld.bldnode.abspath(), "sphinx_%s.log" % lang)
 			qcglog			= os.path.join(bld.bldnode.abspath(), "qcglog_%s.log" % lang)
-			docBuildPath 	= os.path.join(bld.bldnode.abspath(), "doctrees/%s" % lang)
+			docBuildPath	= os.path.join(bld.bldnode.abspath(), "doctrees/%s" % lang)
 			docOutPath		= os.path.join(bld.bldnode.abspath(), "raptorhelp/%s" % lang)
 			docSrcPath		= os.path.join(bld.srcnode.abspath(), "doc/src/%s/source" % lang)
-			
+
 			rstsource = bld.path.ant_glob(['doc/config/**/*.py', 'doc/src/%s/**/*.rst' % lang, 'doc/src/%s/source/conf.py' % lang])
-			
-			qhcpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhcp' % (lang, lang)) 
+
+			qhcpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhcp' % (lang, lang))
 			qhpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhp' % (lang, lang))
 			qchNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qch' % (lang, lang))
 			qhcNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhc' % (lang, lang))
-			
+
 			bld(
 				name	= 'doc_%s' % lang,
 				color	='PINK',
@@ -313,6 +398,93 @@ def build(bld):
 				target	= [qchNode, qhcNode],
 				install_path = '${PREFIX}/doc',
 			)
+
+
+
+class generateQtBinding(BuildContext):
+	cmd = 'generateQtBinding'
+	fun = 'generateQtBinding'
+	variant = 'release'
+
+class qtBinding(Task.Task):
+	color   = 'PINK'
+	quiet = True #Disable the warnings raised when a task has no outputs
+	nocache = True
+	ext_out = ['.cpp']
+
+	def __str__(self):
+		return '%s : generate Qt %s binding to %s\n' % (self.__class__.__name__, self.env.QT_VERSION, self.outputdir)
+
+	def run(self):
+		env = self.env
+		gen = self.generator
+		bld = gen.bld
+		wd = bld.bldnode.abspath()
+
+		cmd = []
+		cmd.extend([wd + '/pythonqt_generator'])
+		cmd.extend(['--include-paths=' + env.QT_HEADER_PATH ])
+		cmd.extend(['--output-directory=' + self.outputdir])
+
+		self.out = self.generator.bld.cmd_and_log(cmd, cwd=wd, env=env.env or None, output=0, quiet=0)[1]
+
+	"""def post_run(self):
+		for n in self.generator.bld.bldnode.ant_glob('pythonqt_generated_cpp/**/*.cpp'):
+			n.sig = Utils.h_file(n.abspath())
+		self.generator.bld.task_sigs[self.uid()] = self.cache_sig"""
+
+@feature('qtBinding')
+@before_method('process_source')
+def generate_qtBinding(self):
+	pygentsk = self.bld.get_tgen_by_name('pythonqt_generator')
+	pygentsk.post()
+	dep_task = getattr(pygentsk, 'link_task', None)
+	if not dep_task:
+		print "Error"
+
+	tsk = self.create_task('qtBinding', [], [])
+	tsk.name = 'qtBinding'
+	tsk.outputdir = self.path.abspath() + '/bindings'
+
+	tsk.set_run_after(dep_task) # order
+	tsk.dep_nodes.extend(dep_task.outputs) # dependency
+
+
+def generateQtBinding(bld):
+	#########################################################
+	# build pythonqt_generator
+	#########################################################
+	pythonQt_generator_sources = bld.path.ant_glob([
+		'ext/PythonQt2.0.1/generator/*.qrc',
+		'ext/PythonQt2.0.1/generator/parser/rpp/preprocessor.cpp',
+		'ext/PythonQt2.0.1/generator/parser/*.cpp',
+		'ext/PythonQt2.0.1/generator/*.cpp'])
+
+	pythonQt_generator_xml = bld.path.ant_glob([
+		'ext/PythonQt2.0.1/generator/*.xml',
+		'ext/PythonQt2.0.1/generator/qtscript_masterinclude.h'])
+
+	#copy xml file needed by the generator to the build directory
+	pythonQt_generator_depend = []
+	for file in pythonQt_generator_xml:
+		pythonQt_generator_depend += [os.path.basename(file.abspath())]
+		bld(rule='cp ${SRC} ${TGT}', source=file, target=os.path.basename(file.abspath()), name	= 'copy', color = 'YELLOW')
+
+	bld.program(
+		features		= 'qt4 pyembed',
+		uselib			= 'QTCORE QTXML',
+		defines			= 'RXX_ALLOCATOR_INIT_0',
+		source			= pythonQt_generator_sources,
+		name			= 'pythonqt_generator',
+		target			= 'pythonqt_generator',
+		includes		= '.',
+		#cxxflags		= ['-Wall'],
+		install_path	= None) # do not install this library
+
+	#########################################################
+	# build generate qt binding
+	#########################################################
+	bld(features='qtBinding')
 
 
 #########################################################
@@ -545,22 +717,21 @@ def replace_words(text, word_dic):
 	return rc.sub(translate, text)
 
 # create debug and release target
-for x in 'debug release'.split():
+"""for x in 'debug release'.split():
 	for y in (BuildContext, CleanContext, InstallContext, UninstallContext):
 		name = y.__name__.replace('Context','').lower()
 		class tmp(y):
 			cmd = name + '_' + x
 			variant = x
+"""
 
 # use the following if you want to add the include paths automatically
-from waflib.TaskGen import feature, before, after
 @feature('cxx')
 @after('process_source')
 @before('apply_incpaths')
 def add_includes_paths(self):
-    incs = set(self.to_list(getattr(self, 'includes', '')))
-    for x in self.compiled_tasks:
-        incs.add(x.inputs[0].parent.path_from(self.path))
-    self.includes = list(incs)
-
+	incs = set(self.to_list(getattr(self, 'includes', '')))
+	for x in self.compiled_tasks:
+		incs.add(x.inputs[0].parent.path_from(self.path))
+	self.includes = list(incs)
 
