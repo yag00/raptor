@@ -42,6 +42,10 @@ PluginEngine::PluginEngine(QMenu& pluginMenu_, QObject* parent_) :
 }
 
 PluginEngine::~PluginEngine(){
+	dropPlugins();
+}
+
+void PluginEngine::dropPlugins(){
 	for(QMap<QString, PyPlugin*>::iterator it = _plugins.begin(); it != _plugins.end(); ++it){
 		PyPlugin* p = it.value();
 		delete p;
@@ -50,6 +54,7 @@ PluginEngine::~PluginEngine(){
 }
 
 void PluginEngine::loadPlugins(){
+	dropPlugins();
 	//@todo get plugin path
 	QStringList pluginPaths;
 	pluginPaths << "/home/chris/Dev/pyraptor/plugin";

@@ -57,6 +57,7 @@ PyPlugin::PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* paren
 	}else{
 		//create the plugin menu&submenus
 		QMenu* menu = pluginMenu_.addMenu(_name);
+		menu->setIcon(QIcon(_icon));
 		_menu = menu;
 		//intialize the tree map
 		QMap<QString, Node> tree;
@@ -87,7 +88,8 @@ PyPlugin::PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* paren
 }
 
 PyPlugin::~PyPlugin(){
-	
+	//plugin destroy his menu
+	delete _menu;
 }
 
 void PyPlugin::createMenu(QMenu* parent_, PyPlugin::Node& node_, QMap<QString, Node>& tree_){
