@@ -327,6 +327,12 @@
     <addaction name="actionSettings"/>
     <addaction name="actionShortcuts"/>
    </widget>
+   <widget class="QMenu" name="menuPlugins">
+    <property name="title">
+     <string>Plugins</string>
+    </property>
+    <addaction name="actionPluginsManager"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
@@ -337,6 +343,7 @@
    <addaction name="menuDiff"/>
    <addaction name="menuMacro"/>
    <addaction name="menuSettings"/>
+   <addaction name="menuPlugins"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -1621,6 +1628,11 @@
    </property>
    <property name="statusTip">
     <string>Display unified diff of the two current files</string>
+   </property>
+  </action>
+  <action name="actionPluginsManager">
+   <property name="text">
+    <string>Plugins Manager</string>
    </property>
   </action>
  </widget>
