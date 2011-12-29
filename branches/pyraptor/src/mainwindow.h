@@ -100,6 +100,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		/** Settings */
 		void settings();
 		void shortcuts();
+		void plugins();
 
 		void about();
 		void showDocumentation();
@@ -156,6 +157,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void initMenuDiff();
 		void initMenuMacro();
 		void initMenuSettings();
+		void initMenuPlugins();
 		void initMenuHelp();
 
 	private:
@@ -166,7 +168,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		/** symbol manager */
 		SymbolManager* _symbolManager;
 		/** plugin engine */
-		PluginEngine* _pluginManager;
+		PluginEngine* _pluginEngine;
 
 		/** help browser */
 		HelpBrowser* _helpBrowser;

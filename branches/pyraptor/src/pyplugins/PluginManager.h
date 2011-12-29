@@ -18,39 +18,29 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __PLUGIN_ENGINE_H__
-#define __PLUGIN_ENGINE_H__
+#ifndef __PLUGIN_MANAGER_H__
+#define __PLUGIN_MANAGER_H__
 
-#include <QObject>
-#include <PythonQt.h>
+#include <QDialog>
+#include "ui_pluginmanager.h"
 
-class QMenu;
-class PyPlugin;
+class PluginEngine;
 
-class PluginEngine : public QObject{
-
+class PluginManager : public QDialog, private Ui::PluginManager {
+	
 	Q_OBJECT
 
 	public:
-		PluginEngine(QMenu& pluginMenu_, QObject* parent_ = 0);
-		~PluginEngine();
-
-		PyPlugin* getPlugin(const QString& name_);
-
-		QStringList getPluginNameList();
-		QList<PyPlugin*> getPluginList();
+		PluginManager(PluginEngine& pluginEngine_, QWidget* parent_ = 0);
+		~PluginManager();
 	
-	public slots:
-		void loadPlugins();
-		
+	private slots:
+		void on_tbClear_clicked();
+		void on_leFilter_textChanged(const QString& text_);
+	
 	private:
-		QMenu& _pluginMenu;
-
-		PythonQtObjectPtr _module;
-		PythonQtObjectPtr _loader;
-
-		QMap<QString, PyPlugin*> _plugins;
+		PluginEngine& _pluginEngine;
 
 };
 
-#endif // __PLUGIN_ENGINE_H__
+#endif // __PLUGIN_MANAGER_H__

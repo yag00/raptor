@@ -23,16 +23,37 @@ import sys
 class BasePlugin(object):
     
     def name(self):
-        """ return the name of plugin """
+        """ return the name of the plugin """
         return ""
-    
+ 
+    def icon(self):
+        """ return the icon of the plugin """
+        return ""
+
+    def shortDescription(self):
+        """ return a short description of the plugin """
+        return ""
+
+    def description(self):
+        """ return a short description of the plugin """
+        return ""
+
+    def author(self):
+        """ return the author of the plugin """
+        return ""
+
+    def license(self):
+        """ return the license name of the plugin """
+        return ""
+        
     def version(self):
-        """ return the version of plugin """
+        """ return the version of the plugin """
         return ""
         
     def about(self):
         """ return the about plugin informations"""
         return ""
+
 
     def actions(self):
         """ return a list tuple containing plugin action
@@ -47,6 +68,7 @@ class BasePlugin(object):
                           Use to create the menu tree.
         """
         return []
+
 
     def run(self, action):
         """ default function """

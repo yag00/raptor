@@ -19,7 +19,7 @@
  */
 
 #include <QMenu>
-#include <map>
+#include <QFileInfo>
 #include "PyPlugin.h"
 
 enum PyActionType{
@@ -33,8 +33,13 @@ enum PyActionType{
 PyPlugin::PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* parent_) : 
 	QObject(parent_), _plugin(plugin_) {
 	_name = _plugin.call("name", QVariantList()).toString();
+	_shortDescription = _plugin.call("shortDescription", QVariantList()).toString();
+	_description = _plugin.call("description", QVariantList()).toString();
+	_author = _plugin.call("author", QVariantList()).toString();
+	_license = _plugin.call("license", QVariantList()).toString();
 	_version = _plugin.call("version", QVariantList()).toString();
-	_about = _plugin.call("about", QVariantList()).toString();
+	_icon = _plugin.call("icon", QVariantList()).toString();
+
 	QVariantList ret = _plugin.call("actions", QVariantList()).toList();
 	
 	//check if there is a menu or only one action
@@ -44,11 +49,15 @@ PyPlugin::PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* paren
 		QString name, icon, shortcut, function, parent;
 		if(getActionInfo(action, name, icon, shortcut, function, parent) == false)
 			return;
+		if(_icon.isEmpty() && !icon.isEmpty())
+			_icon = icon;
 		QAction* a = pluginMenu_.addAction(QIcon(icon), name, this, SLOT(execute()));
 		a->setData(function);
+		_menu = a;
 	}else{
 		//create the plugin menu&submenus
 		QMenu* menu = pluginMenu_.addMenu(_name);
+		_menu = menu;
 		//intialize the tree map
 		QMap<QString, Node> tree;
 		QStringList treeRoot;
@@ -97,7 +106,7 @@ void PyPlugin::createMenu(QMenu* parent_, PyPlugin::Node& node_, QMap<QString, N
 bool PyPlugin::getActionInfo(QVariantList& action_, QString& name_, QString& icon_, 
 	QString& shortcut_, QString& function_, QString& parent_){
 	if(action_.isEmpty())
-		return false;	
+		return false;
 	name_ = action_[NAME].toString();
 	if(name_.isEmpty())
 		return false;
@@ -123,4 +132,53 @@ void PyPlugin::execute(){
 	else
 		ret = _plugin.call(function, QVariantList());
 	//@todo use ret ???
+}
+
+QString PyPlugin::getName() const {
+	return _name;	
+}
+
+QIcon PyPlugin::getIcon() const {
+	QFileInfo f(_icon);
+	if (f.exists())
+		return QIcon(_icon);
+	return QIcon(":/pyplugin/pyscript.png");
+}
+
+QString PyPlugin::getShortDescription() const {
+	return _shortDescription;
+}
+
+QString PyPlugin::getAuthor() const {
+	return _author;
+}
+
+QString PyPlugin::getLicense() const {
+	return _license;
+}
+
+QString PyPlugin::getDescription() const {
+	return _description;
+}
+
+QString PyPlugin::getVersion() const {
+	return _version;
+}
+
+bool PyPlugin::isEnabled() const{
+	return true;
+}
+
+void PyPlugin::setEnabled(bool enable_){
+	QAction* action = dynamic_cast<QAction*>(_menu);
+	if(action != 0){
+		action->setVisible(enable_);
+	}else{
+		QMenu* menu = dynamic_cast<QMenu*>(_menu);
+		if(menu != 0){
+			menu->menuAction()->setVisible(enable_);
+		}else{
+			qCritical() << "PARANOIA OWNS";
+		}
+	}
 }

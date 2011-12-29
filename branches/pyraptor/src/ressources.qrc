@@ -114,6 +114,7 @@
     <file alias="raptor.png">images/about/raptor.png</file>
   </qresource>
   <qresource prefix="pyplugin">
+    <file alias="pyscript.png">images/python/script.png</file>
     <file alias="console.png">images/python/console.png</file>
     <file alias="plugins.png">images/python/plugins.png</file>
     <file alias="BasePlugin.py">pyplugins/BasePlugin.py</file>

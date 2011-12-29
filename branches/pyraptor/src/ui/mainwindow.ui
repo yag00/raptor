@@ -331,7 +331,7 @@
     <property name="title">
      <string>Plugins</string>
     </property>
-    <addaction name="actionPluginsManager"/>
+    <addaction name="actionPluginManager"/>
     <addaction name="actionReloadPlugins"/>
     <addaction name="separator"/>
     <addaction name="actionPyConsole"/>
@@ -1633,7 +1633,7 @@
     <string>Display unified diff of the two current files</string>
    </property>
   </action>
-  <action name="actionPluginsManager">
+  <action name="actionPluginManager">
    <property name="icon">
     <iconset resource="../ressources.qrc">
      <normaloff>:/pyplugin/plugins.png</normaloff>:/pyplugin/plugins.png</iconset>
