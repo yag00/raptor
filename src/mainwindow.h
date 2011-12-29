@@ -35,6 +35,7 @@ class DocumentManager;
 class SymbolManager;
 class SessionManager;
 class HelpBrowser;
+class PluginEngine;
 
 class MainWindow : public QMainWindow, private Ui::MainWindow{
 
@@ -164,6 +165,8 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		SessionManager* _sessionManager;
 		/** symbol manager */
 		SymbolManager* _symbolManager;
+		/** plugin engine */
+		PluginEngine* _pluginManager;
 
 		/** help browser */
 		HelpBrowser* _helpBrowser;

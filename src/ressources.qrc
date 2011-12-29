@@ -90,7 +90,7 @@
     <file alias="structure.png">images/ctags/struct.png</file>
     <file alias="typedef.png">images/ctags/typedef.png</file>
   </qresource>
-  <qresource prefix="/explorer">
+  <qresource prefix="explorer">
     <file alias="browse-root.png">images/explorer/browse-root.png</file>
     <file alias="browse-up.png">images/explorer/browse-up.png</file>
     <file alias="folder.png">images/explorer/folder.png</file>
@@ -98,7 +98,7 @@
     <file alias="view-tree.png">images/explorer/view-tree.png</file>
     <file alias="remove.png">images/remove.png</file>
   </qresource>
-  <qresource prefix="/listeditor">
+  <qresource prefix="listeditor">
     <file alias="add.png">images/listeditor/add.png</file>
     <file alias="clear.png">images/listeditor/clear.png</file>
     <file alias="down.png">images/listeditor/down.png</file>
@@ -108,9 +108,13 @@
     <file alias="remove.png">images/listeditor/remove.png</file>
     <file alias="up.png">images/listeditor/up.png</file>
   </qresource>
-  <qresource prefix="/about">
+  <qresource prefix="about">
     <file alias="LICENSE.GPL3">rc/LICENSE.GPL3</file>
     <file alias="about.png">images/about/about.png</file>
     <file alias="raptor.png">images/about/raptor.png</file>
   </qresource>
+  <qresource prefix="pyplugin">
+    <file alias="BasePlugin.py">pyplugins/BasePlugin.py</file>
+    <file alias="PluginLoader.py">pyplugins/PluginLoader.py</file>
+  </qresource>  
 </RCC>
