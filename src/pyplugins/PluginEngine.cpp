@@ -24,7 +24,7 @@
 #include "PluginEngine.h"
 
 PluginEngine::PluginEngine(QMenu& pluginMenu_, QObject* parent_) : 
-	QObject(parent_),_pluginMenu(pluginMenu_), _module(PythonQt::self()->getMainModule()) {
+	QObject(parent_), _pluginMenu(pluginMenu_), _module(PythonQt::self()->getMainModule()) {
 	//add python ressource file to path
 	_module.evalScript("sys.path.append(':/pyplugin')\n");
 	//load base plugin class
@@ -86,4 +86,20 @@ void PluginEngine::loadPlugins(){
 			_plugins[plugin] = p;
 		}
 	}	
+}
+
+PyPlugin* PluginEngine::getPlugin(const QString& name_){
+	QMap<QString, PyPlugin*>::iterator found = _plugins.find(name_);
+	if(found != _plugins.end())
+		return found.value();
+	else
+		return 0;
+}
+
+QStringList PluginEngine::getPluginNameList(){
+	return _plugins.keys();
+}
+
+QList<PyPlugin*> PluginEngine::getPluginList(){
+	return _plugins.values();
 }

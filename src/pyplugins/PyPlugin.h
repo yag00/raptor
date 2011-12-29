@@ -34,6 +34,19 @@ class PyPlugin : public QObject{
 		PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* parent_ = 0);
 		~PyPlugin();
 		
+		QIcon getIcon() const;
+		QString getName() const;
+		QString getShortDescription() const;
+		QString getDescription() const;
+		QString getAuthor() const;
+		QString getLicense() const;
+		QString getVersion() const;
+	
+		bool isEnabled() const;
+	
+	public slots:
+		void setEnabled(bool enable_);
+	
 	protected slots:
 		void execute();
 	
@@ -53,10 +66,15 @@ class PyPlugin : public QObject{
 	private:
 		PythonQtObjectPtr _plugin;
 	
+		QString _icon;
 		QString _name;
+		QString _shortDescription;
+		QString _description;
+		QString _author;
+		QString _license;
 		QString _version;
-		QString _about;
 
+		QObject* _menu;
 };
 
 #endif // __PLUGIN_ENGINE_H__

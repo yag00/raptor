@@ -46,6 +46,7 @@
 #include "export/Exporter.h"
 #include "export/ExporterHTML.h"
 #include "pyplugins/PluginEngine.h"
+#include "pyplugins/PluginManager.h"
 
 #include "mainwindow.h"
 
@@ -87,6 +88,7 @@ void MainWindow::initMenu() {
 	initMenuDiff();
 	initMenuMacro();
 	initMenuSettings();
+	initMenuPlugins();
 	initMenuHelp();
 }
 
@@ -316,6 +318,12 @@ void MainWindow::initMenuSettings() {
 	connect(actionShortcuts, SIGNAL(triggered()), this, SLOT(shortcuts()));
 }
 
+void MainWindow::initMenuPlugins(){
+	//connect menu "Plugin" Action
+	connect(actionPluginManager, SIGNAL(triggered()), this, SLOT(plugins()));
+	connect(actionReloadPlugins, SIGNAL(triggered()), _pluginEngine, SLOT(loadPlugins()));
+}
+
 void MainWindow::initMenuHelp() {
 	//connect menu "Help" Action
 	connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
@@ -327,7 +335,7 @@ void MainWindow::createManager() {
 	_sessionManager = new SessionManager(*_documentManager, this);
 	_symbolManager = new SymbolManager(this);
 	_helpBrowser = new HelpBrowser(this);
-	_pluginManager = new PluginEngine(*menuPlugins, this);
+	_pluginEngine = new PluginEngine(*menuPlugins, this);
 	
 	setCentralWidget(_documentManager);
 
@@ -850,6 +858,11 @@ void MainWindow::shortcuts() {
 	foreach(DocumentEditor* d, list){
 		settings.update(d);
 	}
+}
+
+void MainWindow::plugins() {
+	PluginManager dlg(*_pluginEngine);
+	dlg.exec();
 }
 
 void MainWindow::showDocumentation() {
