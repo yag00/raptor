@@ -42,7 +42,8 @@ class PluginEngine : public QObject{
 	
 	public slots:
 		void loadPlugins();
-		
+		void dropPlugins();
+	
 	private:
 		QMenu& _pluginMenu;
 
