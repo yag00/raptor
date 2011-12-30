@@ -93,13 +93,12 @@ Warning : Plugin will still be loaded on start up</string>
          <property name="title">
           <string>Plugins Paths</string>
          </property>
-         <zorder>groupBox</zorder>
         </widget>
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string/>
+          <string notr="true"/>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
