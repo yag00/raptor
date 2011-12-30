@@ -35,6 +35,19 @@ PluginManager::PluginManager(PluginEngine& pluginEngine_, QWidget* parent_) :
 		item->setData(Qt::UserRole, plugin->getName());	//for filtering (by name)
 		lwPlugins->setItemWidget(item, pel);
 	}
+	
+	QMap<QString, QStringList> availablePlugin = _pluginEngine.getAvailablePluginList();
+	for(QMap<QString, QStringList>::iterator it = availablePlugin.begin();
+		it != availablePlugin.end(); ++it){
+		foreach(QString pluginName, it.value()){
+			QTreeWidgetItem* item = new QTreeWidgetItem(twAvailablePlugins);
+			item->setText(0, pluginName);
+			item->setText(1, it.key());
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
+			item->setCheckState(0, Qt::Checked);
+		}
+	}
+	connect(twAvailablePlugins, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(availablePluginsItemChanged(QTreeWidgetItem*, int)));
 }
 
 PluginManager::~PluginManager(){
@@ -51,3 +64,13 @@ void PluginManager::on_leFilter_textChanged(const QString& text_){
 		item->setHidden(!item->data(Qt::UserRole).toString().contains(text_, Qt::CaseInsensitive));
 	}
 }
+
+void PluginManager::availablePluginsItemChanged(QTreeWidgetItem* item_, int column_){
+	if(column_ == 0){
+		if(item_->checkState(0) == Qt::Checked){
+			qDebug() << item_->text(0) << " checked";
+		}else{
+			qDebug() << item_->text(0) << " not checked";
+		}
+	}
+}	

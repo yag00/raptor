@@ -57,7 +57,7 @@ void PluginEngine::loadPlugins(){
 	dropPlugins();
 	//@todo get plugin path
 	QStringList pluginPaths;
-	pluginPaths << "/home/chris/Dev/pyraptor/plugin";
+	pluginPaths << "/home/helen/chris/pyraptor/plugin";
 	
 	//load plugin
 	QVariant ret = _loader.call("load", QVariantList() << pluginPaths);
@@ -69,7 +69,7 @@ void PluginEngine::loadPlugins(){
 	for(QMap<QString, QVariant>::iterator it = pluginMap.begin(); it != pluginMap.end(); ++it){
 		//qDebug() << it.key() << "\t: " << it.value().toStringList();
 		QStringList plugins = it.value().toStringList();
-		
+		_availablePlugins[it.key()] = plugins;
 		//add python plugin to file to path
 		_module.evalFile(it.key());
 		
@@ -101,8 +101,8 @@ PyPlugin* PluginEngine::getPlugin(const QString& name_){
 		return 0;
 }
 
-QStringList PluginEngine::getPluginNameList(){
-	return _plugins.keys();
+QMap<QString, QStringList> PluginEngine::getAvailablePluginList(){
+	return _availablePlugins;
 }
 
 QList<PyPlugin*> PluginEngine::getPluginList(){

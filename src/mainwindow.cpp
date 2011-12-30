@@ -74,6 +74,10 @@ MainWindow::MainWindow() {
 }
 
 MainWindow::~MainWindow() {
+	//plugin engine destroys all plugins which delete their menu
+	//from the mainwindow plugin menu. The mainwindow plugin menu
+	//should be valid at this time, so we explicitly destroy the engine
+	delete _pluginEngine;
 	LexerManager::getInstance().destroy();
 }
 

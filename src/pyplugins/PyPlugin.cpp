@@ -89,6 +89,8 @@ PyPlugin::PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* paren
 
 PyPlugin::~PyPlugin(){
 	//plugin destroy his menu
+	//allow to completely remove the plugin during runtime
+	//the root menu should be valid at this time
 	delete _menu;
 }
 
