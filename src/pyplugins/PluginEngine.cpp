@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QMenu>
 #include "PyPlugin.h"
+#include "PluginSettings.h"
 #include "PluginEngine.h"
 
 PluginEngine::PluginEngine(QMenu& pluginMenu_, QObject* parent_) : 
@@ -33,8 +34,7 @@ PluginEngine::PluginEngine(QMenu& pluginMenu_, QObject* parent_) :
 	_module.evalFile(":/pyplugin/PluginLoader.py");
 	_loader = _module.evalScript("PluginLoader()\n", Py_eval_input);
 	if(_loader.isNull()){
-		//@todo critical error
-		qDebug() << "ERROR : Can't load plugin loader";
+		qCritical() << "ERROR : Can't load plugin loader";
 		return;
 	}
 	//load plugins
@@ -66,6 +66,8 @@ void PluginEngine::loadPlugins(){
 	if(!pluginMap.isEmpty())
 		_pluginMenu.addSeparator();
 	
+	
+	PluginSettings settings;
 	for(QMap<QString, QVariant>::iterator it = pluginMap.begin(); it != pluginMap.end(); ++it){
 		//qDebug() << it.key() << "\t: " << it.value().toStringList();
 		QStringList plugins = it.value().toStringList();
@@ -74,6 +76,9 @@ void PluginEngine::loadPlugins(){
 		_module.evalFile(it.key());
 		
 		foreach(QString plugin, plugins){
+			if(settings.getLoadStatus(plugin) == false)
+				continue;
+
 			//get plugin info
 			QString pluginConstructor = plugin + "()\n";
 			PythonQtObjectPtr pyPluginObj = _module.evalScript(pluginConstructor, Py_eval_input);

@@ -18,34 +18,28 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __PLUGIN_MANAGER_H__
-#define __PLUGIN_MANAGER_H__
+#ifndef __PLUGIN_SETTINGS_H__
+#define __PLUGIN_SETTINGS_H__
 
-#include <QDialog>
-#include "ui_pluginmanager.h"
+#include <QSettings>
 
-class PluginEngine;
+/** handle all plugins settings of the application */
+class PluginSettings : public QSettings{
 
-class PluginManager : public QDialog, private Ui::PluginManager {
-	
 	Q_OBJECT
 
 	public:
-		PluginManager(PluginEngine& pluginEngine_, QWidget* parent_ = 0);
-		~PluginManager();
+		PluginSettings(QObject* parent_ = 0);
+		~PluginSettings();
+		
+		QStringList getPluginPaths();
+		void setPluginPaths(const QStringList& paths_);
 	
-	private slots:
-		void on_tbClear_clicked();
-		void on_tbReload_clicked();
-		void on_leFilter_textChanged(const QString& text_);
-		void on_twAvailablePlugins_itemChanged(QTreeWidgetItem* item_, int column_);
-	
-	private:
-		void populateDialog();
-	
-	private:
-		PluginEngine& _pluginEngine;
+		bool getEnableStatus(const QString& plugin_);
+		void setEnableStatus(const QString& plugin_, bool enable_);
 
+		bool getLoadStatus(const QString& plugin_);
+		void setLoadStatus(const QString& plugin_, bool enable_);
 };
 
-#endif // __PLUGIN_MANAGER_H__
+#endif // __PLUGIN_SETTINGS_H__

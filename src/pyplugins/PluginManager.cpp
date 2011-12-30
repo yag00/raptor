@@ -19,6 +19,7 @@
  */
 
 #include "PyPlugin.h"
+#include "PluginSettings.h"
 #include "PluginElement.h"
 #include "PluginEngine.h"
 #include "PluginManager.h"
@@ -27,7 +28,14 @@ PluginManager::PluginManager(PluginEngine& pluginEngine_, QWidget* parent_) :
 	QDialog(parent_), _pluginEngine(pluginEngine_) {
 	//init ui
 	setupUi(this);
-		
+	populateDialog();
+}
+
+PluginManager::~PluginManager(){
+
+}
+
+void PluginManager::populateDialog(){
 	foreach(PyPlugin* plugin, _pluginEngine.getPluginList()){
 		PluginElement* pel = new PluginElement(*plugin, this);
 		QListWidgetItem* item = new QListWidgetItem(lwPlugins);
@@ -36,6 +44,8 @@ PluginManager::PluginManager(PluginEngine& pluginEngine_, QWidget* parent_) :
 		lwPlugins->setItemWidget(item, pel);
 	}
 	
+	twAvailablePlugins->blockSignals(true);
+	PluginSettings settings;
 	QMap<QString, QStringList> availablePlugin = _pluginEngine.getAvailablePluginList();
 	for(QMap<QString, QStringList>::iterator it = availablePlugin.begin();
 		it != availablePlugin.end(); ++it){
@@ -44,18 +54,26 @@ PluginManager::PluginManager(PluginEngine& pluginEngine_, QWidget* parent_) :
 			item->setText(0, pluginName);
 			item->setText(1, it.key());
 			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
-			item->setCheckState(0, Qt::Checked);
+			if(settings.getLoadStatus(pluginName))
+				item->setCheckState(0, Qt::Checked);
+			else
+				item->setCheckState(0, Qt::Unchecked);
 		}
 	}
-	connect(twAvailablePlugins, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(availablePluginsItemChanged(QTreeWidgetItem*, int)));
-}
-
-PluginManager::~PluginManager(){
-
+	twAvailablePlugins->blockSignals(false);	
 }
 
 void PluginManager::on_tbClear_clicked(){
 	leFilter->clear();
+}
+
+void PluginManager::on_tbReload_clicked(){
+	leFilter->clear();
+	lwPlugins->clear();
+	twAvailablePlugins->clear();
+	_pluginEngine.dropPlugins();
+	_pluginEngine.loadPlugins();
+	populateDialog();
 }
 
 void PluginManager::on_leFilter_textChanged(const QString& text_){
@@ -65,12 +83,13 @@ void PluginManager::on_leFilter_textChanged(const QString& text_){
 	}
 }
 
-void PluginManager::availablePluginsItemChanged(QTreeWidgetItem* item_, int column_){
+void PluginManager::on_twAvailablePlugins_itemChanged(QTreeWidgetItem* item_, int column_){
 	if(column_ == 0){
+		PluginSettings settings;
 		if(item_->checkState(0) == Qt::Checked){
-			qDebug() << item_->text(0) << " checked";
+			settings.setLoadStatus(item_->text(0), true);
 		}else{
-			qDebug() << item_->text(0) << " not checked";
+			settings.setLoadStatus(item_->text(0), false);
 		}
 	}
 }	

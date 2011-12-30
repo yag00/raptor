@@ -18,26 +18,30 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "PyPlugin.h"
-#include "PluginElement.h"
 #include "ui_pluginabout.h"
+#include "PyPlugin.h"
+#include "PluginSettings.h"
+#include "PluginElement.h"
 
 PluginElement::PluginElement(PyPlugin& plugin_, QWidget* parent_) : 
 	QWidget(parent_), _plugin(plugin_) {
 	//init ui
 	setupUi(this);
-	connect(pbAbout, SIGNAL(clicked()), this, SLOT(about()));
-	connect(cbEnabled, SIGNAL(toggled(bool)), this, SLOT(enable(bool)));
+		
 	//init element
 	const QString info1 = "<strong>%1</strong> - version %2";
 	linfoLine1->setText(info1.arg(_plugin.getName()).arg(_plugin.getVersion()));
 	linfoLine2->setText(_plugin.getShortDescription());
 	
-	bool enable = plugin_.isEnabled();
+	bool enable = _plugin.isEnabled();
 	cbEnabled->setChecked(enable);
 	lIcon->setEnabled(enable);
 	linfoLine1->setEnabled(enable);
 	linfoLine2->setEnabled(enable);
+		
+	//connection
+	connect(pbAbout, SIGNAL(clicked()), this, SLOT(about()));
+	connect(cbEnabled, SIGNAL(toggled(bool)), this, SLOT(enable(bool)));
 }
 
 PluginElement::~PluginElement(){
