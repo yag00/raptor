@@ -50,7 +50,7 @@ class PyPlugin : public QObject{
 	protected slots:
 		void execute();
 	
-	protected:
+	private:
 		struct Node{
 			QString name;
 			QString parent;
@@ -63,6 +63,8 @@ class PyPlugin : public QObject{
 		bool getActionInfo(QVariantList& action_, QString& name_, QString& icon_,
 							QString& shotcut_, QString& function_, QString& parent_);
 	
+		void setPluginMenuVisible(bool visible_);
+		
 	private:
 		PythonQtObjectPtr _plugin;
 	

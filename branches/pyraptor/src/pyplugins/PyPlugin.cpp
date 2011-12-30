@@ -20,6 +20,7 @@
 
 #include <QMenu>
 #include <QFileInfo>
+#include "PluginSettings.h"
 #include "PyPlugin.h"
 
 enum PyActionType{
@@ -85,6 +86,8 @@ PyPlugin::PyPlugin(PythonQtObjectPtr plugin_, QMenu& pluginMenu_, QObject* paren
 			createMenu(menu, tree[node], tree);
 		}
 	}
+	
+	setPluginMenuVisible(isEnabled());
 }
 
 PyPlugin::~PyPlugin(){
@@ -170,19 +173,26 @@ QString PyPlugin::getVersion() const {
 }
 
 bool PyPlugin::isEnabled() const{
-	return true;
+	PluginSettings settings;
+	return settings.getEnableStatus(_name);
 }
 
 void PyPlugin::setEnabled(bool enable_){
+	PluginSettings settings;
+	settings.setEnableStatus(_name, enable_);	
+	setPluginMenuVisible(enable_);
+}
+
+void PyPlugin::setPluginMenuVisible(bool visible_){
 	QAction* action = dynamic_cast<QAction*>(_menu);
 	if(action != 0){
-		action->setVisible(enable_);
+		action->setVisible(visible_);
 	}else{
 		QMenu* menu = dynamic_cast<QMenu*>(_menu);
 		if(menu != 0){
-			menu->menuAction()->setVisible(enable_);
+			menu->menuAction()->setVisible(visible_);
 		}else{
 			qCritical() << "PARANOIA OWNS";
 		}
-	}
+	}	
 }
