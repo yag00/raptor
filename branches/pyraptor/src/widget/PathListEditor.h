@@ -24,7 +24,7 @@
 #include "FileListEditor.h"
 
 /*!
-	\brief a pPathListEditor that handle paths name.
+	\brief a PathListEditor that handle paths name.
 */
 class PathListEditor : public FileListEditor {
 	Q_OBJECT
