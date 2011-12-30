@@ -82,7 +82,10 @@ class SettingsDialog : public QDialog, private Ui::UISettings{
 		void on_twSwitcher_itemSelectionChanged();
 		void on_pbSwitcherAddChange_clicked();
 		void on_pbSwitcherDelete_clicked();
-		
+
+		/** plugin paths */
+		void pluginPathChanged();
+			
 	private:	
 		QButtonGroup* _bgToolBarIconSize;
 		QButtonGroup* _bgCallTipsStyle;
