@@ -25,13 +25,13 @@ include( config.pri )
 
 !build_pass {
 	unix{
-		message(*********************************************************)
-		message(*                     RAPTOR BUILD                      *)
-		message(*********************************************************)
-		message( "Raptor binary will be installed to : $$PACKAGE_BIN" )
-		message( "Raptor library will be installed to : $$PACKAGE_LIB" )
-		message( "Raptor datas will be installed to : $$PACKAGE_DATA" )
-		message( "You can change this by specifying qmake option : prefix, libraries, datas" )
-		message(*********************************************************)
+		#message(*********************************************************)
+		#message(*                     RAPTOR BUILD                      *)
+		#message(*********************************************************)
+		#message( "Raptor binary will be installed to : $$PACKAGE_BIN" )
+		#message( "Raptor library will be installed to : $$PACKAGE_LIB" )
+		#message( "Raptor datas will be installed to : $$PACKAGE_DATA" )
+		#message( "You can change this by specifying qmake option : prefix, libraries, datas" )
+		#message(*********************************************************)
 	}
 }
