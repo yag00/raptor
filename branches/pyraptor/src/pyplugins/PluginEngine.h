@@ -37,7 +37,10 @@ class PluginEngine : public QObject{
 
 		PyPlugin* getPlugin(const QString& name_);
 
-		QStringList getPluginNameList();
+		/** @return the list of all avail plugin 
+		 * the map contains the file and all plugins found into the file */
+		QMap<QString, QStringList> getAvailablePluginList();
+		/** @return the list of loaded plugin */
 		QList<PyPlugin*> getPluginList();
 	
 	public slots:
@@ -51,6 +54,7 @@ class PluginEngine : public QObject{
 		PythonQtObjectPtr _loader;
 
 		QMap<QString, PyPlugin*> _plugins;
+		QMap<QString, QStringList> _availablePlugins;
 
 };
 

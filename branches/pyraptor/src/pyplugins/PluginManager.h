@@ -37,6 +37,8 @@ class PluginManager : public QDialog, private Ui::PluginManager {
 	private slots:
 		void on_tbClear_clicked();
 		void on_leFilter_textChanged(const QString& text_);
+
+		void availablePluginsItemChanged(QTreeWidgetItem* item_, int column_);
 	
 	private:
 		PluginEngine& _pluginEngine;

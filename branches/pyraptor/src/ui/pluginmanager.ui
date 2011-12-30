@@ -17,40 +17,135 @@
    <iconset resource="../ressources.qrc">
     <normaloff>:/pyplugin/plugins.png</normaloff>:/pyplugin/plugins.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="lPluginFilter">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Plugin Filter :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="leFilter"/>
-     </item>
-     <item>
-      <widget class="QToolButton" name="tbClear">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../ressources.qrc">
-         <normaloff>:/explorer/remove.png</normaloff>:/explorer/remove.png</iconset>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QListWidget" name="lwPlugins"/>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="loadedPluginTab">
+      <attribute name="icon">
+       <iconset resource="../ressources.qrc">
+        <normaloff>:/pyplugin/plugins.png</normaloff>:/pyplugin/plugins.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Loaded Plugins</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="lPluginFilter">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Plugin Filter :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leFilter"/>
+         </item>
+         <item>
+          <widget class="QToolButton" name="tbClear">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../ressources.qrc">
+             <normaloff>:/explorer/remove.png</normaloff>:/explorer/remove.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QListWidget" name="lwPlugins"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settingsPluginTab">
+      <attribute name="icon">
+       <iconset resource="../ressources.qrc">
+        <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Settings</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="PathListEditor" name="plePluginsPaths">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Plugins Paths</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Plugins Available</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QTreeWidget" name="twAvailablePlugins">
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="rootIsDecorated">
+             <bool>false</bool>
+            </property>
+            <property name="itemsExpandable">
+             <bool>false</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="headerCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerDefaultSectionSize">
+             <number>250</number>
+            </attribute>
+            <attribute name="headerHighlightSections">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerMinimumSectionSize">
+             <number>100</number>
+            </attribute>
+            <attribute name="headerShowSortIndicator" stdset="0">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="headerStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Plugin</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>File</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="dbbButtons">
@@ -61,6 +156,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PathListEditor</class>
+   <extends>QGroupBox</extends>
+   <header location="global">widget/PathListEditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../ressources.qrc"/>
  </resources>
