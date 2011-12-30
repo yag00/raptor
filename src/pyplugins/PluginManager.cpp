@@ -29,13 +29,25 @@ PluginManager::PluginManager(PluginEngine& pluginEngine_, QWidget* parent_) :
 	//init ui
 	setupUi(this);
 	populateDialog();
+	connect(plePluginsPaths, SIGNAL(edited()), this, SLOT(pluginPathChanged()));
 }
 
 PluginManager::~PluginManager(){
 
 }
 
+void PluginManager::pluginPathChanged(){
+	PluginSettings settings;
+	settings.setPluginPaths(plePluginsPaths->values());
+}
+
 void PluginManager::populateDialog(){
+	PluginSettings settings;
+
+	plePluginsPaths->blockSignals(true);
+	plePluginsPaths->setValues(settings.getPluginPaths());
+	plePluginsPaths->blockSignals(false);
+	
 	foreach(PyPlugin* plugin, _pluginEngine.getPluginList()){
 		PluginElement* pel = new PluginElement(*plugin, this);
 		QListWidgetItem* item = new QListWidgetItem(lwPlugins);
@@ -45,7 +57,6 @@ void PluginManager::populateDialog(){
 	}
 	
 	twAvailablePlugins->blockSignals(true);
-	PluginSettings settings;
 	QMap<QString, QStringList> availablePlugin = _pluginEngine.getAvailablePluginList();
 	for(QMap<QString, QStringList>::iterator it = availablePlugin.begin();
 		it != availablePlugin.end(); ++it){

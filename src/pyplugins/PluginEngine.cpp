@@ -51,13 +51,14 @@ void PluginEngine::dropPlugins(){
 		delete p;
 	}
 	_plugins.clear();
+	_availablePlugins.clear();
 }
 
 void PluginEngine::loadPlugins(){
 	dropPlugins();
-	//@todo get plugin path
-	QStringList pluginPaths;
-	pluginPaths << "/home/helen/chris/pyraptor/plugin";
+	
+	PluginSettings settings;
+	QStringList pluginPaths = settings.getPluginPaths();
 	
 	//load plugin
 	QVariant ret = _loader.call("load", QVariantList() << pluginPaths);
@@ -66,8 +67,6 @@ void PluginEngine::loadPlugins(){
 	if(!pluginMap.isEmpty())
 		_pluginMenu.addSeparator();
 	
-	
-	PluginSettings settings;
 	for(QMap<QString, QVariant>::iterator it = pluginMap.begin(); it != pluginMap.end(); ++it){
 		//qDebug() << it.key() << "\t: " << it.value().toStringList();
 		QStringList plugins = it.value().toStringList();
