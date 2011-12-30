@@ -283,20 +283,20 @@ Garder ce fichier dans l&apos;editeur?</translation>
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../document_view.cpp" line="44"/>
+        <location filename="../document_view.cpp" line="45"/>
         <source>Add new page</source>
         <translation>Ajouter une nouvelle page</translation>
     </message>
     <message>
-        <location filename="../document_view.cpp" line="52"/>
+        <location filename="../document_view.cpp" line="53"/>
         <source>Close current page</source>
         <translation>Fermer la page courante</translation>
     </message>
     <message>
-        <location filename="../document_view.cpp" line="250"/>
-        <location filename="../document_view.cpp" line="260"/>
-        <location filename="../document_view.cpp" line="278"/>
-        <location filename="../document_view.cpp" line="293"/>
+        <location filename="../document_view.cpp" line="252"/>
+        <location filename="../document_view.cpp" line="262"/>
+        <location filename="../document_view.cpp" line="280"/>
+        <location filename="../document_view.cpp" line="295"/>
         <source>new %1</source>
         <translation>nouveau %1</translation>
     </message>
@@ -607,1583 +607,1624 @@ Garder ce fichier dans l&apos;editeur?</translation>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="345"/>
+        <location filename="../ui/mainwindow.ui" line="332"/>
+        <source>Plugins</source>
+        <translation>Plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="355"/>
         <source>File</source>
         <comment>toolbar File</comment>
         <translation>Fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="371"/>
+        <location filename="../ui/mainwindow.ui" line="381"/>
         <source>Edit</source>
         <comment>toolbar Edit</comment>
         <translation>Edition</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="394"/>
+        <location filename="../ui/mainwindow.ui" line="404"/>
         <source>View</source>
         <comment>toolbar View</comment>
         <translation>Vue</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="415"/>
+        <location filename="../ui/mainwindow.ui" line="425"/>
         <source>Macro</source>
         <comment>toolbar Macro</comment>
         <translation>Macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="440"/>
+        <location filename="../ui/mainwindow.ui" line="450"/>
         <source>New</source>
         <comment>action new</comment>
         <translation>Nouveau</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="443"/>
+        <location filename="../ui/mainwindow.ui" line="453"/>
         <source>Create new file</source>
         <comment>statustip action new</comment>
         <translation>Créer un nouveau fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="446"/>
+        <location filename="../ui/mainwindow.ui" line="456"/>
         <source>Ctrl+N</source>
         <comment>shortcut action new</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="455"/>
+        <location filename="../ui/mainwindow.ui" line="465"/>
         <source>Open</source>
         <comment>action open</comment>
         <translation>Ouvrir</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="458"/>
+        <location filename="../ui/mainwindow.ui" line="468"/>
         <source>Open file</source>
         <comment>statustip action open</comment>
         <translation>Ouvrir fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="461"/>
+        <location filename="../ui/mainwindow.ui" line="471"/>
         <source>Ctrl+O</source>
         <comment>shortcut action open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="470"/>
+        <location filename="../ui/mainwindow.ui" line="480"/>
         <source>Save</source>
         <comment>action save</comment>
         <translation>Sauvegarder</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="473"/>
+        <location filename="../ui/mainwindow.ui" line="483"/>
         <source>Save file</source>
         <comment>statustip action save</comment>
         <translation>Sauvegarder fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="476"/>
+        <location filename="../ui/mainwindow.ui" line="486"/>
         <source>Ctrl+S</source>
         <comment>shortcut action save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="485"/>
+        <location filename="../ui/mainwindow.ui" line="495"/>
         <source>Save As ...</source>
         <comment>action save as</comment>
         <translation>Sauvegarder sous ...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="488"/>
+        <location filename="../ui/mainwindow.ui" line="498"/>
         <source>Save file as ...</source>
         <comment>statustip action save as</comment>
         <translation>Sauvegarder fichier sous ...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="491"/>
+        <location filename="../ui/mainwindow.ui" line="501"/>
         <source>Ctrl+Alt+S</source>
         <comment>shortcut action save as</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="496"/>
+        <location filename="../ui/mainwindow.ui" line="506"/>
         <source>Save a Copy As ...</source>
         <comment>action save a copy as</comment>
         <translation>Sauvegarder une copie sous ...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="499"/>
+        <location filename="../ui/mainwindow.ui" line="509"/>
         <source>Save a copy of this file as ...</source>
         <comment>statustip save a copy as</comment>
         <translation>Sauvegarder une copie de ce fichier sous ...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="508"/>
+        <location filename="../ui/mainwindow.ui" line="518"/>
         <source>Close</source>
         <comment>action close</comment>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="511"/>
+        <location filename="../ui/mainwindow.ui" line="521"/>
         <source>Close file</source>
         <comment>statustip action close</comment>
         <translation>Fermer fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="523"/>
+        <location filename="../ui/mainwindow.ui" line="533"/>
         <source>Close All</source>
         <comment>action close all</comment>
         <translation>Fermer tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="526"/>
+        <location filename="../ui/mainwindow.ui" line="536"/>
         <source>Close all files</source>
         <comment>statustip action close all</comment>
         <translation>Fermer tout les fichiers</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="535"/>
+        <location filename="../ui/mainwindow.ui" line="545"/>
         <source>Close All Except Current Document</source>
         <comment>action close all except current document</comment>
         <translation>Fermer tout sauf le document courrant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="538"/>
+        <location filename="../ui/mainwindow.ui" line="548"/>
         <source>Close all files except the current one</source>
         <comment>statustip action close all except current document</comment>
         <translation>Fermer tout sauf le document courrant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="547"/>
+        <location filename="../ui/mainwindow.ui" line="557"/>
         <source>Exit</source>
         <comment>action exit</comment>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="550"/>
+        <location filename="../ui/mainwindow.ui" line="560"/>
         <source>Exit</source>
         <comment>statustip action exit</comment>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="553"/>
+        <location filename="../ui/mainwindow.ui" line="563"/>
         <source>Alt+F4</source>
         <comment>shortcut action exit</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="562"/>
+        <location filename="../ui/mainwindow.ui" line="572"/>
         <source>Save All</source>
         <comment>action save all</comment>
         <translation>Sauvegarder tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="565"/>
+        <location filename="../ui/mainwindow.ui" line="575"/>
         <source>Save all files</source>
         <comment>statustip action save all</comment>
         <translation>Sauvegarder tout les fichiers</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="568"/>
+        <location filename="../ui/mainwindow.ui" line="578"/>
         <source>Ctrl+Shift+S</source>
         <comment>shortcut action save all</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="577"/>
+        <location filename="../ui/mainwindow.ui" line="587"/>
         <source>Print</source>
         <comment>action print</comment>
         <translation>Imprimer</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="580"/>
+        <location filename="../ui/mainwindow.ui" line="590"/>
         <source>Print file</source>
         <comment>statustip action print</comment>
         <translation>Imprimer le fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="583"/>
+        <location filename="../ui/mainwindow.ui" line="593"/>
         <source>Ctrl+P</source>
         <comment>shortcut action print</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="592"/>
+        <location filename="../ui/mainwindow.ui" line="602"/>
         <source>Undo</source>
         <comment>action undo</comment>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="595"/>
+        <location filename="../ui/mainwindow.ui" line="605"/>
         <source>Undo</source>
         <comment>statustip action undo</comment>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="598"/>
+        <location filename="../ui/mainwindow.ui" line="608"/>
         <source>Ctrl+Z</source>
         <comment>shortcut action undo</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="607"/>
+        <location filename="../ui/mainwindow.ui" line="617"/>
         <source>Redo</source>
         <comment>action redo</comment>
         <translation>Refaire</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="610"/>
+        <location filename="../ui/mainwindow.ui" line="620"/>
         <source>Redo</source>
         <comment>statustip action redo</comment>
         <translation>Refaire</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="613"/>
+        <location filename="../ui/mainwindow.ui" line="623"/>
         <source>Ctrl+Y</source>
         <comment>shortcut action redo</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="622"/>
+        <location filename="../ui/mainwindow.ui" line="632"/>
         <source>Cut</source>
         <comment>action cut</comment>
         <translation>Couper</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="625"/>
+        <location filename="../ui/mainwindow.ui" line="635"/>
         <source>Cut</source>
         <comment>statustip action cut</comment>
         <translation>Couper</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="628"/>
+        <location filename="../ui/mainwindow.ui" line="638"/>
         <source>Ctrl+X</source>
         <comment>shortcut action cut</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="637"/>
+        <location filename="../ui/mainwindow.ui" line="647"/>
         <source>Copy</source>
         <comment>action copy</comment>
         <translation>Copier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="640"/>
+        <location filename="../ui/mainwindow.ui" line="650"/>
         <source>Copy</source>
         <comment>statustip action copy</comment>
         <translation>Copier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="643"/>
+        <location filename="../ui/mainwindow.ui" line="653"/>
         <source>Ctrl+C</source>
         <comment>shortcut action copy</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="652"/>
+        <location filename="../ui/mainwindow.ui" line="662"/>
         <source>Paste</source>
         <comment>action paste</comment>
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="655"/>
+        <location filename="../ui/mainwindow.ui" line="665"/>
         <source>Paste</source>
         <comment>statustip action paste</comment>
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="658"/>
+        <location filename="../ui/mainwindow.ui" line="668"/>
         <source>Ctrl+V</source>
         <comment>shortcut action paste</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="667"/>
+        <location filename="../ui/mainwindow.ui" line="677"/>
         <source>Select All</source>
         <comment>action select all</comment>
         <translation>Selectionner tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="670"/>
+        <location filename="../ui/mainwindow.ui" line="680"/>
         <source>Select All</source>
         <comment>statustip action select all</comment>
         <translation>Selectionner tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="673"/>
+        <location filename="../ui/mainwindow.ui" line="683"/>
         <source>Select All</source>
         <comment>whatsThis action select all</comment>
         <translation>Selectionner tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="676"/>
+        <location filename="../ui/mainwindow.ui" line="686"/>
         <source>Ctrl+A</source>
         <comment>shortcut action select all</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="685"/>
+        <location filename="../ui/mainwindow.ui" line="695"/>
         <source>Open All Recent Files</source>
         <comment>action open all recent files</comment>
         <translation>Ouvrir tout les fichiers récents</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="688"/>
+        <location filename="../ui/mainwindow.ui" line="698"/>
         <source>Open all recent files</source>
         <comment>statustip action open all recent files</comment>
         <translation>Ouvrir tout les fichiers récents</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="697"/>
+        <location filename="../ui/mainwindow.ui" line="707"/>
         <source>Empty Recent Files List</source>
         <comment>action clear recent files list</comment>
         <translation>Vider la liste des fichiers récents</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="700"/>
+        <location filename="../ui/mainwindow.ui" line="710"/>
         <source>Clear the &quot;recent files&quot; list</source>
         <comment>statustip clear the recent files list</comment>
         <translation>Vider la liste des fichiers récents</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="709"/>
+        <location filename="../ui/mainwindow.ui" line="719"/>
         <source>Increase Line Indent</source>
         <comment>action indent text</comment>
         <translation>Indentation d&apos;une ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="712"/>
+        <location filename="../ui/mainwindow.ui" line="722"/>
         <source>Indent text</source>
         <comment>statustip action indent text</comment>
         <translation>Indent le text</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="715"/>
+        <location filename="../ui/mainwindow.ui" line="725"/>
         <source>Tab</source>
         <comment>shortcut action indent text</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="724"/>
+        <location filename="../ui/mainwindow.ui" line="734"/>
         <source>Decrease Line Indent</source>
         <comment>action unindent text</comment>
         <translation>Desindentation d&apos;une ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="727"/>
+        <location filename="../ui/mainwindow.ui" line="737"/>
         <source>Unindent text</source>
         <comment>statustip action unindent text</comment>
         <translation>Desindent le text</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="730"/>
+        <location filename="../ui/mainwindow.ui" line="740"/>
         <source>Shift+Tab</source>
         <comment>shortcut action unindent text</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="741"/>
+        <location filename="../ui/mainwindow.ui" line="751"/>
         <source>Auto Indentation</source>
         <comment>action auto indentation</comment>
         <translation>Auto Indentation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="744"/>
+        <location filename="../ui/mainwindow.ui" line="754"/>
         <source>Enable/Disable auto indentation</source>
         <comment>statustip action auto indentation</comment>
         <translation>Active/Desactive l&apos;auto indentation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="755"/>
+        <location filename="../ui/mainwindow.ui" line="765"/>
         <source>Indentation Guides</source>
         <comment>action indentation guides</comment>
         <translation>Guides d&apos;indentation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="758"/>
+        <location filename="../ui/mainwindow.ui" line="768"/>
         <source>Show indentation guides</source>
         <comment>statustip action indentation guides</comment>
         <translation>Afficher les guides d&apos;indentation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="767"/>
+        <location filename="../ui/mainwindow.ui" line="777"/>
         <source>Zoom In</source>
         <comment>action zoom in</comment>
         <translation>Zoom avant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="770"/>
+        <location filename="../ui/mainwindow.ui" line="780"/>
         <source>Zoom In</source>
         <comment>statustip action zoom in</comment>
         <translation>Zoom avant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="773"/>
+        <location filename="../ui/mainwindow.ui" line="783"/>
         <source>Ctrl++</source>
         <comment>shortcut action zoom in</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="782"/>
+        <location filename="../ui/mainwindow.ui" line="792"/>
         <source>Zoom Out</source>
         <comment>action zoom out</comment>
         <translation>Zoom arrière</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="785"/>
+        <location filename="../ui/mainwindow.ui" line="795"/>
         <source>Zoom Out</source>
         <comment>statustip action zoom out</comment>
         <translation>Zoom arrière</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="788"/>
+        <location filename="../ui/mainwindow.ui" line="798"/>
         <source>Ctrl+-</source>
         <comment>shortcut action zoom out</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="797"/>
+        <location filename="../ui/mainwindow.ui" line="807"/>
         <source>Restore Default Zoom</source>
         <comment>action restore default zoom</comment>
         <translation>Restaurer zoom</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="800"/>
+        <location filename="../ui/mainwindow.ui" line="810"/>
         <source>Restore default zoom</source>
         <comment>statustip action restore default zoom</comment>
         <translation>Restaurer zoom</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="803"/>
+        <location filename="../ui/mainwindow.ui" line="813"/>
         <source>Ctrl+/</source>
         <comment>shortcut action restore default zoom</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="811"/>
+        <location filename="../ui/mainwindow.ui" line="821"/>
         <source>Show Whitespaces and Tabs</source>
         <comment>action show whitespaces and tabs</comment>
         <translation>Afficher les espaces et les tabulations</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="814"/>
+        <location filename="../ui/mainwindow.ui" line="824"/>
         <source>Show whitespaces and tabs</source>
         <comment>statustip action show whitespaces and tabs</comment>
         <translation>Afficher les espaces et les tabulations</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="822"/>
+        <location filename="../ui/mainwindow.ui" line="832"/>
         <source>Show End Of Line</source>
         <comment>action show end of line</comment>
         <translation>Afficher les symboles de fin de ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="825"/>
+        <location filename="../ui/mainwindow.ui" line="835"/>
         <source>Show end of line</source>
         <comment>statustip action show end of line</comment>
         <translation>Afficher les symboles de fin de ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="837"/>
+        <location filename="../ui/mainwindow.ui" line="847"/>
         <source>Show All</source>
         <comment>action show all</comment>
         <translation>Afficher tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="840"/>
+        <location filename="../ui/mainwindow.ui" line="850"/>
         <source>Show whitespaces, tabs and end of line</source>
         <comment>statustip show all</comment>
         <translation>Afficher les espaces, les tabulations et les symboles de fin de ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="845"/>
+        <location filename="../ui/mainwindow.ui" line="855"/>
         <source>Trim Trailing Spaces</source>
         <comment>action trim trailing spaces</comment>
         <translation>Enlever les blancs en fin de ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1424"/>
+        <location filename="../ui/mainwindow.ui" line="1434"/>
         <source>UniDiff</source>
         <translation>UniDiff</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1620"/>
-        <location filename="../ui/mainwindow.ui" line="1623"/>
+        <location filename="../ui/mainwindow.ui" line="1630"/>
+        <location filename="../ui/mainwindow.ui" line="1633"/>
         <source>Display unified diff of the two current files</source>
         <translation>Afficher le diff unifié des deux fichiers courrant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1476"/>
+        <location filename="../ui/mainwindow.ui" line="1642"/>
+        <source>Plugins Manager</source>
+        <translation>Gestionnaire de Plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1645"/>
+        <source>Open Plugin Manager</source>
+        <translation>Ouvre le gestionnaire de plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1654"/>
+        <source>Reload Plugins</source>
+        <translation>Recharger les Plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1657"/>
+        <source>Reload plugins</source>
+        <translation>Recharger les plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1666"/>
+        <location filename="../mainwindow.cpp" line="429"/>
+        <source>PyConsole</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1669"/>
+        <source>Show/Hide PyConsole</source>
+        <translation>Affiche/Cache PyConsole</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1672"/>
+        <source>F12</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="1486"/>
         <source>Ctrl+J</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1570"/>
+        <location filename="../ui/mainwindow.ui" line="1580"/>
         <source>Tabs to Spaces</source>
         <translation>Tabulations vers Espaces</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1573"/>
+        <location filename="../ui/mainwindow.ui" line="1583"/>
         <source>Convert tabs to spaces using current tab width value</source>
         <translation>Convertit les tabulations en espaces utilisant la valeur courrante de la tabulation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1578"/>
+        <location filename="../ui/mainwindow.ui" line="1588"/>
         <source>Spaces to Tabs</source>
         <translation>Espaces vers Tabulations</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1581"/>
+        <location filename="../ui/mainwindow.ui" line="1591"/>
         <source>Convert spaces to tabs using current tab width value</source>
         <translation>Convertit les espaces en tabulations utilisant la valeur courrante de la tabulation</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1586"/>
+        <location filename="../ui/mainwindow.ui" line="1596"/>
         <source>Compress Spaces</source>
         <translation>Espaces compression</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1589"/>
+        <location filename="../ui/mainwindow.ui" line="1599"/>
         <source>Remove all extra spaces between words</source>
         <translation>Supprime tout les espaces supplémentaires entre les mots</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1605"/>
+        <location filename="../ui/mainwindow.ui" line="1615"/>
         <source>As HTML...</source>
         <translation>vers HTML...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1608"/>
+        <location filename="../ui/mainwindow.ui" line="1618"/>
         <source>Export As HTML</source>
         <translation>Exporte vers HTML</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1617"/>
+        <location filename="../ui/mainwindow.ui" line="1627"/>
         <source>Quick UniDiff</source>
         <translation>Quick UniDiff</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="857"/>
+        <location filename="../ui/mainwindow.ui" line="867"/>
         <source>UPPER CASE</source>
         <comment>action uppercase</comment>
         <translation>MAJUSCULE</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="860"/>
+        <location filename="../ui/mainwindow.ui" line="870"/>
         <source>Convert selected text to upper case</source>
         <comment>statustip action uppercase</comment>
         <translation>en MAJUSCULE</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="863"/>
+        <location filename="../ui/mainwindow.ui" line="873"/>
         <source>Ctrl+Shift+U</source>
         <comment>shortcut action uppercase</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="872"/>
+        <location filename="../ui/mainwindow.ui" line="882"/>
         <source>lower case</source>
         <comment>action lowercase</comment>
         <translation>minuscule</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="875"/>
+        <location filename="../ui/mainwindow.ui" line="885"/>
         <source>Convert selected text to lower case</source>
         <comment>statustip action lowercase</comment>
         <translation>en minuscule</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="878"/>
+        <location filename="../ui/mainwindow.ui" line="888"/>
         <source>Ctrl+U</source>
         <comment>shortcut action lowercase</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="886"/>
+        <location filename="../ui/mainwindow.ui" line="896"/>
         <source>Read-Only</source>
         <comment>action read-only</comment>
         <translation>Lecture Seule</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="889"/>
+        <location filename="../ui/mainwindow.ui" line="899"/>
         <source>Read-Only</source>
         <comment>tooltip action read-only</comment>
         <translation>Lecture Seule</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="892"/>
+        <location filename="../ui/mainwindow.ui" line="902"/>
         <source>Set/Unset document in read-only</source>
         <comment>statustip action read-only</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="901"/>
+        <location filename="../ui/mainwindow.ui" line="911"/>
         <source>Convert To Windows Format</source>
         <comment>action convert to window EOL</comment>
         <translation>Conversion format Windows</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="904"/>
+        <location filename="../ui/mainwindow.ui" line="914"/>
         <source>Convert To Windows Format</source>
         <comment>tooltip action convert to window EOL</comment>
         <translation>Conversion format Windows</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="907"/>
+        <location filename="../ui/mainwindow.ui" line="917"/>
         <source>Set end of line to a carriage return/line feed as used on Windows systems. (&quot;\r\n&quot;)</source>
         <comment>statustip action convert to window EOL</comment>
         <translation>Convertit les saut de ligne au format windows (CR+LF)</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="916"/>
+        <location filename="../ui/mainwindow.ui" line="926"/>
         <source>Convert To Unix Format</source>
         <comment>action convert to unix EOL</comment>
         <translation>Conversion format Unix</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="919"/>
+        <location filename="../ui/mainwindow.ui" line="929"/>
         <source>Convert To Unix Format</source>
         <comment>tooltip action convert to unix EOL</comment>
         <translation>Conversion format Unix</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="922"/>
+        <location filename="../ui/mainwindow.ui" line="932"/>
         <source>Set end of line to a line feed as used on Unix systems. (&quot;\n&quot;)</source>
         <comment>statustip action convert to unix EOL</comment>
         <translation>Convertit les saut de ligne au format unix (LF)</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="931"/>
+        <location filename="../ui/mainwindow.ui" line="941"/>
         <source>Convert To Mac Format</source>
         <comment>action convert to mac EOL</comment>
         <translation>Conversion format Mac</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="934"/>
+        <location filename="../ui/mainwindow.ui" line="944"/>
         <source>Convert To Mac Format</source>
         <comment>tooltip action convert to mac EOL</comment>
         <translation>Conversion format Mac</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="937"/>
+        <location filename="../ui/mainwindow.ui" line="947"/>
         <source>Set end of line to a carriage return as used on Mac systems. (&quot;\r&quot;)</source>
         <comment>statustip action convert to mac EOL</comment>
         <translation>Convertit les saut de ligne au format mac (CR)</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="942"/>
+        <location filename="../ui/mainwindow.ui" line="952"/>
         <source>About</source>
         <comment>action about</comment>
         <translation>A Propos</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="945"/>
+        <location filename="../ui/mainwindow.ui" line="955"/>
         <source>About...</source>
         <comment>statustip action about</comment>
         <translation>A Propos...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="954"/>
+        <location filename="../ui/mainwindow.ui" line="964"/>
         <source>Start Recording</source>
         <comment>action start recording macro</comment>
         <translation>Démarrer l&apos;enregistrement</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="957"/>
+        <location filename="../ui/mainwindow.ui" line="967"/>
         <source>Start recording macro</source>
         <comment>statustip action start recording macro</comment>
         <translation>Démarrer l&apos;enregistrement de la macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="966"/>
+        <location filename="../ui/mainwindow.ui" line="976"/>
         <source>Stop Recording</source>
         <comment>action stop recording macro</comment>
         <translation>Arrête l&apos;enregistrement</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="969"/>
+        <location filename="../ui/mainwindow.ui" line="979"/>
         <source>Stop recording macro</source>
         <comment>statustip action stop recording macro</comment>
         <translation>Arrête l&apos;enregistrement de la macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="978"/>
+        <location filename="../ui/mainwindow.ui" line="988"/>
         <source>Run Macro</source>
         <comment>action run macro</comment>
         <translation>Rejouer la macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="981"/>
+        <location filename="../ui/mainwindow.ui" line="991"/>
         <source>Run macro</source>
         <comment>statustip action run macro</comment>
         <translation>Rejouer la macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="990"/>
+        <location filename="../ui/mainwindow.ui" line="1000"/>
         <source>Run Macro Multiple Times ...</source>
         <comment>action run macro multiple times</comment>
         <translation>Executer la macro en boucle...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="993"/>
+        <location filename="../ui/mainwindow.ui" line="1003"/>
         <source>Run macro multiple times</source>
         <comment>statustip action run macro multiple times</comment>
         <translation>Executer la macro en boucle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1002"/>
+        <location filename="../ui/mainwindow.ui" line="1012"/>
         <source>Save Macro</source>
         <comment>action save macro</comment>
         <translation>Enregistre la macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1005"/>
+        <location filename="../ui/mainwindow.ui" line="1015"/>
         <source>Save macro</source>
         <comment>statustip action save macro</comment>
         <translation>Enregistre la macro</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1014"/>
+        <location filename="../ui/mainwindow.ui" line="1024"/>
         <source>Settings</source>
         <comment>action settings</comment>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1017"/>
+        <location filename="../ui/mainwindow.ui" line="1027"/>
         <source>Settings window</source>
         <comment>statustip action settings</comment>
         <translation>Paramètres de la fenêtre</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1026"/>
+        <location filename="../ui/mainwindow.ui" line="1036"/>
         <source>Save</source>
         <comment>action session save</comment>
         <translation>Sauvegarder</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1029"/>
+        <location filename="../ui/mainwindow.ui" line="1039"/>
         <source>Save session</source>
         <comment>statustip action session save</comment>
         <translation>Sauvegarder la session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1511"/>
+        <location filename="../ui/mainwindow.ui" line="1521"/>
         <source>New Session</source>
         <translation>Nouvelle Session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1514"/>
+        <location filename="../ui/mainwindow.ui" line="1524"/>
         <source>Create a new session</source>
         <translation>Créer une nouvelle session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1523"/>
+        <location filename="../ui/mainwindow.ui" line="1533"/>
         <source>Open Session</source>
         <translation>Ouvrir une session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1526"/>
+        <location filename="../ui/mainwindow.ui" line="1536"/>
         <source>Open an existing session</source>
         <translation>Ouvrir une session existante</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1535"/>
+        <location filename="../ui/mainwindow.ui" line="1545"/>
         <source>Switch with last session</source>
         <translation>Switch vers la dernière session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1538"/>
+        <location filename="../ui/mainwindow.ui" line="1548"/>
         <source>Save this session and open the last one</source>
         <translation>Sauvegarde cette session et ouvre la dernière</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1547"/>
+        <location filename="../ui/mainwindow.ui" line="1557"/>
         <source>Save Session As...</source>
         <translation>Enregistre la sessions sous...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1550"/>
+        <location filename="../ui/mainwindow.ui" line="1560"/>
         <source>Save the session as ...</source>
         <translation>Sauvegarder la session sous ...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1559"/>
+        <location filename="../ui/mainwindow.ui" line="1569"/>
         <source>Manage Sessions...</source>
         <translation>Gérer les sessions...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1562"/>
+        <location filename="../ui/mainwindow.ui" line="1572"/>
         <source>Open the session manager</source>
         <translation>Ouvre le gestionnaire de session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1565"/>
+        <location filename="../ui/mainwindow.ui" line="1575"/>
         <source>F8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1044"/>
+        <location filename="../ui/mainwindow.ui" line="1054"/>
         <source>Toggle bookmark</source>
         <comment>action toggle bookmark</comment>
         <translation>Mettre/Enlever un signet</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="514"/>
+        <location filename="../ui/mainwindow.ui" line="524"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="848"/>
+        <location filename="../ui/mainwindow.ui" line="858"/>
         <source>Remove all the trailing spaces of line</source>
         <comment>statustip action trim trailing spaces</comment>
         <translation>Supprime tout les espaces de fin de ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1047"/>
+        <location filename="../ui/mainwindow.ui" line="1057"/>
         <source>Toggle bookmark</source>
         <comment>statustip action toggle bookmark</comment>
         <translation>Mettre/Enlever un signet</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1050"/>
+        <location filename="../ui/mainwindow.ui" line="1060"/>
         <source>Ctrl+F2</source>
         <comment>shortcut action toggle bookmark</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1055"/>
+        <location filename="../ui/mainwindow.ui" line="1065"/>
         <source>Remove All bookmarks</source>
         <comment>action remove all bookmarks</comment>
         <translation>Enlever tout les signets</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1058"/>
+        <location filename="../ui/mainwindow.ui" line="1068"/>
         <source>Remove all bookmarks</source>
         <comment>statustip action remove all bookmarks</comment>
         <translation>Enlever tout les signets</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1067"/>
+        <location filename="../ui/mainwindow.ui" line="1077"/>
         <source>Next bookmark</source>
         <comment>action next bookmark</comment>
         <translation>Signet suivant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1070"/>
+        <location filename="../ui/mainwindow.ui" line="1080"/>
         <source>Go to the next bookmark</source>
         <comment>statustip action next bookmark</comment>
         <translation>Aller au signet suivant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1073"/>
+        <location filename="../ui/mainwindow.ui" line="1083"/>
         <source>F2</source>
         <comment>shortcut action next bookmark</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1082"/>
+        <location filename="../ui/mainwindow.ui" line="1092"/>
         <source>Previous bookmark</source>
         <comment>action previous bookmark</comment>
         <translation>Signet précédent</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1085"/>
+        <location filename="../ui/mainwindow.ui" line="1095"/>
         <source>Go to the previous bookmark</source>
         <comment>statustip action previous bookmark</comment>
         <translation>Aller au signet précédent</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1088"/>
+        <location filename="../ui/mainwindow.ui" line="1098"/>
         <source>Shift+F2</source>
         <comment>shortcut action previous bookmark</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1097"/>
+        <location filename="../ui/mainwindow.ui" line="1107"/>
         <source>Search...</source>
         <comment>action search</comment>
         <translation>Rechercher...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1100"/>
+        <location filename="../ui/mainwindow.ui" line="1110"/>
         <source>Search...</source>
         <comment>statustip action search</comment>
         <translation>Rechercher...</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1103"/>
+        <location filename="../ui/mainwindow.ui" line="1113"/>
         <source>Ctrl+F</source>
         <comment>shortcut action search</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1112"/>
+        <location filename="../ui/mainwindow.ui" line="1122"/>
         <source>Find next</source>
         <comment>action find next</comment>
         <translation>Recherche suivante</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1115"/>
+        <location filename="../ui/mainwindow.ui" line="1125"/>
         <source>Find next occurence</source>
         <comment>statustip action find next</comment>
         <translation>Recherche l&apos;occurence suivante</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1118"/>
+        <location filename="../ui/mainwindow.ui" line="1128"/>
         <source>F3</source>
         <comment>shortcut action find next</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1127"/>
+        <location filename="../ui/mainwindow.ui" line="1137"/>
         <source>Find previous</source>
         <comment>action find previous</comment>
         <translation>Recherche précédente</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1130"/>
+        <location filename="../ui/mainwindow.ui" line="1140"/>
         <source>Find previous occurence</source>
         <comment>statustip action find previous</comment>
         <translation>Recherche l&apos;occurence précédente</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1133"/>
+        <location filename="../ui/mainwindow.ui" line="1143"/>
         <source>Shift+F3</source>
         <comment>shortcut action find previous</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1142"/>
+        <location filename="../ui/mainwindow.ui" line="1152"/>
         <source>Reload</source>
         <comment>action reload</comment>
         <translation>Recharger</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1145"/>
+        <location filename="../ui/mainwindow.ui" line="1155"/>
         <source>Reload file from disk</source>
         <comment>statustip action reload</comment>
         <translation>Recharger le fichier depuis le disque</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1148"/>
+        <location filename="../ui/mainwindow.ui" line="1158"/>
         <source>F5</source>
         <comment>shortcut action reload</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1153"/>
+        <location filename="../ui/mainwindow.ui" line="1163"/>
         <source>Fold/Unfold All</source>
         <comment>action fold/unfold all</comment>
         <translation>Plier/Déplier tout</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1156"/>
+        <location filename="../ui/mainwindow.ui" line="1166"/>
         <source>Fold/Unfold all</source>
         <comment>statustip action fold/unfold all</comment>
         <translation>Plier/Déplier tout</translation>
     </message>
     <message utf8="true">
-        <location filename="../ui/mainwindow.ui" line="1159"/>
+        <location filename="../ui/mainwindow.ui" line="1169"/>
         <source>Alt+²</source>
         <comment>shortcut action fold/unfold all</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1164"/>
+        <location filename="../ui/mainwindow.ui" line="1174"/>
         <source>Level 1</source>
         <comment>action fold level 1</comment>
         <translation>Niveau 1</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1167"/>
+        <location filename="../ui/mainwindow.ui" line="1177"/>
         <source>Fold level 1</source>
         <comment>statustip action fold level 1</comment>
         <translation>Plier niveau 1</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1170"/>
+        <location filename="../ui/mainwindow.ui" line="1180"/>
         <source>Alt+1</source>
         <comment>shortcut action fold level 1</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1175"/>
+        <location filename="../ui/mainwindow.ui" line="1185"/>
         <source>Level 2</source>
         <comment>action fold level 2</comment>
         <translation>Niveau 2</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1178"/>
+        <location filename="../ui/mainwindow.ui" line="1188"/>
         <source>Fold level 2</source>
         <comment>statustip action fold level 2</comment>
         <translation>Plier niveau 2</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1181"/>
+        <location filename="../ui/mainwindow.ui" line="1191"/>
         <source>Alt+2</source>
         <comment>shortcut action fold level 2</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1186"/>
+        <location filename="../ui/mainwindow.ui" line="1196"/>
         <source>Level 3</source>
         <comment>action fold level 3</comment>
         <translation>Niveau 3</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1189"/>
+        <location filename="../ui/mainwindow.ui" line="1199"/>
         <source>Fold level 3</source>
         <comment>statustip action fold level 3</comment>
         <translation>Plier niveau 3</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1192"/>
+        <location filename="../ui/mainwindow.ui" line="1202"/>
         <source>Alt+3</source>
         <comment>shortcut action fold level 3</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1197"/>
+        <location filename="../ui/mainwindow.ui" line="1207"/>
         <source>Level 4</source>
         <comment>action fold level 4</comment>
         <translation>Niveau 4</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1200"/>
+        <location filename="../ui/mainwindow.ui" line="1210"/>
         <source>Fold level 4</source>
         <comment>statustip action fold level 4</comment>
         <translation>Plier niveau 4</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1203"/>
+        <location filename="../ui/mainwindow.ui" line="1213"/>
         <source>Alt+4</source>
         <comment>shortcut action fold level 4</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1208"/>
+        <location filename="../ui/mainwindow.ui" line="1218"/>
         <source>Level 5</source>
         <comment>action fold level 5</comment>
         <translation>Niveau 5</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1211"/>
+        <location filename="../ui/mainwindow.ui" line="1221"/>
         <source>Fold level 5</source>
         <comment>statustip action fold level 5</comment>
         <translation>Plier niveau 5</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1214"/>
+        <location filename="../ui/mainwindow.ui" line="1224"/>
         <source>Alt+5</source>
         <comment>shortcut action fold level 5</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1219"/>
+        <location filename="../ui/mainwindow.ui" line="1229"/>
         <source>Level 6</source>
         <comment>action fold level 6</comment>
         <translation>Niveau 6</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1222"/>
+        <location filename="../ui/mainwindow.ui" line="1232"/>
         <source>Fold level 6</source>
         <comment>statustip action fold level 6</comment>
         <translation>Plier niveau 6</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1225"/>
+        <location filename="../ui/mainwindow.ui" line="1235"/>
         <source>Alt+6</source>
         <comment>shortcut action fold level 6</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1230"/>
+        <location filename="../ui/mainwindow.ui" line="1240"/>
         <source>Level 7</source>
         <comment>action fold level 7</comment>
         <translation>Niveau 7</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1233"/>
+        <location filename="../ui/mainwindow.ui" line="1243"/>
         <source>Fold level 7</source>
         <comment>statustip action fold level 7</comment>
         <translation>Plier niveau 7</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1236"/>
+        <location filename="../ui/mainwindow.ui" line="1246"/>
         <source>Alt+7</source>
         <comment>shortcut action fold level 7</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1241"/>
+        <location filename="../ui/mainwindow.ui" line="1251"/>
         <source>Level 8</source>
         <comment>action fold level 8</comment>
         <translation>Niveau 8</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1244"/>
+        <location filename="../ui/mainwindow.ui" line="1254"/>
         <source>Fold level 8</source>
         <comment>statustip action fold level 8</comment>
         <translation>Plier niveau 8</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1247"/>
+        <location filename="../ui/mainwindow.ui" line="1257"/>
         <source>Alt+8</source>
         <comment>shortcut action fold level 8</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1252"/>
+        <location filename="../ui/mainwindow.ui" line="1262"/>
         <source>Level 1</source>
         <comment>action unfold level 1</comment>
         <translation>Niveau 1</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1255"/>
+        <location filename="../ui/mainwindow.ui" line="1265"/>
         <source>Unfold level 1</source>
         <comment>statustip action unfold level 1</comment>
         <translation>Déplier niveau 1</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1260"/>
+        <location filename="../ui/mainwindow.ui" line="1270"/>
         <source>Level 2</source>
         <comment>action unfold level 2</comment>
         <translation>Niveau 2</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1263"/>
+        <location filename="../ui/mainwindow.ui" line="1273"/>
         <source>Unfold level 2</source>
         <comment>statustip action unfold level 2</comment>
         <translation>Déplier niveau 2</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1268"/>
+        <location filename="../ui/mainwindow.ui" line="1278"/>
         <source>Level 3</source>
         <comment>action unfold level 3</comment>
         <translation>Niveau 3</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1271"/>
+        <location filename="../ui/mainwindow.ui" line="1281"/>
         <source>Unfold level 3</source>
         <comment>statustip action unfold level 3</comment>
         <translation>Déplier niveau 3</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1276"/>
+        <location filename="../ui/mainwindow.ui" line="1286"/>
         <source>Level 4</source>
         <comment>action unfold level 4</comment>
         <translation>Niveau 4</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1279"/>
+        <location filename="../ui/mainwindow.ui" line="1289"/>
         <source>Unfold level 4</source>
         <comment>statustip action unfold level 4</comment>
         <translation>Déplier niveau 4</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1284"/>
+        <location filename="../ui/mainwindow.ui" line="1294"/>
         <source>Level 5</source>
         <comment>action unfold level 5</comment>
         <translation>Niveau 5</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1287"/>
+        <location filename="../ui/mainwindow.ui" line="1297"/>
         <source>Unfold level 5</source>
         <comment>statustip action unfold level 5</comment>
         <translation>Déplier Niveau 5</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1292"/>
+        <location filename="../ui/mainwindow.ui" line="1302"/>
         <source>Level 6</source>
         <comment>action unfold level 6</comment>
         <translation>Niveau 6</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1295"/>
+        <location filename="../ui/mainwindow.ui" line="1305"/>
         <source>Unfold level 6</source>
         <comment>statustip action unfold level 6</comment>
         <translation>Déplier Niveau 6</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1300"/>
+        <location filename="../ui/mainwindow.ui" line="1310"/>
         <source>Level 7</source>
         <comment>action unfold level 7</comment>
         <translation>Niveau 7</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1303"/>
+        <location filename="../ui/mainwindow.ui" line="1313"/>
         <source>Unfold level 7</source>
         <comment>statustip action unfold level 7</comment>
         <translation>Déplier niveau 7</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1308"/>
+        <location filename="../ui/mainwindow.ui" line="1318"/>
         <source>Level 8</source>
         <comment>action unfold level 8</comment>
         <translation>Niveau 8</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1311"/>
+        <location filename="../ui/mainwindow.ui" line="1321"/>
         <source>Unfold level 8</source>
         <comment>statustip action unfold level 8</comment>
         <translation>Déplier niveau 8</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1320"/>
+        <location filename="../ui/mainwindow.ui" line="1330"/>
         <source>Reindent File</source>
         <comment>action reindent file</comment>
         <translation>Réindente le fichier</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1323"/>
+        <location filename="../ui/mainwindow.ui" line="1333"/>
         <source>Reindent the file with astyle</source>
         <comment>statustip action reindent file</comment>
         <translation>Réindente le fichier avec astyle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1326"/>
+        <location filename="../ui/mainwindow.ui" line="1336"/>
         <source>Ctrl+Alt+I</source>
         <comment>shortcut action reindent file</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1335"/>
+        <location filename="../ui/mainwindow.ui" line="1345"/>
         <source>Reindent Open Files</source>
         <comment>action reindent open files</comment>
         <translation>Réindente les fichiers ouverts</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1338"/>
+        <location filename="../ui/mainwindow.ui" line="1348"/>
         <source>Reindent open files with astyle</source>
         <comment>statustip action reindent open files</comment>
         <translation>Réindente les fichiers ouverts avec astyle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1343"/>
+        <location filename="../ui/mainwindow.ui" line="1353"/>
         <source>Duplicate Current Line</source>
         <comment>action duplicate current line</comment>
         <translation>Duplique la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1346"/>
+        <location filename="../ui/mainwindow.ui" line="1356"/>
         <source>Duplicate the current line</source>
         <comment>statustip action duplicate current line</comment>
         <translation>Duplique la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1349"/>
+        <location filename="../ui/mainwindow.ui" line="1359"/>
         <source>Ctrl+D</source>
         <comment>shortcut action duplicate current line</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1354"/>
+        <location filename="../ui/mainwindow.ui" line="1364"/>
         <source>Move Current Line Up</source>
         <comment>action move line up</comment>
         <translation>Déplacer la ligne actuelle vers le haut</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1357"/>
+        <location filename="../ui/mainwindow.ui" line="1367"/>
         <source>Move the current line up</source>
         <comment>statustip action move line up</comment>
         <translation>Déplacer la ligne actuelle vers le haut</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1360"/>
+        <location filename="../ui/mainwindow.ui" line="1370"/>
         <source>Ctrl+Shift+Up</source>
         <comment>shortcut action move line up</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1365"/>
+        <location filename="../ui/mainwindow.ui" line="1375"/>
         <source>Move Current Line Down</source>
         <comment>action move line down</comment>
         <translation>Déplacer la ligne actuelle vers le bas</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1368"/>
+        <location filename="../ui/mainwindow.ui" line="1378"/>
         <source>Move the current line down</source>
         <comment>statustip action move line down</comment>
         <translation>Déplacer la ligne actuelle vers le bas</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1371"/>
+        <location filename="../ui/mainwindow.ui" line="1381"/>
         <source>Ctrl+Shift+Down</source>
         <comment>shortcut action move line down</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1376"/>
+        <location filename="../ui/mainwindow.ui" line="1386"/>
         <source>Delete Current Line</source>
         <comment>action delete line</comment>
         <translation>Supprime la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1379"/>
+        <location filename="../ui/mainwindow.ui" line="1389"/>
         <source>Delete the current line</source>
         <comment>statustip action delete line</comment>
         <translation>Supprime la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1382"/>
+        <location filename="../ui/mainwindow.ui" line="1392"/>
         <source>Ctrl+Shift+L</source>
         <comment>shortcut action delete line</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1387"/>
+        <location filename="../ui/mainwindow.ui" line="1397"/>
         <source>Delete Current Word</source>
         <comment>action delete current word</comment>
         <translation>Supprime le mot courant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1390"/>
+        <location filename="../ui/mainwindow.ui" line="1400"/>
         <source>Delete the current word</source>
         <comment>statustip action delete current word</comment>
         <translation>Supprime le mot courant</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1393"/>
+        <location filename="../ui/mainwindow.ui" line="1403"/>
         <source>Ctrl+Del</source>
         <comment>shortcut action delete current word</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1398"/>
+        <location filename="../ui/mainwindow.ui" line="1408"/>
         <source>Cut Current Line</source>
         <comment>action cut current line</comment>
         <translation>Coupe la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1401"/>
+        <location filename="../ui/mainwindow.ui" line="1411"/>
         <source>Cut the current line</source>
         <comment>statustip action cut current line</comment>
         <translation>Coupe la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1427"/>
-        <location filename="../ui/mainwindow.ui" line="1430"/>
+        <location filename="../ui/mainwindow.ui" line="1437"/>
+        <location filename="../ui/mainwindow.ui" line="1440"/>
         <source>Display unified diff of two files</source>
         <translation>Afficher le diff unifié des deux fichiers</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1594"/>
+        <location filename="../ui/mainwindow.ui" line="1604"/>
         <source>Transpose Line</source>
         <translation>Transpose Ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1597"/>
+        <location filename="../ui/mainwindow.ui" line="1607"/>
         <source>Transpose current and previous lines</source>
         <translation>Transpose la ligne courante et précédente</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1600"/>
+        <location filename="../ui/mainwindow.ui" line="1610"/>
         <source>Ctrl+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1496"/>
-        <location filename="../ui/mainwindow.ui" line="1499"/>
+        <location filename="../ui/mainwindow.ui" line="1506"/>
+        <location filename="../ui/mainwindow.ui" line="1509"/>
         <source>Goto Line</source>
         <translation>Aller à la ligne</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1404"/>
+        <location filename="../ui/mainwindow.ui" line="1414"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1409"/>
+        <location filename="../ui/mainwindow.ui" line="1419"/>
         <source>Copy Current Line</source>
         <comment>action copy current line</comment>
         <translation>Copie la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1032"/>
+        <location filename="../ui/mainwindow.ui" line="1042"/>
         <source>Save the session</source>
         <translation>Sauvegarder la session</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1035"/>
+        <location filename="../ui/mainwindow.ui" line="1045"/>
         <source>F7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1412"/>
+        <location filename="../ui/mainwindow.ui" line="1422"/>
         <source>Copy the current line</source>
         <comment>statustip action copy current line</comment>
         <translation>Copie la ligne actuelle</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1415"/>
+        <location filename="../ui/mainwindow.ui" line="1425"/>
         <source>Ctrl+Alt+L</source>
         <comment>shortcut action copy current line</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1439"/>
+        <location filename="../ui/mainwindow.ui" line="1449"/>
         <source>Shortcuts</source>
         <comment>action shortcut edit</comment>
         <translation>Raccourcis</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1442"/>
+        <location filename="../ui/mainwindow.ui" line="1452"/>
         <source>Edit shortcuts</source>
         <comment>statustip action shortcut edit</comment>
         <translation>Editer les raccourcis</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1451"/>
+        <location filename="../ui/mainwindow.ui" line="1461"/>
         <source>Switch Source</source>
         <translation>Switch Source</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1454"/>
+        <location filename="../ui/mainwindow.ui" line="1464"/>
         <source>F10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1459"/>
-        <location filename="../ui/mainwindow.ui" line="1462"/>
+        <location filename="../ui/mainwindow.ui" line="1469"/>
+        <location filename="../ui/mainwindow.ui" line="1472"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1465"/>
+        <location filename="../ui/mainwindow.ui" line="1475"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1470"/>
+        <location filename="../ui/mainwindow.ui" line="1480"/>
         <source>Toggle Comment</source>
         <translation>Commenter/Décommenter</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1473"/>
+        <location filename="../ui/mainwindow.ui" line="1483"/>
         <source>Toggle comment (single comment prefered )</source>
         <translation>Commenter/Décommenter (commentaire sur 1 ligne préferé)</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1502"/>
+        <location filename="../ui/mainwindow.ui" line="1512"/>
         <source>Ctrl+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1481"/>
+        <location filename="../ui/mainwindow.ui" line="1491"/>
         <source>Toggle Block Comment</source>
         <translation>Commenter/Décommenter Block</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1484"/>
+        <location filename="../ui/mainwindow.ui" line="1494"/>
         <source>Toggle block comment</source>
         <translation>Commenter/Décommenter Block</translation>
     </message>
     <message>
-        <location filename="../ui/mainwindow.ui" line="1487"/>
+        <location filename="../ui/mainwindow.ui" line="1497"/>
         <source>Ctrl+H</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="379"/>
+        <location filename="../mainwindow.cpp" line="398"/>
         <source>Search/Replace</source>
         <translation>Cherche/Remplace</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="391"/>
+        <location filename="../mainwindow.cpp" line="410"/>
         <source>Symbol Browser</source>
         <translation>Explorateur de Symboles</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="400"/>
+        <location filename="../mainwindow.cpp" line="419"/>
         <source>File Explorer</source>
         <translation>Explorateur de Fichier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="481"/>
+        <location filename="../mainwindow.cpp" line="510"/>
         <source>[*]%1 - %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="495"/>
+        <location filename="../mainwindow.cpp" line="524"/>
         <source>Line : %1  Col : %2  Sel : %3     </source>
         <translation>Ligne : %1  Col : %2  Sel : %3     </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="496"/>
+        <location filename="../mainwindow.cpp" line="525"/>
         <source>%1 chars  %2 lines     </source>
         <translation>%1 chars  %2 lignes     </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="550"/>
+        <location filename="../mainwindow.cpp" line="579"/>
         <source>&amp;%1 %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="624"/>
+        <location filename="../mainwindow.cpp" line="653"/>
         <source>Export File as </source>
         <translation>Exporte le fichier vers </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="627"/>
+        <location filename="../mainwindow.cpp" line="656"/>
         <source>%1 exported to %2</source>
         <translation>%1 exporté vers %2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="658"/>
+        <location filename="../mainwindow.cpp" line="687"/>
         <source>Goto line ...</source>
         <translation>Aller à la ligne ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="658"/>
+        <location filename="../mainwindow.cpp" line="687"/>
         <source>Enter the line you want to go :</source>
         <translation>Entrer la ligne ou vous voulez aller :</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="839"/>
+        <location filename="../mainwindow.cpp" line="873"/>
         <source>Not implemented yet !! Will be available in the next release</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="862"/>
+        <location filename="../mainwindow.cpp" line="896"/>
         <source>Old Settings!</source>
         <translation>Ancien Paramêtres!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="863"/>
+        <location filename="../mainwindow.cpp" line="897"/>
         <source>Found settings file for raptor version </source>
         <translation>Fichier de paramêtres trouvé pour une ancienne version</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="863"/>
+        <location filename="../mainwindow.cpp" line="897"/>
         <source>. Current version is </source>
         <translation>. La version courante est </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="864"/>
+        <location filename="../mainwindow.cpp" line="898"/>
         <source>What do you want to do?</source>
         <translation>Que voulez vous faire?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="867"/>
+        <location filename="../mainwindow.cpp" line="901"/>
         <source>Reset : Remove old settings file and create a new one
 </source>
         <translation>Reset : Supprime les anciens paramêtres</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="868"/>
+        <location filename="../mainwindow.cpp" line="902"/>
         <source>Upgrade : keep and upgrade your old settings
 </source>
         <translation>Mise à jour : Garde les anciens paramêtres et les met à jour</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="870"/>
+        <location filename="../mainwindow.cpp" line="904"/>
         <source>Reset</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="872"/>
+        <location filename="../mainwindow.cpp" line="906"/>
         <source>Upgrade</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="881"/>
+        <location filename="../mainwindow.cpp" line="915"/>
         <source>Settings upgrade is not implemented yet!
 Current settings file is kept but some settings can now be inconsistent! A settings reset is recommanded!</source>
         <translation></translation>
@@ -2196,6 +2237,92 @@ Current settings file is kept but some settings can now be inconsistent! A setti
         <location filename="../widget/PathListEditor.cpp" line="51"/>
         <source>Choose directory</source>
         <translation>Choisissez l&apos;emplacement</translation>
+    </message>
+</context>
+<context>
+    <name>PluginAbout</name>
+    <message>
+        <location filename="../ui/pluginabout.ui" line="14"/>
+        <source>About Plugin</source>
+        <translation>A Propos du Plugin</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginabout.ui" line="89"/>
+        <source>Author : </source>
+        <translation>Auteur : </translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginabout.ui" line="113"/>
+        <source>License : </source>
+        <translation>License : </translation>
+    </message>
+</context>
+<context>
+    <name>PluginElement</name>
+    <message>
+        <location filename="../ui/pluginelement.ui" line="22"/>
+        <source>Check this to enable/disable the plugin</source>
+        <translation>Cocher pour activer/desactiver le plugin</translation>
+    </message>
+</context>
+<context>
+    <name>PluginManager</name>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="14"/>
+        <source>Plugins Manager</source>
+        <translation>Gestionnaire de Plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="32"/>
+        <source>Loaded Plugins</source>
+        <translation>Plugins Chargés</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="46"/>
+        <source>Plugin Filter :</source>
+        <translation>Plugin Filtre :</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="69"/>
+        <source>Uncheck plugin to disable it. 
+Warning : Plugin will still be loaded on start up</source>
+        <translation>Décocher pour désactiver le plugin.
+Attention : Le plugin sera toujours chargé au démarrage</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="82"/>
+        <source>Settings</source>
+        <translation>Paramètres</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="94"/>
+        <source>Plugins Paths</source>
+        <translation>Chemins des Plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="123"/>
+        <source>Plugins Available</source>
+        <translation>Plugins Disponibles</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="143"/>
+        <source>Find &amp; Reload Plugins</source>
+        <translation>Cherche &amp; Recharge les Plugins</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="159"/>
+        <source>if checked plugin will be loaded at start up</source>
+        <translation>Si coché, le plugin sera chargé au démarrage</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="193"/>
+        <source>Plugin</source>
+        <translation>Plugin</translation>
+    </message>
+    <message>
+        <location filename="../ui/pluginmanager.ui" line="198"/>
+        <source>File</source>
+        <translation>Fichier</translation>
     </message>
 </context>
 <context>
@@ -2950,37 +3077,37 @@ Cette opération ne peut pas être annuler. Voulez vous continuer?</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="205"/>
+        <location filename="../settings/SettingsDialog.cpp" line="212"/>
         <source>No warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="206"/>
+        <location filename="../settings/SettingsDialog.cpp" line="213"/>
         <source>Inconsistent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="207"/>
+        <location filename="../settings/SettingsDialog.cpp" line="214"/>
         <source>Tabs after spaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="208"/>
+        <location filename="../settings/SettingsDialog.cpp" line="215"/>
         <source>Spaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="209"/>
+        <location filename="../settings/SettingsDialog.cpp" line="216"/>
         <source>Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="773"/>
+        <location filename="../settings/SettingsDialog.cpp" line="785"/>
         <source>Select API files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings/SettingsDialog.cpp" line="773"/>
+        <location filename="../settings/SettingsDialog.cpp" line="785"/>
         <source>API Files (*.api);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3013,37 +3140,37 @@ Raccouri déjà utilisé par l&apos;action %2!</translation>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="48"/>
         <source>Add Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter élément</translation>
     </message>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="49"/>
         <source>Remove Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprime élément</translation>
     </message>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="50"/>
         <source>Clear Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer les éléments</translation>
     </message>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="51"/>
         <source>Move Item Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer l&apos;élément vers le haut</translation>
     </message>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="52"/>
         <source>Move Item Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer l&apos;élément vers le bas</translation>
     </message>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="53"/>
         <source>Edit Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Editer l&apos;éléments</translation>
     </message>
     <message>
         <location filename="../widget/StringListEditor.cpp" line="111"/>
         <source>New item</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvel élément</translation>
     </message>
 </context>
 <context>
@@ -3229,9 +3356,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../ui/settings.ui" line="182"/>
-        <location filename="../ui/settings.ui" line="1272"/>
-        <location filename="../ui/settings.ui" line="1794"/>
+        <location filename="../ui/settings.ui" line="1278"/>
         <location filename="../ui/settings.ui" line="1800"/>
+        <location filename="../ui/settings.ui" line="1806"/>
         <source>Indentation</source>
         <translation>Indentation</translation>
     </message>
@@ -3396,1088 +3523,1088 @@ p, li { white-space: pre-wrap; }
         <translation>Afficher la barre de Status</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="499"/>
+        <location filename="../ui/settings.ui" line="502"/>
         <source>Translations Paths</source>
         <translation>Chemins des Traductions</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="506"/>
+        <location filename="../ui/settings.ui" line="512"/>
         <source>Plugins Paths</source>
         <translation>Chemins des Plugins</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="517"/>
+        <location filename="../ui/settings.ui" line="523"/>
         <source>Options</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="529"/>
+        <location filename="../ui/settings.ui" line="535"/>
         <source>Auto trim extra spaces when saving</source>
         <translation>Enleve automatiquement les blancs (espace ou tabulation) en fin de ligne à l&apos;enregistrement</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="536"/>
+        <location filename="../ui/settings.ui" line="542"/>
         <source>Auto add new line to the end of the document when saving</source>
         <translation>Ajoute automatiquement une nouvelle ligne à la fin du document à l&apos;enregistrement</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="546"/>
+        <location filename="../ui/settings.ui" line="552"/>
         <source>Automatic Syntax Check</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="556"/>
+        <location filename="../ui/settings.ui" line="562"/>
         <source>Convert Tabs Upon Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="566"/>
+        <location filename="../ui/settings.ui" line="572"/>
         <source>Create Backup File Upon Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="576"/>
+        <location filename="../ui/settings.ui" line="582"/>
         <source>Automatic End of Line Conversion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="586"/>
+        <location filename="../ui/settings.ui" line="592"/>
         <source>Default Document Colours</source>
         <translation>Couleur par défaut du document</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="597"/>
+        <location filename="../ui/settings.ui" line="603"/>
         <source>Pen :</source>
         <translation>Crayon :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="614"/>
+        <location filename="../ui/settings.ui" line="620"/>
         <source>Paper :</source>
         <translation>Papier :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="635"/>
-        <location filename="../ui/settings.ui" line="2597"/>
+        <location filename="../ui/settings.ui" line="641"/>
+        <location filename="../ui/settings.ui" line="2603"/>
         <source>Font :</source>
         <translation>Police :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="648"/>
+        <location filename="../ui/settings.ui" line="654"/>
         <source>font</source>
         <translation>police</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="655"/>
-        <location filename="../ui/settings.ui" line="2623"/>
-        <location filename="../ui/settings.ui" line="3130"/>
+        <location filename="../ui/settings.ui" line="661"/>
+        <location filename="../ui/settings.ui" line="2629"/>
+        <location filename="../ui/settings.ui" line="3136"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="673"/>
+        <location filename="../ui/settings.ui" line="679"/>
         <source>Selection Colours</source>
         <translation>Selection de Couleurs</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="682"/>
-        <location filename="../ui/settings.ui" line="1225"/>
-        <location filename="../ui/settings.ui" line="1442"/>
-        <location filename="../ui/settings.ui" line="2581"/>
+        <location filename="../ui/settings.ui" line="688"/>
+        <location filename="../ui/settings.ui" line="1231"/>
+        <location filename="../ui/settings.ui" line="1448"/>
+        <location filename="../ui/settings.ui" line="2587"/>
         <source>Background :</source>
         <translation>Arrière Plan :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="708"/>
-        <location filename="../ui/settings.ui" line="1198"/>
-        <location filename="../ui/settings.ui" line="1459"/>
-        <location filename="../ui/settings.ui" line="2565"/>
+        <location filename="../ui/settings.ui" line="714"/>
+        <location filename="../ui/settings.ui" line="1204"/>
+        <location filename="../ui/settings.ui" line="1465"/>
+        <location filename="../ui/settings.ui" line="2571"/>
         <source>Foreground :</source>
         <translation>Premier Plan :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="734"/>
+        <location filename="../ui/settings.ui" line="740"/>
         <source>Use Foreground Color</source>
         <translation>Utiliser la couleur d&apos;arrière plan</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="767"/>
+        <location filename="../ui/settings.ui" line="773"/>
         <source>Default text codec</source>
         <translation>Texte Codec par défaut</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="789"/>
+        <location filename="../ui/settings.ui" line="795"/>
         <source>Unicode (BOM)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="803"/>
+        <location filename="../ui/settings.ui" line="809"/>
         <source>Do not add or remove BOM</source>
         <translation>Ne pas ajouter ou supprimer le BOM</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="831"/>
+        <location filename="../ui/settings.ui" line="837"/>
         <source>Add a BOM to new file</source>
         <translation>Ajouter un BOM au nouveau fichier</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="853"/>
+        <location filename="../ui/settings.ui" line="859"/>
         <source>Always add BOM</source>
         <translation>Toujours ajouter un BOM</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="860"/>
+        <location filename="../ui/settings.ui" line="866"/>
         <source>Always remove BOM</source>
         <translation>Toujours supprimer le BOM</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="872"/>
+        <location filename="../ui/settings.ui" line="878"/>
         <source>Charset Detection</source>
         <translation>Détection du Charset</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="884"/>
+        <location filename="../ui/settings.ui" line="890"/>
         <source>Try charset detection on loading file</source>
         <translation>Essaye de détecter le charset au chargement du fichier</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="923"/>
+        <location filename="../ui/settings.ui" line="929"/>
         <source>Auto Completion Enabled</source>
         <translation>Auto Complétion activé</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="938"/>
+        <location filename="../ui/settings.ui" line="944"/>
         <source>Case Sensitive</source>
         <translation>Sensible à la casse</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="945"/>
+        <location filename="../ui/settings.ui" line="951"/>
         <source>Show Single</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="952"/>
+        <location filename="../ui/settings.ui" line="958"/>
         <source>Replace Word</source>
         <translation>Remplace le mo</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="964"/>
+        <location filename="../ui/settings.ui" line="970"/>
         <source>Threshold :</source>
         <translation>Seuil :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1014"/>
+        <location filename="../ui/settings.ui" line="1020"/>
         <source>Source</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1026"/>
+        <location filename="../ui/settings.ui" line="1032"/>
         <source>from Document</source>
         <translation>depuis le Document</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1033"/>
+        <location filename="../ui/settings.ui" line="1039"/>
         <source>from API file</source>
         <translation>depuis un fichier d&apos;API</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1040"/>
+        <location filename="../ui/settings.ui" line="1046"/>
         <source>from All</source>
         <translation>depuis tout</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1076"/>
+        <location filename="../ui/settings.ui" line="1082"/>
         <source>Calltips Enabled</source>
         <translation>Calltips Activé</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1096"/>
+        <location filename="../ui/settings.ui" line="1102"/>
         <source>Visible Calltips :</source>
         <translation>Calltips visible :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1156"/>
+        <location filename="../ui/settings.ui" line="1162"/>
         <source>No Context</source>
         <translation>Sans Contexte</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1163"/>
+        <location filename="../ui/settings.ui" line="1169"/>
         <source>Context </source>
         <translation>Contexte</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1170"/>
+        <location filename="../ui/settings.ui" line="1176"/>
         <source>No Auto Completion Context</source>
         <translation>Pas de contexte d&apos;auto complétion</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1191"/>
+        <location filename="../ui/settings.ui" line="1197"/>
         <source>Highlight :</source>
         <translation>Surligner :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1278"/>
+        <location filename="../ui/settings.ui" line="1284"/>
         <source>Auto Indent</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1285"/>
+        <location filename="../ui/settings.ui" line="1291"/>
         <source>Indentation use Tabs</source>
         <translation>Indetation utilise Tabs</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1292"/>
+        <location filename="../ui/settings.ui" line="1298"/>
         <source>Backspace Unindents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1299"/>
+        <location filename="../ui/settings.ui" line="1305"/>
         <source>Tab Indents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1306"/>
+        <location filename="../ui/settings.ui" line="1312"/>
         <source>Indentation Guides</source>
         <translation>Guides d&apos;indentation</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1313"/>
+        <location filename="../ui/settings.ui" line="1319"/>
         <source>Autodetect  indentation</source>
         <translation>Auto détecte indentation</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1325"/>
+        <location filename="../ui/settings.ui" line="1331"/>
         <source>Tab Width :</source>
         <translation>Largeur d&apos;un tab :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1380"/>
+        <location filename="../ui/settings.ui" line="1386"/>
         <source>Indentation Width :</source>
         <translation>Largeur d&apos;indentation :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1430"/>
+        <location filename="../ui/settings.ui" line="1436"/>
         <source>Indentation Guides Colours :</source>
         <translation>Couleur des guides d&apos;indentation :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1523"/>
+        <location filename="../ui/settings.ui" line="1529"/>
         <source>Style</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1529"/>
+        <location filename="../ui/settings.ui" line="1535"/>
         <source>Styles</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1535"/>
+        <location filename="../ui/settings.ui" line="1541"/>
         <source>ANSI</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1545"/>
+        <location filename="../ui/settings.ui" line="1551"/>
         <source>K&amp;&amp;R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1552"/>
+        <location filename="../ui/settings.ui" line="1558"/>
         <source>Linux</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1559"/>
+        <location filename="../ui/settings.ui" line="1565"/>
         <source>GNU</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1566"/>
+        <location filename="../ui/settings.ui" line="1572"/>
         <source>Java</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1573"/>
+        <location filename="../ui/settings.ui" line="1579"/>
         <source>Stroustrup</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1580"/>
+        <location filename="../ui/settings.ui" line="1586"/>
         <source>Whitesmith</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1587"/>
+        <location filename="../ui/settings.ui" line="1593"/>
         <source>Banner</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1594"/>
+        <location filename="../ui/settings.ui" line="1600"/>
         <source>Horstmann</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1601"/>
+        <location filename="../ui/settings.ui" line="1607"/>
         <source>1 TBS</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1608"/>
+        <location filename="../ui/settings.ui" line="1614"/>
         <source>Custom</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1632"/>
+        <location filename="../ui/settings.ui" line="1638"/>
         <source>Tab/Bracket</source>
         <translation>Tabulation/Parenthèse</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1638"/>
+        <location filename="../ui/settings.ui" line="1644"/>
         <source>Tabs / Spaces</source>
         <translation>Tabulations / Espaces</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1644"/>
+        <location filename="../ui/settings.ui" line="1650"/>
         <source>Indent with spaces</source>
         <translation>Indente avec des espaces</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1654"/>
+        <location filename="../ui/settings.ui" line="1660"/>
         <source>Indent with tabs</source>
         <translation>Indente avec des tabulations</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1661"/>
+        <location filename="../ui/settings.ui" line="1667"/>
         <source>Force indent with tabs</source>
         <translation>Force l&apos;indentation avec des tabulations</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1668"/>
+        <location filename="../ui/settings.ui" line="1674"/>
         <source>Spaces per Tab : </source>
         <translation>Espaces par tabulation :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1711"/>
-        <location filename="../ui/settings.ui" line="1827"/>
+        <location filename="../ui/settings.ui" line="1717"/>
+        <location filename="../ui/settings.ui" line="1833"/>
         <source>Brackets</source>
         <translation>Parenthèses</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1717"/>
-        <location filename="../ui/settings.ui" line="2061"/>
+        <location filename="../ui/settings.ui" line="1723"/>
+        <location filename="../ui/settings.ui" line="2067"/>
         <source>Do not change</source>
         <translation>Ne pas changer</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1727"/>
+        <location filename="../ui/settings.ui" line="1733"/>
         <source>Break Brackets</source>
         <translation>Parenthèses cassées</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1734"/>
+        <location filename="../ui/settings.ui" line="1740"/>
         <source>Attach Brackets</source>
         <translation>Parenthèses attachées</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1741"/>
+        <location filename="../ui/settings.ui" line="1747"/>
         <source>Linux Brackets</source>
         <translation>Linux Parenthèses</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1748"/>
+        <location filename="../ui/settings.ui" line="1754"/>
         <source>Stroustrup Brackets</source>
         <translation>Stroustrup Parenthèses</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1755"/>
+        <location filename="../ui/settings.ui" line="1761"/>
         <source>Horstmann Brackets</source>
         <translation>Horstmann Parenthèses</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1769"/>
+        <location filename="../ui/settings.ui" line="1775"/>
         <source>Predifined style will override
 the brackets option.</source>
         <translation>Les styles prédéfinis surcharge
 les options de parenthèses.</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1806"/>
+        <location filename="../ui/settings.ui" line="1812"/>
         <source>Class Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1813"/>
+        <location filename="../ui/settings.ui" line="1819"/>
         <source>Switch Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1820"/>
+        <location filename="../ui/settings.ui" line="1826"/>
         <source>Case Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1834"/>
+        <location filename="../ui/settings.ui" line="1840"/>
         <source>Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1841"/>
+        <location filename="../ui/settings.ui" line="1847"/>
         <source>Namespaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1848"/>
+        <location filename="../ui/settings.ui" line="1854"/>
         <source>Labels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1855"/>
+        <location filename="../ui/settings.ui" line="1861"/>
         <source>Preprocessor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1862"/>
+        <location filename="../ui/settings.ui" line="1868"/>
         <source>Column one comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1886"/>
+        <location filename="../ui/settings.ui" line="1892"/>
         <source>Pad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1892"/>
+        <location filename="../ui/settings.ui" line="1898"/>
         <source>Padding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1898"/>
+        <location filename="../ui/settings.ui" line="1904"/>
         <source>Break Header Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1905"/>
+        <location filename="../ui/settings.ui" line="1911"/>
         <source>Break all blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1912"/>
+        <location filename="../ui/settings.ui" line="1918"/>
         <source>Pad operators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1919"/>
+        <location filename="../ui/settings.ui" line="1925"/>
         <source>Pad parenthesis outside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1926"/>
+        <location filename="../ui/settings.ui" line="1932"/>
         <source>Pad parenthesis inside</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1933"/>
+        <location filename="../ui/settings.ui" line="1939"/>
         <source>Pad header</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1940"/>
+        <location filename="../ui/settings.ui" line="1946"/>
         <source>Unpad parenthesis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1947"/>
+        <location filename="../ui/settings.ui" line="1953"/>
         <source>Delete empty lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1954"/>
+        <location filename="../ui/settings.ui" line="1960"/>
         <source>Fill empty lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1978"/>
+        <location filename="../ui/settings.ui" line="1984"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1984"/>
+        <location filename="../ui/settings.ui" line="1990"/>
         <source>Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1990"/>
+        <location filename="../ui/settings.ui" line="1996"/>
         <source>Break closing brackets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="1997"/>
+        <location filename="../ui/settings.ui" line="2003"/>
         <source>Break else/if statements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2004"/>
+        <location filename="../ui/settings.ui" line="2010"/>
         <source>Add brackets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2011"/>
+        <location filename="../ui/settings.ui" line="2017"/>
         <source>Add one line brackets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2018"/>
+        <location filename="../ui/settings.ui" line="2024"/>
         <source>Keep one line blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2025"/>
+        <location filename="../ui/settings.ui" line="2031"/>
         <source>Keep one line statements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2038"/>
+        <location filename="../ui/settings.ui" line="2044"/>
         <source>Convert  tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2045"/>
+        <location filename="../ui/settings.ui" line="2051"/>
         <source>Align Pointer : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2066"/>
+        <location filename="../ui/settings.ui" line="2072"/>
         <source>Attach to type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2071"/>
+        <location filename="../ui/settings.ui" line="2077"/>
         <source>Attach in middle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2076"/>
+        <location filename="../ui/settings.ui" line="2082"/>
         <source>Attach to name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2131"/>
+        <location filename="../ui/settings.ui" line="2137"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2166"/>
+        <location filename="../ui/settings.ui" line="2172"/>
         <source>Brace Matching Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2196"/>
+        <location filename="../ui/settings.ui" line="2202"/>
         <source>Unmatched Brace Foreground :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2203"/>
+        <location filename="../ui/settings.ui" line="2209"/>
         <source>Matched Brace Background :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2210"/>
+        <location filename="../ui/settings.ui" line="2216"/>
         <source>Unmatched Brace Background :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2227"/>
+        <location filename="../ui/settings.ui" line="2233"/>
         <source>Matched Brace Foreground :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2256"/>
+        <location filename="../ui/settings.ui" line="2262"/>
         <source>Strict Brace Match</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2263"/>
+        <location filename="../ui/settings.ui" line="2269"/>
         <source>Sloppy Brace Match</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2296"/>
+        <location filename="../ui/settings.ui" line="2302"/>
         <source>Edge Mode Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2316"/>
+        <location filename="../ui/settings.ui" line="2322"/>
         <source>Color :</source>
         <translation>Couleur :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2340"/>
+        <location filename="../ui/settings.ui" line="2346"/>
         <source>Column Number :</source>
         <translation>Nombre de colonnes :</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2384"/>
+        <location filename="../ui/settings.ui" line="2390"/>
         <source>Edge Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2391"/>
+        <location filename="../ui/settings.ui" line="2397"/>
         <source>Edge Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2424"/>
+        <location filename="../ui/settings.ui" line="2430"/>
         <source>Caret Line Visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2449"/>
+        <location filename="../ui/settings.ui" line="2455"/>
         <source>Caret Line Background :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2456"/>
+        <location filename="../ui/settings.ui" line="2462"/>
         <source>Caret Foreground :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2468"/>
+        <location filename="../ui/settings.ui" line="2474"/>
         <source>Width :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2550"/>
+        <location filename="../ui/settings.ui" line="2556"/>
         <source>Line Numbers Margin Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2610"/>
-        <location filename="../ui/settings.ui" line="3328"/>
+        <location filename="../ui/settings.ui" line="2616"/>
+        <location filename="../ui/settings.ui" line="3334"/>
         <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2633"/>
+        <location filename="../ui/settings.ui" line="2639"/>
         <source>Bookmarks Margin Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2644"/>
+        <location filename="../ui/settings.ui" line="2650"/>
         <source>Fold Margin Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2655"/>
+        <location filename="../ui/settings.ui" line="2661"/>
         <source>Plain Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2662"/>
+        <location filename="../ui/settings.ui" line="2668"/>
         <source>Circled Tree Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2669"/>
+        <location filename="../ui/settings.ui" line="2675"/>
         <source>Circled Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2676"/>
+        <location filename="../ui/settings.ui" line="2682"/>
         <source>Boxed Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2683"/>
+        <location filename="../ui/settings.ui" line="2689"/>
         <source>Boxed Tree Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2690"/>
+        <location filename="../ui/settings.ui" line="2696"/>
         <source>Arrowed Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2697"/>
+        <location filename="../ui/settings.ui" line="2703"/>
         <source>Arrowed Tree Fold Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2727"/>
+        <location filename="../ui/settings.ui" line="2733"/>
         <source>Margin Foreground :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2747"/>
+        <location filename="../ui/settings.ui" line="2753"/>
         <source>Margin Background :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2767"/>
+        <location filename="../ui/settings.ui" line="2773"/>
         <source>Symbol Foreground :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2787"/>
+        <location filename="../ui/settings.ui" line="2793"/>
         <source>Symbol Background :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2827"/>
+        <location filename="../ui/settings.ui" line="2833"/>
         <source>EOL Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2839"/>
+        <location filename="../ui/settings.ui" line="2845"/>
         <source>Unix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2846"/>
+        <location filename="../ui/settings.ui" line="2852"/>
         <source>Macintosh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2853"/>
+        <location filename="../ui/settings.ui" line="2859"/>
         <source>Windows/DOS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2860"/>
+        <location filename="../ui/settings.ui" line="2866"/>
         <source>Autodetect EOL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2867"/>
+        <location filename="../ui/settings.ui" line="2873"/>
         <source>Eol Visibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2877"/>
+        <location filename="../ui/settings.ui" line="2883"/>
         <source>Whitespace Visibility Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2892"/>
+        <location filename="../ui/settings.ui" line="2898"/>
         <source>Visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2899"/>
+        <location filename="../ui/settings.ui" line="2905"/>
         <source>Visible After Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2909"/>
+        <location filename="../ui/settings.ui" line="2915"/>
         <source>Wrap Mode Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2924"/>
+        <location filename="../ui/settings.ui" line="2930"/>
         <source>Wrap Word</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2931"/>
+        <location filename="../ui/settings.ui" line="2937"/>
         <source>Wrap Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2941"/>
+        <location filename="../ui/settings.ui" line="2947"/>
         <source>Wrap Visual Flags Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="2961"/>
+        <location filename="../ui/settings.ui" line="2967"/>
         <source>Indent Width :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3015"/>
-        <location filename="../ui/settings.ui" line="3041"/>
+        <location filename="../ui/settings.ui" line="3021"/>
+        <location filename="../ui/settings.ui" line="3047"/>
         <source>Flag By Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3022"/>
-        <location filename="../ui/settings.ui" line="3048"/>
+        <location filename="../ui/settings.ui" line="3028"/>
+        <location filename="../ui/settings.ui" line="3054"/>
         <source>Flag By Border</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3058"/>
+        <location filename="../ui/settings.ui" line="3064"/>
         <source>Start :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3065"/>
+        <location filename="../ui/settings.ui" line="3071"/>
         <source>End :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3101"/>
+        <location filename="../ui/settings.ui" line="3107"/>
         <source>APIs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3113"/>
+        <location filename="../ui/settings.ui" line="3119"/>
         <source>List of API files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3120"/>
+        <location filename="../ui/settings.ui" line="3126"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3137"/>
-        <location filename="../ui/settings.ui" line="3198"/>
-        <location filename="../ui/settings.ui" line="3893"/>
+        <location filename="../ui/settings.ui" line="3143"/>
+        <location filename="../ui/settings.ui" line="3204"/>
+        <location filename="../ui/settings.ui" line="3899"/>
         <source>Delete</source>
         <translation type="unfinished">Supprimer</translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3144"/>
-        <location filename="../ui/settings.ui" line="3174"/>
+        <location filename="../ui/settings.ui" line="3150"/>
+        <location filename="../ui/settings.ui" line="3180"/>
         <source>Language :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3151"/>
+        <location filename="../ui/settings.ui" line="3157"/>
         <source>Select language to be configured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3181"/>
-        <location filename="../ui/settings.ui" line="3866"/>
+        <location filename="../ui/settings.ui" line="3187"/>
+        <location filename="../ui/settings.ui" line="3872"/>
         <source>Filename Pattern :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3188"/>
-        <location filename="../ui/settings.ui" line="3876"/>
+        <location filename="../ui/settings.ui" line="3194"/>
+        <location filename="../ui/settings.ui" line="3882"/>
         <source>Add/Change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3233"/>
+        <location filename="../ui/settings.ui" line="3239"/>
         <source>Lexer Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3238"/>
+        <location filename="../ui/settings.ui" line="3244"/>
         <source>Filename Pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3271"/>
+        <location filename="../ui/settings.ui" line="3277"/>
         <source>Style Element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3302"/>
+        <location filename="../ui/settings.ui" line="3308"/>
         <source>Foreground Colour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3315"/>
+        <location filename="../ui/settings.ui" line="3321"/>
         <source>Background Colour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3341"/>
+        <location filename="../ui/settings.ui" line="3347"/>
         <source>Fill to end of line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3363"/>
+        <location filename="../ui/settings.ui" line="3369"/>
         <source>setFoldComments</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3366"/>
+        <location filename="../ui/settings.ui" line="3372"/>
         <source>Fold comments</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3379"/>
+        <location filename="../ui/settings.ui" line="3385"/>
         <source>setFoldCompact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3382"/>
+        <location filename="../ui/settings.ui" line="3388"/>
         <source>Fold compact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3395"/>
+        <location filename="../ui/settings.ui" line="3401"/>
         <source>setFoldQuotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3398"/>
+        <location filename="../ui/settings.ui" line="3404"/>
         <source>Fold quotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3411"/>
+        <location filename="../ui/settings.ui" line="3417"/>
         <source>setFoldDirectives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3414"/>
+        <location filename="../ui/settings.ui" line="3420"/>
         <source>Fold directives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3427"/>
+        <location filename="../ui/settings.ui" line="3433"/>
         <source>setFoldAtBegin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3430"/>
+        <location filename="../ui/settings.ui" line="3436"/>
         <source>Fold at begin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3443"/>
+        <location filename="../ui/settings.ui" line="3449"/>
         <source>setFoldAtParenthesis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3446"/>
+        <location filename="../ui/settings.ui" line="3452"/>
         <source>Fold at parenthesis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3459"/>
+        <location filename="../ui/settings.ui" line="3465"/>
         <source>setFoldAtElse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3462"/>
+        <location filename="../ui/settings.ui" line="3468"/>
         <source>Fold at else</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3475"/>
+        <location filename="../ui/settings.ui" line="3481"/>
         <source>setFoldAtModule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3478"/>
+        <location filename="../ui/settings.ui" line="3484"/>
         <source>Fold at module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3491"/>
+        <location filename="../ui/settings.ui" line="3497"/>
         <source>setFoldPreprocessor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3494"/>
+        <location filename="../ui/settings.ui" line="3500"/>
         <source>Fold preprocessor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3507"/>
+        <location filename="../ui/settings.ui" line="3513"/>
         <source>setStylePreprocessor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3510"/>
+        <location filename="../ui/settings.ui" line="3516"/>
         <source>Style preprocessor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3523"/>
+        <location filename="../ui/settings.ui" line="3529"/>
         <source>Indent opening brace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3536"/>
+        <location filename="../ui/settings.ui" line="3542"/>
         <source>Indent closing brace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3549"/>
+        <location filename="../ui/settings.ui" line="3555"/>
         <source>setCaseSensitiveTags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3552"/>
+        <location filename="../ui/settings.ui" line="3558"/>
         <source>Case sensitive tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3565"/>
+        <location filename="../ui/settings.ui" line="3571"/>
         <source>setBackslashEscapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3568"/>
+        <location filename="../ui/settings.ui" line="3574"/>
         <source>Backslash escapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3575"/>
+        <location filename="../ui/settings.ui" line="3581"/>
         <source>Indentation warning :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3582"/>
+        <location filename="../ui/settings.ui" line="3588"/>
         <source>setIndentationWarning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3613"/>
+        <location filename="../ui/settings.ui" line="3619"/>
         <source>All Foreground Colours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3626"/>
+        <location filename="../ui/settings.ui" line="3632"/>
         <source>All Background Colours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3639"/>
+        <location filename="../ui/settings.ui" line="3645"/>
         <source>All Fonts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3664"/>
+        <location filename="../ui/settings.ui" line="3670"/>
         <source>Reset Current Lexer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3686"/>
+        <location filename="../ui/settings.ui" line="3692"/>
         <source>Lexer Language :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3702"/>
+        <location filename="../ui/settings.ui" line="3708"/>
         <source>Shown languages : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3796"/>
+        <location filename="../ui/settings.ui" line="3802"/>
         <source>Hidden languages : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3853"/>
+        <location filename="../ui/settings.ui" line="3859"/>
         <source>File Pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3858"/>
+        <location filename="../ui/settings.ui" line="3864"/>
         <source>Switch To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3883"/>
+        <location filename="../ui/settings.ui" line="3889"/>
         <source>Switch To :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/settings.ui" line="3900"/>
+        <location filename="../ui/settings.ui" line="3906"/>
         <source>Notification when switch fails</source>
         <translation type="unfinished"></translation>
     </message>

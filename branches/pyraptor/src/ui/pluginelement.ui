@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Plugins Settings Element</string>
+   <string notr="true">Plugins Settings Element</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -59,7 +59,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>info line1</string>
+          <string notr="true">info line1</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -69,7 +69,7 @@
        <item>
         <widget class="QLabel" name="linfoLine2">
          <property name="text">
-          <string>info line 2</string>
+          <string notr="true">info line 2</string>
          </property>
         </widget>
        </item>
