@@ -27,6 +27,7 @@
 #include "../astyle/AStyleIndenter.h"
 #include "../lexer/RLexerCpp.h"
 #include "../widget/ScintillaExt.h"
+#include "../pyplugins/PluginSettings.h"
 #include "Settings.h"
 #include "SettingsDialog.h"
 
@@ -120,6 +121,12 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDial
 	foreach(QLocale::Language i, locales){
 		cbTranslation->addItem(QLocale::languageToString(i), QVariant(i));
 	}
+	
+	//Plugins Paths
+	PluginSettings psettings;
+	plePluginsPaths->setValues(psettings.getPluginPaths());
+	connect(plePluginsPaths, SIGNAL(edited()), this, SLOT(pluginPathChanged()));
+	
 	// sort
 	cbTranslation->model()->sort(0);
 	
@@ -689,6 +696,11 @@ void SettingsDialog::saveSettingsDialog(){
 		switcherValue[it->text(0)] = list;
 	}
 	_settings->setSwitcherValues(switcherValue);
+}
+
+void SettingsDialog::pluginPathChanged(){
+	PluginSettings settings;
+	settings.setPluginPaths(plePluginsPaths->values());
 }
 
 void SettingsDialog::on_twMenu_itemSelectionChanged(){

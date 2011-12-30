@@ -484,7 +484,7 @@
      </widget>
      <widget class="QWidget" name="pPaths">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <layout class="QVBoxLayout">
        <property name="spacing">
@@ -495,6 +495,9 @@
        </property>
        <item>
         <widget class="PathListEditor" name="pleTranslationsPaths">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="title">
           <string>Translations Paths</string>
          </property>
@@ -502,6 +505,9 @@
        </item>
        <item>
         <widget class="PathListEditor" name="plePluginsPaths">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="title">
           <string>Plugins Paths</string>
          </property>
