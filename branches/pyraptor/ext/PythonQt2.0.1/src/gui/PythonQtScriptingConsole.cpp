@@ -92,7 +92,7 @@ void PythonQtScriptingConsole::stdOut(const QString& s)
   while ((idx = _stdOut.indexOf('\n'))!=-1) {
     setCurrentFont(Qt::blue);
     consoleMessage(_stdOut.left(idx));
-    std::cout << _stdOut.left(idx).toLatin1().data() << std::endl;
+    //std::cout << _stdOut.left(idx).toLatin1().data() << std::endl;
     _stdOut = _stdOut.mid(idx+1);
   }
 }
@@ -105,10 +105,10 @@ void PythonQtScriptingConsole::stdErr(const QString& s)
   while ((idx = _stdErr.indexOf('\n'))!=-1) {
     setCurrentFont(Qt::red, true);
     consoleMessage(_stdErr.left(idx));
-    std::cerr << _stdErr.left(idx).toLatin1().data() << std::endl;
+    //std::cerr << _stdErr.left(idx).toLatin1().data() << std::endl;
     _stdErr = _stdErr.mid(idx+1);
   }
-  
+
     // Reset all font modifications done by the html string
   //setCurrentCharFormat(_defaultTextCharacterFormat);
 }
@@ -429,9 +429,18 @@ void PythonQtScriptingConsole::keyPressEvent(QKeyEvent* event) {
     break;
 
   case Qt::Key_Delete:
+    if (textCursor.hasSelection()) {
 
-    cut();
-    eventHandled = true;
+      cut();
+      eventHandled = true;
+
+    } else {
+      if (textCursor.position() < commandPromptPosition()) {
+
+        QApplication::beep();
+        eventHandled = true;
+      }
+    }
     break;
 
   default:
