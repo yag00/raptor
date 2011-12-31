@@ -18,13 +18,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <QtGui>
-#include <Qsci/qsciscintilla.h>
-
 #ifdef PYTHON_SUPPORT
 #include <PythonQt.h>
 #include <gui/PythonQtScriptingConsole.h>
 #endif
+
+#include <QtGui>
+#include <Qsci/qsciscintilla.h>
 
 #include "ui_macro.h"
 #include "about/About.h"

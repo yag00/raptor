@@ -182,8 +182,8 @@ def build(bld):
 		pythonQt_sources = bld.path.ant_glob(['ext/PythonQt2.0.1/src/**/*.cpp',
 			'bindings/generated_cpp/com_trolltech_qt_core_builtin/*.cpp',
 			'bindings/generated_cpp/com_trolltech_qt_gui_builtin/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_core/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_gui/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_core/*.cpp',
+			#'bindings/generated_cpp/com_trolltech_qt_gui/*.cpp',
 			#'bindings/generated_cpp/com_trolltech_qt_svg/*.cpp',
 			#'bindings/generated_cpp/com_trolltech_qt_sql/*.cpp',
 			#'bindings/generated_cpp/com_trolltech_qt_network/*.cpp',
@@ -203,33 +203,8 @@ def build(bld):
 			name			= 'pyraptor',
 			target			= 'pyraptor',
 			includes		= '.',
-			cxxflags		= ['-Wall'],
+			cxxflags		= ['-Wno-write-strings'], # todo build with -Wall -Werror
 			install_path	= None)
-
-		"""pythonQtAll_sources = bld.path.ant_glob(['ext/PythonQt2.0.1/src/**/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_core/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_gui/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_svg/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_sql/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_network/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_opengl/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_webkit/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_xml/*.cpp',
-			'bindings/generated_cpp/com_trolltech_qt_uitools/*.cpp',
-			#'bindings/generated_cpp/com_trolltech_qt_xmlpatterns/*.cpp',
-			#'bindings/generated_cpp/com_trolltech_qt_phonon/*.cpp',
-			])
-
-		bld.shlib(
-			features		= 'qt4 pyembed',
-			uselib			= 'QTCORE QTGUI QTXML',
-			defines			= 'PYTHONQT_EXPORTS',
-			source		 	= pythonQtAll_sources,
-			name			= 'pyqtallraptor',
-			target			= 'pyqtallraptor',
-			includes		= '.',
-			cxxflags		= ['-Wall'],
-			install_path	= None)"""
 
 	#########################################################
 	# build astyle

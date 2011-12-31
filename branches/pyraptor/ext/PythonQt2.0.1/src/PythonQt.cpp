@@ -39,6 +39,7 @@
 */
 //----------------------------------------------------------------------------------
 
+#include <Python.h>
 #include "PythonQt.h"
 #include "PythonQtImporter.h"
 #include "PythonQtClassInfo.h"
