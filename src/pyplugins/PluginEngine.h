@@ -21,8 +21,8 @@
 #ifndef __PLUGIN_ENGINE_H__
 #define __PLUGIN_ENGINE_H__
 
-#include <QObject>
 #include <PythonQt.h>
+#include <QObject>
 
 class QMenu;
 class PyPlugin;

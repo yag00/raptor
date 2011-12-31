@@ -38,7 +38,7 @@
 // \date    2006-05
 */
 //----------------------------------------------------------------------------------
-
+#include <Python.h>
 #include "PythonQtClassInfo.h"
 #include "PythonQtMethodInfo.h"
 #include "PythonQt.h"

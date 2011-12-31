@@ -18,6 +18,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#ifdef PYTHON_SUPPORT
+//Python.h must be included first
+#include <PythonQt.h>
+//extern void PythonQt_init_QtCore(PyObject*);
+//extern void PythonQt_init_QtGui(PyObject*);
+#endif
+
 #include <iostream>
 
 #include <QDebug>
@@ -25,12 +32,6 @@
 #include <QTranslator>
 #include <QApplication>
 #include <QDir>
-
-#ifdef PYTHON_SUPPORT
-#include <PythonQt.h>
-extern void PythonQt_init_QtCore(PyObject*);
-extern void PythonQt_init_QtGui(PyObject*);
-#endif
 
 #include <qtsingleapplication.h>
 #include <Qsci/qsciglobal.h>
@@ -110,8 +111,6 @@ namespace {
 	}
 }
 
-extern void PythonQt_init_QtCore(PyObject*);
-extern void PythonQt_init_QtGui(PyObject*);
 
 int main(int argc, char *argv[]) {
 	QtSingleApplication app("ac0452da134c2a204d7b5a7f5bb516147d27ee84-dev", argc, argv);	// sha1(raptor)
@@ -154,9 +153,9 @@ int main(int argc, char *argv[]) {
 
 //#ifdef PYTHON_SUPPORT
 	//qDebug() << "PYTHON START";
-	PythonQt::init(PythonQt::IgnoreSiteModule); // | PythonQt::RedirectStdOut);
-    PythonQt_init_QtCore(0);
-    PythonQt_init_QtGui(0);	
+	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
+    //PythonQt_init_QtCore(0);
+    //PythonQt_init_QtGui(0);	
 	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
 	mainModule.evalScript(QString("import sys\n"));
 	//mainModule.evalScript(QString("from PythonQt import *\n"));

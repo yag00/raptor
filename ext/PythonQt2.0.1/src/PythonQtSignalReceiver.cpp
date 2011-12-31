@@ -213,10 +213,10 @@ int PythonQtSignalReceiver::qt_metacall(QMetaObject::Call c, int id, void **argu
     QObject::qt_metacall(c, id, arguments);
   }
 
-  bool found = false;
+  //bool found = false;  //not used
   foreach(const PythonQtSignalTarget& t, _targets) {
     if (t.slotId() == id) {
-      found = true;
+      //found = true;    //not used
       t.call(arguments);
       break;
     }
