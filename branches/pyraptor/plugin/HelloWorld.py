@@ -3,14 +3,29 @@ import BasePlugin
 class SimpleHelloWorld(BasePlugin.BasePlugin):
     
     def name(self):
+        """ return the name of the plugin """
         return "SimpleHelloWorld"
 
-    def version(self):
-        return "0.1"
-        
-    def about(self):
-        return "SimpleHelloWorld Demo Plugin"
+    def shortDescription(self):
+        """ return a short description of the plugin """
+        return "Simple Demo Plugin"
 
+    def description(self):
+        """ return a short description of the plugin """
+        return "Simple Demo Plugin\nTo be used as Example"
+
+    def author(self):
+        """ return the author of the plugin """
+        return "christophe.duvernois"
+
+    def license(self):
+        """ return the license name of the plugin """
+        return "GNU GPL v3"
+        
+    def version(self):
+        """ return the version of the plugin """
+        return "1.0"
+        
     def actions(self):
         print os.path.abspath("python.png")
         path = '/home/chris/Dev/raptorpy/python.png'
@@ -24,13 +39,28 @@ class SimpleHelloWorld(BasePlugin.BasePlugin):
 class HelloWorld(BasePlugin.BasePlugin):
     
     def name(self):
+        """ return the name of the plugin """
         return "HelloWorld"
 
-    def version(self):
-        return "0.1"
-        
-    def about(self):
+    def shortDescription(self):
+        """ return a short description of the plugin """
         return "HelloWorld Demo Plugin"
+
+    def description(self):
+        """ return a short description of the plugin """
+        return "Simple Demo Plugin\nTo be used as Example"
+
+    def author(self):
+        """ return the author of the plugin """
+        return "christophe.duvernois"
+
+    def license(self):
+        """ return the license name of the plugin """
+        return "GNU GPL v3"
+        
+    def version(self):
+        """ return the version of the plugin """
+        return "1.0"
 
     def actions(self):
         return [("HelloWorld", None, None, "function1", None), \
