@@ -50,6 +50,9 @@ class PyPlugin : public QObject{
 	protected slots:
 		void execute();
 	
+	signals:
+		void executed();
+		
 	private:
 		struct Node{
 			QString name;

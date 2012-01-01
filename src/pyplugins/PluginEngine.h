@@ -47,6 +47,9 @@ class PluginEngine : public QObject{
 		void loadPlugins();
 		void dropPlugins();
 	
+	signals:
+		void pluginExecuted();
+		
 	private:
 		QMenu& _pluginMenu;
 

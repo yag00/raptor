@@ -429,6 +429,7 @@ void MainWindow::createDocks() {
 	_pyConsoleDock = new QDockWidget(tr("PyConsole"), this);
 	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
 	PythonQtScriptingConsole* pyconsole = new PythonQtScriptingConsole(_pyConsoleDock, mainModule);
+	connect(_pluginEngine, SIGNAL(pluginExecuted()), pyconsole, SLOT(externalUpdate()));
 	_pyConsoleDock->setWidget(pyconsole);
 	_pyConsoleDock->setObjectName(QString::fromUtf8("PyConsole"));
 	addDockWidget(Qt::BottomDockWidgetArea, _pyConsoleDock);

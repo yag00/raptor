@@ -91,6 +91,10 @@ public slots:
   //! Appends a newline and command prompt at the end of the document.
   void appendCommandPrompt(bool storeOnly = false);
 
+  //! Appends a newline and command prompt at the end of the document 
+  //! if std output has changed from external python execution code.
+  void externalUpdate();
+  
 public:
   //! returns true if python cerr had an error
   bool hadError() { return _hadError; }
