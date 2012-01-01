@@ -93,6 +93,7 @@ void PluginEngine::loadPlugins(){
 			}
 			
 			PyPlugin* p = new PyPlugin(pyPluginObj, _pluginMenu, this);
+			connect(p, SIGNAL(executed()), this, SIGNAL(pluginExecuted()));
 			_plugins[plugin] = p;
 		}
 	}	

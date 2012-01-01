@@ -113,6 +113,15 @@ void PythonQtScriptingConsole::stdErr(const QString& s)
   //setCurrentCharFormat(_defaultTextCharacterFormat);
 }
 
+void PythonQtScriptingConsole::externalUpdate()
+{
+    if (textCursor().position() != commandPromptPosition()) {
+        stdOut("\n");
+        flushStdOut();
+        appendCommandPrompt();
+    }
+}
+
 void PythonQtScriptingConsole::flushStdOut()
 {
   if (!_stdOut.isEmpty()) {

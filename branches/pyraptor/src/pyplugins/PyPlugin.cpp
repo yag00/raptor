@@ -140,6 +140,7 @@ void PyPlugin::execute(){
 	else
 		ret = _plugin.call(function, QVariantList());
 	//@todo use ret ???
+	emit executed();
 }
 
 QString PyPlugin::getName() const {
