@@ -18,48 +18,42 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __PLUGIN_ENGINE_H__
-#define __PLUGIN_ENGINE_H__
+#ifndef __PY_DOCUMENT_MANAGER_H__
+#define __PY_DOCUMENT_MANAGER_H__
 
-#include <PythonQt.h>
 #include <QObject>
+#include <QStringList>
 
-class QMenu;
 class DocumentManager;
-class PyPlugin;
+class PyDocument;
 
-class PluginEngine : public QObject{
+class PyDocumentManager : public QObject{
 
 	Q_OBJECT
 
 	public:
-		PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject* parent_ = 0);
-		~PluginEngine();
-
-		PyPlugin* getPlugin(const QString& name_);
-
-		/** @return the list of all avail plugin 
-		 * the map contains the file and all plugins found into the file */
-		QMap<QString, QStringList> getAvailablePluginList();
-		/** @return the list of loaded plugin */
-		QList<PyPlugin*> getPluginList();
+		PyDocumentManager(DocumentManager& docMgr_, QObject* parent_ = 0);
+		~PyDocumentManager();
 	
 	public slots:
-		void loadPlugins();
-		void dropPlugins();
+		/** @return list of document (fullpath)*/
+		QStringList getDocumentsNameList();
+		/** @return list of document (fullpath) by view */
+		QStringList getDocumentsNameList(int view_);
+		/** @return number of active view */
+		int getViewNumber();
 	
-	signals:
-		void pluginExecuted();
-		
+		/** get a document
+		 * @param name_ fullpath of the document
+		 * @return the document or null if doesn't exist */
+		PyDocument* getDocument(const QString& name_);
+	
+		/** PyDocument explicit destructor */
+		void deleteDocument(PyDocument* o);
+	
 	private:
-		QMenu& _pluginMenu;
-
-		PythonQtObjectPtr _module;
-		PythonQtObjectPtr _loader;
-
-		QMap<QString, PyPlugin*> _plugins;
-		QMap<QString, QStringList> _availablePlugins;
-
+		DocumentManager& _docMgr;
+		
 };
 
-#endif // __PLUGIN_ENGINE_H__
+#endif // __PY_DOCUMENT_MANAGER_H__

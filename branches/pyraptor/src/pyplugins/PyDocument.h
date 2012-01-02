@@ -18,48 +18,27 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __PLUGIN_ENGINE_H__
-#define __PLUGIN_ENGINE_H__
+#ifndef __PY_DOCUMENT_H__
+#define __PY_DOCUMENT_H__
 
-#include <PythonQt.h>
 #include <QObject>
 
-class QMenu;
+class DocumentEditor;
 class DocumentManager;
-class PyPlugin;
 
-class PluginEngine : public QObject{
-
+class PyDocument : public QObject {
+	
 	Q_OBJECT
-
+	
 	public:
-		PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject* parent_ = 0);
-		~PluginEngine();
+		PyDocument(DocumentEditor* document_, QObject* parent_ = 0);
+		~PyDocument();
 
-		PyPlugin* getPlugin(const QString& name_);
-
-		/** @return the list of all avail plugin 
-		 * the map contains the file and all plugins found into the file */
-		QMap<QString, QStringList> getAvailablePluginList();
-		/** @return the list of loaded plugin */
-		QList<PyPlugin*> getPluginList();
-	
 	public slots:
-		void loadPlugins();
-		void dropPlugins();
-	
-	signals:
-		void pluginExecuted();
-		
+		QString text();
+
 	private:
-		QMenu& _pluginMenu;
-
-		PythonQtObjectPtr _module;
-		PythonQtObjectPtr _loader;
-
-		QMap<QString, PyPlugin*> _plugins;
-		QMap<QString, QStringList> _availablePlugins;
-
+		DocumentEditor* _document;
 };
 
-#endif // __PLUGIN_ENGINE_H__
+#endif // __PY_DOCUMENT_H__

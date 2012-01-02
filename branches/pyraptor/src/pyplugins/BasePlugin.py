@@ -24,7 +24,7 @@ class BasePlugin(object):
     
     def name(self):
         """ return the name of the plugin """
-        return ""
+        return self.__class__.__name__
  
     def icon(self):
         """ return the icon of the plugin """
