@@ -339,7 +339,7 @@ void MainWindow::createManager() {
 	_sessionManager = new SessionManager(*_documentManager, this);
 	_symbolManager = new SymbolManager(this);
 	_helpBrowser = new HelpBrowser(this);
-	_pluginEngine = new PluginEngine(*menuPlugins, this);
+	_pluginEngine = new PluginEngine(*menuPlugins, *_documentManager, this);
 	
 	setCentralWidget(_documentManager);
 

@@ -21,11 +21,16 @@
 #include <PythonQt.h>
 #include <QDebug>
 #include <QMenu>
+
+#include "../document_manager.h"
+
 #include "PyPlugin.h"
+#include "PyDocument.h"
+#include "PyDocumentManager.h"
 #include "PluginSettings.h"
 #include "PluginEngine.h"
 
-PluginEngine::PluginEngine(QMenu& pluginMenu_, QObject* parent_) : 
+PluginEngine::PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject* parent_) : 
 	QObject(parent_), _pluginMenu(pluginMenu_), _module(PythonQt::self()->getMainModule()) {
 	//add python ressource file to path
 	_module.evalScript("sys.path.append(':/pyplugin')\n");
@@ -40,6 +45,10 @@ PluginEngine::PluginEngine(QMenu& pluginMenu_, QObject* parent_) :
 	}
 	//load plugins
 	loadPlugins();
+	
+	//add c++ object
+	PythonQt::self()->registerQObjectClassNames(QStringList() << "PyDocument");
+	_module.addObject("mgr", new PyDocumentManager(docMgr_, this));
 }
 
 PluginEngine::~PluginEngine(){

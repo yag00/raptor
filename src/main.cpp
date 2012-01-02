@@ -21,8 +21,6 @@
 #ifdef PYTHON_SUPPORT
 //Python.h must be included first
 #include <PythonQt.h>
-//extern void PythonQt_init_QtCore(PyObject*);
-//extern void PythonQt_init_QtGui(PyObject*);
 #endif
 
 #include <iostream>
@@ -151,66 +149,13 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-//#ifdef PYTHON_SUPPORT
-	//qDebug() << "PYTHON START";
+#ifdef PYTHON_SUPPORT
 	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
-    //PythonQt_init_QtCore(0);
-    //PythonQt_init_QtGui(0);	
 	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
-	mainModule.evalScript(QString("import sys\n"));
-	//mainModule.evalScript(QString("from PythonQt import *\n"));
-	
+	mainModule.evalScript(QString("import sys\n"));	
 	// Allow the python system path to recognize QFile paths in the sys.path
 	PythonQt::self()->setImporter(NULL);
-	
-	/*mainModule.evalScript("sys.path.append(':')\n");
-	  mainModule.evalScript("import eyed3tagger\n");
-	  PythonQtObjectPtr tag = mainModule.evalScript("eyed3tagger.EyeD3Tagger()\n", Py_eval_input);
-	qDebug() << __LINE__ << " " << "tag : " << tag.isNull();
-	  Q_ASSERT(!tag.isNull());
-	  tag.call("setFileName", QVariantList() << "toto.mp3");
-	  QVariant fn = tag.call("fileName", QVariantList());
-		qDebug() << __LINE__ << " " << fn.toString();
-	  Q_ASSERT(fn.toString() == QString("t.mp3"));
-	
-	 {
-      // evaluate a python file embedded in executable as resource:
-      mainModule.evalFile("eyed3tagger.py");
-      // create an object, hold onto its reference
-      PythonQtObjectPtr tag = mainModule.evalScript("EyeD3Tagger()\n", Py_eval_input);
-      Q_ASSERT(!tag.isNull());
-		 qDebug() << __LINE__ << " "  << "tag : " << tag.isNull();
-      tag.call("setFileName", QVariantList() << "t.mp3");
-      QVariant fn = tag.call("fileName", QVariantList());
-        qDebug() << __LINE__ << " " << fn.toString();
-      Q_ASSERT(fn.toString() == QString("t.mp3"));
-      // tag goes out of scope, reference count decremented.
-    }
-	
-	 {
-      // evaluate a python file embedded in executable as resource:
-      mainModule.evalFile("plugin.py");
-      // create an object, hold onto its reference
-      PythonQtObjectPtr tag = mainModule.evalScript("Plugin()\n", Py_eval_input);
-      Q_ASSERT(!tag.isNull());
-      tag.call("run", QVariantList() << "t.mp3");
-      QVariant fn = tag.call("getName", QVariantList());
-        qDebug()<< __LINE__ << " "  << fn.toString();
-      // tag goes out of scope, reference count decremented.
-    }
-	// append the Qt resource root directory to the sys.path
-	mainModule.evalScript(QString("sys.path.append('%1')\n").arg(QDir::currentPath()));
-	mainModule.evalScript("import plugin\n");
-	PythonQtObjectPtr tag = mainModule.evalScript("plugin.Plugin()\n", Py_eval_input);
-	QVariant fn = tag.call("getName", QVariantList());
-	tag.call("run", QVariantList());
-	qDebug() << fn.toString();
-	if(fn.toString() == QString("helloWorld"))
-		qDebug() << "OK";
-	else
-		qDebug() << "FAIL";
-	qDebug() << "PYTHON OK";*/
-//#endif
+#endif
 	
 	MainWindow mainWin;
 	app.installEventFilter(&mainWin);
