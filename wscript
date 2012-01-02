@@ -415,7 +415,7 @@ def generate_qtBinding(self):
 	pygentsk.post()
 	dep_task = getattr(pygentsk, 'link_task', None)
 	if not dep_task:
-		print "Error"
+		print("Error")
 
 	tsk = self.create_task('qtBinding', [], [])
 	tsk.name = 'qtBinding'
