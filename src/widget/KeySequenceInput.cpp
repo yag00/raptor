@@ -23,7 +23,7 @@
 
 #include "KeySequenceInput.h"
 
-KeySequenceInput::KeySequenceInput(QWidget* parent_) : QLineEdit(parent_) {
+KeySequenceInput::KeySequenceInput(QWidget* parent_) : ClearLineEdit(parent_) {
 	_sequenceEnd = true;
 }
 

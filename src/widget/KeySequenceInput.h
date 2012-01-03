@@ -21,14 +21,14 @@
 #ifndef __KEY_SEQUENCE_INPUT_H__
 #define __KEY_SEQUENCE_INPUT_H__
 
-#include <QLineEdit>
+#include "ClearLineEdit.h"
 
 /*!
 	\brief A special QLineEdit that allow to define QShortcut
 	\details When the user press some combinaison keyx, the result is
 	\details wrotten in the QLineEdit
 */
-class KeySequenceInput : public QLineEdit
+class KeySequenceInput : public ClearLineEdit
 {
 	Q_OBJECT
 

@@ -28,7 +28,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="actionFilterLineEdit"/>
+      <widget class="ClearLineEdit" name="actionFilterLineEdit"/>
      </item>
     </layout>
    </item>
@@ -61,13 +61,6 @@
       <widget class="QPushButton" name="setShortcutButton">
        <property name="text">
         <string comment="button set shortcut">Set</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="clearShortcutButton">
-       <property name="text">
-        <string comment="button clear shortcut">Clear</string>
        </property>
       </widget>
      </item>
@@ -131,6 +124,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ClearLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">ClearLineEdit.h</header>
+  </customwidget>
+  <customwidget>
    <class>KeySequenceInput</class>
    <extends>QLineEdit</extends>
    <header location="global">widget/KeySequenceInput.h</header>
@@ -140,22 +138,6 @@
   <include location="../ressources.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>clearShortcutButton</sender>
-   <signal>clicked()</signal>
-   <receiver>shortcutLineEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>482</x>
-     <y>331</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>197</x>
-     <y>332</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>closeButton</sender>
    <signal>clicked()</signal>
