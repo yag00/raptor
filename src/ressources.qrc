@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/clear-left.png</file>
     <file>images/tick.png</file>
     <file>images/stop.png</file>
     <file>images/export.png</file>
