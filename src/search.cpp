@@ -161,7 +161,7 @@ void Search::showMessage(const QString &text_){
 
 void Search::showMessageNotFound(const QString &text_){
 	resultLabel->setText(text_);
-	leFind->setStyleSheet("background-color: #ff9999;");
+	leFind->setStyleSheet("QLineEdit { background-color: #ff9999; }");
 }
 
 void Search::showSearchResults(bool found_) {
@@ -197,6 +197,8 @@ void Search::on_leFind_textChanged(const QString& text_){
 	if(on){
 		_newSearch = true;
 		searchIncremental();
+	}else{
+		leFind->setStyleSheet("");
 	}
 	leFind->setFocus();
 }
