@@ -49,7 +49,7 @@
       <item>
        <layout class="QHBoxLayout" name="src1horizontalLayout">
         <item>
-         <widget class="QLineEdit" name="src1LineEdit"/>
+         <widget class="ClearLineEdit" name="src1LineEdit"/>
         </item>
         <item>
          <widget class="QToolButton" name="src1ToolButton">
@@ -91,7 +91,7 @@
       <item>
        <layout class="QHBoxLayout" name="src2horizontalLayout">
         <item>
-         <widget class="QLineEdit" name="src2LineEdit"/>
+         <widget class="ClearLineEdit" name="src2LineEdit"/>
         </item>
         <item>
          <widget class="QToolButton" name="src2ToolButton">
@@ -149,6 +149,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ClearLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">ClearLineEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../ressources.qrc"/>
  </resources>
