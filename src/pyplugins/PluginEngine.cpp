@@ -83,21 +83,24 @@ void PluginEngine::aboutToExecutePlugin(){
 void PluginEngine::cleanUp(){
 	if(_pydoclist.isEmpty())
 		return;
-	for(int i = 0; i < _pydoclist.count(); i++){
+	int i = 0;
+	while(i < _pydoclist.count()){
 		if(!_tmplist.contains(_pydoclist[i])){
-			_pydocmgr->deleteDocument(_pydoclist[i]);
-			_pydoclist[i] = 0;
+			PyDocument* doc = _pydoclist[i];
+			remove(doc);
+			_pydocmgr->deleteDocument(doc);
+		}else{
+			i++;
 		}
 	}
 	_tmplist.clear();
 }
 
 void PluginEngine::cleanAll(){
-	for(int i = 0; i < _pydoclist.count(); i++){
-		if(!_tmplist.contains(_pydoclist[i])){
-			_pydocmgr->deleteDocument(_pydoclist[i]);
-			_pydoclist[i] = 0;
-		}
+	while(_pydoclist.count() != 0){
+		PyDocument* doc = _pydoclist[0];
+		remove(doc);
+		_pydocmgr->deleteDocument(doc);
 	}
 	_pydoclist.clear();
 }
