@@ -19,16 +19,19 @@
  */
 
 #include <iostream>
+#include <sstream>
 
 #include <QLibraryInfo>
 #include <QTranslator>
 #include <QApplication>
 #include <QDir>
+#include <QMessageBox>
 
 #include <qtsingleapplication.h>
 #include <Qsci/qsciglobal.h>
 #include "settings/Settings.h"
 #include "about/ApplicationPath.h"
+#include "about/Version.h"
 #include "mainwindow.h"
 
 namespace {
@@ -52,14 +55,26 @@ namespace {
 	}
 	
 	inline void version(){
+#if defined(Q_OS_WIN)
+		std::ostringstream oss;
+		oss << PACKAGE_NAME << " - " << PACKAGE_VERSION << "\n";
+#ifdef PACKAGE_OS
+		oss << "Build for " << PACKAGE_OS << "\n";
+#endif		
+		oss << "Build with gcc " << Version::gccVersion().toStdString() << " MinGW " << Version::mingwVersion().toStdString() << "\n";
+		QMessageBox::about(0, "Version", QString(oss.str().c_str()));
+#else
 		std::cout << PACKAGE_NAME << " - " << PACKAGE_VERSION << std::endl;
 #ifdef PACKAGE_OS
 		std::cout << "Build for " << PACKAGE_OS << std::endl;
 #endif
+		std::cout << "Build with gcc " << Version::gccVersion().toStdString();
+		std::cout << std::endl;
+#endif
 	}
 	inline void qsciVersion(){
 		version();
-		std::cout << "build on qscintilla " << QSCINTILLA_VERSION_STR << std::endl;
+		std::cout << "Build on qscintilla " << QSCINTILLA_VERSION_STR << std::endl;
 	}
 	inline void help(){
 		std::cout << "Usage : " << std::endl;

@@ -137,3 +137,13 @@ bool Version::operator>=(const Version& v_){
 		return false;
 	return true;	
 }
+
+QString Version::gccVersion(){
+	return QString("%1.%2.%3").arg(__GNUC__).arg(__GNUC_MINOR__).arg(__GNUC_PATCHLEVEL__);
+}
+
+#ifdef Q_OS_WIN
+QString Version::mingwVersion(){
+	return QString("%1.%2.%3").arg(__MINGW32_MAJOR_VERSION).arg(__MINGW32_MINOR_VERSION).arg(__MINGW32_PATCHLEVEL);
+}
+#endif
