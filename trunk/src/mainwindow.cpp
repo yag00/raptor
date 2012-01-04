@@ -160,6 +160,7 @@ void MainWindow::initMenuEdit() {
 	connect(actionToggleBlockComment, SIGNAL(triggered()), _documentManager, SLOT(toggleBlockComment()));
 
 	connect(actionSwitchSrc, SIGNAL(triggered()), _documentManager, SLOT(switchDocumentSrc()));
+	connect(actionSwitchFile, SIGNAL(triggered()), _documentManager, SLOT(switchFile()));
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditMenu()));
 	connect(menuIndentation, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditIndentationMenu()));

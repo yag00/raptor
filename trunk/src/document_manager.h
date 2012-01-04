@@ -48,13 +48,6 @@ class DocumentManager : public Splitter{
 		/** @return active document */
 		DocumentEditor* getActiveDocument() const;
 
-		/** set the active document (do nothing if document doesn't exist
-		 * @param document_ the document to be active */
-		void setActiveDocument(DocumentEditor* document_);
-		/** set the active document (do nothing if document doesn't exist
-		 * @param name_ of the document to be active */
-		void setActiveDocument(const QString& name_);
-
 		/** get a document
 		 * @param name_ path + filename of the document
 		 * @return the document or null if doesn't exist */
@@ -77,6 +70,14 @@ class DocumentManager : public Splitter{
 		int getViewNumber() const;
 
 	public slots:
+		/** set the active document (do nothing if document doesn't exist
+		 * @param document_ the document to be active */
+		void setActiveDocument(DocumentEditor* document_);
+		/** set the active document (do nothing if document doesn't exist
+		 * @param name_ of the document to be active */
+		void setActiveDocument(const QString& name_);
+	
+	
 		/** @{ */
 
 		/** create a new document */
@@ -190,7 +191,9 @@ class DocumentManager : public Splitter{
 		/** switch to the source file associated to the current document
 		 * select or open the file if exists, do nothing if no association */
 		void switchDocumentSrc();
-
+		/** switch file : open the switcher window */
+		void switchFile();
+		
 		/** @} */
 
 		/** @{ */
