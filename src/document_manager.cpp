@@ -25,6 +25,7 @@
 #include "diff/Unidiff.h"
 #include "diff/UnidiffDialog.h"
 #include "diff/CompareDialog.h"
+#include "VerticalFileSwitcher.h"
 #include "document_editor.h"
 #include "document_view.h"
 #include "document_manager.h"
@@ -490,6 +491,18 @@ void DocumentManager::switchDocumentSrc(){
 			}
 			return;
 		}
+	}
+}
+
+void DocumentManager::switchFile(){
+	VerticalFileSwitcher* sw = findChild<VerticalFileSwitcher*>("VerticalFileSwitcher");
+	if(!sw){
+		QList<DocumentEditor*> list = getDocuments();
+		VerticalFileSwitcher* switcher = new VerticalFileSwitcher(list, this);
+		connect(switcher, SIGNAL(selected(QString)), this, SLOT(setActiveDocument(QString)));
+		switcher->show();
+	}else{
+		sw->close();
 	}
 }
 

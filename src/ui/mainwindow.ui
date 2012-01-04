@@ -155,6 +155,7 @@
     <addaction name="actionToggleComment"/>
     <addaction name="actionToggleBlockComment"/>
     <addaction name="separator"/>
+    <addaction name="actionSwitchFile"/>
     <addaction name="actionSwitchSrc"/>
     <addaction name="separator"/>
     <addaction name="actionReadOnly"/>
@@ -1621,6 +1622,14 @@
    </property>
    <property name="statusTip">
     <string>Display unified diff of the two current files</string>
+   </property>
+  </action>
+  <action name="actionSwitchFile">
+   <property name="text">
+    <string>Switch File</string>
+   </property>
+   <property name="shortcut">
+    <string>F9</string>
    </property>
   </action>
  </widget>
