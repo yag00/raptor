@@ -31,7 +31,23 @@
 #include "PluginEngine.h"
 
 PluginEngine::PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject* parent_) : 
-	QObject(parent_), _pluginMenu(pluginMenu_), _module(PythonQt::self()->getMainModule()) {
+	QObject(parent_), _pluginMenu(pluginMenu_) {
+	_pydocmgr = new PyDocumentManager(*this, docMgr_, this);
+	initialize();
+}
+
+PluginEngine::~PluginEngine(){
+	dropPlugins();
+}
+
+void PluginEngine::initialize(){
+	//initialize python qt
+	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
+	_module = PythonQt::self()->getMainModule();
+	_module.evalScript(QString("import sys\n"));
+	// Allow the python system path to recognize QFile paths in the sys.path
+	PythonQt::self()->setImporter(NULL);
+	
 	//add python ressource file to path
 	_module.evalScript("sys.path.append(':/pyplugin')\n");
 	//load base plugin class
@@ -48,14 +64,46 @@ PluginEngine::PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject
 	
 	//add c++ object
 	PythonQt::self()->registerQObjectClassNames(QStringList() << "PyDocument");
-	_module.addObject("mgr", new PyDocumentManager(docMgr_, this));
+	_module.addObject("mgr", _pydocmgr);
 }
 
-PluginEngine::~PluginEngine(){
-	dropPlugins();
+void PluginEngine::garbageCollect(PyDocument* pyDoc_){
+	_pydoclist.push_back(pyDoc_);
+}
+
+void PluginEngine::remove(PyDocument* pyDoc_){
+	_pydoclist.removeAll(pyDoc_);
+}
+
+void PluginEngine::aboutToExecutePlugin(){
+	_tmplist.clear();
+	_tmplist = _pydoclist;
+}
+
+void PluginEngine::cleanUp(){
+	if(_pydoclist.isEmpty())
+		return;
+	for(int i = 0; i < _pydoclist.count(); i++){
+		if(!_tmplist.contains(_pydoclist[i])){
+			_pydocmgr->deleteDocument(_pydoclist[i]);
+			_pydoclist[i] = 0;
+		}
+	}
+	_tmplist.clear();
+}
+
+void PluginEngine::cleanAll(){
+	for(int i = 0; i < _pydoclist.count(); i++){
+		if(!_tmplist.contains(_pydoclist[i])){
+			_pydocmgr->deleteDocument(_pydoclist[i]);
+			_pydoclist[i] = 0;
+		}
+	}
+	_pydoclist.clear();
 }
 
 void PluginEngine::dropPlugins(){
+	cleanAll();
 	for(QMap<QString, PyPlugin*>::iterator it = _plugins.begin(); it != _plugins.end(); ++it){
 		PyPlugin* p = it.value();
 		delete p;
@@ -102,6 +150,8 @@ void PluginEngine::loadPlugins(){
 			}
 			
 			PyPlugin* p = new PyPlugin(pyPluginObj, _pluginMenu, this);
+			connect(p, SIGNAL(aboutToExecute()), this, SLOT(aboutToExecutePlugin()));
+			connect(p, SIGNAL(executed()), this, SLOT(cleanUp()));
 			connect(p, SIGNAL(executed()), this, SIGNAL(pluginExecuted()));
 			_plugins[plugin] = p;
 		}

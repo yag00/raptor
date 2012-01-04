@@ -18,11 +18,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifdef PYTHON_SUPPORT
-//Python.h must be included first
-#include <PythonQt.h>
-#endif
-
 #include <iostream>
 
 #include <QDebug>
@@ -148,14 +143,6 @@ int main(int argc, char *argv[]) {
 			app.installTranslator(&qtTranslator);
 		}
 	}
-
-#ifdef PYTHON_SUPPORT
-	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
-	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
-	mainModule.evalScript(QString("import sys\n"));	
-	// Allow the python system path to recognize QFile paths in the sys.path
-	PythonQt::self()->setImporter(NULL);
-#endif
 	
 	MainWindow mainWin;
 	app.installEventFilter(&mainWin);

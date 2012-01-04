@@ -25,6 +25,7 @@
 #include <QStringList>
 
 class DocumentManager;
+class PluginEngine;
 class PyDocument;
 
 class PyDocumentManager : public QObject{
@@ -32,7 +33,7 @@ class PyDocumentManager : public QObject{
 	Q_OBJECT
 
 	public:
-		PyDocumentManager(DocumentManager& docMgr_, QObject* parent_ = 0);
+		PyDocumentManager(PluginEngine& pluginEngine_, DocumentManager& docMgr_, QObject* parent_ = 0);
 		~PyDocumentManager();
 	
 	public slots:
@@ -47,11 +48,14 @@ class PyDocumentManager : public QObject{
 		 * @param name_ fullpath of the document
 		 * @return the document or null if doesn't exist */
 		PyDocument* getDocument(const QString& name_);
-	
+
+		PyDocument* currentDocument();
+		
 		/** PyDocument explicit destructor */
-		void deleteDocument(PyDocument* o);
+		void deleteDocument(PyDocument* pyDoc_);
 	
 	private:
+		PluginEngine& _pluginEngine;
 		DocumentManager& _docMgr;
 		
 };

@@ -131,6 +131,7 @@ bool PyPlugin::getActionInfo(QVariantList& action_, QString& name_, QString& ico
 }
 
 void PyPlugin::execute(){
+	emit aboutToExecute();
 	QAction* action = qobject_cast<QAction*>(sender());
 	QString function = action->data().toString();
 	
@@ -140,11 +141,12 @@ void PyPlugin::execute(){
 	else
 		ret = _plugin.call(function, QVariantList());
 	//@todo use ret ???
+
 	emit executed();
 }
 
 QString PyPlugin::getName() const {
-	return _name;	
+	return _name;
 }
 
 QIcon PyPlugin::getIcon() const {
@@ -181,7 +183,7 @@ bool PyPlugin::isEnabled() const{
 
 void PyPlugin::setEnabled(bool enable_){
 	PluginSettings settings;
-	settings.setEnableStatus(_name, enable_);	
+	settings.setEnableStatus(_name, enable_);
 	setPluginMenuVisible(enable_);
 }
 
@@ -196,5 +198,5 @@ void PyPlugin::setPluginMenuVisible(bool visible_){
 		}else{
 			qCritical() << "PARANOIA OWNS";
 		}
-	}	
+	}
 }

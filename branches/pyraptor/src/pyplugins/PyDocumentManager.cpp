@@ -18,11 +18,16 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <PythonQt.h>
+
+#include "../document_editor.h"
 #include "../document_manager.h"
+#include "PluginEngine.h"
 #include "PyDocument.h"
 #include "PyDocumentManager.h"
 
-PyDocumentManager::PyDocumentManager(DocumentManager& docMgr_, QObject* parent_) : QObject(parent_), _docMgr(docMgr_) {
+PyDocumentManager::PyDocumentManager(PluginEngine& pluginEngine_, DocumentManager& docMgr_, QObject* parent_) 
+	: QObject(parent_), _pluginEngine(pluginEngine_), _docMgr(docMgr_) {
 
 }
 
@@ -42,10 +47,24 @@ int PyDocumentManager::getViewNumber(){
 	return _docMgr.getViewNumber();
 }
 
-PyDocument* PyDocumentManager::getDocument(const QString& name_){
-	return new PyDocument(_docMgr.getDocument(name_), this);
+void PyDocumentManager::deleteDocument(PyDocument* pyDoc_){
+	_pluginEngine.remove(pyDoc_);
+	delete pyDoc_;
 }
 
-void PyDocumentManager::deleteDocument(PyDocument* o){
-	delete o;
+PyDocument* PyDocumentManager::getDocument(const QString& name_){
+	DocumentEditor* doc = _docMgr.getDocument(name_);
+	if(doc){
+		PyDocument* pydoc = new PyDocument(doc, this);
+		_pluginEngine.garbageCollect(pydoc);
+		return pydoc;
+	}else{
+		return 0;
+	}
+}
+
+PyDocument* PyDocumentManager::currentDocument(){
+	PyDocument* pydoc = new PyDocument(_docMgr.getActiveDocument(), this);
+	_pluginEngine.garbageCollect(pydoc);
+	return pydoc;
 }
