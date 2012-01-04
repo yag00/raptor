@@ -51,6 +51,7 @@ class PyPlugin : public QObject{
 		void execute();
 	
 	signals:
+		void aboutToExecute();
 		void executed();
 		
 	private:

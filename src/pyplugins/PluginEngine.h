@@ -26,6 +26,8 @@
 
 class QMenu;
 class DocumentManager;
+class PyDocumentManager;
+class PyDocument;
 class PyPlugin;
 
 class PluginEngine : public QObject{
@@ -43,13 +45,24 @@ class PluginEngine : public QObject{
 		QMap<QString, QStringList> getAvailablePluginList();
 		/** @return the list of loaded plugin */
 		QList<PyPlugin*> getPluginList();
-	
+
+		void garbageCollect(PyDocument* pyDoc_);
+		void remove(PyDocument* pyDoc_);
+
 	public slots:
 		void loadPlugins();
 		void dropPlugins();
-	
+
+	protected slots:
+		void cleanUp();
+		void cleanAll();
+		void aboutToExecutePlugin();
+		
 	signals:
 		void pluginExecuted();
+	
+	protected:
+		void initialize();
 		
 	private:
 		QMenu& _pluginMenu;
@@ -59,6 +72,10 @@ class PluginEngine : public QObject{
 
 		QMap<QString, PyPlugin*> _plugins;
 		QMap<QString, QStringList> _availablePlugins;
+		
+		PyDocumentManager* _pydocmgr;
+		QList<PyDocument*> _pydoclist;
+		QList<PyDocument*> _tmplist;
 
 };
 
