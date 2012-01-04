@@ -23,6 +23,7 @@
 
 #include <stdint.h>
 #include <string>
+#include <QtGlobal> 
 
 class QString;
 
@@ -66,6 +67,10 @@ class Version {
 		bool operator>(const Version& v_);
 		bool operator>=(const Version& v_);
 
+		static QString gccVersion();
+#ifdef Q_OS_WIN
+		static QString mingwVersion();
+#endif
 	private:
 		uint32_t _major;
 		uint32_t _minor;
