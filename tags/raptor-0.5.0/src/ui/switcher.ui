@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VerticalFileSwitcher</class>
+ <widget class="QWidget" name="VerticalFileSwitcher">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Switch File</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="ClearLineEdit" name="switcherLineEdit">
+     <property name="styleSheet">
+      <string notr="true">border: 3px solid gray;
+border-radius: 8px;
+padding-right: 3px;
+background: rgba(255, 255, 250, 180);
+color: black;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="switcherList">
+     <property name="styleSheet">
+      <string notr="true">border: 2px solid gray;
+border-radius: 8px;
+padding: 1 1px;
+background: rgba(255, 255, 250, 200);
+</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ClearLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">ClearLineEdit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
