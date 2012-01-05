@@ -29,7 +29,7 @@ from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
 
-VERSION='0.4.0'
+VERSION='0.5.0'
 APPNAME='raptor'
 DESCRIPTION="Raptor A Portable Text editOR"
 
@@ -281,7 +281,7 @@ def build(bld):
 	#########################################################
 	# build raptor documentation
 	#########################################################
-	if (bld.env.SPHINX_BUILD != []) and (bld.env.QCOLLECTIONGENERATOR != []):
+	"""if (bld.env.SPHINX_BUILD != []) and (bld.env.QCOLLECTIONGENERATOR != []):
 		for lang in available_doc:
 			sphinxlog		= os.path.join(bld.bldnode.abspath(), "sphinx_%s.log" % lang)
 			qcglog			= os.path.join(bld.bldnode.abspath(), "qcglog_%s.log" % lang)
@@ -313,7 +313,7 @@ def build(bld):
 				target	= [qchNode, qhcNode],
 				install_path = '${PREFIX}/doc',
 			)
-
+	"""
 
 #########################################################
 # Packaging
@@ -372,7 +372,7 @@ def packageUbuntu(ctx):
 		os.remove(os.path.abspath("raptor-editor-" + VERSION + ".tar.gz"))
 		shutil.move(os.path.abspath("raptor-editor-" + VERSION), os.path.abspath("debbuild/"));
 		#copy debian directory
-		shutil.copytree(os.path.abspath("package/ubuntu/debian"), os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian"))
+		shutil.copytree(os.path.abspath("package/ubuntu/debian"), os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian"), ignore=shutil.ignore_patterns('.svn'))
 
 		#update changelog
 		fchangelog = open(os.path.abspath("debbuild/raptor-editor-" + VERSION + "/debian/changelog"), "r")
