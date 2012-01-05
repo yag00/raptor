@@ -1,6 +1,6 @@
 Summary		: Raptor A Portable Text editOR
 Name		: raptor-editor
-Version		: 0.4.0
+Version		: 0.5.0
 Release		: 1%{?dist}
 License		: GPLv3+
 Group		: Applications/Editors
