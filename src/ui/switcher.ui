@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Switch File</string>
+   <string notr="true">Switch File</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -23,7 +23,8 @@
       <string notr="true">border: 3px solid gray;
 border-radius: 8px;
 padding-right: 3px;
-background: rgba(255, 255, 250, 180);</string>
+background: rgba(255, 255, 250, 180);
+color: black;</string>
      </property>
     </widget>
    </item>
