@@ -29,6 +29,7 @@ class DocumentManager;
 class PyDocumentManager;
 class PyDocument;
 class PyPlugin;
+class PythonQtScriptingConsole;
 
 class PluginEngine : public QObject{
 
@@ -37,6 +38,8 @@ class PluginEngine : public QObject{
 	public:
 		PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject* parent_ = 0);
 		~PluginEngine();
+
+		PythonQtScriptingConsole* getConsole(QWidget* parent_);
 
 		PyPlugin* getPlugin(const QString& name_);
 

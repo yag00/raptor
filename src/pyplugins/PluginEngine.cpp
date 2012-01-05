@@ -19,6 +19,7 @@
  */
 
 #include <PythonQt.h>
+#include <gui/PythonQtScriptingConsole.h>
 #include <QDebug>
 #include <QMenu>
 
@@ -38,11 +39,12 @@ PluginEngine::PluginEngine(QMenu& pluginMenu_, DocumentManager& docMgr_, QObject
 
 PluginEngine::~PluginEngine(){
 	dropPlugins();
+	PythonQt::cleanup();
 }
 
 void PluginEngine::initialize(){
 	//initialize python qt
-	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
+	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut, "PyRaptor");
 	_module = PythonQt::self()->getMainModule();
 	_module.evalScript(QString("import sys\n"));
 	// Allow the python system path to recognize QFile paths in the sys.path
@@ -175,4 +177,10 @@ QMap<QString, QStringList> PluginEngine::getAvailablePluginList(){
 
 QList<PyPlugin*> PluginEngine::getPluginList(){
 	return _plugins.values();
+}
+
+PythonQtScriptingConsole* PluginEngine::getConsole(QWidget* parent_){
+	PythonQtScriptingConsole* pyconsole = new PythonQtScriptingConsole(parent_, _module);
+	connect(this, SIGNAL(pluginExecuted()), pyconsole, SLOT(externalUpdate()));
+	return pyconsole;
 }
