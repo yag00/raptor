@@ -13,12 +13,30 @@
   <property name="windowTitle">
    <string>Switch File</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="ClearLineEdit" name="switcherLineEdit"/>
+    <widget class="ClearLineEdit" name="switcherLineEdit">
+     <property name="styleSheet">
+      <string notr="true">border: 3px solid gray;
+border-radius: 8px;
+padding-right: 3px;
+background: rgba(255, 255, 250, 180);</string>
+     </property>
+    </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="switcherList"/>
+    <widget class="QListWidget" name="switcherList">
+     <property name="styleSheet">
+      <string notr="true">border: 2px solid gray;
+border-radius: 8px;
+padding: 1 1px;
+background: rgba(255, 255, 250, 200);
+</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

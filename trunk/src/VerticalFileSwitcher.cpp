@@ -25,6 +25,7 @@
 VerticalFileSwitcher::VerticalFileSwitcher(QList<DocumentEditor*>& list_, QWidget* parent_) : QDialog(parent_, Qt::FramelessWindowHint){
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
+	setAttribute(Qt::WA_TranslucentBackground, true);
 	
 	_maxwidth = 0;
 	foreach(DocumentEditor* doc, list_)
