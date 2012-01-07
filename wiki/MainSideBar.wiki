@@ -3,6 +3,7 @@
  * Developers
    * [BuildingRaptor How to build]
    * [TranslateRaptor How to translate]
+   * [Changelog Changelog]
  * About
    * [Screenshot]
    * [Donate]
