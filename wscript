@@ -72,6 +72,8 @@ Scripting.default_cmd = "release"
 
 def options(opt):
 	opt.load('compiler_c compiler_cxx qt4 slow_qt4')
+	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
+	opt.add_option('--ubuntu', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --ubuntu=oneiric)', dest = 'ubuntuName')
 
 def distclean(ctx):
 	Scripting.distclean(ctx)
@@ -382,6 +384,10 @@ def packageUbuntu(ctx):
 		# the dictionary has target_word:replacement_word pairs
 		from email.Utils import formatdate
 		(distname,version,id) =  platform.linux_distribution()
+		
+		if ctx.options.ubuntuName:
+			id = ctx.options.ubuntuName
+		
 		word_dic = {
 			'${RAPTOR_VERSION_DEB}': VERSION,
 			'${DEB_DIST}': id,
@@ -401,14 +407,13 @@ def packageUbuntu(ctx):
 		command += "-S -sa"
 		ctx.exec_command(command)
 
-
-		command = ctx.env.DPKG_BUILDPACKAGE + ' '
-		command += "-rfakeroot"
-		ctx.exec_command(command)
-
+		if ctx.options.debSrcOnly == False and ctx.options.ubuntuName == "":
+			command = ctx.env.DPKG_BUILDPACKAGE + ' '
+			command += "-rfakeroot"
+			ctx.exec_command(command)
+	
 		os.chdir("../../")
 
-		#get deb/src-deb
 		os.rename("debbuild", "package.ubuntu")
 
 	else:
