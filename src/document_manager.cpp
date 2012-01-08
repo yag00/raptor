@@ -111,8 +111,10 @@ QList<DocumentEditor*> DocumentManager::getDocuments(){
 	//for each view
 	std::vector<DocumentView*>::iterator it;
 	for(it = _viewList.begin(); it < _viewList.end(); ++it){
-		//fill the list
-		list.append((*it)->getDocuments());
+		if((*it)->isVisible()){
+			//fill the list
+			list.append((*it)->getDocuments());
+		}
 	}
 	return list;
 }
@@ -128,8 +130,10 @@ QStringList DocumentManager::getDocumentsNameList(){
 	//for each view
 	std::vector<DocumentView*>::iterator it;
 	for(it = _viewList.begin(); it < _viewList.end(); ++it){
-		//fill the list
-		list.append((*it)->getDocumentNameList());
+		if((*it)->isVisible()){
+			//fill the list
+			list.append((*it)->getDocumentNameList());
+		}
 	}
 	return list;
 }
