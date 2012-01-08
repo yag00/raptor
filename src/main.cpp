@@ -35,11 +35,11 @@
 #include "mainwindow.h"
 
 namespace {
-	inline void displayOption(const std::string& shortOption, const std::string& fullOption, const std::string& desc){	
+	inline void displayOption(const std::string& shortOption, const std::string& fullOption, const std::string& desc){
 		std::cout.flags(std::ios::right);
 		std::cout.width(2);
 		std::cout << "  ";
-		
+
 		std::cout.flags(std::ios::left);
 		std::cout.width(6);
 		if(shortOption.empty())
@@ -53,23 +53,22 @@ namespace {
 		std::cout << fullOption;
 		std::cout << desc << std::endl;
 	}
-	
+
 	inline void version(){
+		QString raptorversion = QString("%1 - %2\n").arg(PACKAGE_NAME).arg(PACKAGE_VERSION);
+		QString buildOs = QString("Build for %1\n").arg(PACKAGE_OS);
+		QString gcc = "Build with gcc " + Version::gccVersion();
+		QString qtversion = QString("Build with Qt %1 (using Qt %2)\n").arg(QT_VERSION_STR).arg(qVersion());
 #if defined(Q_OS_WIN)
-		std::ostringstream oss;
-		oss << PACKAGE_NAME << " - " << PACKAGE_VERSION << "\n";
-#ifdef PACKAGE_OS
-		oss << "Build for " << PACKAGE_OS << "\n";
-#endif		
-		oss << "Build with gcc " << Version::gccVersion().toStdString() << " MinGW " << Version::mingwVersion().toStdString() << "\n";
-		QMessageBox::about(0, "Version", QString(oss.str().c_str()));
+		gcc += (" MinGW " + Version::mingwVersion() + "\n");
 #else
-		std::cout << PACKAGE_NAME << " - " << PACKAGE_VERSION << std::endl;
-#ifdef PACKAGE_OS
-		std::cout << "Build for " << PACKAGE_OS << std::endl;
+		gcc += "\n";
 #endif
-		std::cout << "Build with gcc " << Version::gccVersion().toStdString();
-		std::cout << std::endl;
+		QString versionStr = raptorversion + buildOs + qtversion + gcc;
+#if defined(Q_OS_WIN)
+		QMessageBox::about(0, "Version", versionStr);
+#else
+		std::cout << versionStr.toStdString() << std::endl;
 #endif
 	}
 	inline void qsciVersion(){
@@ -95,7 +94,7 @@ namespace {
 		Settings settings;
 		settings.remove("/LexerAssociation");
 	}
-	
+
 	inline int parseOption(const QString& option){
 		if(option == "-v" || option =="--version"){
 			version();
@@ -108,11 +107,11 @@ namespace {
 		if(option == "--reset-lexers"){
 			resetLexer();
 			return 0;
-		}			
+		}
 		if(option == "--reset-associations"){
 			resetLexer();
 			return 0;
-		}		
+		}
 		help();
 		return 0;
 	}
@@ -120,12 +119,12 @@ namespace {
 
 int main(int argc, char *argv[]) {
 	QtSingleApplication app("ac0452da134c2a204d7b5a7f5bb516147d27ee84", argc, argv);	// sha1(raptor)
-	
+
 	QStringList args = QCoreApplication::arguments();
 	args.pop_front();
-	
+
 	QString message;
-	foreach(QString arg, args){	
+	foreach(QString arg, args){
 		if(arg[0] == '-'){
 			parseOption(arg);
 			return 0;
@@ -135,7 +134,7 @@ int main(int argc, char *argv[]) {
 			message += ";";
 		}
 	}
-	
+
 	//check if raptor is already running
 	if (app.isRunning()){
 		//raptor is running, send full message
@@ -150,13 +149,13 @@ int main(int argc, char *argv[]) {
 
 	QTranslator raptorTranslator;
 	if(raptorTranslator.load("raptor_" + locale, ApplicationPath::translationPath())){
-		app.installTranslator(&raptorTranslator);	
+		app.installTranslator(&raptorTranslator);
 		QTranslator qtTranslator;
-		if(qtTranslator.load("qt_" + locale,	QLibraryInfo::location(QLibraryInfo::TranslationsPath))){
+		if(qtTranslator.load("qt_" + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))){
 			app.installTranslator(&qtTranslator);
 		}
 	}
-	
+
 	MainWindow mainWin;
 	app.installEventFilter(&mainWin);
 
