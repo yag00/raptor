@@ -73,7 +73,8 @@ Scripting.default_cmd = "release"
 def options(opt):
 	opt.load('compiler_c compiler_cxx qt4 slow_qt4')
 	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
-	opt.add_option('--ubuntu', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --ubuntu=oneiric)', dest = 'ubuntuName')
+	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
+	opt.add_option('--deb-version', action='store', default="", help = '(ubuntu) package target will only build the source package with special version (ex: --deb-version=1)', dest = 'debVersion')
 
 def distclean(ctx):
 	Scripting.distclean(ctx)
@@ -385,11 +386,14 @@ def packageUbuntu(ctx):
 		from email.Utils import formatdate
 		(distname,version,id) =  platform.linux_distribution()
 		
-		if ctx.options.ubuntuName:
-			id = ctx.options.ubuntuName
+		if ctx.options.debDist:
+			id = ctx.options.debDist
+		RAPTOR_VERSION_DEB = VERSION
+		if ctx.options.debVersion:
+			RAPTOR_VERSION_DEB += '.' + ctx.options.debVersion
 		
 		word_dic = {
-			'${RAPTOR_VERSION_DEB}': VERSION,
+			'${RAPTOR_VERSION_DEB}': RAPTOR_VERSION_DEB,
 			'${DEB_DIST}': id,
 			'${RAPTOR_VERSION_DISPLAY}': VERSION,
 			'${DEB_DATE}': formatdate(localtime=True),
@@ -407,7 +411,7 @@ def packageUbuntu(ctx):
 		command += "-S -sa"
 		ctx.exec_command(command)
 
-		if ctx.options.debSrcOnly == False and ctx.options.ubuntuName == "":
+		if ctx.options.debSrcOnly == False and ctx.options.debDist == ""  and ctx.options.debVersion == "":
 			command = ctx.env.DPKG_BUILDPACKAGE + ' '
 			command += "-rfakeroot"
 			ctx.exec_command(command)
