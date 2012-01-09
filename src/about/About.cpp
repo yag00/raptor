@@ -66,7 +66,6 @@ namespace {
 
 AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
 	setupUi(this);
-	//setAttribute( Qt::WA_DeleteOnClose );
 
 	// window title
 	setWindowTitle( windowTitle().arg( PACKAGE_NAME ) );
@@ -81,11 +80,8 @@ AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
 
 	// show informations table
 	lInformations->setTextInteractionFlags( Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard );
-#ifdef PACKAGE_OS
 	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( RaptorVersion.getVersion() ).arg(PACKAGE_OS).arg("http://code.google.com/p/raptor/"));
-#else
-	lInformations->setText( mInformations.arg( PACKAGE_NAME ).arg( RaptorVersion.getVersion() ).arg("Unknown OS").arg("http://code.google.com/p/raptor/"));
-#endif
+
 	// team
 	foreach ( Datas i, mTeamates )
 		tbTeam->append( mDatasMask.arg( i.comment ).arg( i.name +" -" ).arg( i.login +"<br />" ).arg( i.country ).arg( QString( "mailto:" ).append( i.email ) ).arg( i.email ) );

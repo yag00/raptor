@@ -499,10 +499,11 @@ void DocumentManager::switchDocumentSrc(){
 }
 
 void DocumentManager::switchFile(){
-	VerticalFileSwitcher* sw = findChild<VerticalFileSwitcher*>("VerticalFileSwitcher");
+	VerticalFileSwitcher* sw = this->parent()->findChild<VerticalFileSwitcher*>("VerticalFileSwitcher");
 	if(!sw){
 		QList<DocumentEditor*> list = getDocuments();
-		VerticalFileSwitcher* switcher = new VerticalFileSwitcher(list, this);
+		//QSplitter parent can't be parent, otherwise switcher will be integrate to splitter
+		VerticalFileSwitcher* switcher = new VerticalFileSwitcher(list, (QWidget*)this->parent());
 		connect(switcher, SIGNAL(selected(QString)), this, SLOT(setActiveDocument(QString)));
 		switcher->show();
 	}else{

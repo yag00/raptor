@@ -44,6 +44,7 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow() {
+	showMaximized();
 	//init ui
 	setupUi(this);
 
@@ -801,7 +802,7 @@ void MainWindow::aboutToShowLanguageMenu(){
 
 void MainWindow::runMacroMultipleTimes() {
 	Ui::RunMacroDialog ui;
-	QDialog* dlg = new QDialog();
+	QDialog* dlg = new QDialog(this);
 	ui.setupUi(dlg);
 	if(dlg->exec() == QDialog::Accepted) {
 		if(ui.rbNbTimes->isChecked()) {
@@ -821,12 +822,12 @@ void MainWindow::saveMacro() {
 
 
 void MainWindow::settings() {
-	SettingsDialog dlg(*this);
+	SettingsDialog dlg(*this, this);
 	dlg.exec();
 }
 void MainWindow::shortcuts() {
 	QList<QMenu*> menus = findChildren<QMenu*>();
-	ShortcutEditor dlg(menus);
+	ShortcutEditor dlg(menus, this);
 	dlg.exec();
 	//update open document
 	ShortcutSettings settings;
@@ -842,7 +843,7 @@ void MainWindow::showDocumentation() {
 }
 
 void MainWindow::about() {
-	AboutDlg about;
+	AboutDlg about(this);
 	about.exec();
 }
 
