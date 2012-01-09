@@ -36,7 +36,7 @@ class DocumentManager : public Splitter{
 		/** default constructor
 		 * @param document_ initialize the view with an existing document
 		 * @param parent_ */
-		DocumentManager(QWidget * parent_ = 0);
+		DocumentManager(QWidget * parent_);
 		/** destructor */
 		~DocumentManager();
 

@@ -22,9 +22,10 @@
 #include "document_editor.h"
 #include "VerticalFileSwitcher.h"
 
-VerticalFileSwitcher::VerticalFileSwitcher(QList<DocumentEditor*>& list_, QWidget* parent_) : QDialog(parent_, Qt::FramelessWindowHint){
+VerticalFileSwitcher::VerticalFileSwitcher(QList<DocumentEditor*>& list_, QWidget* parent_) : QDialog(parent_){
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
+	setWindowFlags(Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_TranslucentBackground, true);
 	
 	_maxwidth = 0;
@@ -36,6 +37,10 @@ VerticalFileSwitcher::VerticalFileSwitcher(QList<DocumentEditor*>& list_, QWidge
 	switcherList->setResizeMode(QListView::Adjust);
 	int w = qMax(width(), _maxwidth + 30);
 	resize(w, height());
+	//center switcher in the middle of the parent_ (mainwindow)
+	if(parent_)
+		move(parent_->rect().center() - rect().center());
+	switcherLineEdit->setFocus();
 }
 
 VerticalFileSwitcher::~VerticalFileSwitcher(){
