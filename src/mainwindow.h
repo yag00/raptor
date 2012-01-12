@@ -102,6 +102,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 
 		void about();
 		void showDocumentation();
+		void checkForUpdate();
+		void checkForUpdateError(const QString& error_);
+		void checkForUpdateDone(const QString& version_);
 
 		/** update all */
 		void update(DocumentEditor*);

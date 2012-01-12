@@ -19,7 +19,6 @@
  */
 
 #include <QtGui>
-#include <QtDebug>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexer.h>
 
@@ -1035,4 +1034,56 @@ QMap<QString, QStringList> Settings::getSwitcherValues(){
 	}
 	endArray();
 	return switcherMap;
+}
+
+//Update
+void Settings::setCheckOnStartUp(bool check_){
+	setValue("Update/checkstart", check_);
+}
+bool Settings::getCheckOnStartUp(){
+	return value("Update/checkstart", true).toBool();
+}
+
+void Settings::setShowPopUpOnError(bool check_){
+	setValue("Update/ShowPopUpOnError", check_);
+}
+bool Settings::getShowPopUpOnError(){
+	return value("Update/ShowPopUpOnError", false).toBool();
+}
+
+void Settings::setProxyEnable(bool enable_){
+	setValue("Update/proxyEnable", enable_);
+}
+bool Settings::getProxyEnable(){
+	return value("Update/proxyEnable", false).toBool();
+}
+void Settings::setProxyAddress(const QString& proxy_){
+	setValue("Update/proxyAddress", proxy_);
+}
+QString Settings::getProxyAddress(){
+	return value("Update/proxyAddress", "").toString();
+}
+void Settings::setProxyPort(int port_){
+	setValue("Update/proxyPort", port_);
+}
+int Settings::getProxyPort(){
+	return value("Update/proxyPort", -1).toInt();
+}
+void Settings::setProxyAuthentification(bool enable_){
+	setValue("Update/proxyAuthEnable", enable_);
+}
+bool Settings::getProxyAuthentification(){
+	return value("Update/proxyAuthEnable", false).toBool();
+}
+void Settings::setProxyUser(const QString& user_){
+	setValue("Update/proxyUser", user_);
+}
+QString Settings::getProxyUser(){
+	return value("Update/proxyUser", "").toString();
+}
+void Settings::setProxyPassword(const QString& password_){
+	setValue("Update/proxyPassword", password_);
+}
+QString Settings::getProxyPassword(){
+	return value("Update/proxyPassword", "").toString();
 }

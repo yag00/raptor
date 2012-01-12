@@ -229,6 +229,8 @@
      <string comment="menu Help">Help</string>
     </property>
     <addaction name="actionHelp"/>
+    <addaction name="separator"/>
+    <addaction name="actionCheckUpdate"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuLanguage">
@@ -939,6 +941,10 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/about/about.png</normaloff>:/about/about.png</iconset>
+   </property>
    <property name="text">
     <string comment="action about">About</string>
    </property>
@@ -1630,6 +1636,15 @@
    </property>
    <property name="shortcut">
     <string>F9</string>
+   </property>
+  </action>
+  <action name="actionCheckUpdate">
+   <property name="icon">
+    <iconset resource="../ressources.qrc">
+     <normaloff>:/images/network.png</normaloff>:/images/network.png</iconset>
+   </property>
+   <property name="text">
+    <string>Check Update</string>
    </property>
   </action>
  </widget>

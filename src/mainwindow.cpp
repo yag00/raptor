@@ -24,6 +24,7 @@
 #include "ui_macro.h"
 #include "about/About.h"
 #include "about/Version.h"
+#include "about/UpdateChecker.h"
 #include "about/HelpBrowser.h"
 #include "settings/Settings.h"
 #include "settings/SettingsDialog.h"
@@ -314,6 +315,7 @@ void MainWindow::initMenuSettings() {
 
 void MainWindow::initMenuHelp() {
 	//connect menu "Help" Action
+	connect(actionCheckUpdate, SIGNAL(triggered()), this, SLOT(checkForUpdate()));
 	connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 	connect(actionHelp,  SIGNAL(triggered()), this, SLOT(showDocumentation()));
 }
@@ -842,6 +844,38 @@ void MainWindow::showDocumentation() {
 	//_helpBrowser->showDocumentation("index.html");
 }
 
+
+void MainWindow::checkForUpdate(){
+	UpdateChecker* checker = new UpdateChecker(this);
+	connect(checker, SIGNAL(error(QString)), this, SLOT(checkForUpdateError(QString)));
+	connect(checker, SIGNAL(lastVersion(QString)), this, SLOT(checkForUpdateDone(QString)));
+}
+
+void MainWindow::checkForUpdateError(const QString& error_){
+	Settings settings;
+	if(settings.getShowPopUpOnError()){
+		QMessageBox::information(this, tr("Check Update Error"), tr("A network error occured :\n") + error_);
+	}else{
+		updateStatusBarMessage(error_);
+	}
+	UpdateChecker* checker = findChild<UpdateChecker*>("UpdateChecker");
+	if(checker)
+		checker->deleteLater();
+}
+
+void MainWindow::checkForUpdateDone(const QString& version_){
+	if(Version(version_) > RaptorVersion)
+		QMessageBox::information(0, tr("Update Availabe"), 
+			tr("A new version <b>(%1)</b> of raptor is available<br/>Current version is <b>%2</b>").arg(version_).arg(RaptorVersion.getVersion()));
+	else{
+		updateStatusBarMessage(tr("No new version available")); 
+	}
+	UpdateChecker* checker = findChild<UpdateChecker*>("UpdateChecker");
+	if(checker)
+		checker->deleteLater();
+}
+
+
 void MainWindow::about() {
 	AboutDlg about(this);
 	about.exec();
@@ -925,6 +959,9 @@ void MainWindow::readSettings() {
 	//Restore last session
 	_sessionManager->openStartSession();
 	settings.apply(*this);
+	
+	if(settings.getCheckOnStartUp())
+		checkForUpdate();
 }
 
 bool MainWindow::eventFilter(QObject *obj_, QEvent *ev_) {

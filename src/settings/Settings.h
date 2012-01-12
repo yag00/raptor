@@ -310,6 +310,25 @@ class Settings : public QSettings{
 		void setSwitcherValues(const QMap<QString, QStringList>& associations_);
 		QMap<QString, QStringList> getDefaultSwitcherValues();
 		QMap<QString, QStringList> getSwitcherValues();
+		
+		// Update
+		void setCheckOnStartUp(bool check_);
+		bool getCheckOnStartUp();
+		void setShowPopUpOnError(bool check_);
+		bool getShowPopUpOnError();		
+		void setProxyEnable(bool enable_);
+		bool getProxyEnable();
+		void setProxyAddress(const QString& proxy_);
+		QString getProxyAddress();
+		void setProxyPort(int port_);
+		int getProxyPort();
+		void setProxyAuthentification(bool enable_);
+		bool getProxyAuthentification();
+		void setProxyUser(const QString& user_);
+		QString getProxyUser();
+		void setProxyPassword(const QString& password_);
+		QString getProxyPassword();
+		
 };
 
 #endif // __SETTINGS_H__
