@@ -246,7 +246,7 @@ def build(bld):
 
 	bld.new_task_gen(
 		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows() else ''),
-		uselib          = 'QTCORE QTGUI QTNETWORK QTHELP',
+		uselib          = 'QTCORE QTGUI QTNETWORK QTXML QTHELP',
 		use             = 'astyle qscintilla2 ctags',
 		source          = raptor_sources,
 		lang            = bld.path.ant_glob('src/translations/*.ts'),
@@ -277,7 +277,7 @@ def build(bld):
 	if isWindows():
 		#install qt dll
 		qtbin = (bld.cmd_and_log([bld.env.QMAKE, '-query', 'QT_INSTALL_BINS'], quiet=True).strip())
-		qtdlls = bld.root.find_node(qtbin).ant_glob(['QtCore4.dll', 'QtGui4.dll', 'QtNetwork4.dll', 'QtHelp4.dll', 'mingwm10.dll', 'libgcc_s_dw2-1.dll'])
+		qtdlls = bld.root.find_node(qtbin).ant_glob(['QtCore4.dll', 'QtGui4.dll', 'QtNetwork4.dll', 'QtXml4.dll', 'QtHelp4.dll', 'mingwm10.dll', 'libgcc_s_dw2-1.dll'])
 		bld.install_files(bld.env['PREFIX'], qtdlls)
 
 

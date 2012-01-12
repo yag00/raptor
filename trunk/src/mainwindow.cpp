@@ -45,10 +45,10 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow() {
-	showMaximized();
 	//init ui
 	setupUi(this);
-
+	showMaximized();
+	
 	//create manager
 	createManager();
 
@@ -961,7 +961,7 @@ void MainWindow::readSettings() {
 	settings.apply(*this);
 	
 	if(settings.getCheckOnStartUp())
-		checkForUpdate();
+		QTimer::singleShot(1500, this, SLOT(checkForUpdate()));
 }
 
 bool MainWindow::eventFilter(QObject *obj_, QEvent *ev_) {
