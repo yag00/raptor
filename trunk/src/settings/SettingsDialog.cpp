@@ -229,6 +229,10 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDial
 			connect( cb, SIGNAL( clicked( bool ) ), this, SLOT( cbLexersHighlightingProperties_clicked( bool ) ) );
 	}
 	
+	//update
+	QIntValidator* validator = new QIntValidator(0, 65535, lePort);
+	lePort->setValidator(validator);
+	
 	// resize to minimum size
 	resize(minimumSizeHint());
 }
@@ -475,6 +479,18 @@ void SettingsDialog::loadSettingsDialog(){
 		it->setText(0, k);
 		it->setText(1, value);
 	}
+	
+	//Update
+	cbCheckUpdate->setChecked(_settings->getCheckOnStartUp());
+	cbShowPopUpOnError->setChecked(_settings->getShowPopUpOnError());
+	gbProxySettings->setChecked(_settings->getProxyEnable());
+	leProxy->setText(_settings->getProxyAddress());
+	int proxyPort = _settings->getProxyPort();
+	if(proxyPort >= 0)
+		lePort->setText(QString("%1").arg(proxyPort));
+	cbAuthentification->setChecked(_settings->getProxyAuthentification());
+	leUserId->setText(_settings->getProxyUser());
+	lePassword->setText(_settings->getProxyPassword());
 }
 
 void SettingsDialog::saveSettingsDialog(){
@@ -689,6 +705,17 @@ void SettingsDialog::saveSettingsDialog(){
 		switcherValue[it->text(0)] = list;
 	}
 	_settings->setSwitcherValues(switcherValue);
+	
+	//Update
+	_settings->setCheckOnStartUp(cbCheckUpdate->isChecked());
+	_settings->setShowPopUpOnError(cbShowPopUpOnError->isChecked());
+	_settings->setProxyEnable(gbProxySettings->isChecked());
+	_settings->setProxyAddress(leProxy->text());
+	if(!lePort->text().isEmpty())
+		_settings->setProxyPort(lePort->text().toInt());
+	_settings->setProxyAuthentification(cbAuthentification->isChecked());
+	_settings->setProxyUser(leUserId->text());
+	_settings->setProxyPassword(lePassword->text());
 }
 
 void SettingsDialog::on_twMenu_itemSelectionChanged(){
