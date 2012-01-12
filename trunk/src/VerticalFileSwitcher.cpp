@@ -131,6 +131,10 @@ void VerticalFileSwitcher::keyPressEvent(QKeyEvent* event_){
 			selectNextVisibleItem();
 			event_->accept();
 			break;
+		case Qt::Key_Escape:
+			event_->accept();
+			close();
+			break;		
 		default:
 			QWidget::keyPressEvent(event_);
 			break;
