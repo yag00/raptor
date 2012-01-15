@@ -157,6 +157,7 @@
     <addaction name="separator"/>
     <addaction name="actionSwitchFile"/>
     <addaction name="actionSwitchSrc"/>
+    <addaction name="actionSwitchSymbol"/>
     <addaction name="separator"/>
     <addaction name="actionReadOnly"/>
    </widget>
@@ -1645,6 +1646,14 @@
    </property>
    <property name="text">
     <string>Check Update</string>
+   </property>
+  </action>
+  <action name="actionSwitchSymbol">
+   <property name="text">
+    <string>Switch Symbol</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>VerticalFileSwitcher</class>
- <widget class="QWidget" name="VerticalFileSwitcher">
+ <class>Switcher</class>
+ <widget class="QWidget" name="Switcher">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -20,22 +20,58 @@
    <item>
     <widget class="ClearLineEdit" name="switcherLineEdit">
      <property name="styleSheet">
-      <string notr="true">border: 3px solid gray;
+      <string notr="true">QLineEdit{
+border: 3px solid gray;
 border-radius: 8px;
 padding-right: 3px;
 background: rgba(255, 255, 250, 180);
-color: black;</string>
+color: black;
+ }</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="switcherList">
+    <widget class="QTreeView" name="switcherList">
      <property name="styleSheet">
-      <string notr="true">border: 2px solid gray;
+      <string notr="true"> QTreeView {
+border: 2px solid gray;
 border-radius: 8px;
-padding: 1 1px;
 background: rgba(255, 255, 250, 200);
-</string>
+padding-top: 1px;
+padding-right: 1px;
+padding-bottom: 1px;
+padding-left: 1px;
+}</string>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>false</bool>
+     </property>
+     <property name="itemsExpandable">
+      <bool>true</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="headerHidden">
+      <bool>true</bool>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
