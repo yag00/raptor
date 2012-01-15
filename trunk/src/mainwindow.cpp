@@ -40,6 +40,8 @@
 #include "document_manager.h"
 #include "lexer/lexer_manager.h"
 #include "ctags/SymbolManager.h"
+#include "ctags/SymbolComboBoxAction.h"
+#include "ctags/SymbolTreeView.h"
 #include "widget/MenuLabel.h"
 #include "export/Exporter.h"
 #include "export/ExporterHTML.h"
@@ -375,7 +377,9 @@ void MainWindow::createStatusBar() {
 void MainWindow::createToolBar(){
 	QToolBar* toolbar = addToolBar("Symbol");
 	toolbar->setObjectName(QString::fromUtf8("toolBarSymbol"));
-	toolbar->addAction(_symbolManager->getSymbolBrowerAction());
+	SymbolComboBoxAction* action = new SymbolComboBoxAction(_symbolManager->getSymbolModel(), toolbar);
+	connect(action, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
+	toolbar->addAction(action);
 	//default is not visible
 	toolbar->setVisible(false);
 	connect(toolbar, SIGNAL(visibilityChanged(bool)), this, SLOT(visibilityChanged(bool)));
@@ -396,7 +400,9 @@ void MainWindow::createDocks() {
 
 	//create the Symbol Dock
 	_symbolDock = new QDockWidget(tr("Symbol Browser"), this);
-	_symbolDock->setWidget(_symbolManager->getSymbolBrowerTreeView());
+	SymbolTreeView* treeview = new SymbolTreeView(_symbolManager->getSymbolModel(), _symbolDock);
+	connect(treeview, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
+	_symbolDock->setWidget(treeview);
 	_symbolDock->setObjectName(QString::fromUtf8("dockSymbol"));
 	addDockWidget(Qt::RightDockWidgetArea, _symbolDock);
 	//connect the Symbol Dock

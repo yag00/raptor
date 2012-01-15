@@ -21,13 +21,9 @@
 #include <ctags/ctags.h>
 
 #include <QDebug>
-#include <QWidgetAction>
-#include <QHeaderView>
-#include <QTreeView>
 #include <QStandardItem>
 #include <QStandardItemModel>
 
-#include "SymbolComboBoxAction.h"
 #include "SymbolManager.h"
 
 SymbolManager::SymbolManager(QObject* parent_) : QObject(parent_) {
@@ -35,38 +31,14 @@ SymbolManager::SymbolManager(QObject* parent_) : QObject(parent_) {
 	installLanguageMapDefaults();
 
 	_model = new QStandardItemModel(this);
-	
-	//create the treeview widget
-	_treeView = new QTreeView();
-	_treeView->header()->hide();
-	_treeView->setRootIsDecorated(false);
-    _treeView->setItemsExpandable(false);
-	_treeView->setModel(_model);
-	_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	
-	connect(_treeView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(clicked(const QModelIndex&)));
-	connect(_treeView, SIGNAL(activated(const QModelIndex&)), this, SLOT(activated(const QModelIndex&)));
-	
-	//create the combobox action
-	_action = new SymbolComboBoxAction(_model, this);
-	connect(_action, SIGNAL(symbolActivated(int)), this, SIGNAL(symbolActivated(int)));
 }
 
 SymbolManager::~SymbolManager() {
-	delete _treeView;
 	freeParserResources();
 }
 
 QStandardItemModel* SymbolManager::getSymbolModel(){
 	return _model;
-}
-
-QAction* SymbolManager::getSymbolBrowerAction(){
-	return _action;
-}
-
-QTreeView* SymbolManager::getSymbolBrowerTreeView(){
-	return _treeView;
 }
 
 void SymbolManager::tagFile(const QString& file_){
@@ -157,8 +129,6 @@ void SymbolManager::tagFile(const QString& file_){
 		tags = tags->next;
 	}
 	
-	_treeView->expandAll();
-	
 	freeTagEntryListItem(tagsEntryList);
 }
 
@@ -219,18 +189,8 @@ QIcon SymbolManager::getSymbolIcon(const QString& kind_, const QString& access_)
 		return QIcon(":/ctags/typedef.png");
 	}
 	
-	qDebug() << "no icon defined for a " << kind_ << "(" << access_ << ") symbol !";
+	//qDebug() << "no icon defined for a " << kind_ << "(" << access_ << ") symbol !";
 	return QIcon();
 }
 
-void SymbolManager::clicked(const QModelIndex& index_){
-	activated(index_);
-}
 
-void SymbolManager::activated(const QModelIndex& index_){
-	int line = index_.data(TAG_LINE).toInt();
-	if(line){
-		//emit symbolActivated(index_.data(TAG_NAME).toString(), line);
-		emit symbolActivated(line);
-	}
-}
