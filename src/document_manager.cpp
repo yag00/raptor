@@ -25,7 +25,8 @@
 #include "diff/Unidiff.h"
 #include "diff/UnidiffDialog.h"
 #include "diff/CompareDialog.h"
-#include "VerticalFileSwitcher.h"
+#include "switcher/Switcher.h"
+#include "switcher/VerticalFileSwitcher.h"
 #include "document_editor.h"
 #include "document_view.h"
 #include "document_manager.h"
@@ -499,7 +500,7 @@ void DocumentManager::switchDocumentSrc(){
 }
 
 void DocumentManager::switchFile(){
-	VerticalFileSwitcher* sw = this->parent()->findChild<VerticalFileSwitcher*>("VerticalFileSwitcher");
+	Switcher* sw = this->parent()->findChild<Switcher*>("Switcher");
 	if(!sw){
 		QList<DocumentEditor*> list = getDocuments();
 		//QSplitter parent can't be parent, otherwise switcher will be integrate to splitter

@@ -31,6 +31,8 @@
 #include "settings/ShortcutEditor.h"
 #include "settings/ShortcutSettings.h"
 #include "settings/SessionManager.h"
+#include "switcher/Switcher.h"
+#include "switcher/SymbolSwitcher.h"
 #include "search.h"
 #include "explorer.h"
 #include "document_editor.h"
@@ -163,6 +165,7 @@ void MainWindow::initMenuEdit() {
 
 	connect(actionSwitchSrc, SIGNAL(triggered()), _documentManager, SLOT(switchDocumentSrc()));
 	connect(actionSwitchFile, SIGNAL(triggered()), _documentManager, SLOT(switchFile()));
+	connect(actionSwitchSymbol, SIGNAL(triggered()), this, SLOT(switchSymbol()));
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditMenu()));
 	connect(menuIndentation, SIGNAL(aboutToShow()), this, SLOT(aboutToShowEditIndentationMenu()));
@@ -459,7 +462,7 @@ void MainWindow::activeDocumentChanged(DocumentEditor* document_){
 	update(document_);
 	//display symbol
 	QToolBar* toolbar = (findChildren<QToolBar*>("toolBarSymbol"))[0];
-	if(_symbolDock->isVisible() || toolbar->isVisible()){
+	if(_symbolDock->isVisible() || toolbar->isVisible() || !findChild<SymbolSwitcher*>("SymbolSwitcher")){
 		_symbolManager->tagFile(document_->getFullPath());
 	}
 	//file explorer synchronization
@@ -662,6 +665,19 @@ void MainWindow::gotoLine(){
 	int line = QInputDialog::getInt(this, tr("Goto line ..."), tr("Enter the line you want to go :"), 1, 1, 2147483647, 1, &ok);
 	if(ok)
 		_documentManager->gotoLine(line);
+}
+
+void MainWindow::switchSymbol(){
+	Switcher* sw = findChild<Switcher*>("Switcher");
+	if(!sw){
+		//tag the file
+		_symbolManager->tagFile(_documentManager->getActiveDocument()->getFullPath());
+		SymbolSwitcher* switcher = new SymbolSwitcher(_symbolManager->getSymbolModel(), (QWidget*)this);
+		connect(switcher, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
+		switcher->show();
+	}else{
+		sw->close();
+	}
 }
 
 void MainWindow::showWhiteSpaceAndTab(bool b_) {

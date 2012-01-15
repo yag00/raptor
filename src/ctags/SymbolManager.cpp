@@ -57,6 +57,10 @@ SymbolManager::~SymbolManager() {
 	freeParserResources();
 }
 
+QStandardItemModel* SymbolManager::getSymbolModel(){
+	return _model;
+}
+
 QAction* SymbolManager::getSymbolBrowerAction(){
 	return _action;
 }

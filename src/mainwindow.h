@@ -64,6 +64,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 		void aboutToShowEditMenu();
 		void aboutToShowEditIndentationMenu();
 		void gotoLine();
+		void switchSymbol();
 
 		/** Wiew Menu */
 		void showWhiteSpaceAndTab(bool b_);

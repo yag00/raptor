@@ -38,6 +38,7 @@ class SymbolManager : public QObject {
 		SymbolManager(QObject* parent_);
 		virtual ~SymbolManager();
 	
+		QStandardItemModel* getSymbolModel();
 		QAction* getSymbolBrowerAction();
 		QTreeView* getSymbolBrowerTreeView();
 
