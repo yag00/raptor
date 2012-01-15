@@ -18,43 +18,28 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef __SYMBOL_MANAGER_H__
-#define __SYMBOL_MANAGER_H__
+#ifndef __SYMBOL_TREEVIEW_H__
+#define __SYMBOL_TREEVIEW_H__
 
-#include <QObject>
-#include <QIcon>
+#include <QTreeView>
 
-class QStandardItem;
+class QModelIndex;
 class QStandardItemModel;
 
-class SymbolManager : public QObject {
+class SymbolTreeView : public QTreeView {
 	Q_OBJECT
-	
-	public:
-		SymbolManager(QObject* parent_);
-		virtual ~SymbolManager();
-	
-		QStandardItemModel* getSymbolModel();
 
-		static const int TAG_KIND = Qt::UserRole + 1;
-		static const int TAG_NAME = Qt::UserRole + 2;
-		static const int TAG_LINE = Qt::UserRole + 3;
-		static const int SCOPE_KIND = Qt::UserRole + 4;
-		static const int SCOPE_NAME = Qt::UserRole + 5;
-		
-	public slots:
-		void tagFile(const QString& file_);
-	
+	public:
+		SymbolTreeView(QStandardItemModel* model_, QWidget* parent_ = 0);
+		virtual ~SymbolTreeView();
+
 	signals:
 		void symbolActivated(int line_);
 	
-	private:
-		QIcon getSymbolIcon(const QString& kind_, const QString& access_);
-		
-		QStandardItem* getItem(const QString& name_, const QString& kind_);
-		QStandardItem* getItemChild(QStandardItem* child_, const QString& fullname_, const QString& name_, const QString& kind_);
-		
-		QStandardItemModel* _model;
+	private slots:
+		void clicked(const QModelIndex& index_);
+		void activated(const QModelIndex& index_);	
 };
 
-#endif /* __SYMBOL_MANAGER_H__ */
+
+#endif /* __SYMBOL_TREEVIEW_H__ */
