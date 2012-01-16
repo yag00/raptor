@@ -8,35 +8,23 @@
   * [http://www.python.org/ Python] (use by waf and sphinx)
   * [http://sphinx.pocoo.org/ Sphinx] (use for generate the documentation)
 
-= Building raptor with waf =
-To get more information on [http://code.google.com/p/waf/ waf build system]
+Raptor use waf build system: more information on [http://code.google.com/p/waf/ waf build system]
 
-Just type these command from raptor root path:
+= Building raptor on linux =
+
+To build raptor, just type these command from raptor root path:
 {{{
 ./waf configure
-./waf release
+./waf
 }}}
 
-= Building raptor on linux with qmake =
+for more advanced command
 {{{
-qmake
-make
+./waf --help
 }}}
 
-raptor executable is in delivery/release directory.
-
-= Building raptor on window with qmake =
-
-You can use the Qt Command prompt directly ant type
-
-{{{
-qmake
-mingw32-make release
-}}}
-
-Otherwise you'll have to setup the Qt environnement, (add python and sphinx executable into your path for the documentation generation).
-
-Define the environnement variables as the following exemple:
+= Building raptor on windows =
+Define the environnement variables as the following example:
 
   * QTDIR
     * C:\Qt\xxx\qt
@@ -54,23 +42,12 @@ Define the environnement variables as the following exemple:
 Then launch a terminal (cmd.exe) or another console 
 ( [http://www.mingw.org/wiki/msys msys] or [http://sourceforge.net/projects/console/ console] ) and build raptor :
 
-
-
 {{{
-qmake
-mingw32-make release
+python waf configure
+python waf
 }}}
 
-raptor executable is in delivery/release directory.
-
-= Building with QtCreator =
-
-Just import the build.pro (File -> Open File or Project ...).
-You will obtain something like the following screenshot (depending on your qtcreator version)
-
-[http://raptor.googlecode.com/svn/wiki/images/qtcreator_step1.png]
-
-Click on finish. You can now select the target you want to build (debug or release). 
-You can build and execute raptor from QtCreator.
-
-[http://raptor.googlecode.com/svn/wiki/images/qtcreator_step2.png]
+for more advanced command
+{{{
+./waf --help
+}}}
