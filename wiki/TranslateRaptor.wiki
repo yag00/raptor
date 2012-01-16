@@ -5,22 +5,15 @@
 
 It's easy to translate raptor using the Qt Linguist tools
 
- # Edit the src.pro build file and add to the translation list as shown below.
+ # Use the lupdate tool to generate/update the translation file `*`.ts
 {{{
-TRANSLATIONS = translations/raptor_fr.ts translations/raptor_{new_language}.ts
-}}}
- # Use the lupdate tool on the src.pro file to generate/update the translation file `*`.ts
-{{{
-lupdate src.pro
+lupdate src/ -ts src/translations/raptor_{new_language}.ts
 }}}
  # Launch the linguist tool and translate the `*`.ts file
 {{{
 linguist raptor_{new_language}.ts
 }}}
- # Once the translation is done, compile the .ts file to a .qm file
-{{{
-lrelease raptor_{new_language}.ts
-}}}
+ # Launch raptor build to generate the .qm file
 
 ==Use the new translation file==
 Just copy the translation .qm file to the raptor translation path.
