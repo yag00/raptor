@@ -25,17 +25,28 @@
 SymbolSwitcher::SymbolSwitcher(QStandardItemModel* model_, QWidget* parent_) : Switcher(parent_){	
     //set the treeview model
     setModel(model_);
-	//todo compute width size of the window
-	/*int maxwidth = 0;
-	int w = qMax(width(), _maxwidth + 20);
-	resize(w, height());*/
+	//compute width size of the window
+	int maxwidth = 0;
+	QStyleOptionViewItem option;
+	option.decorationSize = QSize(16,16);
+	QModelIndex index = model_->index(0, 0);
+	while(index.isValid()){
+		QSize size = switcherList->itemDelegate()->sizeHint(option, index);
+		if(maxwidth < size.width())
+			maxwidth = size.width();
+		index = switcherList->indexBelow(index);
+	}
+	
+	int w = qMax(width(), maxwidth + 50);
+	resize(w, height());
+
 	//center switcher in the middle of the parent_
 	centerSwitcher(parent_);
 	
 	switcherList->sortByColumn(0, Qt::AscendingOrder);
 	QModelIndex first = _model->index(0, 0);
 	switcherList->setCurrentIndex(first);
-	switcherLineEdit->setFocus(); 
+	switcherLineEdit->setFocus();
 }
 
 SymbolSwitcher::~SymbolSwitcher(){
