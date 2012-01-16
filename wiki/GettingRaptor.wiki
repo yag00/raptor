@@ -27,11 +27,7 @@ sudo apt-get install raptor-editor
  The deb package for ubuntu are also available on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
 
  =[http://raptor.googlecode.com/svn/wiki/images/fedora.png] Fedora =
- raptor is not yet available via yum, but you can get the rpm for fedora on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page] or directly get the last release here :
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc14.i386.rpm fedora14 raptor-0.4.0 i386]
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc14.x86_64.rpm fedora14 raptor-0.4.0 x86_64]
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc15.i386.rpm fedora15 raptor-0.4.0 i386]
-    * [http://code.google.com/p/raptor/downloads/detail?name=raptor-editor-0.4.0-1.fc15.x86_64.rpm fedora15 raptor-0.4.0 x86_64]
+ raptor is not yet available via yum, but you can get the rpm for fedora on the [http://code.google.com/p/raptor/downloads/list?q=label:Featured download page]
 
  Then install raptor
 {{{
