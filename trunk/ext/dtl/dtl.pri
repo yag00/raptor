@@ -1,3 +1,0 @@
-# include path
-DTL_VERSION = dtl-1.15
-INCLUDEPATH	*= $$PWD/$$DTL_VERSION
