@@ -56,7 +56,7 @@ class uninstall(UninstallContext):
 def dist(ctx):
 	"makes a tarball for redistributing the sources"
 	ctx.excl = '**/build **/*~ **/wbuild* **/delivery* **/.*'
-	if isWindows():
+	if isWindows(ctx.env):
 		ctx.algo      = 'zip'
 	else:
 		ctx.base_name = 'raptor-editor-' + VERSION
@@ -75,6 +75,7 @@ def options(opt):
 	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
 	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
 	opt.add_option('--deb-version', action='store', default="", help = '(ubuntu) package target will only build the source package with special version (ex: --deb-version=1)', dest = 'debVersion')
+	opt.add_option('--cross-compile', action='store', default="", help = '(linux) cross-compilation windows (ex: --cross-compile=win32)', dest = 'crossCompile')
 
 def distclean(ctx):
 	Scripting.distclean(ctx)
@@ -83,14 +84,35 @@ def distclean(ctx):
 		if f.startswith('package.') and not Options.commands:
 			shutil.rmtree(f, ignore_errors=True)
 
+def crosscompileWin32(ctx):
+	Logs.pprint('BLUE', 'Check for windows cross-compile tools')
+	if Options.options.qtlibs == '':
+		ctx.fatal("You need to specify the path to qt windows binary : --qtlibs=PATH_TO_QT_WIN32_BINARY")
+	sys.platform = "win32"
+	ctx.env.crossCompile = "win32"
+	ctx.find_program("wine", var="WINE")
+	ctx.find_program("i586-mingw32msvc-ar", var="AR")
+	ctx.find_program("i586-mingw32msvc-ranlib", var="RANLIB")
+	ctx.find_program("i586-mingw32msvc-gcc", var="CC")
+	ctx.find_program("i586-mingw32msvc-g++", var="CPP")
+	ctx.find_program("i586-mingw32msvc-g++", var="CXX")
+	ctx.find_program("i586-mingw32msvc-gcc", var="LINK_CC")
+	ctx.find_program("i586-mingw32msvc-g++", var="LINK_CXX")
+	ctx.find_program("i586-mingw32msvc-windres", var="WINRC")
+	Logs.pprint('BLUE', 'Check for windows cross-compile tools\t: ok')
+
 def configure(conf):
 	#min waf version
 	conf.check_waf_version(mini='1.6.8')
 
+	#check cross compilation
+	if Options.options.crossCompile == "win32":
+		crosscompileWin32(conf)
+
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
-
-	if isWindows():
+	
+	if isWindows(conf.env):
 		conf.check_tool('winres')
 
 	configurePackage(conf)
@@ -109,15 +131,19 @@ def configure(conf):
 		conf.msg("Checking for Qt version", "" + qtversion)
 
 	conf.setenv('debug', env=conf.env.derive())
-	conf.env.CFLAGS = get_debug_cflags()
-	conf.env.CXXFLAGS = get_debug_cxxflags()
+	conf.env.CFLAGS = get_debug_cflags(conf.env)
+	conf.env.CXXFLAGS = get_debug_cxxflags(conf.env)
 
 	conf.setenv('release', env=conf.env.derive())
-	conf.env.CFLAGS = get_release_cflags()
-	conf.env.CXXFLAGS = get_release_cxxflags()
+	conf.env.CFLAGS = get_release_cflags(conf.env)
+	conf.env.CXXFLAGS = get_release_cxxflags(conf.env)
 
 	# summary
 	Logs.pprint('BLUE', 'Summary:')
+	if Options.options.crossCompile == "win32":
+		Logs.pprint('BLUE', 'Cross Compile Raptor for windows')
+		Logs.pprint('YELLOW', 'To avoid problem : It is preferable that your installed linux qt version is the same that the installed windows version!')
+		Logs.pprint('YELLOW', 'Cross-compilation will use the native uic,moc binary as well as linux qt header!')
 	conf.msg('Install Raptor ' + VERSION + ' in', conf.env['PREFIX'])
 
 
@@ -134,7 +160,7 @@ def configureDoc(conf):
 		Logs.pprint('YELLOW', "WARNING : Check your qt installation!")
 
 def configurePackage(conf):
-	if isWindows():
+	if isWindows(conf.env):
 		try:
 			conf.find_program("ISCC", var="ISCC")
 		except conf.errors.ConfigurationError:
@@ -181,7 +207,7 @@ def build(bld):
 	#########################################################
 	# build ctags
 	#########################################################
-	if isWindows():
+	if isWindows(bld.env):
 		ctags_patterns = ['ext/ctags/ctags-5.8/*.c', 'ext/ctags/ctags-5.8/gnu_regex/regex.c']
 	else:
 		ctags_patterns = ['ext/ctags/ctags-5.8/*.c']
@@ -200,7 +226,7 @@ def build(bld):
 		name            = 'ctags',
 		target          = 'ctags',
 		includes        = ['ext/ctags/ctags-5.8', 'ext/ctags/ctags-5.8/gnu_regex'],
-		defines         = get_ctags_defines(),
+		defines         = get_ctags_defines(bld.env),
 		cflags          = ['-Wformat=0'],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
 
@@ -241,11 +267,11 @@ def build(bld):
 			'src/**/*.qrc'],
 		excl=['src/rc/*.cpp'])
 
-	if isWindows():
+	if isWindows(bld.env):
 		raptor_sources += bld.path.ant_glob('src/**/*.rc')
 
 	bld.new_task_gen(
-		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows() else ''),
+		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows(bld.env) else ''),
 		uselib          = 'QTCORE QTGUI QTNETWORK QTXML QTHELP',
 		use             = 'astyle qscintilla2 ctags',
 		source          = raptor_sources,
@@ -268,13 +294,13 @@ def build(bld):
 							'PACKAGE_DATA="%s/share"' % bld.env['PREFIX'],
 							'PACKAGE_OS="%s"' % getSystemOsString()],
 		cxxflags        = ['-Wall', '-Werror'],
-		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows() else ['-Wl,-O1']),
-		install_path    = getBinaryInstallationPath(bld.env['PREFIX']))
+		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows(bld.env) else ['-Wl,-O1']),
+		install_path    = getBinaryInstallationPath(bld.env))
 
 	#install translations file
-	bld.install_files(getTranslationInstallationPath(bld.env['PREFIX']), bld.bldnode.ant_glob('**/*.qm'))
+	bld.install_files(getTranslationInstallationPath(bld.env), bld.bldnode.ant_glob('**/*.qm'))
 
-	if isWindows():
+	if isWindows(bld.env):
 		#install qt dll
 		qtbin = (bld.cmd_and_log([bld.env.QMAKE, '-query', 'QT_INSTALL_BINS'], quiet=True).strip())
 		qtdlls = bld.root.find_node(qtbin).ant_glob(['QtCore4.dll', 'QtGui4.dll', 'QtNetwork4.dll', 'QtXml4.dll', 'QtHelp4.dll', 'mingwm10.dll', 'libgcc_s_dw2-1.dll'])
@@ -337,7 +363,7 @@ class packageFedora(BuildContext):
 
 def package(ctx):
 	"create package for your system"
-	if isWindows():
+	if isWindows(ctx.env):
 		Options.commands = ['clean', 'release','install', 'packageWindows', 'uninstall'] + Options.commands
 	else:
 		(distname,version,id) =  platform.linux_distribution()
@@ -477,7 +503,9 @@ def rpmCleanupTree():
 # system & compilation utils function
 #########################################################
 
-def isWindows():
+def isWindows(env):
+	if getattr(env, 'crossCompile', '') == "win32":
+		return 1
 	if platform.system() == "Windows":
 		return 1
 	else:
@@ -503,44 +531,44 @@ def getSystemOsString():
 	else:
 		return (platform.system() + ' ' + platform.release())
 
-def get_debug_cflags():
+def get_debug_cflags(env):
 	return ['-c', '-g']
 
-def get_release_cflags():
-	if isWindows():
+def get_release_cflags(env):
+	if isWindows(env):
 		return ['-c', '-O2']
 	else:
 		return ['-c', '-pipe','-O2', '-fPIC']
 
-def get_debug_cxxflags():
-	if isWindows():
+def get_debug_cxxflags(env):
+	if isWindows(env):
 		return ['-c', '-g', '-frtti', '-fexceptions', '-mthreads']
 	else:
 		return ['-c', '-pipe', '-g', '-fPIC']
 
-def get_release_cxxflags():
-	if isWindows():
+def get_release_cxxflags(env):
+	if isWindows(env):
 		return ['-c', '-O2', '-frtti', '-fexceptions', '-mthreads']
 	else:
 		return ['-c', '-pipe','-O2', '-fPIC']
 
-def get_ctags_defines():
-	if isWindows():
+def get_ctags_defines(env):
+	if isWindows(env):
 		return ['UNICODE', 'HAVE_REGCOMP', 'WIN32', 'REGEX_MALLOC', 'STDC_HEADERS=1', '__USE_GNU', 'HAVE_STDBOOL_H']
 	else:
 		return ['HAVE_REGCOMP', 'HAVE_STDLIB_H', 'HAVE_FGETPOS', 'HAVE_SYS_STAT_H', 'HAVE_FCNTL_H', 'HAVE_REGEX', 'HAVE_UNISTD_H', 'HAVE_STRSTR', 'HAVE_MKSTEMP']
 
-def getBinaryInstallationPath(prefix):
-	if isWindows():
-		return prefix
+def getBinaryInstallationPath(env):
+	if isWindows(env):
+		return env['PREFIX']
 	else:
-		return prefix + '/bin'
+		return env['PREFIX'] + '/bin'
 
-def getTranslationInstallationPath(prefix):
-	if isWindows():
-		return prefix + '/translations'
+def getTranslationInstallationPath(env):
+	if isWindows(env):
+		return env['PREFIX'] + '/translations'
 	else:
-		return prefix + '/share/raptor/translations'
+		return env['PREFIX'] + '/share/raptor/translations'
 
 
 def replace_words(text, word_dic):
