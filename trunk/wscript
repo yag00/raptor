@@ -76,6 +76,7 @@ def options(opt):
 	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
 	opt.add_option('--deb-version', action='store', default="", help = '(ubuntu) package target will only build the source package with special version (ex: --deb-version=1)', dest = 'debVersion')
 	opt.add_option('--cross-compile', action='store', default="", help = '(linux) cross-compilation windows (ex: --cross-compile=win32)', dest = 'crossCompile')
+	opt.add_option('--qtwindir', action='store', default="", help = '(linux) cross-compilation qt windows directory', dest = 'qtwindir')
 
 def distclean(ctx):
 	Scripting.distclean(ctx)
@@ -86,10 +87,16 @@ def distclean(ctx):
 
 def crosscompileWin32(ctx):
 	Logs.pprint('BLUE', 'Check for windows cross-compile tools')
-	if Options.options.qtlibs == '':
-		ctx.fatal("You need to specify the path to qt windows binary : --qtlibs=PATH_TO_QT_WIN32_BINARY")
+	if Options.options.qtwindir == '':
+		ctx.fatal("You need to specify the path to qt windows binary : --qtwindir=PATH_TO_QT_WIN32")
+
 	sys.platform = "win32"
 	ctx.env.crossCompile = "win32"
+	ctx.env.qtlibs = os.path.join(Options.options.qtwindir, 'lib')
+	ctx.env.qtbin = os.path.join(Options.options.qtwindir, 'bin')
+	Options.options.qtlibs = ctx.env.qtlibs
+
+	#ubuntu : sudo apt-get install wine mingw32 mingw32-binutils mingw32-runtime
 	ctx.find_program("wine", var="WINE")
 	ctx.find_program("i586-mingw32msvc-ar", var="AR")
 	ctx.find_program("i586-mingw32msvc-ranlib", var="RANLIB")
@@ -292,7 +299,7 @@ def build(bld):
 							'PACKAGE_BIN="%s/bin"' % bld.env['PREFIX'],
 							'PACKAGE_LIB="%s/lib"' % bld.env['PREFIX'],
 							'PACKAGE_DATA="%s/share"' % bld.env['PREFIX'],
-							'PACKAGE_OS="%s"' % getSystemOsString()],
+							'PACKAGE_OS="%s"' % getSystemOsString(bld.env)],
 		cxxflags        = ['-Wall', '-Werror'],
 		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows(bld.env) else ['-Wl,-O1']),
 		install_path    = getBinaryInstallationPath(bld.env))
@@ -302,7 +309,10 @@ def build(bld):
 
 	if isWindows(bld.env):
 		#install qt dll
-		qtbin = (bld.cmd_and_log([bld.env.QMAKE, '-query', 'QT_INSTALL_BINS'], quiet=True).strip())
+		if bld.env.crossCompile == "win32":
+			qtbin = bld.env.qtbin
+		else:
+			qtbin = (bld.cmd_and_log([bld.env.QMAKE, '-query', 'QT_INSTALL_BINS'], quiet=True).strip())
 		qtdlls = bld.root.find_node(qtbin).ant_glob(['QtCore4.dll', 'QtGui4.dll', 'QtNetwork4.dll', 'QtXml4.dll', 'QtHelp4.dll', 'mingwm10.dll', 'libgcc_s_dw2-1.dll'])
 		bld.install_files(bld.env['PREFIX'], qtdlls)
 
@@ -524,7 +534,9 @@ def printOS():
 	else:
 		print(platform.system() + ' ' + platform.release())
 
-def getSystemOsString():
+def getSystemOsString(env):
+	if getattr(env, 'crossCompile', '') == "win32":
+		return "Windows"
 	if isLinux():
 		(distname,version,id) =  platform.linux_distribution()
 		return (platform.system() + ' ' + distname + ' ' + version + ' ' + id)
