@@ -21,7 +21,7 @@
 #include <QtGui>
 #include "tabbar.h"
 
-TabBar::TabBar(QWidget* parent_) : QTabBar(parent_) {
+TabBar::TabBar(QWidget* parent_) : QTabBar(parent_), _dragCurrentIndex(0) {
 	setAcceptDrops(true);
 }
 
