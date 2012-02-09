@@ -877,7 +877,7 @@ void Settings::setAssociations(const QMap<QString, QStringList>& associations_){
 
 	int i = 0;
 	QMap<QString, QStringList>::const_iterator it;
-	for( it = associations_.begin(); it != associations_.end(); it++){
+	for(it = associations_.begin(); it != associations_.end(); ++it){
 		setValue(QString("LexerAssociation/Lexer%1").arg(i), it.key());
 		setValue("LexerAssociation/" + it.key(), it.value());
 		i++;
@@ -979,7 +979,7 @@ bool Settings::getSwitcherNotification(){
 void Settings::setSwitcherValues(const QMap<QString, QStringList>& values_){
 	beginWriteArray("Switcher");
 	int i = 0;
-	for(QMap<QString, QStringList>::const_iterator it = values_.begin(); it != values_.end(); it++){
+	for(QMap<QString, QStringList>::const_iterator it = values_.begin(); it != values_.end(); ++it){
 		setArrayIndex(i++);
 		setValue("filePattern", it.key());
 		setValue("switchTo", it.value());
