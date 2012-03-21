@@ -201,7 +201,7 @@ def build(bld):
 		['ext/AStyle/astyle-2.01/src/*.cpp'],
 		excl=['ext/AStyle/astyle-2.01/src/astyle_main.cpp'])
 
-	bld.new_task_gen(
+	bld.stlib(
 		features        = 'cxx cxxstlib',
 		source          = astyle_sources,
 		name            = 'astyle',
@@ -227,7 +227,7 @@ def build(bld):
 					'ext/ctags/ctags-5.8/sort.c']
 				)
 
-	bld.new_task_gen(
+	bld.stlib(
 		features        = 'c cstlib',
 		source          = ctags_sources,
 		name            = 'ctags',
@@ -248,7 +248,7 @@ def build(bld):
 			'ext/QScintilla/QScintilla-gpl-2.6/src/*.cpp'],
 		excl=[''])
 
-	bld.new_task_gen(
+	bld.stlib(
 		features        = 'qt4 cxx cxxstlib',
 		uselib          = 'QTCORE QTGUI',
 		source          = qscintilla_sources,
@@ -277,7 +277,7 @@ def build(bld):
 	if isWindows(bld.env):
 		raptor_sources += bld.path.ant_glob('src/**/*.rc')
 
-	bld.new_task_gen(
+	bld.program(
 		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows(bld.env) else ''),
 		uselib          = 'QTCORE QTGUI QTNETWORK QTXML QTHELP',
 		use             = 'astyle qscintilla2 ctags',
@@ -353,6 +353,7 @@ def build(bld):
 				install_path = '${PREFIX}/doc',
 			)
 	"""
+
 
 #########################################################
 # Packaging
