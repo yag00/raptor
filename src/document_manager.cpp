@@ -746,7 +746,7 @@ void DocumentManager::quickUnidiff(){
 		Unidiff udiff;
 		QString diff = udiff.diff(*doc1, *doc2);
 		if(diff.isEmpty()){
-			QMessageBox::information(this, PACKAGE_NAME, tr("File match !\n"));
+			QMessageBox::information(this, PACKAGE_NAME, tr("Files match !\n"));
 		}else{
 			showUnidiff(diff);
 		}
@@ -761,7 +761,7 @@ void DocumentManager::unidiff(){
 		Unidiff udiff;
 		QString diff = udiff.diff(dlg.getSrcFile1(), dlg.getSrcFile2());
 		if(diff.isEmpty()){
-			QMessageBox::information(this, PACKAGE_NAME, tr("File match !\n"));
+			QMessageBox::information(this, PACKAGE_NAME, tr("Files match !\n"));
 		}else{
 			showUnidiff(diff);
 		}
