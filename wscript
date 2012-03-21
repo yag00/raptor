@@ -120,7 +120,7 @@ def configure(conf):
 	conf.load('compiler_cxx')
 	
 	if isWindows(conf.env):
-		conf.check_tool('winres')
+		conf.load('winres')
 
 	configurePackage(conf)
 	configureDoc(conf);
