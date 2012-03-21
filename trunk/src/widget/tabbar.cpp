@@ -51,7 +51,7 @@ void TabBar::mouseDoubleClickEvent(QMouseEvent* event_){
 		return;
 	}
 	//click is not on a tab -> emit signal
-	if(event_->button() != Qt::MiddleButton){
+	if(event_->button() == Qt::LeftButton){
 		emit tabBarDoubleClicked();
 	}
 }

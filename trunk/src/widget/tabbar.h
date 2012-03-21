@@ -50,7 +50,7 @@ class TabBar : public QTabBar {
 		void tabClicked(int index_);
 		/** emit when a tab is middle clicked */
 		void tabMiddleClicked(int index_);
-		/** emit when the tabBar is double clicked */
+		/** emit when the tabBar is left double clicked */
 		void tabBarDoubleClicked();
 };
 

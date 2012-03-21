@@ -65,8 +65,8 @@ class DocumentView : public QTabWidget {
 		bool setActiveDocument(const QString& name_);
 
 		/** set a context menu to each tab of the view
-		 * @param menu_ context menu */
-		void setContextMenu(QMenu* menu_);
+		 * @param tabContextMenu_ the tab context menu */
+		void setContextMenu(QMenu* tabContextMenu_);
 
 		/** @return true if the view is active */
 		//bool isActive() const;
@@ -118,6 +118,9 @@ class DocumentView : public QTabWidget {
 		/** open many documents
 		 * @param files_ list of documents to open */
 		void openDocument(const QStringList& files_);
+
+		/** reopen the last file closed */
+		void reopen();
 
 		/** add a document to this view
 		 * @param document_ */
@@ -200,11 +203,18 @@ class DocumentView : public QTabWidget {
 		QFileSystemWatcher& _watcher;
 
 		/** context menu */
-		QMenu* _documentContextMenu;
+		QMenu* _tabContextMenu;
+		QMenu* _tabbarContextMenu;
+		
 		/** count the new document created */
 		int _docCounter;
 		/** view status */
 		bool _isActive;
+		
+		/** closed document list */
+		QList<QString> _lastClosed;
+		static const int _lifoSize = 10;
+		QAction* _reopen;
 };
 
 #endif /* __DOCUMENT_VIEW_H__ */
