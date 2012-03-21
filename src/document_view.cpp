@@ -59,8 +59,17 @@ DocumentView::DocumentView(QFileSystemWatcher& watcher_, DocumentEditor * docume
 	//initialize data
 	_isActive = false;
 	_docCounter = 0;
-	_documentContextMenu = 0;
-
+	_tabContextMenu = 0;
+	
+	QMenu *menuBar = new QMenu(this);
+	menuBar->setObjectName("TabBarContextMenu");
+	QAction* newTab = menuBar->addAction(QIcon(":/images/new.png"), tr("New"));
+	connect(newTab, SIGNAL(triggered()), this, SLOT(newDocument()));
+	_reopen = menuBar->addAction(QIcon(":/images/revert.png"), tr("Reopen last file closed"));
+	_reopen->setEnabled(!_lastClosed.isEmpty());
+	connect(_reopen, SIGNAL(triggered()), this, SLOT(reopen()));
+	_tabbarContextMenu = menuBar;
+	
 	setDocumentMode(true);
 	setMovable(true);
 	setIconSize(QSize(12,12));
@@ -337,6 +346,13 @@ void DocumentView::openDocument(const QStringList& files_){
 	emit opened(openedFiles);
 }
 
+void DocumentView::reopen(){
+	QString file = _lastClosed.back();
+	_lastClosed.pop_back();
+	_reopen->setEnabled(!_lastClosed.isEmpty());
+	openDocument(file);
+}
+
 bool DocumentView::closeCurrentDocument(){
 	return closeDocument(currentIndex());
 }
@@ -345,6 +361,14 @@ bool DocumentView::closeDocument(int index_){
     if(count() == 1){
 		if(document->maybeSave()){
 			newDocument();
+			//update closed history
+			if(!document->getFullPath().isEmpty()){
+				_lastClosed.push_back(document->getFullPath());
+				if(_lastClosed.size() > _lifoSize)
+					_lastClosed.pop_front();
+				_reopen->setEnabled(!_lastClosed.isEmpty());
+			}
+			//close the file
 			delete document;
 			emit empty();
 			return true;
@@ -354,6 +378,14 @@ bool DocumentView::closeDocument(int index_){
 	}
 	else{
 		if(document->maybeSave()){
+			//update closed history
+			if(!document->getFullPath().isEmpty()){
+				_lastClosed.push_back(document->getFullPath());
+				if(_lastClosed.size() > _lifoSize)
+					_lastClosed.pop_front();
+				_reopen->setEnabled(!_lastClosed.isEmpty());
+			}
+			//close the file			
 			delete document;
 			return true;
 		}
@@ -452,8 +484,8 @@ bool DocumentView::documentExists(const QString& file_){
 	return false;
 }
 
-void DocumentView::setContextMenu(QMenu* menu_){
-	_documentContextMenu = menu_;
+void DocumentView::setContextMenu(QMenu* tabContextMenu_){
+	_tabContextMenu = tabContextMenu_;
 }
 
 void DocumentView::showTabBarContextMenu(const QPoint &point_){
@@ -461,10 +493,13 @@ void DocumentView::showTabBarContextMenu(const QPoint &point_){
 	for (int i = 0; i < tabBar->count(); ++i) {
 		if (tabBar->tabRect(i).contains(point_)){
 			tabBar->setCurrentIndex(i);
-			if(_documentContextMenu != 0)
-				_documentContextMenu->exec(QCursor::pos());
+			if(_tabContextMenu != 0)
+				_tabContextMenu->exec(QCursor::pos());
+			return;
 		}
 	}
+	//not in tab, display the tabbar context menu
+	_tabbarContextMenu->exec(QCursor::pos());
 }
 
 void DocumentView::dragEnterEvent(QDragEnterEvent *event_){
