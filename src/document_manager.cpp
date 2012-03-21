@@ -744,7 +744,12 @@ void DocumentManager::quickUnidiff(){
 		DocumentEditor* doc1 = view1->currentDocument();
 		DocumentEditor* doc2 = view2->currentDocument();
 		Unidiff udiff;
-		showUnidiff(udiff.diff(*doc1, *doc2));
+		QString diff = udiff.diff(*doc1, *doc2);
+		if(diff.isEmpty()){
+			QMessageBox::information(this, PACKAGE_NAME, tr("File match !\n"));
+		}else{
+			showUnidiff(diff);
+		}
 	}else{
 		unidiff();
 	}
@@ -754,7 +759,12 @@ void DocumentManager::unidiff(){
 	CompareDialog dlg(this);
 	if(dlg.exec() == QDialog::Accepted) {
 		Unidiff udiff;
-		showUnidiff(udiff.diff(dlg.getSrcFile1(), dlg.getSrcFile2()));
+		QString diff = udiff.diff(dlg.getSrcFile1(), dlg.getSrcFile2());
+		if(diff.isEmpty()){
+			QMessageBox::information(this, PACKAGE_NAME, tr("File match !\n"));
+		}else{
+			showUnidiff(diff);
+		}
 	}
 }
 
