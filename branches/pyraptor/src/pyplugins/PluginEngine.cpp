@@ -49,12 +49,26 @@ void PluginEngine::initialize(){
 	PythonQt::self()->setImporter(0);
 	
 	_module = PythonQt::self()->getMainModule();
-	_module.evalScript(QString("import sys, os, glob\n"));
+	_module.evalScript(QString("import sys\n"));
+
 	_module.evalScript("sys.path.append(':/pyplugin')\n");
+	//load base plugin class
+	_module.evalFile(":/pyplugin/BasePlugin.py");
+	//load plugin loader class
+	_module.evalFile(":/pyplugin/PluginLoader.py");
+	
+	_loader = _module.evalScript("PluginLoader()\n", Py_eval_input);
+		
+	/* other method but crash on import from PluginLoader (import os, ...)
+	//add python ressource file to path
+	_module.evalScript("sys.path.append(':/pyplugin')\n");
+	//import module
 	_module.evalScript(QString("import BasePlugin\n"));
 	_module.evalScript(QString("import PluginLoader\n"));
 	
 	_loader = _module.evalScript("PluginLoader.PluginLoader()\n", Py_eval_input);
+	*/
+	
 	if(_loader.isNull()){
 		qCritical() << "ERROR : Can't load plugin loader";
 	}
