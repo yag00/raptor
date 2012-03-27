@@ -50,8 +50,8 @@ void PluginManager::populateDialog(){
 	plePluginsPaths->blockSignals(false);
 	
 	foreach(PyPlugin* plugin, _pluginEngine.getPluginList()){
-		PluginElement* pel = new PluginElement(*plugin, this);
 		QListWidgetItem* item = new QListWidgetItem(lwPlugins);
+		PluginElement* pel = new PluginElement(*plugin, lwPlugins);
 		item->setSizeHint(pel->sizeHint());
 		item->setData(Qt::UserRole, plugin->getName());	//for filtering (by name)
 		lwPlugins->setItemWidget(item, pel);

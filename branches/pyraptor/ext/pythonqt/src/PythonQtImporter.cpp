@@ -478,7 +478,7 @@ open_exclusive(const QString& filename)
 #ifdef WIN32
   fd = _wopen((const wchar_t*)filename.utf16(), flags, 0666);
 #else
-  fd = open(filename.local8Bit(), flags, 0666);
+  fd = open(filename.toLocal8Bit(), flags, 0666);
 #endif
   if (fd < 0)
     return NULL;
