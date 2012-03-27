@@ -244,9 +244,10 @@ void PythonQtScriptingConsole::setCurrentFont(const QColor& color, bool bold) {
   font.setBold(bold);
   charFormat.setFont(font);
 
-  QBrush brush(charFormat.foreground());
-  brush.setColor(color);
-  charFormat.setForeground(brush);
+  charFormat.setForeground(QBrush(color));
+  //QBrush brush(charFormat.foreground());
+  //brush.setColor(color);
+  //charFormat.setForeground(brush);
 
   setCurrentCharFormat(charFormat);
 }
