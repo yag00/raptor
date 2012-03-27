@@ -1,3 +1,7 @@
+#! /usr/bin/env python
+# encoding: utf-8
+#
+
 """
  This file is part of the raptor project.
 
@@ -23,12 +27,24 @@ import os
 import glob
 import BasePlugin
 
-class PluginLoader():
-	def load(self, path):
+class PluginLoader(object):
+	
+	def __init__(self):
+		pass
+
+	def __del__(self):
+		pass
+		
+	def __to_list(self, xx):
+		if isinstance(xx, str): return [xx]
+		return xx
+		
+	def load(self, pluginPaths):
 		d = {}
-		for p in path:
+		for p in self.__to_list(pluginPaths):
 			sys.path.append(p)
-			for file in glob.glob(os.path.join(os.path.abspath(p), "*.py")):
+			g = os.path.join(os.path.abspath(p), "*.py")
+			for file in glob.glob(g):
 				d[file] = []
 				#name of file
 				name = os.path.splitext(os.path.basename(file))[0]
@@ -49,3 +65,4 @@ class PluginLoader():
 					except:
 						pass
 		return d
+

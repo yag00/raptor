@@ -179,7 +179,7 @@ def build(bld):
 			Options.commands = ['generateQtBinding', bld.variant] + Options.commands
 			return
 
-		pythonQt_sources = bld.path.ant_glob(['ext/PythonQt2.0.1/src/**/*.cpp',
+		pythonQt_sources = bld.path.ant_glob(['ext/pythonqt/src/**/*.cpp',
 			'bindings/generated_cpp/com_trolltech_qt_core_builtin/*.cpp',
 			'bindings/generated_cpp/com_trolltech_qt_gui_builtin/*.cpp',
 			#'bindings/generated_cpp/com_trolltech_qt_core/*.cpp',
@@ -195,10 +195,10 @@ def build(bld):
 			#'bindings/generated_cpp/com_trolltech_qt_phonon/*.cpp',
 		])
 
-		bld.stlib(
+		bld.shlib(
 			features		= 'qt4 pyembed',
 			uselib			= 'QTCORE QTGUI QTXML',
-			defines			= 'PYTHONQT_EXPORTS',
+			defines			= ['PYTHONQT_EXPORTS'],
 			source		 	= pythonQt_sources,
 			name			= 'pyraptor',
 			target			= 'pyraptor',
@@ -303,7 +303,7 @@ def build(bld):
 	if bld.env['PYTHON_SUPPORT']:
 		raptor_features	+= ' pyembed'
 		raptor_libs 	+= ' pyraptor'
-		raptor_includes	+= ['ext/PythonQt2.0.1/src/']
+		raptor_includes	+= ['ext/pythonqt/src/']
 		raptor_defines += ['PYTHON_SUPPORT']
 
 
@@ -430,20 +430,20 @@ def generateQtBinding(bld):
 	# build pythonqt_generator
 	#########################################################
 	pythonQt_generator_sources = bld.path.ant_glob([
-		'ext/PythonQt2.0.1/generator/*.qrc',
-		'ext/PythonQt2.0.1/generator/parser/rpp/preprocessor.cpp',
-		'ext/PythonQt2.0.1/generator/parser/*.cpp',
-		'ext/PythonQt2.0.1/generator/*.cpp'])
+		'ext/pythonqt/generator/*.qrc',
+		'ext/pythonqt/generator/parser/rpp/preprocessor.cpp',
+		'ext/pythonqt/generator/parser/*.cpp',
+		'ext/pythonqt/generator/*.cpp'])
 
 	pythonQt_generator_xml = bld.path.ant_glob([
-		'ext/PythonQt2.0.1/generator/*.xml',
-		'ext/PythonQt2.0.1/generator/qtscript_masterinclude.h'])
+		'ext/pythonqt/generator/*.xml',
+		'ext/pythonqt/generator/qtscript_masterinclude.h'])
 
 	#copy xml file needed by the generator to the build directory
 	pythonQt_generator_depend = []
 	for file in pythonQt_generator_xml:
 		pythonQt_generator_depend += [os.path.basename(file.abspath())]
-		bld(rule='cp ${SRC} ${TGT}', source=file, target=os.path.basename(file.abspath()), name	= 'copy', color = 'YELLOW')
+		bld(rule='COPY ${SRC} ${TGT}', source=file, target=os.path.basename(file.abspath()), name	= 'copy', color = 'YELLOW')
 
 	bld.program(
 		features		= 'qt4 pyembed',
