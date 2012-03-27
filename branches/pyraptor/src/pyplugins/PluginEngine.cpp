@@ -45,25 +45,22 @@ PluginEngine::~PluginEngine(){
 void PluginEngine::initialize(){
 	//initialize python qt
 	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut, "PyRaptor");
-	_module = PythonQt::self()->getMainModule();
-	_module.evalScript(QString("import sys\n"));
 	// Allow the python system path to recognize QFile paths in the sys.path
-	PythonQt::self()->setImporter(NULL);
+	PythonQt::self()->setImporter(0);
 	
-	//add python ressource file to path
+	_module = PythonQt::self()->getMainModule();
+	_module.evalScript(QString("import sys, os, glob\n"));
 	_module.evalScript("sys.path.append(':/pyplugin')\n");
-	//load base plugin class
-	_module.evalFile(":/pyplugin/BasePlugin.py");
-	//load plugin loader class
-	_module.evalFile(":/pyplugin/PluginLoader.py");
-	_loader = _module.evalScript("PluginLoader()\n", Py_eval_input);
+	_module.evalScript(QString("import BasePlugin\n"));
+	_module.evalScript(QString("import PluginLoader\n"));
+	
+	_loader = _module.evalScript("PluginLoader.PluginLoader()\n", Py_eval_input);
 	if(_loader.isNull()){
 		qCritical() << "ERROR : Can't load plugin loader";
-		return;
 	}
+	
 	//load plugins
 	loadPlugins();
-	
 	//add c++ object
 	PythonQt::self()->registerQObjectClassNames(QStringList() << "PyDocument");
 	_module.addObject("mgr", _pydocmgr);

@@ -594,7 +594,7 @@ void PythonQtScriptingConsole::changeHistory() {
 
 void PythonQtScriptingConsole::consoleMessage(const QString & message) {
 
-  append(QString());
+  appendPlainText(QString());
   insertPlainText(message);
 
   // Reset all font modifications done by the html string

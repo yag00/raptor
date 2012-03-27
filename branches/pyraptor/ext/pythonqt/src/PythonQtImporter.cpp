@@ -48,6 +48,9 @@
 #include "PythonQtImportFileInterface.h"
 #include "PythonQt.h"
 #include "PythonQtConversion.h"
+
+#include <fcntl.h>
+
 #include <QFile>
 #include <QFileInfo>
 
@@ -473,7 +476,7 @@ open_exclusive(const QString& filename)
     flags |= O_BINARY;   /* necessary for Windows */
 #endif
 #ifdef WIN32
-  fd = _wopen(filename.ucs2(), flags, 0666);
+  fd = _wopen((const wchar_t*)filename.utf16(), flags, 0666);
 #else
   fd = open(filename.local8Bit(), flags, 0666);
 #endif
@@ -641,12 +644,17 @@ PythonQtImport::getCodeFromData(const QString& path, int isbytecode,int /*ispack
   else {
   //  mlabDebugConst("MLABPython", "compiling source " << path);
     code = compileSource(path, qdata);
+#if defined(Q_OS_WIN32)
+    //TODO fixme crash on writeCompiledModule
+    //this does not seem to work on windows
+#else
     if (code) {
       // save a pyc file if possible
       QDateTime time;
       time = PythonQt::importInterface()->lastModifiedDate(path);
       writeCompiledModule((PyCodeObject*)code, path+"c", time.toTime_t());
     }
+#endif
   }
   return code;
 }
