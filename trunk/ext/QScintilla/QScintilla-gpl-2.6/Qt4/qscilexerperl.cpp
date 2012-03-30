@@ -650,3 +650,8 @@ QStringList QsciLexerPerl::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerperl.moc"
+#endif
+

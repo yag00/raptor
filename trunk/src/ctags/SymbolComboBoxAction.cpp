@@ -34,3 +34,8 @@ QWidget* SymbolComboBoxAction::createWidget(QWidget* parent_){
 	connect(st, SIGNAL(symbolActivated(int)), this, SIGNAL(symbolActivated(int)));
 	return st; 
 }
+
+#if WAF
+#include "SymbolComboBoxAction.moc"
+#endif
+

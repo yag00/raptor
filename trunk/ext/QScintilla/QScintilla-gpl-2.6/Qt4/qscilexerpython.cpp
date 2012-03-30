@@ -502,3 +502,8 @@ QStringList QsciLexerPython::commentBlock() const{
     cb << "\"\"\"" << "\"\"\"";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerpython.moc"
+#endif
+

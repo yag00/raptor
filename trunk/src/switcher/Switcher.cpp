@@ -159,3 +159,8 @@ void Switcher::keyPressEvent(QKeyEvent* event_){
 	}
 }
 
+
+#if WAF
+#include "Switcher.moc"
+#endif
+

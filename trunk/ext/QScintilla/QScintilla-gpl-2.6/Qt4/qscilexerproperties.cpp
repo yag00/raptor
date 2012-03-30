@@ -226,3 +226,8 @@ QStringList QsciLexerProperties::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerproperties.moc"
+#endif
+

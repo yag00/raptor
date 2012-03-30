@@ -118,7 +118,7 @@ namespace {
 }
 
 int main(int argc, char *argv[]) {
-	QtSingleApplication app("ac0452da134c2a204d7b5a7f5bb516147d27ee84", argc, argv);	// sha1(raptor)
+	QtSingleApplication app("ac0452da134c2a204d7b5a7f5bb516147d27ee84-qt", argc, argv);	// sha1(raptor)
 
 	QStringList args = QCoreApplication::arguments();
 	args.pop_front();

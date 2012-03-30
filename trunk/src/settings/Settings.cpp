@@ -1087,3 +1087,8 @@ void Settings::setProxyPassword(const QString& password_){
 QString Settings::getProxyPassword(){
 	return value("Update/proxyPassword", "").toString();
 }
+
+#if WAF
+#include "Settings.moc"
+#endif
+

@@ -463,3 +463,8 @@ QStringList QsciLexerD::commentBlock() const{
     cb << "/+" << "+/";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerd.moc"
+#endif
+

@@ -321,3 +321,8 @@ static int fromHex(unsigned char ch)
 
     return -1;
 }
+
+#if WAF
+#include "Qsci/qscimacro.moc"
+#endif
+

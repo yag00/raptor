@@ -71,7 +71,7 @@ def uninstall(ctx):
 Scripting.default_cmd = "release"
 
 def options(opt):
-	opt.load('compiler_c compiler_cxx qt4 slow_qt4')
+	opt.load('compiler_c compiler_cxx qt4')
 	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
 	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
 	opt.add_option('--deb-version', action='store', default="", help = '(ubuntu) package target will only build the source package with special version (ex: --deb-version=1)', dest = 'debVersion')
@@ -126,7 +126,6 @@ def configure(conf):
 	configureDoc(conf);
 		
 	conf.load('qt4')
-	conf.load('slow_qt4')
 
 	#check qt version
 	QT_MIN_VERSION = '4.6.0'
@@ -236,8 +235,7 @@ def build(bld):
 		defines         = get_ctags_defines(bld.env),
 		cflags          = ['-Wformat=0'],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
-
-
+	
 	#########################################################
 	# build qscintilla
 	#########################################################
@@ -258,10 +256,9 @@ def build(bld):
 							'ext/QScintilla/QScintilla-gpl-2.6/lexlib',
 							'ext/QScintilla/QScintilla-gpl-2.6/src',
 							'ext/QScintilla/QScintilla-gpl-2.6/Qt4'],
-		defines         = ['QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
+		defines         = ['WAF', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
 		cxxflags        = [],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
-
 
 	#########################################################
 	# build raptor
@@ -292,7 +289,7 @@ def build(bld):
 							'ext/qt-solutions/qtsingleapplication/src',
 							'ext/dtl/dtl-1.15',
 							'src'],
-		defines         = [	'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
+		defines         = [	'WAF', 'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
 							'PACKAGE_NAME="%s"' % APPNAME.capitalize(),
 							'PACKAGE_VERSION="%s"' % VERSION,
 							'PACKAGE_DESCRIPTION="%s"' % DESCRIPTION,

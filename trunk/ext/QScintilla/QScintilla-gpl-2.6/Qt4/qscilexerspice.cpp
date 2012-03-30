@@ -197,3 +197,8 @@ QString QsciLexerSpice::description(int style) const
 
     return QString();
 }
+
+#if WAF
+#include "Qsci/qscilexerspice.moc"
+#endif
+

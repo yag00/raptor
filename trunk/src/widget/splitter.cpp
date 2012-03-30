@@ -54,3 +54,8 @@ void Splitter::swap(){
 	insertWidget(0, w);
 }
 
+
+#if WAF
+#include "splitter.moc"
+#endif
+

@@ -522,3 +522,8 @@ void DocumentView::dropEvent(QDropEvent *event_){
 		event_->acceptProposedAction();  
 	}
 }
+
+#if WAF
+#include "document_view.moc"
+#endif
+

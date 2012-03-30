@@ -36,6 +36,8 @@
 ** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 **
 ****************************************************************************/
+#ifndef __QTSINGLEAPPLICATION_H__
+#define __QTSINGLEAPPLICATION_H__
 
 
 #include <QtGui/QApplication>
@@ -96,3 +98,5 @@ private:
     QtLocalPeer *peer;
     QWidget *actWin;
 };
+
+#endif // __QTSINGLEAPPLICATION_H__

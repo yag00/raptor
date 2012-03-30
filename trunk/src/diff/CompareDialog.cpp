@@ -85,3 +85,8 @@ void CompareDialog::on_src2ToolButton_clicked(){
 		src2LineEdit->setText(name);
 	}	
 }
+
+#if WAF
+#include "CompareDialog.moc"
+#endif
+

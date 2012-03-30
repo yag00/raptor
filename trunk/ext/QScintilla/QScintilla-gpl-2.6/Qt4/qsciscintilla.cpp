@@ -4147,3 +4147,9 @@ void QsciScintilla::delete_selection()
     SendScintilla(SCI_CLEAR);
 }
 
+
+#if WAF
+#include "Qsci/qsciscintillabase.moc"
+#include "Qsci/qsciscintilla.moc"
+#endif
+

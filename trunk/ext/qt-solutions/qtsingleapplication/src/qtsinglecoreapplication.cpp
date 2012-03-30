@@ -146,3 +146,7 @@ QString QtSingleCoreApplication::id() const
 
     \sa sendMessage()
 */
+
+#if WAF
+#include "qtsinglecoreapplication.moc"
+#endif

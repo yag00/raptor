@@ -70,3 +70,8 @@ void VerticalFileSwitcher::addItem(DocumentEditor* doc_) {
 	if(_maxwidth < size.width())
 		_maxwidth = size.width();
 }
+
+#if WAF
+#include "VerticalFileSwitcher.moc"
+#endif
+

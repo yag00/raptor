@@ -185,3 +185,8 @@ QFont RLexerTxt2Tags::defaultFont(int style) const{
     return f;
 }
 
+
+#if WAF
+#include "RLexerTxt2Tags.moc"
+#endif
+

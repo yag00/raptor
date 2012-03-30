@@ -132,3 +132,8 @@ void RLexerXML::setScriptsStyled(bool styled) {
 void RLexerXML::setScriptsProp() {
 	emit propertyChanged("lexer.xml.allow.scripts",(scripts ? "1" : "0"));
 }
+
+#if WAF
+#include "RLexerXML.moc"
+#endif
+

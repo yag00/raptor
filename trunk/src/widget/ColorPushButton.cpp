@@ -80,3 +80,8 @@ void ColorPushButton::setState(int state_){
 		setEnabled(true);
 }
 
+
+#if WAF
+#include "ColorPushButton.moc"
+#endif
+

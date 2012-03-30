@@ -54,3 +54,8 @@ void ClearLineEdit::updateCloseButton(const QString& text_) {
 }
 
 
+
+#if WAF
+#include "ClearLineEdit.moc"
+#endif
+

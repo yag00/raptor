@@ -112,3 +112,8 @@ const char *QsciLexerFortran::keywords(int set) const
 
     return QsciLexerFortran77::keywords(set);
 }
+
+#if WAF
+#include "Qsci/qscilexerfortran.moc"
+#endif
+

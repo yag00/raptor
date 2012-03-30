@@ -205,3 +205,8 @@ void SciListBox::handleSelection()
     if (lbx && lbx->cb_action)
         lbx->cb_action(lbx->cb_data);
 }
+
+#if WAF
+#include "SciClasses.moc"
+#endif
+

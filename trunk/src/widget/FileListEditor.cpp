@@ -63,3 +63,8 @@ void FileListEditor::onEditItem() {
 void FileListEditor::setPath( const QString& path ) {
 	_path = path;
 }
+
+#if WAF
+#include "FileListEditor.moc"
+#endif
+

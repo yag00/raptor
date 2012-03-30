@@ -130,3 +130,8 @@ QString QsciLexerDiff::description(int style) const
 
     return QString();
 }
+
+#if WAF
+#include "Qsci/qscilexerdiff.moc"
+#endif
+

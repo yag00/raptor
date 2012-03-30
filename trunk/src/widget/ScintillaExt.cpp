@@ -840,3 +840,8 @@ int ScintillaExt::getStyleAt(int position_) const {
 char ScintillaExt::getCharAt(int position_)  const {
 	return SendScintilla(SCI_GETCHARAT, position_);
 }
+
+#if WAF
+#include "ScintillaExt.moc"
+#endif
+

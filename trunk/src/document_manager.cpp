@@ -851,3 +851,8 @@ void DocumentManager::notify(){
 		}
 	}
 }
+
+#if WAF
+#include "document_manager.moc"
+#endif
+

@@ -317,3 +317,8 @@ QStringList QsciLexerCMake::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexercmake.moc"
+#endif
+

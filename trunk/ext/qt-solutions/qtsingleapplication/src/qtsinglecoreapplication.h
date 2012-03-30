@@ -36,7 +36,8 @@
 ** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 **
 ****************************************************************************/
-
+#ifndef __QTSINGLECOREAPPLICATION_H__
+#define __QTSINGLECOREAPPLICATION_H__
 
 #include <QtCore/QCoreApplication>
 
@@ -64,3 +65,5 @@ Q_SIGNALS:
 private:
     QtLocalPeer* peer;
 };
+
+#endif // __QTSINGLECOREAPPLICATION_H__

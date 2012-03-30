@@ -1205,3 +1205,8 @@ void SettingsDialog::on_tbShowLexer_clicked(){
 		delete item;
 	}
 }
+
+#if WAF
+#include "SettingsDialog.moc"
+#endif
+

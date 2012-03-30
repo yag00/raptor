@@ -310,3 +310,8 @@ QStringList QsciLexerFortran77::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerfortran77.moc"
+#endif
+

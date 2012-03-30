@@ -1194,3 +1194,8 @@ QStringList QsciLexerHTML::commentBlock() const{
     cb << "<!--" << "-->";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerhtml.moc"
+#endif
+

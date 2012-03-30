@@ -1002,3 +1002,8 @@ bool MainWindow::eventFilter(QObject *obj_, QEvent *ev_) {
 	return QMainWindow::eventFilter(obj_, ev_);
 }
 
+
+#if WAF
+#include "mainwindow.moc"
+#endif
+

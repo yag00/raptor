@@ -521,3 +521,8 @@ void QsciLexerSQL::setAllowDottedWordProp()
 {
     emit propertyChanged("lexer.sql.allow.dotted.word", (allow_dotted_word ? "1" : "0"));
 }
+
+#if WAF
+#include "Qsci/qscilexersql.moc"
+#endif
+

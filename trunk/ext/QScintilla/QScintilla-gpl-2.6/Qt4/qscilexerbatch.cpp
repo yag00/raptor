@@ -215,3 +215,8 @@ QColor QsciLexerBatch::defaultPaper(int style) const
 
     return QsciLexer::defaultPaper(style);
 }
+
+#if WAF
+#include "Qsci/qscilexerbatch.moc"
+#endif
+

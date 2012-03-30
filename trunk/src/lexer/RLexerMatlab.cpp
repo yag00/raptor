@@ -76,3 +76,8 @@ QFont RLexerMatlab::defaultFont(int style) const{
 	}			
     return f;
 }
+
+#if WAF
+#include "RLexerMatlab.moc"
+#endif
+

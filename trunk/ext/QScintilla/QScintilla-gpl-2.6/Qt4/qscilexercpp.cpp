@@ -622,3 +622,8 @@ QStringList QsciLexerCPP::commentBlock() const{
     return cb;
 }
 
+
+#if WAF
+#include "Qsci/qscilexercpp.moc"
+#endif
+

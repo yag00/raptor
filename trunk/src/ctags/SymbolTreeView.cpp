@@ -49,3 +49,8 @@ void SymbolTreeView::activated(const QModelIndex& index_){
 		emit symbolActivated(line);
 	}
 }
+
+#if WAF
+#include "SymbolTreeView.moc"
+#endif
+

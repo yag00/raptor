@@ -970,3 +970,8 @@ void DocumentEditor::toggleComment(bool lineCommentPrefered_) {
 		}
 	}
 }
+
+#if WAF
+#include "document_editor.moc"
+#endif
+

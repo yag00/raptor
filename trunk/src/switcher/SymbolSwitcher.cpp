@@ -59,3 +59,8 @@ void SymbolSwitcher::selectedItem(QStandardItem* item_){
 		emit symbolActivated(line);
 	}
 }
+
+#if WAF
+#include "SymbolSwitcher.moc"
+#endif
+
