@@ -99,3 +99,8 @@ void ShortcutSettings::update(DocumentEditor* document_){
 	QsciCommandSet* commandset = document_->standardCommands();
 	commandset->readSettings(*this);
 }
+
+#if WAF
+#include "ShortcutSettings.moc"
+#endif
+

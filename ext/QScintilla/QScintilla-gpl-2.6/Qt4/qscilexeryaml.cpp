@@ -282,3 +282,8 @@ QStringList QsciLexerYAML::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexeryaml.moc"
+#endif
+

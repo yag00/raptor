@@ -112,3 +112,8 @@ void AboutDlg::anchorClicked(const QUrl& u) {
 	b->setHtml( b->toHtml() );
 	QDesktopServices::openUrl( u );
 }
+
+#if WAF
+#include "About.moc"
+#endif
+

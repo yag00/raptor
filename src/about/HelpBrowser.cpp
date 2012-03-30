@@ -195,3 +195,8 @@ void HelpBrowser::endSimpleHelpBrowser(int exitCode_){
     _helpDlg = 0;
 }
 #endif
+
+#if WAF
+#include "HelpBrowser.moc"
+#endif
+

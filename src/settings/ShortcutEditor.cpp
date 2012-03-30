@@ -175,3 +175,8 @@ void ShortcutEditor::on_setShortcutButton_clicked() {
 
 	_settings->saveUserShortcut(action);
 }
+
+#if WAF
+#include "ShortcutEditor.moc"
+#endif
+

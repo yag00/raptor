@@ -56,3 +56,8 @@ void PathListEditor::onEditItem() {
 		}
 	}
 }
+
+#if WAF
+#include "PathListEditor.moc"
+#endif
+

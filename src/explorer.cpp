@@ -180,3 +180,8 @@ void Explorer::on_actionCopyName_triggered() {
 		QApplication::clipboard()->setText(QFileInfo(name).fileName());
 	}
 }
+
+#if WAF
+#include "explorer.moc"
+#endif
+

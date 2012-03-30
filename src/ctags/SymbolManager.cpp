@@ -194,3 +194,8 @@ QIcon SymbolManager::getSymbolIcon(const QString& kind_, const QString& access_)
 }
 
 
+
+#if WAF
+#include "SymbolManager.moc"
+#endif
+

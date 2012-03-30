@@ -108,3 +108,8 @@ void QsciLexerCustom::handleStyleNeeded(int pos)
     if (start != pos)
         styleText(start, pos);
 }
+
+#if WAF
+#include "Qsci/qscilexercustom.moc"
+#endif
+

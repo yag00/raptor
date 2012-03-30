@@ -60,3 +60,8 @@ const char *QsciLexerJava::keywords(int set) const
            "super switch synchronized this throw throws transient try var "
            "void volatile while";
 }
+
+#if WAF
+#include "Qsci/qscilexerjava.moc"
+#endif
+

@@ -951,3 +951,8 @@ QStringList QsciAPIs::installedAPIFiles() const
 
     return filenames;
 }
+
+#if WAF
+#include "Qsci/qsciapis.moc"
+#endif
+

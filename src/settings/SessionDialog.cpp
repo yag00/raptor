@@ -104,3 +104,8 @@ void SessionDialog::disableEditMode(){
 QString SessionDialog::getSelectedSession(){
 	return sessionsTree->currentItem()->text(0);
 }
+
+#if WAF
+#include "SessionDialog.moc"
+#endif
+

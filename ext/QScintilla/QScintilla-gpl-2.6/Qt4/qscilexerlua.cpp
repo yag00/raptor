@@ -381,3 +381,8 @@ QStringList QsciLexerLua::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerlua.moc"
+#endif
+

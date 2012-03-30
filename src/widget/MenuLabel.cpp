@@ -44,3 +44,8 @@ void MenuLabel::mousePressEvent(QMouseEvent* event_) {
 	if(_menu)
 		_menu->popup(event_->globalPos());
 }
+
+#if WAF
+#include "MenuLabel.moc"
+#endif
+

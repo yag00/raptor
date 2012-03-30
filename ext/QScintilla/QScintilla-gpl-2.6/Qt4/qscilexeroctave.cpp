@@ -68,3 +68,8 @@ const char *QsciLexerOctave::keywords(int set) const
 
     return 0;
 }
+
+#if WAF
+#include "Qsci/qscilexeroctave.moc"
+#endif
+

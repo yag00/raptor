@@ -103,3 +103,8 @@ QString QsciLexerIDL::description(int style) const
 
     return QsciLexerCPP::description(style);
 }
+
+#if WAF
+#include "Qsci/qscilexeridl.moc"
+#endif
+

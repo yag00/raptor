@@ -45,3 +45,8 @@ const char *RLexerOctave::keywords(int set) const {
 
     return 0;
 }
+
+#if WAF
+#include "RLexerOctave.moc"
+#endif
+

@@ -89,3 +89,8 @@ void UpdateChecker::finished(QNetworkReply* reply_){
 	}
 }
 
+
+#if WAF
+#include "UpdateChecker.moc"
+#endif
+

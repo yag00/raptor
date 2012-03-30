@@ -445,3 +445,8 @@ QStringList QsciLexerPascal::commentBlock() const{
     cb << "{" << "}";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerpascal.moc"
+#endif
+

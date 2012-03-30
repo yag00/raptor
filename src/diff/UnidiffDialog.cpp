@@ -58,3 +58,8 @@ void UnidiffDialog::open(){
 void UnidiffDialog::save(){
 	setResult(UnidiffDialog::Save);
 }
+
+#if WAF
+#include "UnidiffDialog.moc"
+#endif
+

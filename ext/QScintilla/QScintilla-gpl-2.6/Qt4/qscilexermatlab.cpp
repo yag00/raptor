@@ -174,3 +174,8 @@ QStringList QsciLexerMatlab::commentBlock() const{
     cb << "%{" << "}%";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexermatlab.moc"
+#endif
+

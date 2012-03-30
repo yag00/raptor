@@ -252,3 +252,8 @@ QFont RLexerCPP::defaultFont(int style) const {
     return f;
 }
 
+
+#if WAF
+#include "RLexerCpp.moc"
+#endif
+

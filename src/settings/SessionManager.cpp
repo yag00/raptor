@@ -157,3 +157,8 @@ void SessionManager::save(){
 	s.save(_currentSession, views);
 }
 
+
+#if WAF
+#include "SessionManager.moc"
+#endif
+

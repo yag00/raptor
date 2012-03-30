@@ -458,3 +458,8 @@ QStringList QsciLexerRuby::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerruby.moc"
+#endif
+

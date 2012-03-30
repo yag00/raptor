@@ -432,3 +432,8 @@ QStringList QsciLexerVHDL::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexervhdl.moc"
+#endif
+

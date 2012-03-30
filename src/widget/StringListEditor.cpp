@@ -158,3 +158,8 @@ void StringListEditor::onEditItem() {
 	if ( QListWidgetItem* it = _list->selectedItems().value( 0 ) )
 		_list->editItem( it );
 }
+
+#if WAF
+#include "StringListEditor.moc"
+#endif
+

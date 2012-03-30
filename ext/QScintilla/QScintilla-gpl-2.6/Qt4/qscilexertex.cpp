@@ -320,3 +320,8 @@ QStringList QsciLexerTeX::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexertex.moc"
+#endif
+

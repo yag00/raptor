@@ -342,3 +342,7 @@ void QtSingleApplication::activateWindow()
 
     \obsolete
 */
+
+#if WAF
+#include "qtsingleapplication.moc"
+#endif

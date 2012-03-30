@@ -71,3 +71,8 @@ void SymbolTreeComboBox::pressed(const QModelIndex& index_){
 	}
 	hidePopup();
 }
+
+#if WAF
+#include "SymbolTreeComboBox.moc"
+#endif
+

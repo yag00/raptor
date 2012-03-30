@@ -148,3 +148,8 @@ void TabBar::dropEvent(QDropEvent* event_) {
 		event_->ignore();
 	}
 }
+
+#if WAF
+#include "tabbar.moc"
+#endif
+

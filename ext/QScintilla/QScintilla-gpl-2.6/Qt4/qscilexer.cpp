@@ -684,3 +684,8 @@ QStringList QsciLexer::commentBlock() const{
     return QStringList();
 }
 
+
+#if WAF
+#include "Qsci/qscilexer.moc"
+#endif
+

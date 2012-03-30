@@ -460,3 +460,8 @@ QStringList QsciLexerPostScript::commentBlock() const{
     QStringList cb;
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerpostscript.moc"
+#endif
+

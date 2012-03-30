@@ -477,3 +477,8 @@ QStringList QsciLexerPOV::commentBlock() const{
     cb << "/*" << "*/";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexerpov.moc"
+#endif
+

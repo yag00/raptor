@@ -36,7 +36,8 @@
 ** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 **
 ****************************************************************************/
-
+#ifndef __QTLOCALPEER_H__
+#define __QTLOCALPEER_H__
 
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
@@ -70,3 +71,5 @@ protected:
 private:
     static const char* ack;
 };
+
+#endif // __QTLOCALPEER_H__

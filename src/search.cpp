@@ -611,3 +611,8 @@ void Search::contextMenuEvent(QContextMenuEvent *event_){
 		contextMenu.exec(QCursor::pos());
 	}
 }
+
+#if WAF
+#include "search.moc"
+#endif
+

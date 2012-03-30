@@ -452,3 +452,8 @@ QStringList QsciLexerTCL::commentBlock() const{
     cb << "##" << "##";
     return cb;
 }
+
+#if WAF
+#include "Qsci/qscilexertcl.moc"
+#endif
+

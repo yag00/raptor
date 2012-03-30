@@ -103,3 +103,8 @@ QString KeySequenceInput::checkKeyEvent(QKeyEvent* event_) {
 	// return human readable key sequence
 	return QKeySequence(keys).toString();
 }
+
+#if WAF
+#include "KeySequenceInput.moc"
+#endif
+

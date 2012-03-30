@@ -56,3 +56,8 @@ const char *RLexerJava::keywords(int set) const {
 		   
 	return 0;
 }
+
+#if WAF
+#include "RLexerJava.moc"
+#endif
+

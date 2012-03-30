@@ -88,3 +88,8 @@ int SessionSettings::getDocumentNumber(const QString& session_){
 	endGroup();
 	return cpt;
 }
+
+#if WAF
+#include "SessionSettings.moc"
+#endif
+

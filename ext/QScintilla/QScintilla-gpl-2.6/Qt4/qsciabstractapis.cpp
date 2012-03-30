@@ -54,3 +54,8 @@ QsciLexer *QsciAbstractAPIs::lexer() const
 void QsciAbstractAPIs::autoCompletionSelected(const QString &selection)
 {
 }
+
+#if WAF
+#include "Qsci/qsciabstractapis.moc"
+#endif
+
