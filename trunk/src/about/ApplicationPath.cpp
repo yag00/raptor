@@ -44,6 +44,17 @@ QString ApplicationPath::libraryPath(){
 #endif
 }
 
+QString ApplicationPath::pluginPath(){
+#ifdef Q_OS_WIN
+	return ApplicationPath::applicationPath() + QDir::separator() + "plugins" + QDir::separator();
+#else
+	if(ApplicationPath::isInstalled())
+		return QString(PACKAGE_DATA) + QDir::separator() + "raptor" + QDir::separator() + "plugins" + QDir::separator();
+	else
+		return ApplicationPath::applicationPath() + QDir::separator() + "raptor" + QDir::separator() + "plugins" + QDir::separator();
+#endif	
+}
+
 QString ApplicationPath::translationPath(){
 #ifdef Q_OS_WIN
 	return ApplicationPath::applicationPath() + QDir::separator() + "translations" + QDir::separator();

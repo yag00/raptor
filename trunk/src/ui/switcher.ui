@@ -78,7 +78,7 @@ padding-left: 1px;
   <customwidget>
    <class>ClearLineEdit</class>
    <extends>QLineEdit</extends>
-   <header location="global">ClearLineEdit.h</header>
+   <header location="global">widget/ClearLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

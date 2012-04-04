@@ -97,6 +97,9 @@ class MainWindow : public QMainWindow, private Ui::MainWindow{
 
 		/** Bookmarks Menu */
 
+		/** Plugins */
+		void loadPlugins();
+		
 		/** Settings */
 		void settings();
 		void shortcuts();

@@ -26,7 +26,7 @@
 
 #include "../astyle/AStyleIndenter.h"
 #include "../lexer/RLexerCpp.h"
-#include "../widget/ScintillaExt.h"
+#include "../ScintillaExt.h"
 #include "Settings.h"
 #include "SettingsDialog.h"
 
@@ -101,6 +101,8 @@ SettingsDialog::SettingsDialog(MainWindow& mainWindow_, QWidget* parent) : QDial
 	connect(chkKeepOneLineStatements, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(chkCOnvertTabs, SIGNAL(stateChanged(int)), this, SLOT(onStyleChanged()));
 	connect(cbPointerAlign, SIGNAL(currentIndexChanged(int)), this, SLOT(onStyleChanged()));
+
+	connect(plePluginsPaths, SIGNAL(edited()), this, SLOT(pluginPathChanged()));
 
 	//init menu
 	twMenu->topLevelItem(3)->setExpanded(true);
@@ -258,7 +260,10 @@ void SettingsDialog::apply(){
 void SettingsDialog::loadSettingsDialog(){
 	// General
 	// Paths
-
+	plePluginsPaths->blockSignals(true);
+	plePluginsPaths->setValues(_settings->getPluginPaths());
+	plePluginsPaths->blockSignals(false);
+	
 	/** Interface **/
 	//	- ToolBar
 	if (_bgToolBarIconSize->button(_settings->getToolBarIconSize()))
@@ -1204,6 +1209,10 @@ void SettingsDialog::on_tbShowLexer_clicked(){
 		lvShowLexer->addItem(item->text());
 		delete item;
 	}
+}
+
+void SettingsDialog::pluginPathChanged(){
+	_settings->setPluginPaths(plePluginsPaths->values());
 }
 
 #if WAF
