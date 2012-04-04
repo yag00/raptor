@@ -33,6 +33,8 @@ class ApplicationPath {
 		static QString binaryPath();
 		/** @return library install path */
 		static QString libraryPath();
+		/** @return plugin install path */
+		static QString pluginPath();	
 		/** @return translation install path */
 		static QString translationPath();
 		/** @return documentation install path */

@@ -72,6 +72,7 @@ Scripting.default_cmd = "release"
 
 def options(opt):
 	opt.load('compiler_c compiler_cxx qt4')
+	opt.add_option('--plugins', action='store_true', default=True, help = 'build raptors plugins', dest = 'plugins')
 	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
 	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
 	opt.add_option('--deb-version', action='store', default="", help = '(ubuntu) package target will only build the source package with special version (ex: --deb-version=1)', dest = 'debVersion')
@@ -130,12 +131,18 @@ def configure(conf):
 	#check qt version
 	QT_MIN_VERSION = '4.6.0'
 	qtversion = (conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_VERSION']).strip())
+	conf.env['QT_VERSION'] = qtversion
+	conf.env['QT_HEADER_PATH'] = conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_INSTALL_HEADERS']).strip()	
 	if(qtversion.split('.') < QT_MIN_VERSION.split('.')):
 		conf.msg("Checking for Qt version", "Qt should be at least in version " + QT_MIN_VERSION + " (" +qtversion + " found)", "RED")
 		conf.fatal("Upgrade Qt !")
 	else:
 		conf.msg("Checking for Qt version", "" + qtversion)
 
+	if Options.options.plugins == True:
+		if os.path.exists("plugins/wscript"):
+			conf.recurse('plugins')
+	
 	conf.setenv('debug', env=conf.env.derive())
 	conf.env.CFLAGS = get_debug_cflags(conf.env)
 	conf.env.CXXFLAGS = get_debug_cxxflags(conf.env)
@@ -263,21 +270,35 @@ def build(bld):
 	#########################################################
 	# build raptor
 	#########################################################
+	
+	raptor_widgets_sources = bld.path.ant_glob(['src/widget/**/*.cpp'])
+	bld.stlib(
+		features        = 'qt4 cxx cxxstlib',
+		uselib          = 'QTCORE QTGUI',
+		source          = raptor_widgets_sources,
+		name            = 'raptorwidget',
+		target          = 'raptorwidget',
+		includes        = [],
+		defines         = ['WAF', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
+		cxxflags        = ['-Wall', '-Werror'],	
+		install_path    = None,
+	)
+		
 	raptor_sources = bld.path.ant_glob(
 		[	'ext/qt-solutions/qtsingleapplication/src/qtsingleapplication.cpp',
 			'ext/qt-solutions/qtsingleapplication/src/qtlocalpeer.cpp',
 			'src/**/*.cpp',
 			'src/**/*.ui',
 			'src/**/*.qrc'],
-		excl=['src/rc/*.cpp'])
+		excl=['src/rc/*.cpp', 'src/widget/*.cpp'])
 
 	if isWindows(bld.env):
 		raptor_sources += bld.path.ant_glob('src/**/*.rc')
-
+	
 	bld.program(
 		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows(bld.env) else ''),
 		uselib          = 'QTCORE QTGUI QTNETWORK QTXML QTHELP',
-		use             = 'astyle qscintilla2 ctags',
+		use             = 'astyle qscintilla2 ctags raptorwidget',
 		source          = raptor_sources,
 		lang            = bld.path.ant_glob('src/translations/*.ts'),
 		name            = 'raptor',
@@ -298,7 +319,7 @@ def build(bld):
 							'PACKAGE_DATA="%s/share"' % bld.env['PREFIX'],
 							'PACKAGE_OS="%s"' % getSystemOsString(bld.env)],
 		cxxflags        = ['-Wall', '-Werror'],
-		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows(bld.env) else ['-Wl,-O1']),
+		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows(bld.env) else ['-Wl,-z,defs', '-Wl,-O1']),
 		install_path    = getBinaryInstallationPath(bld.env))
 
 	#install translations file
@@ -313,7 +334,13 @@ def build(bld):
 		qtdlls = bld.root.find_node(qtbin).ant_glob(['QtCore4.dll', 'QtGui4.dll', 'QtNetwork4.dll', 'QtXml4.dll', 'QtHelp4.dll', 'mingwm10.dll', 'libgcc_s_dw2-1.dll'])
 		bld.install_files(bld.env['PREFIX'], qtdlls)
 
-
+	#########################################################
+	# build raptor plugins
+	#########################################################
+	if Options.options.plugins == True:
+		if os.path.exists("plugins/wscript"):
+			bld.recurse('plugins')
+	
 	#########################################################
 	# build raptor documentation
 	#########################################################

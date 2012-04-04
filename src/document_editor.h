@@ -21,7 +21,7 @@
 #ifndef __DOCUMENT_EDITOR_H__
 #define __DOCUMENT_EDITOR_H__
 
-#include "widget/ScintillaExt.h"
+#include "ScintillaExt.h"
 
 class QFileSystemWatcher;
 class QString;

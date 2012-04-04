@@ -239,6 +239,14 @@ void Settings::setVersion(const Version& version_){
 	setValue("Version", version_.getVersion());
 }
 
+QStringList Settings::getPluginPaths(){
+	return value("Plugins/Paths", QStringList() << ApplicationPath::pluginPath()).toStringList();
+}
+
+void Settings::setPluginPaths(const QStringList& paths_){
+	setValue("Plugins/Paths", paths_);
+}
+
 // Interface
 void Settings::setToolBarIconSize(int size_){
 	setValue("Interface/toolbar/iconSize", size_);

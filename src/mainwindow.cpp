@@ -46,6 +46,9 @@
 #include "export/Exporter.h"
 #include "export/ExporterHTML.h"
 
+#include "plugin/RaptorPlugin.hpp"
+#include "plugin/PluginLoader.hpp"
+
 #include "mainwindow.h"
 
 MainWindow::MainWindow() {
@@ -70,6 +73,9 @@ MainWindow::MainWindow() {
 
 	//read Settings
 	readSettings();
+	
+	//plugins
+	loadPlugins();
 }
 
 MainWindow::~MainWindow() {
@@ -450,6 +456,25 @@ void MainWindow::createActions(){
 	actionZoomOut->setData(QVariant(QsciCommand::ZoomOut));
 }
 
+void MainWindow::loadPlugins(){
+	Settings settings;
+	foreach(QString path, settings.getPluginPaths()){
+		foreach(RaptorPlugin* plugin, PluginLoader::pluginByDir<RaptorPlugin>(path)) {
+			QMenu* menu = plugin->getMenu();
+			if(menu){
+				menubar->insertMenu(menuSettings->menuAction(), menu);
+				menuPlugins->addMenu(menu);
+			}
+			Qt::DockWidgetArea preferedArea = Qt::NoDockWidgetArea;
+			QDockWidget* dock = plugin->getDock(preferedArea);
+			if(dock){
+				addDockWidget(preferedArea, dock);
+				menuPlugins->addMenu(plugin->getMenu());
+			}
+		}
+	}	
+}
+
 DocumentManager& MainWindow::getDocumentManager() {
 	return *_documentManager;
 }
@@ -457,6 +482,15 @@ DocumentManager& MainWindow::getDocumentManager() {
 void MainWindow::handleMessage(const QString& message_) {
 	QStringList files = message_.split(";");
 	files.removeAll("");
+	
+	foreach(QString filename, files){
+		QFile file(filename);
+		if(!file.exists()){
+			file.open(QIODevice::ReadWrite);
+			file.close();
+		}
+	}
+		
 	if(!files.empty()) {
 		_documentManager->open(files);
 		updateRecentFile(files);

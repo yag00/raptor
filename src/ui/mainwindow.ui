@@ -331,6 +331,11 @@
     <addaction name="actionSettings"/>
     <addaction name="actionShortcuts"/>
    </widget>
+   <widget class="QMenu" name="menuPlugins">
+    <property name="title">
+     <string>Plugins</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
@@ -340,6 +345,7 @@
    <addaction name="menuLanguage"/>
    <addaction name="menuDiff"/>
    <addaction name="menuMacro"/>
+   <addaction name="menuPlugins"/>
    <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>

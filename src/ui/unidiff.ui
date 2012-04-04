@@ -37,7 +37,7 @@
   <customwidget>
    <class>ScintillaExt</class>
    <extends>QTextEdit</extends>
-   <header location="global">widget/ScintillaExt.h</header>
+   <header location="global">ScintillaExt.h</header>
   </customwidget>
  </customwidgets>
  <resources>

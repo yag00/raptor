@@ -489,7 +489,7 @@
      </widget>
      <widget class="QWidget" name="pPaths">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <layout class="QVBoxLayout">
        <property name="spacing">
@@ -500,6 +500,9 @@
        </property>
        <item>
         <widget class="PathListEditor" name="pleTranslationsPaths">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="title">
           <string>Translations Paths</string>
          </property>
@@ -507,6 +510,9 @@
        </item>
        <item>
         <widget class="PathListEditor" name="plePluginsPaths">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="title">
           <string>Plugins Paths</string>
          </property>
@@ -4076,6 +4082,11 @@ the brackets option.</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ScintillaExt</class>
+   <extends>QTextEdit</extends>
+   <header location="global">ScintillaExt.h</header>
+  </customwidget>
+  <customwidget>
    <class>PathListEditor</class>
    <extends>QGroupBox</extends>
    <header location="global">widget/PathListEditor.h</header>
@@ -4085,11 +4096,6 @@ the brackets option.</string>
    <class>ColorPushButton</class>
    <extends>QPushButton</extends>
    <header location="global">widget/ColorPushButton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScintillaExt</class>
-   <extends>QTextEdit</extends>
-   <header location="global">widget/ScintillaExt.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

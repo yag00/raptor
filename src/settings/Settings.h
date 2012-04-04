@@ -62,6 +62,9 @@ class Settings : public QSettings{
 		/** @param version_ settings version */
 		void setVersion(const Version& version_);
 		
+		QStringList getPluginPaths();
+		void setPluginPaths(const QStringList& paths_);
+		
 		// Interface
 		void setToolBarIconSize(int size_);
 		int getToolBarIconSize();
