@@ -814,7 +814,11 @@ void DocumentManager::notify(){
 				DocumentEditor* document = (*it)->getDocument(file);
 				if(document == 0)
 					continue;
-
+				if (document->isNotified() == false) {
+					document->setNotified(true);
+					_watcher->addPath(file);
+					continue;
+				}
 				if(document->isModified() == false){
 					ret = QMessageBox::question(this ,
 							tr("Reload ?"),
@@ -830,6 +834,8 @@ void DocumentManager::notify(){
 
 				if (ret == QMessageBox::Yes){
 					document->load(file);
+				} else {
+					_watcher->addPath(file);
 				}
 			}
 		}
