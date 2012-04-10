@@ -65,6 +65,8 @@ class DocumentEditor : public ScintillaExt {
 		/** @return true if the document is cloned */
 		bool isCloned() const;
 
+		bool isNotified() const;
+		void setNotified(bool notified_);
 
 		/** enable/disable auto detection of eol
 		 * @param enable_ enable/disable*/
@@ -252,6 +254,7 @@ class DocumentEditor : public ScintillaExt {
 
 		/** Reference on FileWatcher */
 		QFileSystemWatcher& _watcher;
+		bool _notified;
 };
 
 #endif /* __DOCUMENT_EDITOR_H__ */

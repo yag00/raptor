@@ -34,9 +34,9 @@
 #define MARKER_BOOK       0
 #define MARKER_BOOK_MASK  (1 << MARKER_BOOK)
 
-
 DocumentEditor::DocumentEditor(QFileSystemWatcher& watcher_, QWidget* parent_) : ScintillaExt(parent_), _watcher(watcher_) {
 	//codec
+	_notified = true;
 	setUtf8(true);
 	_codec = "";
 	_bomMode = BomLeaveAsIs;
@@ -91,6 +91,7 @@ DocumentEditor::DocumentEditor(QFileSystemWatcher& watcher_, QWidget* parent_) :
 }
 
 DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : ScintillaExt(parent_), _watcher(document_->_watcher) {
+	_notified = true;
 	//codec
 	setUtf8(true);
 	_codec = document_->_codec;
@@ -135,6 +136,12 @@ DocumentEditor::DocumentEditor(DocumentEditor* document_, QWidget *parent_) : Sc
 	connect(this, SIGNAL(marginClicked(int,int, Qt::KeyboardModifiers)), this, SLOT(toggleBookmark(int,int, Qt::KeyboardModifiers)));
 }
 
+bool DocumentEditor::isNotified() const {
+	return _notified;
+}
+void DocumentEditor::setNotified(bool notified_) {
+	_notified = notified_;
+}
 DocumentEditor::~DocumentEditor() {
 	QsciLexer* l = lexer();
 	if(l != 0)
@@ -316,6 +323,7 @@ bool DocumentEditor::saveFile(const QString &fileName_) {
 
 	//add it to the watcher
 	_watcher.addPath(_fullPath);
+	_notified = false;
 	return true;
 }
 bool DocumentEditor::saveCopy(const QString &fileName_) {
@@ -440,6 +448,7 @@ bool DocumentEditor::load(const QString &fileName_) {
 	_watcher.addPath(_fullPath);
 
 	QApplication::restoreOverrideCursor();
+	_notified = true;
 
 	return true;
 }
