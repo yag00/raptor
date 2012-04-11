@@ -1,0 +1,168 @@
+#! /usr/bin/env python
+# encoding: utf-8
+#
+# This file is part of the raptor project.
+#
+# Copyright (C) 2011 Christophe Duvernois <christophe.duvernois@gmail.com>
+#
+# Raptor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Raptor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+#
+
+import sys, os, shutil
+from waflib import TaskGen, Task, Node
+from waflib import Build, Task, Options, Logs, Utils, Scripting
+from waflib.TaskGen import feature, before, after, before_method
+
+def configure(conf):
+	conf.load('python')
+	conf.check_python_version((2,6,0))
+	conf.check_python_headers()
+
+def build(bld):
+	#########################################################
+	# build pythonqt_generator
+	#########################################################
+	pythonQt_generator_sources = bld.path.ant_glob([
+		'ext/pythonqt/generator/*.qrc',
+		'ext/pythonqt/generator/parser/rpp/preprocessor.cpp',
+		'ext/pythonqt/generator/parser/*.cpp',
+		'ext/pythonqt/generator/*.cpp'])
+
+	pythonQt_generator_xml = bld.path.ant_glob([
+		#'ext/pythonqt/generator/*.xml',
+		'ext/pythonqt/generator/qtscript_masterinclude.h'])
+	
+	bld.program(
+		features		= 'qt4 pyembed',
+		uselib			= 'QTCORE QTXML',
+		defines			= ['WAF', 'RXX_ALLOCATOR_INIT_0'],
+		source			= pythonQt_generator_sources,
+		name			= 'pythonqt_generator',
+		target			= 'pythonqt_generator',
+		includes		= '.',
+		#cxxflags		= ['-Wall'],
+		install_path	= None,
+	)
+ 	#########################################################
+	# build generate qt binding
+	#########################################################
+	#TODO depends files are compiled in resource, find a way to use directly resource directly and remove this step
+	btsk = bld(features='qtBinding', depends = pythonQt_generator_xml)
+	qtBinding_source = []
+	for src in btsk.qtBindingOutput():
+		if src.name.endswith(".cpp"):
+			qtBinding_source += [src]
+
+	#########################################################
+	# build raptor python script plugin
+	#########################################################
+	pythonQt_sources = bld.path.ant_glob(['ext/pythonqt/src/**/*.cpp'])
+	
+	plugin_pyscript_sources = bld.path.ant_glob(['src/**/*.cpp', 'src/**/*.qrc', 'src/**/*.ui'])
+			
+	bld.shlib(
+		features        = 'qt4 cxx cxxshlib pyembed',
+		uselib          = 'QTCORE QTGUI',
+		use             = 'raptorwidget',
+		source          = pythonQt_sources + plugin_pyscript_sources + qtBinding_source,
+		name            = 'raptor_pyscript',
+		target          = 'raptor_pyscript',
+		includes        = ['.', '../../src/plugin', '../../src', '../../src/widget', 'ext/pythonqt/src/'],
+		defines         = ['WAF', 'QT', 'QT_PLUGIN', 'QT_NO_DEBUG'],
+		cxxflags        = ['-Wall'],	# todo build with -Wall -Werror
+		linkflags       = ['-Wl,-z,defs'],
+		install_path    = None,# do not install this library
+	)
+
+class copy(Task.Task):
+	color   = 'BLUE'
+	
+	def run(self):
+		src = self.inputs[0].abspath() 
+		tgt = self.outputs[0].abspath() 
+		shutil.copy(src, tgt)
+
+class qtBinding(Task.Task):
+	color   = 'PINK'
+	#quiet = True #Disable the warnings raised when a task has no outputs
+	nocache = True
+	ext_out = ['.cpp']
+
+	def __str__(self):
+		return '%s : generate Qt %s binding to %s\n' % (self.__class__.__name__, self.env.QT_VERSION, self.outputdir.abspath())
+
+	def run(self):
+		env = self.env
+		gen = self.generator
+		bld = gen.bld
+		wd = self.generator.path.get_bld().abspath()
+
+		cmd = []
+		cmd.extend([wd + '/pythonqt_generator'])
+		cmd.extend(['--include-paths=' + env.QT_HEADER_PATH ])
+		cmd.extend(['--output-directory=' + self.outputdir.abspath()])
+
+		#self.generator.bld.cmd_and_log(cmd, cwd=wd, env=env.env or None)
+		self.out = self.generator.bld.cmd_and_log(cmd, cwd=wd, env=env.env or None, output=0, quiet=0)[1]
+
+
+@TaskGen.taskgen_method
+def qtBindingOutput(self):
+	generated_cpp = [
+		'generated_cpp/com_trolltech_qt_core_builtin/com_trolltech_qt_core_builtin0.h',
+		'generated_cpp/com_trolltech_qt_gui_builtin/com_trolltech_qt_gui_builtin0.h',
+		'generated_cpp/com_trolltech_qt_core_builtin/com_trolltech_qt_core_builtin0.cpp',
+		'generated_cpp/com_trolltech_qt_core_builtin/com_trolltech_qt_core_builtin_init.cpp',
+		'generated_cpp/com_trolltech_qt_gui_builtin/com_trolltech_qt_gui_builtin0.cpp',
+		'generated_cpp/com_trolltech_qt_gui_builtin/com_trolltech_qt_gui_builtin_init.cpp',
+	]
+	
+	outputdir = self.path.get_bld().make_node('bindings')
+	generated_cpp_nodes = []
+	for cpp in generated_cpp:
+		node = outputdir.find_or_declare(cpp)
+		generated_cpp_nodes.append(node)
+	return generated_cpp_nodes
+	
+@feature('qtBinding')
+@before_method('process_source')
+def generate_qtBinding(self):
+	pygentsk = self.bld.get_tgen_by_name('pythonqt_generator')
+	pygentsk.post()
+	dep_task = getattr(pygentsk, 'link_task', None)
+	if not dep_task:
+		print("Error No task named : pythonqt_generator")
+
+	
+	generated_cpp_nodes = self.qtBindingOutput()
+
+	outputdir = self.path.get_bld().make_node('bindings')
+	
+	#need to copy these file to the executable directory
+	#TODO depends files are compiled in resource, find a way to use directly resource directly and remove this step
+	pythonQt_generator_depend = []
+	for file in getattr(self, 'depends', []):				
+		outnode = self.path.get_bld().make_node(os.path.basename(file.abspath()))
+		pythonQt_generator_depend.append(outnode)
+		cpTsk = self.create_task('copy')
+		cpTsk.set_inputs([file])
+		cpTsk.set_outputs([outnode])
+	
+	#set input -> build order
+	tsk = self.create_task('qtBinding', pythonQt_generator_depend, generated_cpp_nodes)
+	tsk.outputdir = outputdir
+	#tsk.outputdir = self.path.make_node('bindings')
+	tsk.set_run_after(dep_task) # order
+	tsk.dep_nodes.extend(dep_task.outputs) # dependency

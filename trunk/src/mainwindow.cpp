@@ -460,19 +460,22 @@ void MainWindow::loadPlugins(){
 	Settings settings;
 	foreach(QString path, settings.getPluginPaths()){
 		foreach(RaptorPlugin* plugin, PluginLoader::pluginByDir<RaptorPlugin>(path)) {
-			QMenu* menu = plugin->getMenu();
+			bool pluginMenuArea = true;
+			QMenu* menu = plugin->getMenu(pluginMenuArea);
 			if(menu){
-				menubar->insertMenu(menuSettings->menuAction(), menu);
-				menuPlugins->addMenu(menu);
+				if(pluginMenuArea)
+					menuPlugins->addMenu(menu);
+				else
+					menubar->insertMenu(menuSettings->menuAction(), menu);
 			}
 			Qt::DockWidgetArea preferedArea = Qt::NoDockWidgetArea;
 			QDockWidget* dock = plugin->getDock(preferedArea);
 			if(dock){
 				addDockWidget(preferedArea, dock);
-				menuPlugins->addMenu(plugin->getMenu());
 			}
 		}
-	}	
+	}
+	menuPlugins->menuAction()->setVisible(not menuPlugins->isEmpty());
 }
 
 DocumentManager& MainWindow::getDocumentManager() {

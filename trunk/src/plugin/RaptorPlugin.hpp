@@ -17,8 +17,10 @@ class RaptorPlugin : public QObject {
 		/** @return the name of the plugin */
 		virtual QString getName() const = 0;
 		
-		/** @return the plugin menu or null */
-		virtual QMenu* getMenu() const {
+		/** the plugin menu
+		 * @param preferedAreaInPluginMenu_ prefered menu area
+		 * @return the plugin menu or null */
+		virtual QMenu* getMenu(bool& preferedAreaInPluginMenu_) const {
 			return 0;
 		}
 		/** the plugin dock
