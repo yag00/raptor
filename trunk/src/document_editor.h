@@ -65,7 +65,9 @@ class DocumentEditor : public ScintillaExt {
 		/** @return true if the document is cloned */
 		bool isCloned() const;
 
+		/** @return notification status (file watcher) */
 		bool isNotified() const;
+		/** set the notification status (file watcher) */
 		void setNotified(bool notified_);
 
 		/** enable/disable auto detection of eol
