@@ -72,7 +72,7 @@ Scripting.default_cmd = "release"
 
 def options(opt):
 	opt.load('compiler_c compiler_cxx qt4')
-	opt.add_option('--plugins', action='store_true', default=True, help = 'build raptors plugins', dest = 'plugins')
+	opt.add_option('--plugins', action='store_true', default=False, help = 'build raptors plugins', dest = 'plugins')
 	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
 	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
 	opt.add_option('--deb-version', action='store', default="", help = '(ubuntu) package target will only build the source package with special version (ex: --deb-version=1)', dest = 'debVersion')
