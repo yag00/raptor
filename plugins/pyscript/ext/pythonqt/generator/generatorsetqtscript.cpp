@@ -121,3 +121,8 @@ QString GeneratorSetQtScript::generate() {
         .arg(priGenerator.numGenerated())
         .arg(priGenerator.numGeneratedAndWritten());
 }
+
+#if WAF
+#include "generatorsetqtscript.moc"
+#endif
+

@@ -1350,3 +1350,8 @@ void* PythonQtPrivate::unwrapForeignWrapper( const QByteArray& classname, PyObje
   }
   return NULL;
 }
+
+#if WAF
+#include "PythonQt.moc"
+#endif
+

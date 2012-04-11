@@ -601,3 +601,8 @@ void PythonQtScriptingConsole::consoleMessage(const QString & message) {
   // Reset all font modifications done by the html string
   setCurrentCharFormat(_defaultTextCharacterFormat);
 }
+
+#if WAF
+#include "PythonQtScriptingConsole.moc"
+#endif
+

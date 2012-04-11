@@ -55,3 +55,8 @@ bool GeneratorSet::readParameters(const QMap<QString, QString> args) {
 
     return !(args.contains("help") || args.contains("h") || args.contains("?"));
 }
+
+#if WAF
+#include "generatorset.moc"
+#endif
+

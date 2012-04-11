@@ -140,3 +140,8 @@ bool Generator::hasDefaultConstructor(const AbstractMetaType *type)
     }
     return false;
 }
+
+#if WAF
+#include "generator.moc"
+#endif
+

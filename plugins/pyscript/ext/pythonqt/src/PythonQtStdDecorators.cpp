@@ -313,3 +313,8 @@ int PythonQtStdDecorators::findChildren(QObject* parent, const char* typeName, c
 
   return 0;
 }
+
+#if WAF
+#include "PythonQtStdDecorators.moc"
+#endif
+

@@ -1479,7 +1479,15 @@ TypeDatabase::TypeDatabase() : m_suppressWarnings(true)
 
 bool TypeDatabase::parseFile(const QString &filename, bool generate)
 {
-    QFile file(filename);
+	//raptor hack
+	QString f = filename;
+	{
+		QFile tfile(filename);
+		if(!tfile.exists())
+			f = ":/trolltech/generator/" + filename;
+	}
+	QFile file(f);
+	//end raptor hack
     Q_ASSERT(file.exists());
     QXmlInputSource source(&file);
 
