@@ -314,3 +314,8 @@ void ShellImplGenerator::writeInjectedCode(QTextStream &s, const AbstractMetaCla
     }
   }
 }
+
+#if WAF
+#include "shellimplgenerator.moc"
+#endif
+

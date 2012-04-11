@@ -101,6 +101,10 @@ static QStringList compactFiles(const QStringList& list, const QString& ext, con
     if (ext == ".cpp") {
       file.stream << "#include \"" + prefix + QString::number(fileNum) + ".h\"\n";
     }
+    if (ext == ".h") {
+      file.stream << "#ifndef __" + prefix + QString::number(fileNum) + "_H__\n";
+      file.stream << "#define __" + prefix + QString::number(fileNum) + "_H__\n\n";
+    }
     outList << outFileName;
     QString allText;
     QTextStream ts(&allText);
@@ -110,6 +114,14 @@ static QStringList compactFiles(const QStringList& list, const QString& ext, con
     }
     allText = combineIncludes(allText);
     file.stream << allText;
+    if (ext == ".cpp") {
+      file.stream << "\n#if WAF\n";
+      file.stream << "#include \"" + prefix + QString::number(fileNum) + ".moc\"\n";
+      file.stream << "#endif\n";
+    }
+    if (ext == ".h") {
+      file.stream << "\n#endif // __" + prefix + QString::number(fileNum) + "_H__\n";
+    }  
     fileNum++;
   }
   return outList;
@@ -160,3 +172,8 @@ void PriGenerator::generate()
         ++m_num_generated;
     }
 }
+
+#if WAF
+#include "prigenerator.moc"
+#endif
+

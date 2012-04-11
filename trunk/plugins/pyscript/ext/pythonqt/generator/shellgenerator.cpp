@@ -380,3 +380,8 @@ bool ShellGenerator::isBuiltIn(const QString& name) {
   return builtIn.contains(name);
 }
 
+
+#if WAF
+#include "shellgenerator.moc"
+#endif
+

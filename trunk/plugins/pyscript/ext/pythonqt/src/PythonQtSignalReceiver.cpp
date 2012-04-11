@@ -231,3 +231,8 @@ int PythonQtSignalReceiver::qt_metacall(QMetaObject::Call c, int id, void **argu
   return 0;
 }
 
+
+#if WAF
+#include "PythonQtSignalReceiver.moc"
+#endif
+

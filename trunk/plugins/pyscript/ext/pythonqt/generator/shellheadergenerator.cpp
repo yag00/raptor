@@ -310,3 +310,8 @@ void ShellHeaderGenerator::writeInjectedCode(QTextStream &s, const AbstractMetaC
     }
   }
 }
+
+#if WAF
+#include "shellheadergenerator.moc"
+#endif
+

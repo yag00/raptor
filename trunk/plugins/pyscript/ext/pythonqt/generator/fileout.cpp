@@ -236,3 +236,8 @@ bool FileOut::done() {
     }
     return false;
 }
+
+#if WAF
+#include "fileout.moc"
+#endif
+

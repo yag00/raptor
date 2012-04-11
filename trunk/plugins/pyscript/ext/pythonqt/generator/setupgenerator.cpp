@@ -304,3 +304,8 @@ QStringList SetupGenerator::writePolymorphicHandler(QTextStream &s, const QStrin
 
   return handlers;
 }
+
+#if WAF
+#include "setupgenerator.moc"
+#endif
+
