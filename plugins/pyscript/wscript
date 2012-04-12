@@ -44,7 +44,7 @@ def build(bld):
 		#'ext/pythonqt/generator/*.xml',
 		'ext/pythonqt/generator/qtscript_masterinclude.h'])
 	
-	pythonQt_generator_defines = ['WAF', 'RXX_ALLOCATOR_INIT_0']
+	pythonQt_generator_defines = ['WAF', 'RXX_ALLOCATOR_INIT_0', 'QT', 'QT_NO_DEBUG']
 	if isWindows():
 		pythonQt_generator_defines += ['WIN32']
 	
@@ -56,7 +56,7 @@ def build(bld):
 		name			= 'pythonqt_generator',
 		target			= 'pythonqt_generator',
 		includes		= '.',
-		cxxflags		= ['-Wall'],
+		cxxflags		= ['-Wall', '-Wno-cpp'],
 		install_path	= None,
 	)
  	#########################################################

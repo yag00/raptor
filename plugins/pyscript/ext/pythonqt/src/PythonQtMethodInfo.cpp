@@ -126,7 +126,7 @@ void PythonQtMethodInfo::fillParameterInfo(ParameterInfo& type, const QByteArray
       type.isConst = false;
     }
     char pointerCount = 0;
-    bool hadReference = false;
+    //bool hadReference = false;
     // remove * and & from the end of the string, handle & and * the same way
     while (name.at(len-1) == '*') {
       len--;
@@ -134,7 +134,7 @@ void PythonQtMethodInfo::fillParameterInfo(ParameterInfo& type, const QByteArray
     }
     while (name.at(len-1) == '&') {
       len--;
-      hadReference = true;
+      //hadReference = true;
     }
     if (len!=name.length()) {
       name = name.left(len);

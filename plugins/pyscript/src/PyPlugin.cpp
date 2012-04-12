@@ -153,7 +153,7 @@ QIcon PyPlugin::getIcon() const {
 	QFileInfo f(_icon);
 	if (f.exists())
 		return QIcon(_icon);
-	return QIcon(":/pyplugin/pyscript.png");
+	return QIcon(":/pyscript/pyscript.png");
 }
 
 QString PyPlugin::getShortDescription() const {

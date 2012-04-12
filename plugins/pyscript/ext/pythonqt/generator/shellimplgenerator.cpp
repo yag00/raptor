@@ -53,10 +53,10 @@ QString ShellImplGenerator::fileNameForClass(const AbstractMetaClass *meta_class
   return QString("PythonQtWrapper_%1.cpp").arg(meta_class->name());
 }
 
-static bool include_less_than(const Include &a, const Include &b) 
-{
-  return a.name < b.name;
-}
+//static bool include_less_than(const Include &a, const Include &b) 
+//{
+//  return a.name < b.name;
+//}
 
 static void writeHelperCode(QTextStream &s, const AbstractMetaClass *)
 {

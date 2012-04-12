@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Plugins Manager</string>
+   <string>Scripts Manager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../ressources.qrc">
-    <normaloff>:/pyplugin/plugins.png</normaloff>:/pyplugin/plugins.png</iconset>
+    <normaloff>:/pyscript/plugins.png</normaloff>:/pyscript/plugins.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -26,7 +26,7 @@
      <widget class="QWidget" name="loadedPluginTab">
       <attribute name="icon">
        <iconset resource="../ressources.qrc">
-        <normaloff>:/pyplugin/plugins.png</normaloff>:/pyplugin/plugins.png</iconset>
+        <normaloff>:/pyscript/plugins.png</normaloff>:/pyscript/plugins.png</iconset>
       </attribute>
       <attribute name="title">
        <string>Loaded Plugins</string>

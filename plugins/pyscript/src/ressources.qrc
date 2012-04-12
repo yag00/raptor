@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="pyplugin">
+  <qresource prefix="pyscript">
     <file alias="pyscript.png">images/script.png</file>
     <file alias="console.png">images/console.png</file>
     <file alias="plugins.png">images/plugins.png</file>

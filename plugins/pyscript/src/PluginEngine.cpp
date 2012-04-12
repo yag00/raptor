@@ -47,17 +47,17 @@ void PluginEngine::initialize(){
 	_module = PythonQt::self()->getMainModule();
 	_module.evalScript(QString("import sys\n"));
 
-	_module.evalScript("sys.path.append(':/pyplugin')\n");
+	_module.evalScript("sys.path.append(':/pyscript')\n");
 	//load base plugin class
-	_module.evalFile(":/pyplugin/BasePlugin.py");
+	_module.evalFile(":/pyscript/BasePlugin.py");
 	//load plugin loader class
-	_module.evalFile(":/pyplugin/PluginLoader.py");
+	_module.evalFile(":/pyscript/PluginLoader.py");
 	
 	_loader = _module.evalScript("PluginLoader()\n", Py_eval_input);
 		
 	/* other method but crash on import from PluginLoader (import os, ...)
 	//add python ressource file to path
-	_module.evalScript("sys.path.append(':/pyplugin')\n");
+	_module.evalScript("sys.path.append(':/pyscript')\n");
 	//import module
 	_module.evalScript(QString("import BasePlugin\n"));
 	_module.evalScript(QString("import PluginLoader\n"));
