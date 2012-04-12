@@ -38,7 +38,7 @@
         </size>
        </property>
        <property name="pixmap">
-        <pixmap resource="../ressources.qrc">:/pyplugin/pyscript.png</pixmap>
+        <pixmap resource="../ressources.qrc">:/pyscript/pyscript.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>

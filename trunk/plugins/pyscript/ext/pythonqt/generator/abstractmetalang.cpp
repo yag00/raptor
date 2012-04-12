@@ -1206,12 +1206,12 @@ AbstractMetaField *AbstractMetaField::copy() const
     return returned;
 }
 
-static QString upCaseFirst(const QString &str) {
-    Q_ASSERT(!str.isEmpty());
-    QString s = str;
-    s[0] = s.at(0).toUpper();
-    return s;
-}
+//static QString upCaseFirst(const QString &str) {
+//    Q_ASSERT(!str.isEmpty());
+//    QString s = str;
+//    s[0] = s.at(0).toUpper();
+//    return s;
+//}
 
 static AbstractMetaFunction *createXetter(const AbstractMetaField *g, const QString &name, uint type) {
     AbstractMetaFunction *f = new AbstractMetaFunction;

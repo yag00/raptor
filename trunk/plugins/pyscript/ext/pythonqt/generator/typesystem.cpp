@@ -836,9 +836,9 @@ bool Handler::startElement(const QString &, const QString &n,
             }
             QString name = attributes["name"];
 
-            bool added = false;
+            //bool added = false;
             if (!name.isEmpty()) {
-                added = true;
+                //added = true;
                 m_current_enum->addEnumValueRejection(name);
             }
 

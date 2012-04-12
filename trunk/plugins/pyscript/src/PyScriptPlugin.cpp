@@ -11,12 +11,12 @@
 PyScriptPlugin::PyScriptPlugin() : RaptorPlugin() {
 	//create the plugin menu
 	_menu = new QMenu(tr("Scripts"));
-	QAction* actionManager = _menu->addAction(QIcon(":/pyplugin/plugins.png"), tr("Script Manager"));
+	QAction* actionManager = _menu->addAction(QIcon(":/pyscript/plugins.png"), tr("Script Manager"));
 	connect(actionManager, SIGNAL(triggered()), this, SLOT(manager()));
 	QAction* actionReload = _menu->addAction(QIcon(":/images/restore.png"), tr("Reload"));	//icon availabe in raptor
 	connect(actionReload, SIGNAL(triggered()), this, SLOT(loadScript()));
 	_menu->addSeparator();
-	QAction* actionPyConsole = _menu->addAction(QIcon(":/pyplugin/console.png"), tr("Console"));
+	QAction* actionPyConsole = _menu->addAction(QIcon(":/pyscript/console.png"), tr("Console"));
 		
 	//create the python script engine
 	_engine = new PluginEngine(*_menu, this);
