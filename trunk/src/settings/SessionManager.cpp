@@ -22,6 +22,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
+#include "../document_editor.h"
 #include "../document_manager.h"
 #include "SessionDialog.h"
 #include "SessionSettings.h"
@@ -79,12 +80,18 @@ bool SessionManager::open(const QString& name_){
 		if(views.size() == 1){
 			//open in the active view
 			//to be sure another won't be activated for nothing
+			_docMgr.blockSignals(true);
 			_docMgr.open(views[0]);
+			_docMgr.blockSignals(false);
 		}else{
 			for(int i = 0; i < views.size(); i++){
+				_docMgr.blockSignals(true);
 				_docMgr.open(views[i], i);
+				_docMgr.blockSignals(false);
 			}
 		}
+		//update main window
+		emit activeDocumentChanged(_docMgr.getActiveDocument());
 		return true;
 	}else{
 		error();

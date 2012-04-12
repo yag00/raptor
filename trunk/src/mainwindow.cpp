@@ -351,6 +351,7 @@ void MainWindow::createManager() {
 	connect(_symbolManager, SIGNAL(symbolActivated(int)), _documentManager, SLOT(gotoLine(int)));
 
 	connect(_sessionManager, SIGNAL(statusMessage(QString)), this, SLOT(updateStatusBarMessage(QString)));
+	connect(_sessionManager, SIGNAL(activeDocumentChanged(DocumentEditor*)), this, SLOT(activeDocumentChanged(DocumentEditor*)));
 }
 
 void MainWindow::createStatusBar() {

@@ -23,6 +23,7 @@
 
 #include <QObject>
 
+class DocumentEditor;
 class DocumentManager;
 
 class SessionManager : public QObject {
@@ -48,6 +49,8 @@ class SessionManager : public QObject {
 	signals:
 		/** emit on a new a status message */
 		void statusMessage(QString);
+		/** use when the active document changed */
+		void activeDocumentChanged(DocumentEditor*);
 
 	private:
 		bool open(const QString& name_);
