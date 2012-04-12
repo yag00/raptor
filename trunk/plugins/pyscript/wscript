@@ -20,7 +20,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #
 
-import sys, os, shutil
+import sys, os, shutil, platform
 from waflib import TaskGen, Task, Node
 from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.TaskGen import feature, before, after, before_method
@@ -44,15 +44,19 @@ def build(bld):
 		#'ext/pythonqt/generator/*.xml',
 		'ext/pythonqt/generator/qtscript_masterinclude.h'])
 	
+	pythonQt_generator_defines = ['WAF', 'RXX_ALLOCATOR_INIT_0']
+	if isWindows():
+		pythonQt_generator_defines += ['WIN32']
+	
 	bld.program(
 		features		= 'qt4 pyembed',
 		uselib			= 'QTCORE QTXML',
-		defines			= ['WAF', 'RXX_ALLOCATOR_INIT_0'],
+		defines			= pythonQt_generator_defines,
 		source			= pythonQt_generator_sources,
 		name			= 'pythonqt_generator',
 		target			= 'pythonqt_generator',
 		includes		= '.',
-		#cxxflags		= ['-Wall'],
+		cxxflags		= ['-Wall'],
 		install_path	= None,
 	)
  	#########################################################
@@ -80,10 +84,10 @@ def build(bld):
 		name            = 'raptor_pyscript',
 		target          = 'raptor_pyscript',
 		includes        = ['.', '../../src/plugin', '../../src', '../../src/widget', 'ext/pythonqt/src/'],
-		defines         = ['WAF', 'QT', 'QT_PLUGIN', 'QT_NO_DEBUG'],
+		defines         = ['WAF', 'PYTHONQT_EXPORTS', 'QT', 'QT_PLUGIN', 'QT_NO_DEBUG'],
 		cxxflags        = ['-Wall'],	# todo build with -Wall -Werror
-		linkflags       = ['-Wl,-z,defs'],
-		install_path    = None,# do not install this library
+		linkflags       = ([] if isWindows() else ['-Wl,-z,defs']),
+		install_path    = None,
 	)
 
 class copy(Task.Task):
@@ -166,3 +170,10 @@ def generate_qtBinding(self):
 	#tsk.outputdir = self.path.make_node('bindings')
 	tsk.set_run_after(dep_task) # order
 	tsk.dep_nodes.extend(dep_task.outputs) # dependency
+
+
+def isWindows():
+	if platform.system() == "Windows":
+		return 1
+	else:
+		return 0

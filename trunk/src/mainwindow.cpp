@@ -54,6 +54,7 @@
 MainWindow::MainWindow() {
 	//init ui
 	setupUi(this);
+	menuPlugins->menuAction()->setVisible(false);
 	showMaximized();
 	
 	//create manager
