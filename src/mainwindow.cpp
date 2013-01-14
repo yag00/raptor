@@ -76,7 +76,8 @@ MainWindow::MainWindow() {
 	readSettings();
 	
 	//plugins
-	loadPlugins();
+	//@todo disable plugin for now as it s not ready yet ... to be continued
+	//loadPlugins();
 }
 
 MainWindow::~MainWindow() {
