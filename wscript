@@ -55,12 +55,12 @@ class uninstall(UninstallContext):
 
 def dist(ctx):
 	"makes a tarball for redistributing the sources"
-	ctx.excl = '**/build **/*~ **/wbuild* **/delivery* **/.*'
-	if isWindows(ctx.env):
-		ctx.algo      = 'zip'
-	else:
+	ctx.excl = '**/build **/*~ **/wbuild* **/delivery* **/.*'	
+	if isLinux():
 		ctx.base_name = 'raptor-editor-' + VERSION
 		ctx.algo      = 'tar.gz'
+	else:
+		ctx.algo      = 'zip'
 
 def install(ctx):
 	waflib.Options.commands = 'install_release'
