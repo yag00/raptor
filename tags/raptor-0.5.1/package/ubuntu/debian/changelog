@@ -1,0 +1,5 @@
+raptor-editor (${RAPTOR_VERSION_DEB}~ubuntu.${DEB_DIST}) ${DEB_DIST}; urgency=low
+
+  * Version ${RAPTOR_VERSION_DISPLAY}
+
+ -- Christophe Duvernois <christophe.duvernois@gmail.com>  ${DEB_DATE}

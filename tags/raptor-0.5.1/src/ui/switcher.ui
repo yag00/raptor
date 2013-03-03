@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Switcher</class>
+ <widget class="QWidget" name="Switcher">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Switch File</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="ClearLineEdit" name="switcherLineEdit">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+border: 3px solid gray;
+border-radius: 8px;
+padding-right: 3px;
+background: rgba(255, 255, 250, 180);
+color: black;
+ }</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTreeView" name="switcherList">
+     <property name="styleSheet">
+      <string notr="true"> QTreeView {
+border: 2px solid gray;
+border-radius: 8px;
+background: rgba(255, 255, 250, 200);
+padding-top: 1px;
+padding-right: 1px;
+padding-bottom: 1px;
+padding-left: 1px;
+}</string>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>false</bool>
+     </property>
+     <property name="itemsExpandable">
+      <bool>true</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="headerHidden">
+      <bool>true</bool>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ClearLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">widget/ClearLineEdit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

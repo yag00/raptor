@@ -1,0 +1,4 @@
+?package(raptor):needs="X11" section="Applications/Programming"\
+  icon="/usr/share/pixmaps/raptor.png" \
+  title="Raptor" longtitle="Raptor A Portable Text editOR" \
+  command="/usr/bin/raptor"

@@ -1,0 +1,300 @@
+Index: generator/build_all.txt
+===================================================================
+--- generator/build_all.txt	(revision 294)
++++ generator/build_all.txt	(working copy)
+@@ -1,13 +1,13 @@
+ <typesystem>
+   <load-typesystem name="typesystem_core.xml" generate="yes" />
+   <load-typesystem name="typesystem_gui.xml" generate="yes" />
+-  <load-typesystem name="typesystem_sql.xml" generate="yes" />
+-  <load-typesystem name="typesystem_opengl.xml" generate="yes" />
+-  <load-typesystem name="typesystem_svg.xml" generate="yes" />
+-  <load-typesystem name="typesystem_network.xml" generate="yes" />
+-  <load-typesystem name="typesystem_xml.xml" generate="yes" />
+-  <load-typesystem name="typesystem_phonon.xml" generate="yes" />
+-  <load-typesystem name="typesystem_webkit.xml" generate="yes" />
+-  <load-typesystem name="typesystem_xmlpatterns.xml" generate="yes" />
+-  <load-typesystem name="typesystem_uitools.xml" generate="yes" />
++  <load-typesystem name="typesystem_sql.xml" generate="no" />
++  <load-typesystem name="typesystem_opengl.xml" generate="no" />
++  <load-typesystem name="typesystem_svg.xml" generate="no" />
++  <load-typesystem name="typesystem_network.xml" generate="no" />
++  <load-typesystem name="typesystem_xml.xml" generate="no" />
++  <load-typesystem name="typesystem_phonon.xml" generate="no" />
++  <load-typesystem name="typesystem_webkit.xml" generate="no" />
++  <load-typesystem name="typesystem_xmlpatterns.xml" generate="no" />
++  <load-typesystem name="typesystem_uitools.xml" generate="no" />
+ </typesystem>
+Index: generator/fileout.cpp
+===================================================================
+--- generator/fileout.cpp	(revision 294)
++++ generator/fileout.cpp	(working copy)
+@@ -236,3 +236,8 @@
+     }
+     return false;
+ }
++
++#if WAF
++#include "fileout.moc"
++#endif
++
+Index: generator/generator.cpp
+===================================================================
+--- generator/generator.cpp	(revision 294)
++++ generator/generator.cpp	(working copy)
+@@ -140,3 +140,8 @@
+     }
+     return false;
+ }
++
++#if WAF
++#include "generator.moc"
++#endif
++
+Index: generator/generator.qrc
+===================================================================
+--- generator/generator.qrc	(revision 294)
++++ generator/generator.qrc	(working copy)
+@@ -2,16 +2,39 @@
+ <qresource prefix="/trolltech/generator/">
+ <file>qtscript_masterinclude.h</file>
+ <file>build_all.txt</file>
+-<file alias="typesystem_core.txt">typesystem_core.xml</file>
+-<file alias="typesystem_gui.txt">typesystem_gui.xml</file>
+-<file alias="typesystem_sql.txt">typesystem_sql.xml</file>
+-<file alias="typesystem_opengl.txt">typesystem_opengl.xml</file>
+-<file alias="typesystem_svg.txt">typesystem_svg.xml</file>
+-<file alias="typesystem_network.txt">typesystem_network.xml</file>
+-<file alias="typesystem_xml.txt">typesystem_xml.xml</file>
+-<file alias="typesystem_phonon.txt">typesystem_phonon.xml</file>
+-<file alias="typesystem_webkit.txt">typesystem_webkit.xml</file>
+-<file alias="typesystem_xmlpatterns.txt">typesystem_xmlpatterns.xml</file>
++<file alias="typesystem_core-common.xml">typesystem_core-common.xml</file>
++<file alias="typesystem_core-qtscript.xml">typesystem_core-qtscript.xml</file>
++<file alias="typesystem_core.xml">typesystem_core.xml</file>
++<file alias="typesystem_gui-common.xml">typesystem_gui-common.xml</file>
++<file alias="typesystem_gui-qtscript.xml">typesystem_gui-qtscript.xml</file>
++<file alias="typesystem_gui.xml">typesystem_gui.xml</file>
++<file alias="typesystem_network-common.xml">typesystem_network-common.xml</file>
++<file alias="typesystem_network-qtscript.xml">typesystem_network-qtscript.xml</file>
++<file alias="typesystem_network.xml">typesystem_network.xml</file>
++<file alias="typesystem_opengl-common.xml">typesystem_opengl-common.xml</file>
++<file alias="typesystem_opengl-qtscript.xml">typesystem_opengl-qtscript.xml</file>
++<file alias="typesystem_opengl.xml">typesystem_opengl.xml</file>
++<file alias="typesystem_phonon-common.xml">typesystem_phonon-common.xml</file>
++<file alias="typesystem_phonon-qtscript.xml">typesystem_phonon-qtscript.xml</file>
++<file alias="typesystem_phonon.xml">typesystem_phonon.xml</file>
++<file alias="typesystem_sql-common.xml">typesystem_sql-common.xml</file>
++<file alias="typesystem_sql-qtscript.xml">typesystem_sql-qtscript.xml</file>
++<file alias="typesystem_sql.xml">typesystem_sql.xml</file>
++<file alias="typesystem_svg-common.xml">typesystem_svg-common.xml</file>
++<file alias="typesystem_svg-qtscript.xml">typesystem_svg-qtscript.xml</file>
++<file alias="typesystem_svg.xml">typesystem_svg.xml</file>
++<file alias="typesystem_uitools.xml">typesystem_uitools.xml</file>
++<file alias="typesystem_webkit-common.xml">typesystem_webkit-common.xml</file>
++<file alias="typesystem_webkit-qtscript.xml">typesystem_webkit-qtscript.xml</file>
++<file alias="typesystem_webkit.xml">typesystem_webkit.xml</file>
++<file alias="typesystem_xml-common.xml">typesystem_xml-common.xml</file>
++<file alias="typesystem_xmlpatterns-common.xml">typesystem_xmlpatterns-common.xml</file>
++<file alias="typesystem_xmlpatterns-qtscript.xml">typesystem_xmlpatterns-qtscript.xml</file>
++<file alias="typesystem_xmlpatterns.xml">typesystem_xmlpatterns.xml</file>
++<file alias="typesystem_xml-qtscript.xml">typesystem_xml-qtscript.xml</file>
++<file alias="typesystem_xml.xml">typesystem_xml.xml</file>
+ <file>parser/rpp/pp-qt-configuration</file>
+ </qresource>
+ </RCC>
++
++
+Index: generator/generatorset.cpp
+===================================================================
+--- generator/generatorset.cpp	(revision 294)
++++ generator/generatorset.cpp	(working copy)
+@@ -55,3 +55,8 @@
+ 
+     return !(args.contains("help") || args.contains("h") || args.contains("?"));
+ }
++
++#if WAF
++#include "generatorset.moc"
++#endif
++
+Index: generator/generatorsetqtscript.cpp
+===================================================================
+--- generator/generatorsetqtscript.cpp	(revision 294)
++++ generator/generatorsetqtscript.cpp	(working copy)
+@@ -121,3 +121,8 @@
+         .arg(priGenerator.numGenerated())
+         .arg(priGenerator.numGeneratedAndWritten());
+ }
++
++#if WAF
++#include "generatorsetqtscript.moc"
++#endif
++
+Index: generator/prigenerator.cpp
+===================================================================
+--- generator/prigenerator.cpp	(revision 294)
++++ generator/prigenerator.cpp	(working copy)
+@@ -101,6 +101,10 @@
+     if (ext == ".cpp") {
+       file.stream << "#include \"" + prefix + QString::number(fileNum) + ".h\"\n";
+     }
++    if (ext == ".h") {
++      file.stream << "#ifndef __" + prefix + QString::number(fileNum) + "_H__\n";
++      file.stream << "#define __" + prefix + QString::number(fileNum) + "_H__\n\n";
++    }
+     outList << outFileName;
+     QString allText;
+     QTextStream ts(&allText);
+@@ -110,6 +114,14 @@
+     }
+     allText = combineIncludes(allText);
+     file.stream << allText;
++    if (ext == ".cpp") {
++      file.stream << "\n#if WAF\n";
++      file.stream << "#include \"" + prefix + QString::number(fileNum) + ".moc\"\n";
++      file.stream << "#endif\n";
++    }
++    if (ext == ".h") {
++      file.stream << "\n#endif // __" + prefix + QString::number(fileNum) + "_H__\n";
++    }  
+     fileNum++;
+   }
+   return outList;
+@@ -160,3 +172,8 @@
+         ++m_num_generated;
+     }
+ }
++
++#if WAF
++#include "prigenerator.moc"
++#endif
++
+Index: generator/setupgenerator.cpp
+===================================================================
+--- generator/setupgenerator.cpp	(revision 294)
++++ generator/setupgenerator.cpp	(working copy)
+@@ -304,3 +304,8 @@
+ 
+   return handlers;
+ }
++
++#if WAF
++#include "setupgenerator.moc"
++#endif
++
+Index: generator/shellgenerator.cpp
+===================================================================
+--- generator/shellgenerator.cpp	(revision 294)
++++ generator/shellgenerator.cpp	(working copy)
+@@ -380,3 +380,8 @@
+   return builtIn.contains(name);
+ }
+ 
++
++#if WAF
++#include "shellgenerator.moc"
++#endif
++
+Index: generator/shellheadergenerator.cpp
+===================================================================
+--- generator/shellheadergenerator.cpp	(revision 294)
++++ generator/shellheadergenerator.cpp	(working copy)
+@@ -310,3 +310,8 @@
+     }
+   }
+ }
++
++#if WAF
++#include "shellheadergenerator.moc"
++#endif
++
+Index: generator/shellimplgenerator.cpp
+===================================================================
+--- generator/shellimplgenerator.cpp	(revision 294)
++++ generator/shellimplgenerator.cpp	(working copy)
+@@ -314,3 +314,8 @@
+     }
+   }
+ }
++
++#if WAF
++#include "shellimplgenerator.moc"
++#endif
++
+Index: generator/typesystem.cpp
+===================================================================
+--- generator/typesystem.cpp	(revision 294)
++++ generator/typesystem.cpp	(working copy)
+@@ -1479,7 +1479,15 @@
+ 
+ bool TypeDatabase::parseFile(const QString &filename, bool generate)
+ {
+-    QFile file(filename);
++	//raptor hack
++	QString f = filename;
++	{
++		QFile tfile(filename);
++		if(!tfile.exists())
++			f = ":/trolltech/generator/" + filename;
++	}
++	QFile file(f);
++	//end raptor hack
+     Q_ASSERT(file.exists());
+     QXmlInputSource source(&file);
+ 
+Index: src/gui/PythonQtScriptingConsole.cpp
+===================================================================
+--- src/gui/PythonQtScriptingConsole.cpp	(revision 294)
++++ src/gui/PythonQtScriptingConsole.cpp	(working copy)
+@@ -601,3 +601,8 @@
+   // Reset all font modifications done by the html string
+   setCurrentCharFormat(_defaultTextCharacterFormat);
+ }
++
++#if WAF
++#include "PythonQtScriptingConsole.moc"
++#endif
++
+Index: src/PythonQt.cpp
+===================================================================
+--- src/PythonQt.cpp	(revision 294)
++++ src/PythonQt.cpp	(working copy)
+@@ -1349,4 +1349,9 @@
+     }
+   }
+   return NULL;
+-}
+\ No newline at end of file
++}
++
++#if WAF
++#include "PythonQt.moc"
++#endif
++
+Index: src/PythonQtSignalReceiver.cpp
+===================================================================
+--- src/PythonQtSignalReceiver.cpp	(revision 294)
++++ src/PythonQtSignalReceiver.cpp	(working copy)
+@@ -231,3 +231,8 @@
+   return 0;
+ }
+ 
++
++#if WAF
++#include "PythonQtSignalReceiver.moc"
++#endif
++
+Index: src/PythonQtStdDecorators.cpp
+===================================================================
+--- src/PythonQtStdDecorators.cpp	(revision 294)
++++ src/PythonQtStdDecorators.cpp	(working copy)
+@@ -313,3 +313,8 @@
+ 
+   return 0;
+ }
++
++#if WAF
++#include "PythonQtStdDecorators.moc"
++#endif
++

@@ -1,0 +1,40 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/trolltech/generator/">
+<file>qtscript_masterinclude.h</file>
+<file>build_all.txt</file>
+<file alias="typesystem_core-common.xml">typesystem_core-common.xml</file>
+<file alias="typesystem_core-qtscript.xml">typesystem_core-qtscript.xml</file>
+<file alias="typesystem_core.xml">typesystem_core.xml</file>
+<file alias="typesystem_gui-common.xml">typesystem_gui-common.xml</file>
+<file alias="typesystem_gui-qtscript.xml">typesystem_gui-qtscript.xml</file>
+<file alias="typesystem_gui.xml">typesystem_gui.xml</file>
+<file alias="typesystem_network-common.xml">typesystem_network-common.xml</file>
+<file alias="typesystem_network-qtscript.xml">typesystem_network-qtscript.xml</file>
+<file alias="typesystem_network.xml">typesystem_network.xml</file>
+<file alias="typesystem_opengl-common.xml">typesystem_opengl-common.xml</file>
+<file alias="typesystem_opengl-qtscript.xml">typesystem_opengl-qtscript.xml</file>
+<file alias="typesystem_opengl.xml">typesystem_opengl.xml</file>
+<file alias="typesystem_phonon-common.xml">typesystem_phonon-common.xml</file>
+<file alias="typesystem_phonon-qtscript.xml">typesystem_phonon-qtscript.xml</file>
+<file alias="typesystem_phonon.xml">typesystem_phonon.xml</file>
+<file alias="typesystem_sql-common.xml">typesystem_sql-common.xml</file>
+<file alias="typesystem_sql-qtscript.xml">typesystem_sql-qtscript.xml</file>
+<file alias="typesystem_sql.xml">typesystem_sql.xml</file>
+<file alias="typesystem_svg-common.xml">typesystem_svg-common.xml</file>
+<file alias="typesystem_svg-qtscript.xml">typesystem_svg-qtscript.xml</file>
+<file alias="typesystem_svg.xml">typesystem_svg.xml</file>
+<file alias="typesystem_uitools.xml">typesystem_uitools.xml</file>
+<file alias="typesystem_webkit-common.xml">typesystem_webkit-common.xml</file>
+<file alias="typesystem_webkit-qtscript.xml">typesystem_webkit-qtscript.xml</file>
+<file alias="typesystem_webkit.xml">typesystem_webkit.xml</file>
+<file alias="typesystem_xml-common.xml">typesystem_xml-common.xml</file>
+<file alias="typesystem_xmlpatterns-common.xml">typesystem_xmlpatterns-common.xml</file>
+<file alias="typesystem_xmlpatterns-qtscript.xml">typesystem_xmlpatterns-qtscript.xml</file>
+<file alias="typesystem_xmlpatterns.xml">typesystem_xmlpatterns.xml</file>
+<file alias="typesystem_xml-qtscript.xml">typesystem_xml-qtscript.xml</file>
+<file alias="typesystem_xml.xml">typesystem_xml.xml</file>
+<file>parser/rpp/pp-qt-configuration</file>
+</qresource>
+</RCC>
+
+

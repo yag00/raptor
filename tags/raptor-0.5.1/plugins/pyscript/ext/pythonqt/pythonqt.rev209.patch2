@@ -1,0 +1,130 @@
+Index: generator/parser/parser.cpp
+===================================================================
+--- generator/parser/parser.cpp	(révision 302)
++++ generator/parser/parser.cpp	(copie de travail)
+@@ -2372,10 +2372,10 @@
+ 
+   std::size_t start = token_stream.cursor();
+ 
+-  std::size_t global_scope = 0;
++  //std::size_t global_scope = 0;
+   if (token_stream.lookAhead() == Token_scope)
+     {
+-      global_scope = token_stream.cursor();
++      /*global_scope = */token_stream.cursor();
+       token_stream.nextToken();
+     }
+ 
+Index: generator/typesystem.cpp
+===================================================================
+--- generator/typesystem.cpp	(révision 302)
++++ generator/typesystem.cpp	(copie de travail)
+@@ -836,9 +836,9 @@
+             }
+             QString name = attributes["name"];
+ 
+-            bool added = false;
++            //bool added = false;
+             if (!name.isEmpty()) {
+-                added = true;
++                //added = true;
+                 m_current_enum->addEnumValueRejection(name);
+             }
+ 
+Index: generator/abstractmetalang.cpp
+===================================================================
+--- generator/abstractmetalang.cpp	(révision 302)
++++ generator/abstractmetalang.cpp	(copie de travail)
+@@ -1206,12 +1206,12 @@
+     return returned;
+ }
+ 
+-static QString upCaseFirst(const QString &str) {
+-    Q_ASSERT(!str.isEmpty());
+-    QString s = str;
+-    s[0] = s.at(0).toUpper();
+-    return s;
+-}
++//static QString upCaseFirst(const QString &str) {
++//    Q_ASSERT(!str.isEmpty());
++//    QString s = str;
++//    s[0] = s.at(0).toUpper();
++//    return s;
++//}
+ 
+ static AbstractMetaFunction *createXetter(const AbstractMetaField *g, const QString &name, uint type) {
+     AbstractMetaFunction *f = new AbstractMetaFunction;
+Index: generator/shellimplgenerator.cpp
+===================================================================
+--- generator/shellimplgenerator.cpp	(révision 302)
++++ generator/shellimplgenerator.cpp	(copie de travail)
+@@ -53,10 +53,10 @@
+   return QString("PythonQtWrapper_%1.cpp").arg(meta_class->name());
+ }
+ 
+-static bool include_less_than(const Include &a, const Include &b) 
+-{
+-  return a.name < b.name;
+-}
++//static bool include_less_than(const Include &a, const Include &b) 
++//{
++//  return a.name < b.name;
++//}
+ 
+ static void writeHelperCode(QTextStream &s, const AbstractMetaClass *)
+ {
+Index: src/PythonQtMethodInfo.cpp
+===================================================================
+--- src/PythonQtMethodInfo.cpp	(révision 302)
++++ src/PythonQtMethodInfo.cpp	(copie de travail)
+@@ -126,7 +126,7 @@
+       type.isConst = false;
+     }
+     char pointerCount = 0;
+-    bool hadReference = false;
++    //bool hadReference = false;
+     // remove * and & from the end of the string, handle & and * the same way
+     while (name.at(len-1) == '*') {
+       len--;
+@@ -134,7 +134,7 @@
+     }
+     while (name.at(len-1) == '&') {
+       len--;
+-      hadReference = true;
++      //hadReference = true;
+     }
+     if (len!=name.length()) {
+       name = name.left(len);
+Index: src/PythonQtSignalReceiver.cpp
+===================================================================
+--- src/PythonQtSignalReceiver.cpp	(révision 302)
++++ src/PythonQtSignalReceiver.cpp	(copie de travail)
+@@ -220,10 +220,10 @@
+     QObject::qt_metacall(c, id, arguments);
+   }
+ 
+-  bool found = false;
++  //bool found = false;
+   foreach(const PythonQtSignalTarget& t, _targets) {
+     if (t.slotId() == id) {
+-      found = true;
++      //found = true;
+       t.call(arguments);
+       break;
+     }
+Index: src/PythonQtSlot.cpp
+===================================================================
+--- src/PythonQtSlot.cpp	(révision 302)
++++ src/PythonQtSlot.cpp	(copie de travail)
+@@ -82,9 +82,9 @@
+   argList[0] = NULL;
+ 
+   bool ok = true;
+-  bool skipFirst = false;
++  //bool skipFirst = false;
+   if (info->isInstanceDecorator()) {
+-    skipFirst = true;
++    //skipFirst = true;
+ 
+     // for decorators on CPP objects, we take the cpp ptr, for QObjects we take the QObject pointer
+     void* arg1 = firstArgument;
