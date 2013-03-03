@@ -115,6 +115,11 @@ class DocumentManager : public Splitter{
 		/** rename current document */
 		void rename();
 
+		/** copy filename to clipboard */
+		void copyFileNameToClipboard();
+		/** copy filepath to clipboard */
+		void copyFilePathToClipboard();
+
 		/** print current document */
 		void print();
 
