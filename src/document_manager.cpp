@@ -73,6 +73,11 @@ DocumentView* DocumentManager::createDocumentView(DocumentEditor* document_){
 	QAction* saveAs = menu->addAction(QIcon(":/images/saveas.png"), tr("&Save As..."));
 	connect(saveAs, SIGNAL(triggered()), view, SLOT(saveAs()));
 	menu->addSeparator();
+	QAction* copyNameToClipboard = menu->addAction(QIcon(":/images/copy.png"), tr("Copy Filename to clipboard"));
+	connect(copyNameToClipboard, SIGNAL(triggered()), this, SLOT(copyFileNameToClipboard()));
+	QAction* copyPathToClipboard = menu->addAction(QIcon(":/images/copy.png"), tr("Copy File path to clipboard"));
+	connect(copyPathToClipboard, SIGNAL(triggered()), this, SLOT(copyFilePathToClipboard()));
+	menu->addSeparator();
 	QAction* rename = menu->addAction(QIcon(":/listeditor/edit.png"), tr("Rename"));
 	connect(rename, SIGNAL(triggered()), this, SLOT(rename()));
 	QAction* reload = menu->addAction(QIcon(":/images/restore.png"), tr("Reload"));
@@ -331,6 +336,20 @@ void DocumentManager::rename(){
 	if(getActiveDocument()->rename()) {
 		emit statusMessage(tr("File renamed"));
 	}
+}
+
+void DocumentManager::copyFileNameToClipboard(){
+	QClipboard *clipboard = QApplication::clipboard();
+	QString txt = getActiveDocument()->getName();
+	clipboard->setText(txt);
+	emit statusMessage(tr("Copy %1 to clipboard").arg(txt));
+}
+
+void DocumentManager::copyFilePathToClipboard(){
+	QClipboard *clipboard = QApplication::clipboard();
+	QString txt = getActiveDocument()->getFullPath();
+	clipboard->setText(txt);
+	emit statusMessage(tr("Copy %1 to clipboard").arg(txt));
 }
 
 void DocumentManager::print(){

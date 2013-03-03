@@ -29,7 +29,7 @@ from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
 
-VERSION='0.5.0'
+VERSION='0.5.1'
 APPNAME='raptor'
 DESCRIPTION="Raptor A Portable Text editOR"
 
