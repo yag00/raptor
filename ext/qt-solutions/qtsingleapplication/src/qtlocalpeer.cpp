@@ -59,7 +59,9 @@ namespace QtLP_Private {
 #else
 #include "qtlockedfile_unix.cpp"
 #endif
-}
+};
+
+using namespace QtLP_Private;
 
 const char* QtLocalPeer::ack = "ack";
 
@@ -93,7 +95,7 @@ QtLocalPeer::QtLocalPeer(QObject* parent, const QString &appId)
         socketName += QLatin1Char('-') + QString::number(sessionId, 16);
     }
 #else
-    socketName += QLatin1Char('-') + QString::number(QtLP_Private::getuid(), 16);
+    socketName += QLatin1Char('-') + QString::number(::getuid(), 16);
 #endif
 
     server = new QLocalServer(this);
