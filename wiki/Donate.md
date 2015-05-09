@@ -1,5 +1,5 @@
 # Donations #
-![http://raptor.googlecode.com/svn/wiki/images/feedtheraptor.png](http://raptor.googlecode.com/svn/wiki/images/feedtheraptor.png)
+![images/feedtheraptor.png](images/feedtheraptor.png)
 
 If you like Raptor and you want to help make it even more awesome :
 As you know, time is priceless and if you have some to spare then there is no better way to help an open source project than to get involved at one level or another. Contributions are appreciated and needed in any of the following ways:
