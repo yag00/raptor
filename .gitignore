@@ -1,0 +1,6 @@
+wbuild
+delivery
+package.*
+.lock-waf_linux2_build
+.waf-*
+*.pyc
