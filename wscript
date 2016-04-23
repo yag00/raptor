@@ -280,7 +280,7 @@ def build(bld):
 		target          = 'raptorwidget',
 		includes        = [],
 		defines         = ['WAF', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
-		cxxflags        = ['-Wall', '-Werror'],	
+		cxxflags        = ['-Wall'],	
 		install_path    = None,
 	)
 		
@@ -318,7 +318,7 @@ def build(bld):
 							'PACKAGE_LIB="%s/lib"' % bld.env['PREFIX'],
 							'PACKAGE_DATA="%s/share"' % bld.env['PREFIX'],
 							'PACKAGE_OS="%s"' % getSystemOsString(bld.env)],
-		cxxflags        = ['-Wall', '-Werror'],
+		cxxflags        = ['-Wall'],
 		linkflags       = (['-Wl,-s', '-mthreads', '-Wl,-subsystem,windows'] if isWindows(bld.env) else ['-Wl,-z,defs', '-Wl,-O1']),
 		install_path    = getBinaryInstallationPath(bld.env))
 
