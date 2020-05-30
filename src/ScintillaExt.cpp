@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <QtGui>
+#include <QtWidgets>
 
 #include "../astyle/AStyleIndenter.h"
 #include "../settings/Settings.h"
@@ -486,7 +486,7 @@ bool ScintillaExt::isLineEmpty(int line_) const {
 bool ScintillaExt::isQualifiedWord(const QString& str_) const {
 	for (int i = 0 ; i < (int)str_.size(); i++){
 		//if(!str_[i].isLetterOrNumber())
-		if (!isWordChar(str_[i].toAscii()))
+		if (!isWordChar(str_[i].toLatin1()))
 			return false;
 	}
 	return true;
@@ -664,9 +664,9 @@ void ScintillaExt::selectedTextChanged(){
 	if(lineFrom != lineTo)
 		return;
 	QString textLine = text(lineFrom);
-	if (isWordChar(textLine[indexFrom-1].toAscii()))
+	if (isWordChar(textLine[indexFrom-1].toLatin1()))
 		return;
-	if (isWordChar(textLine[indexTo].toAscii()))
+	if (isWordChar(textLine[indexTo].toLatin1()))
 		return;
 
 

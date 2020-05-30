@@ -19,6 +19,7 @@
  */
 
 #include <QObject>
+#include <QMenu>
 #include <QEvent>
 #include <QMouseEvent>
 #include <QHeaderView>

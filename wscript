@@ -21,15 +21,16 @@
 #
 
 # building waf :
-# python waf-light --make-waf --tools=slow_qt4,compat15
+# python waf-light --make-waf --tools=slow_qt4,qt5,compat15
 #
 
 import sys, os, platform, shutil, tarfile, re
+import subprocess
 from waflib import Build, Task, Options, Logs, Utils, Scripting
 from waflib.Build import BuildContext, CleanContext, InstallContext, UninstallContext
 from waflib.Errors import ConfigurationError
 
-VERSION='0.5.1'
+VERSION='0.6.0'
 APPNAME='raptor'
 DESCRIPTION="Raptor A Portable Text editOR"
 
@@ -71,7 +72,7 @@ def uninstall(ctx):
 Scripting.default_cmd = "release"
 
 def options(opt):
-	opt.load('compiler_c compiler_cxx qt4')
+	opt.load('compiler_c compiler_cxx qt5')
 	opt.add_option('--plugins', action='store_true', default=False, help = 'build raptors plugins', dest = 'plugins')
 	opt.add_option('--deb-src', action='store_true', default=False, help = '(ubuntu) package target will only build the source package', dest = 'debSrcOnly')
 	opt.add_option('--deb-dist', action='store', default="", help = '(ubuntu) package target will only build the source package for the specified ubuntu (ex: --deb-dist=oneiric)', dest = 'debDist')
@@ -119,20 +120,20 @@ def configure(conf):
 
 	conf.load('compiler_c')
 	conf.load('compiler_cxx')
-	
+
 	if isWindows(conf.env):
 		conf.load('winres')
 
 	configurePackage(conf)
 	configureDoc(conf);
-		
-	conf.load('qt4')
+
+	conf.load('qt5')
 
 	#check qt version
 	QT_MIN_VERSION = '4.6.0'
-	qtversion = (conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_VERSION']).strip())
+	qtversion = (conf.cmd_and_log([conf.env.QMAKE[0], '-query', 'QT_VERSION']).strip())
 	conf.env['QT_VERSION'] = qtversion
-	conf.env['QT_HEADER_PATH'] = conf.cmd_and_log([conf.env.QMAKE, '-query', 'QT_INSTALL_HEADERS']).strip()	
+	conf.env['QT_HEADER_PATH'] = conf.cmd_and_log([conf.env.QMAKE[0], '-query', 'QT_INSTALL_HEADERS']).strip()
 	if(qtversion.split('.') < QT_MIN_VERSION.split('.')):
 		conf.msg("Checking for Qt version", "Qt should be at least in version " + QT_MIN_VERSION + " (" +qtversion + " found)", "RED")
 		conf.fatal("Upgrade Qt !")
@@ -142,7 +143,7 @@ def configure(conf):
 	if Options.options.plugins == True:
 		if os.path.exists("plugins/wscript"):
 			conf.recurse('plugins')
-	
+
 	conf.setenv('debug', env=conf.env.derive())
 	conf.env.CFLAGS = get_debug_cflags(conf.env)
 	conf.env.CXXFLAGS = get_debug_cxxflags(conf.env)
@@ -150,6 +151,9 @@ def configure(conf):
 	conf.setenv('release', env=conf.env.derive())
 	conf.env.CFLAGS = get_release_cflags(conf.env)
 	conf.env.CXXFLAGS = get_release_cxxflags(conf.env)
+
+
+	check_qscintilla(conf)
 
 	# summary
 	Logs.pprint('BLUE', 'Summary:')
@@ -159,6 +163,21 @@ def configure(conf):
 		Logs.pprint('YELLOW', 'Cross-compilation will use the native uic,moc binary as well as linux qt header!')
 	conf.msg('Install Raptor ' + VERSION + ' in', conf.env['PREFIX'])
 
+
+def check_qscintilla(conf):
+	includes = os.path.abspath('ext/QScintilla/QScintilla-2.11.4/Qt4Qt5')
+	libs = os.path.abspath('ext/QScintilla/QScintilla-2.11.4/Qt4Qt5')
+	try:
+		conf.check(stlib='qscintilla2_qt5', use='QT5CORE QT5GUI QT5HELP', libpath=[libs], includes=[includes], uselib_store='QSCINTILLA2')
+	except:
+		conf.msg('Building local Qscintilla', libs)
+		bcmd = [conf.env['QMAKE'][0], 'qscintilla.pro']
+		p = subprocess.Popen(bcmd, cwd=os.path.abspath('ext/QScintilla/QScintilla-2.11.4/Qt4Qt5'), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		(stdout, stderr) = p.communicate()
+		bcmd = ["make"]
+		p = subprocess.Popen(bcmd, cwd=os.path.abspath('ext/QScintilla/QScintilla-2.11.4/Qt4Qt5'), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		(stdout, stderr) = p.communicate()
+		conf.check(stlib='qscintilla2_qt5', use='QT5CORE QT5GUI QT5HELP', libpath=[libs], includes=[includes], uselib_store='QSCINTILLA2')
 
 def configureDoc(conf):
 	try:
@@ -179,7 +198,7 @@ def configurePackage(conf):
 		except conf.errors.ConfigurationError:
 			pass
 	else:
-		(distname,version,id) =  platform.linux_distribution()
+		(distname,version,id) = linux_distribution()
 		if distname == "Ubuntu":
 			try:
 				conf.find_program("debuild", var="DEBUILD")
@@ -212,10 +231,8 @@ def build(bld):
 		source          = astyle_sources,
 		name            = 'astyle',
 		target          = 'astyle',
-		includes        = '.',
 		cxxflags        = ['-Wall', '-Werror'],
 		install_path    = None) # do not install this library
-
 
 	#########################################################
 	# build ctags
@@ -242,63 +259,26 @@ def build(bld):
 		defines         = get_ctags_defines(bld.env),
 		cflags          = ['-Wformat=0'],	# todo build with -Wall -Werror
 		install_path    = None) # do not install this library
-	
-	#########################################################
-	# build qscintilla
-	#########################################################
-	qscintilla_sources = bld.path.ant_glob(
-		[	'ext/QScintilla/QScintilla-gpl-2.6/Qt4/*.cpp',
-			'ext/QScintilla/QScintilla-gpl-2.6/lexers/*.cpp',
-			'ext/QScintilla/QScintilla-gpl-2.6/lexlib/*.cpp',
-			'ext/QScintilla/QScintilla-gpl-2.6/src/*.cpp'],
-		excl=[''])
-
-	bld.stlib(
-		features        = 'qt4 cxx cxxstlib',
-		uselib          = 'QTCORE QTGUI',
-		source          = qscintilla_sources,
-		name            = 'qscintilla2',
-		target          = 'qscintilla2',
-		includes        = ['ext/QScintilla/QScintilla-gpl-2.6/include',
-							'ext/QScintilla/QScintilla-gpl-2.6/lexlib',
-							'ext/QScintilla/QScintilla-gpl-2.6/src',
-							'ext/QScintilla/QScintilla-gpl-2.6/Qt4'],
-		defines         = ['WAF', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
-		cxxflags        = [],	# todo build with -Wall -Werror
-		install_path    = None) # do not install this library
 
 	#########################################################
 	# build raptor
 	#########################################################
-	
-	raptor_widgets_sources = bld.path.ant_glob(['src/widget/**/*.cpp'])
-	bld.stlib(
-		features        = 'qt4 cxx cxxstlib',
-		uselib          = 'QTCORE QTGUI',
-		source          = raptor_widgets_sources,
-		name            = 'raptorwidget',
-		target          = 'raptorwidget',
-		includes        = [],
-		defines         = ['WAF', 'QT', 'SCI_LEXER', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG'],
-		cxxflags        = ['-Wall'],	
-		install_path    = None,
-	)
-		
+
 	raptor_sources = bld.path.ant_glob(
 		[	'ext/qt-solutions/qtsingleapplication/src/qtsingleapplication.cpp',
 			'ext/qt-solutions/qtsingleapplication/src/qtlocalpeer.cpp',
 			'src/**/*.cpp',
 			'src/**/*.ui',
 			'src/**/*.qrc'],
-		excl=['src/rc/*.cpp', 'src/widget/*.cpp'])
+		excl=['src/rc/*.cpp'])
 
 	if isWindows(bld.env):
 		raptor_sources += bld.path.ant_glob('src/**/*.rc')
-	
+
 	bld.program(
-		features        = 'qt4 cxx cxxprogram' + (' winrc' if isWindows(bld.env) else ''),
-		uselib          = 'QTCORE QTGUI QTNETWORK QTXML QTHELP',
-		use             = 'astyle qscintilla2 ctags raptorwidget',
+		features        = 'qt5 cxx cxxprogram' + (' winrc' if isWindows(bld.env) else ''),
+		uselib          = 'QSCINTILLA2 QT5CORE QT5GUI QT5WIDGETS QT5NETWORK QT5XML QT5HELP QT5PRINTSUPPORT',
+		use             = 'astyle ctags qscintilla2',
 		source          = raptor_sources,
 		lang            = bld.path.ant_glob('src/translations/*.ts'),
 		name            = 'raptor',
@@ -306,11 +286,12 @@ def build(bld):
 		includes        = ['.',
 							'ext/AStyle/astyle-2.01/src',
 							'ext/ctags',
-							'ext/QScintilla/QScintilla-gpl-2.6/Qt4',
-							'ext/qt-solutions/qtsingleapplication/src',
+							'ext/QScintilla/QScintilla-2.11.4/Qt4Qt5',
 							'ext/dtl/dtl-1.15',
-							'src'],
-		defines         = [	'WAF', 'UNICODE', 'HAVE_FGETPOS', 'QT_NO_DEBUG','QT_THREAD_SUPPORT',
+							'src',
+							'src/ui',
+						],
+		defines         = [	'WAF', 'UNICODE', 'HAVE_FGETPOS', 'QT', 'SCINTILLA_QT', 'SCI_LEXER', 'INCLUDE_DEPRECATED_FEATURES', 'QT_THREAD_SUPPORT', 'QT_NO_DEBUG',
 							'PACKAGE_NAME="%s"' % APPNAME.capitalize(),
 							'PACKAGE_VERSION="%s"' % VERSION,
 							'PACKAGE_DESCRIPTION="%s"' % DESCRIPTION,
@@ -340,7 +321,7 @@ def build(bld):
 	if Options.options.plugins == True:
 		if os.path.exists("plugins/wscript"):
 			bld.recurse('plugins')
-	
+
 	#########################################################
 	# build raptor documentation
 	#########################################################
@@ -351,14 +332,14 @@ def build(bld):
 			docBuildPath 	= os.path.join(bld.bldnode.abspath(), "doctrees/%s" % lang)
 			docOutPath		= os.path.join(bld.bldnode.abspath(), "raptorhelp/%s" % lang)
 			docSrcPath		= os.path.join(bld.srcnode.abspath(), "doc/src/%s/source" % lang)
-			
+
 			rstsource = bld.path.ant_glob(['doc/config/**/*.py', 'doc/src/%s/**/*.rst' % lang, 'doc/src/%s/source/conf.py' % lang])
-			
-			qhcpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhcp' % (lang, lang)) 
+
+			qhcpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhcp' % (lang, lang))
 			qhpNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhp' % (lang, lang))
 			qchNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qch' % (lang, lang))
 			qhcNode = bld.path.find_or_declare('raptorhelp/%s/Raptor.%s.qhc' % (lang, lang))
-			
+
 			bld(
 				name	= 'doc_%s' % lang,
 				color	='PINK',
@@ -401,7 +382,7 @@ def package(ctx):
 	if isWindows(ctx.env):
 		Options.commands = ['clean', 'release','install', 'packageWindows', 'uninstall'] + Options.commands
 	else:
-		(distname,version,id) =  platform.linux_distribution()
+		(distname,version,id) = linux_distribution()
 		if distname == "Ubuntu":
 			Options.commands = ['clean', 'dist', 'packageUbuntu'] + Options.commands
 		elif distname == "Fedora":
@@ -444,15 +425,15 @@ def packageUbuntu(ctx):
 		fchangelog.close()
 
 		# the dictionary has target_word:replacement_word pairs
-		from email.Utils import formatdate
-		(distname,version,id) =  platform.linux_distribution()
-		
+		from email.utils import formatdate
+		(distname,version,id) = linux_distribution()
+
 		if ctx.options.debDist:
 			id = ctx.options.debDist
 		RAPTOR_VERSION_DEB = VERSION
 		if ctx.options.debVersion:
 			RAPTOR_VERSION_DEB += '.' + ctx.options.debVersion
-		
+
 		word_dic = {
 			'${RAPTOR_VERSION_DEB}': RAPTOR_VERSION_DEB,
 			'${DEB_DIST}': id,
@@ -467,17 +448,19 @@ def packageUbuntu(ctx):
 		fchangelog.close()
 
 		#command
-		os.chdir("debbuild/raptor-editor-" + VERSION)
-		command = ctx.env.DEBUILD + ' '
+		cwd = os.path.abspath("debbuild/raptor-editor-" + VERSION)
+		command = ctx.env.DEBUILD[0] + ' '
 		command += "-S -sa"
-		ctx.exec_command(command)
+		print(command)
+		p = subprocess.Popen(command.split(' '), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		(stdout, stderr) = p.communicate()
 
 		if ctx.options.debSrcOnly == False and ctx.options.debDist == ""  and ctx.options.debVersion == "":
-			command = ctx.env.DPKG_BUILDPACKAGE + ' '
+			command = ctx.env.DPKG_BUILDPACKAGE[0] + ' '
 			command += "-rfakeroot"
-			ctx.exec_command(command)
-	
-		os.chdir("../../")
+			print(command)
+			p = subprocess.Popen(command.split(' '), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+			(stdout, stderr) = p.communicate()
 
 		os.rename("debbuild", "package.ubuntu")
 
@@ -538,6 +521,14 @@ def rpmCleanupTree():
 # system & compilation utils function
 #########################################################
 
+def linux_distribution():
+	""" return system linux_distribution() """
+	try:
+		return platform.dist()
+	except:
+		import distro
+		return distro.linux_distribution()
+
 def isWindows(env):
 	if getattr(env, 'crossCompile', '') == "win32":
 		return 1
@@ -554,7 +545,7 @@ def isLinux():
 
 def printOS():
 	if isLinux():
-		(distname,version,id) =  platform.linux_distribution()
+		(distname,version,id) = linux_distribution()
 		print(distname + ' ' + version + ' ' + id + ' - (' + platform.system() + ' ' + platform.release() + ')')
 	else:
 		print(platform.system() + ' ' + platform.release())
@@ -563,7 +554,7 @@ def getSystemOsString(env):
 	if getattr(env, 'crossCompile', '') == "win32":
 		return "Windows"
 	if isLinux():
-		(distname,version,id) =  platform.linux_distribution()
+		(distname,version,id) = linux_distribution()
 		return (platform.system() + ' ' + distname + ' ' + version + ' ' + id)
 	else:
 		return (platform.system() + ' ' + platform.release())

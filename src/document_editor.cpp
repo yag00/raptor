@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <QtGui>
-#include <QPrintDialog>
+#include <QtWidgets>
+#include <QtPrintSupport/QPrintDialog>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscimacro.h>
 #include <Qsci/qsciprinter.h>

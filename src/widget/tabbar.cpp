@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <QtGui>
+#include <QtWidgets>
 #include "tabbar.h"
 
 TabBar::TabBar(QWidget* parent_) : QTabBar(parent_), _dragCurrentIndex(0) {
@@ -140,7 +140,7 @@ void TabBar::dropEvent(QDropEvent* event_) {
 			int fromIndex;
 			dataStream >> fromIndex;
 			int toIndex = tabAt(event_->pos());
-			emit tabMoveRequested(event_->source(), fromIndex, this, toIndex);
+			emit tabMoveRequested((QWidget*)event_->source(), fromIndex, this, toIndex);
 		}
 		event_->accept();
 		//event_->acceptProposedAction();

@@ -64,7 +64,7 @@ namespace {
 
 };
 
-AboutDlg::AboutDlg( QWidget * parent, Qt::WFlags f) : QDialog(parent, f) {
+AboutDlg::AboutDlg( QWidget * parent, Qt::WindowFlags f) : QDialog(parent, f) {
 	setupUi(this);
 
 	// window title

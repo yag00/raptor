@@ -20,7 +20,7 @@
 
 #include <QFileDialog>
 #include <QDebug>
-#include <QtGui>
+#include <QtWidgets>
 
 #include <Qsci/qsciscintillabase.h>
 #include <Qsci/qsciscintilla.h>
@@ -95,8 +95,8 @@ Search::Search(DocumentManager* documentMgr_, QWidget *parent_) : QWidget(parent
 	
     tbWrap->setChecked(true);
 
-	twResults->header()->setResizeMode(0, QHeaderView::ResizeToContents);
-	twResults->header()->setResizeMode(1, QHeaderView::Stretch);
+	twResults->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+	twResults->header()->setSectionResizeMode(1, QHeaderView::Stretch);
     twResults->setTextElideMode(Qt::ElideLeft);
 	
 	//disable button

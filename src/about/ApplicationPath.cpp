@@ -78,7 +78,7 @@ QString ApplicationPath::documentationPath(){
 }
 
 bool ApplicationPath::isLocal(){
-	return ~ApplicationPath::isInstalled();
+	return !ApplicationPath::isInstalled();
 }
 
 bool ApplicationPath::isInstalled(){
