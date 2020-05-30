@@ -211,3 +211,12 @@ void QsciLexerProperties::setInitialSpacesProp()
 {
     emit propertyChanged("lexer.props.allow.initial.spaces", (fold_compact ? "1" : "0"));
 }
+
+QString QsciLexerProperties::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerProperties::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

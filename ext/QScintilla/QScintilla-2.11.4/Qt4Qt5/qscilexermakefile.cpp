@@ -156,3 +156,12 @@ QColor QsciLexerMakefile::defaultPaper(int style) const
 
     return QsciLexer::defaultPaper(style);
 }
+
+QString QsciLexerMakefile::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerMakefile::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

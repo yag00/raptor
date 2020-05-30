@@ -505,3 +505,13 @@ void QsciLexerPython::setHighlightSubidsProp()
     emit propertyChanged("lexer.python.keywords2.no.sub.identifiers",
             (highlight_subids ? "0" : "1"));
 }
+
+QString QsciLexerPython::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerPython::commentBlock() const{
+    QStringList cb;
+    cb << "\"\"\"" << "\"\"\"";
+    return cb;
+}

@@ -799,3 +799,13 @@ void QsciLexerCPP::setVerbatimStringEscapeProp()
     emit propertyChanged("lexer.cpp.verbatim.strings.allow.escapes",
             (vs_escape ? "1" : "0"));
 }
+
+QString QsciLexerCPP::commentLine() const{
+    return QString("//");
+}
+
+QStringList QsciLexerCPP::commentBlock() const{
+    QStringList cb;
+    cb << "/*" << "*/";
+    return cb;
+}

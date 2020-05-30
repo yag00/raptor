@@ -438,3 +438,13 @@ void QsciLexerCSS::setSCSSProp()
 {
     emit propertyChanged("lexer.css.scss.language",(scss_language ? "1" : "0"));
 }
+
+QString QsciLexerCSS::commentLine() const{
+    return QString("");
+}
+
+QStringList QsciLexerCSS::commentBlock() const{
+    QStringList cb;
+    cb << "/*" << "*/";
+    return cb;
+}

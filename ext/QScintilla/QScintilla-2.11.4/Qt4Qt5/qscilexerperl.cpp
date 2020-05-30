@@ -656,3 +656,12 @@ void QsciLexerPerl::setAtElseProp()
 {
     emit propertyChanged("fold.perl.at.else",(fold_atelse ? "1" : "0"));
 }
+
+QString QsciLexerPerl::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerPerl::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

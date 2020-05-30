@@ -366,3 +366,12 @@ void QsciLexerLua::setCompactProp()
 {
     emit propertyChanged("fold.compact",(fold_compact ? "1" : "0"));
 }
+
+QString QsciLexerLua::commentLine() const{
+    return QString("--");
+}
+
+QStringList QsciLexerLua::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

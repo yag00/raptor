@@ -570,3 +570,13 @@ void QsciLexerVerilog::setAtModuleProp()
 {
     emit propertyChanged("fold.verilog.flags", (fold_atmodule ? "1" : "0"));
 }
+
+QString QsciLexerVerilog::commentLine() const{
+    return QString("//");
+}
+
+QStringList QsciLexerVerilog::commentBlock() const{
+    QStringList cb;
+    cb << "/*" << "*/";
+    return cb;
+}

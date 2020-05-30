@@ -306,3 +306,12 @@ void QsciLexerTeX::setAutoIfProp()
 {
     emit propertyChanged("lexer.tex.auto.if", (process_if ? "1" : "0"));
 }
+
+QString QsciLexerTeX::commentLine() const{
+    return QString("%");
+}
+
+QStringList QsciLexerTeX::commentBlock() const{
+    QStringList cb;
+    return cb;
+}

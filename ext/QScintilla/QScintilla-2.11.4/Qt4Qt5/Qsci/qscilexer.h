@@ -258,9 +258,17 @@ public:
     //! if there was no error.
     //!
     //! \sa readSettings()
-    bool writeSettings(QSettings &qs,
-               const char *prefix = "/Scintilla") const;
+    bool writeSettings(QSettings &qs, const char *prefix = "/Scintilla") const;
 
+    //! Returns the string that comment a line
+    //! An empty string is returned if there is no such string (ie comment line
+    //! is not supported.
+    virtual QString commentLine() const;
+    //! Returns a string list of two element to comment a block
+    //! the comment block start string and the comment block end string
+    //! An empty string list is block comments are not supported.
+    virtual QStringList commentBlock() const;
+    
 public slots:
     //! The auto-indentation style is set to \a autoindentstyle.
     //!

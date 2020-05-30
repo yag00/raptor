@@ -1179,3 +1179,13 @@ void QsciLexerHTML::setMakoProp()
 {
     emit propertyChanged("lexer.html.mako", (mako_templates ? "1" : "0"));
 }
+
+QString QsciLexerHTML::commentLine() const{
+    return QString("");
+}
+
+QStringList QsciLexerHTML::commentBlock() const{
+    QStringList cb;
+    cb << "<!--" << "-->";
+    return cb;
+}

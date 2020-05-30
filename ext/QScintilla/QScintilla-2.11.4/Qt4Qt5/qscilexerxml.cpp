@@ -250,3 +250,13 @@ void QsciLexerXML::setScriptsProp()
 {
     emit propertyChanged("lexer.xml.allow.scripts",(scripts ? "1" : "0"));
 }
+
+QString QsciLexerXML::commentLine() const{
+    return QString("");
+}
+
+QStringList QsciLexerXML::commentBlock() const{
+    QStringList cb;
+    cb << "<!--" << "-->";
+    return cb;
+}

@@ -267,3 +267,12 @@ void QsciLexerYAML::setCommentProp()
 {
     emit propertyChanged("fold.comment.yaml",(fold_comments ? "1" : "0"));
 }
+
+QString QsciLexerYAML::commentLine() const{
+    return QString("#");
+}
+
+QStringList QsciLexerYAML::commentBlock() const{
+    QStringList cb;
+    return cb;
+}
