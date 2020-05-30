@@ -31,7 +31,7 @@ ShortcutEditor::ShortcutEditor(QList<QMenu*>& menus_, QWidget* parent ) : QDialo
 	_settings = new ShortcutSettings(this);
 	//init ui
 	setupUi(this);
-	actionTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);
+	actionTreeWidget->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
 	foreach(QMenu* menu, menus_)
 		addItems(menu);

@@ -28,7 +28,7 @@ class QString;
 class QsciMacro;
 
 class DocumentEditor : public ScintillaExt {
-    Q_OBJECT
+	Q_OBJECT
 	public:
 		/** default constructor
 		 * @param parent_ */

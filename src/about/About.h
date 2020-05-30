@@ -28,7 +28,7 @@ class AboutDlg : public QDialog, public Ui::UIAbout
 {
 	Q_OBJECT
 	public:
-		AboutDlg( QWidget * parent = 0, Qt::WFlags f = 0 );
+		AboutDlg( QWidget * parent = 0, Qt::WindowFlags f = 0 );
 
 	public slots:
 		void anchorClicked( const QUrl& );

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include <QtGui>
+#include <QtWidgets>
 #include "RLexerCpp.h"
 
 
@@ -104,47 +104,50 @@ QColor RLexerCPP::defaultColor(int style) const {
 			return QColor(0x00, 0x7f, 0x00);
 
 		case InactiveRegex:
-			return QColor(0x7f, 0xaf, 0x7f);			
+			return QColor(0x7f, 0xaf, 0x7f);
 	}
 
-    return QsciLexer::defaultColor(style);
+	return QsciLexer::defaultColor(style);
 }
 
 // Returns the set of keywords.
 const char *RLexerCPP::keywords(int set) const {
-    if (set == 1)
-        return						
+	if (set == 1) {
+		return
 			"bitand bitor break case catch compl const_cast continue "
-            "default delete do dynamic_cast else false  for  goto if "
-            "namespace new not not_eq operator or or_eq reinterpret_cast "
+			"default delete do dynamic_cast else false  for  goto if "
+			"namespace new not not_eq operator or or_eq reinterpret_cast "
 			"return sizeof static_cast switch this throw true try "
 			"typedef typeid using while xor xor_eq NULL and and_eq";
-			
-	if (set == 2)
+	}
+
+	if (set == 2) {
         return
   			"asm auto bool char class const double enum explicit "
 			"extern float friend inline int long mutable private "
 			"protected public register short signed static struct "
 			"template typename union unsigned virtual void volatile "
 			"uint8_t uint16_t uint32_t uint64_t int8_t int16_t int32_t int64_t ";
-			
-    if (set == 3)
-        return
-            "a addindex addtogroup anchor arg attention author b "
-            "brief bug c class code date def defgroup deprecated "
-            "dontinclude e em endcode endhtmlonly endif "
-            "endlatexonly endlink endverbatim enum example "
-            "exception f$ f[ f] file fn hideinitializer "
-            "htmlinclude htmlonly if image include ingroup "
-            "internal invariant interface latexonly li line link "
-            "mainpage name namespace nosubgrouping note overload "
-            "p page par param post pre ref relates remarks return "
-            "retval sa section see showinitializer since skip "
-            "skipline struct subsection test throw todo typedef "
-            "union until var verbatim verbinclude version warning "
-            "weakgroup $ @ \\ & < > # { }";
+	}
 
-    return 0;
+	if (set == 3) {
+		return
+			"a addindex addtogroup anchor arg attention author b "
+			"brief bug c class code date def defgroup deprecated "
+			"dontinclude e em endcode endhtmlonly endif "
+			"endlatexonly endlink endverbatim enum example "
+			"exception f$ f[ f] file fn hideinitializer "
+			"htmlinclude htmlonly if image include ingroup "
+			"internal invariant interface latexonly li line link "
+			"mainpage name namespace nosubgrouping note overload "
+			"p page par param post pre ref relates remarks return "
+			"retval sa section see showinitializer since skip "
+			"skipline struct subsection test throw todo typedef "
+			"union until var verbatim verbinclude version warning "
+			"weakgroup $ @ \\ & < > # { }";
+	}
+
+	return 0;
 }
 
 // Returns the user name of a style.

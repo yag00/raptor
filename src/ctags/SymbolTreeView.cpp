@@ -18,8 +18,10 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
+#include <QMenu>
 #include <QHeaderView>
 #include <QModelIndex>
+#include <QToolButton>
 #include <QStandardItemModel>
 #include "SymbolManager.h"
 #include "SymbolTreeView.h"

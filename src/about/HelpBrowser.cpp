@@ -23,11 +23,6 @@
 #include <QLibraryInfo>
 #include <QProcess>
 
-#include <QHelpEngine>
-#include <QHelpContentModel>
-#include <QHelpContentWidget>
-#include <QHelpIndexModel>
-#include <QHelpIndexWidget>
 #include <QTextBrowser>
 #include <QSplitter>
 

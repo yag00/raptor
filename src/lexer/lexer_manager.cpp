@@ -19,7 +19,7 @@
  */
 
 #include <assert.h>
-#include <QtGui>
+#include <QtWidgets>
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexerbash.h>
 #include <Qsci/qscilexerbatch.h>
@@ -88,7 +88,7 @@ QStringList LexerManager::getAvailableLexer() const{
 }
 
 void LexerManager::initialize(QMenu* menu_){
-	_actionGroup = new QActionGroup(menu_);
+	_actionGroup = new QActionGroup((QObject*)menu_);
 	QAction* action = menu_->addAction("Normal Text");
 	action->setObjectName("lexer_0");
 	action->setCheckable(true);

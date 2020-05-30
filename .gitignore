@@ -1,6 +1,8 @@
 wbuild
 delivery
 package.*
-.lock-waf_linux2_build
+.lock*
 .waf-*
+.waf3-*
 *.pyc
+ext/QScintilla/QScintilla-2.11.4/

@@ -82,7 +82,7 @@ void ShortcutSettings::updateQsciCommand(QAction* action_){
 		//todo qsci -> update
 		QKeySequence keys = action_->shortcut();
 		uint32_t key = 0;
-		for(uint32_t i = 0; i < keys.count(); i++){
+		for(int32_t i = 0; i < keys.count(); i++){
 			key |= keys[i];
 		}
 		QsciScintilla qsci;
